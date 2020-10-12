@@ -1,3 +1,12 @@
+export const LANG = [
+  { label: 'Español', flag: 'images/flags/es.png', tag: 'es' },
+  { label: 'English', flag: 'images/flags/en.png', tag: 'en' },
+  { label: 'Detush', flag: 'images/flags/de.png', tag: 'de' },
+  { label: 'Detush', flag: 'images/flags/cn.png', tag: 'cn' },
+  { label: 'Fran', flag: 'images/flags/fr.png', tag: 'fr' },
+  { label: 'Fran', flag: 'images/flags/hu.png', tag: 'hu' },
+];
+
 export const DEPARTMENTS = {
   automotriz: {
     icon: 'mdi-car',
@@ -29,6 +38,5 @@ export const DEPARTMENTS = {
   market: {
     icon: 'mdi-basket',
     label: { es: 'Mercado' }
-
   }
 }

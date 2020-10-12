@@ -1,19 +1,27 @@
 <template>
   <v-form class="form-inline" @submit.prevent="submit">
     <div class="input-group">
-      <div class="input-group-prepend mr-1" :style="`width: ${ inputWidth*0.75 }rem`">
-        <v-select placeholder="Departamento" :items="departments" filled dense></v-select>
+      <div
+        class="input-group-prepend mr-1"
+        :style="`width: ${inputWidth * 0.75}rem`"
+      >
+        <v-select
+          placeholder="Departamento"
+          :items="departments"
+          filled
+          dense
+        ></v-select>
       </div>
       <v-text-field
         v-model="search"
         placeholder="Buscar Producto"
         dense
         filled
-        :style="`width: ${ inputWidth }rem`"
+        :style="`width: ${inputWidth}rem`"
       ></v-text-field>
       <div class="input-group-append ml-2">
         <v-btn type="submit" color="secondary">
-          <v-icon>mdi-account</v-icon>Buscar
+          <v-icon>mdi-magnify</v-icon>Buscar
         </v-btn>
       </div>
     </div>

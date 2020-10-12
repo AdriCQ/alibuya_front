@@ -1,10 +1,11 @@
 import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store';
+import { TLang } from '@/types';
 
 @Module({ generateMutationSetters: true })
 class AppModule extends VuexModule {
   sidebarLeft = false;
-  lang: 'es' = "es";
+  lang: TLang = "es";
 }
 
 // register module (could be in any file) 

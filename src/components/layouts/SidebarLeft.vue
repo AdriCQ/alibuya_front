@@ -1,19 +1,56 @@
 <template>
-  <v-navigation-drawer dark color="primary" :value="sidebarLeft" @input="onInput" app>
+  <v-navigation-drawer
+    dark
+    color="primary"
+    :value="sidebarLeft"
+    @input="onInput"
+    app
+  >
     <!-- Pages -->
     <v-list nav dense>
-      <v-list-item link>
-        <v-list-item-icon>
-          <v-icon>mdi-account</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Perfil</v-list-item-title>
-      </v-list-item>
+      <template v-if="isLogged">
+        <!-- Profile -->
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon>mdi-account-circle</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Perfil</v-list-item-title>
+        </v-list-item>
+        <!-- / Profile -->
+        <!-- Logout -->
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon>mdi-account-cancel</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Logout</v-list-item-title>
+        </v-list-item>
+        <!-- / Logout -->
+      </template>
+      <template v-else>
+        <!-- Register -->
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon>mdi-account-plus</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Registro</v-list-item-title>
+        </v-list-item>
+        <!-- / Register -->
+        <!-- Login -->
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon>mdi-account-arrow-right</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Login</v-list-item-title>
+        </v-list-item>
+        <!-- / Login -->
+      </template>
+
       <v-list-item link>
         <v-list-item-icon>
           <v-icon>mdi-earth</v-icon>
         </v-list-item-icon>
         <v-list-item-title>Lenguage</v-list-item-title>
-        <v-list-item-subtitle>Español</v-list-item-subtitle>
+        <v-list-item-subtitle>{{ langLabel }}</v-list-item-subtitle>
       </v-list-item>
     </v-list>
     <!-- / Pages -->
@@ -54,7 +91,8 @@
 import { Vue, Component } from "vue-property-decorator";
 import { AppStore } from "@/store/App";
 import { ILinkIconLabel } from "@/types";
-import { DEPARTMENTS } from "@/utils/const";
+import { DEPARTMENTS, LANG } from "@/utils/const";
+import { AuthStore } from "@/store/Auth";
 
 @Component
 export default class AppSidebarLeft extends Vue {
@@ -93,12 +131,30 @@ export default class AppSidebarLeft extends Vue {
     return AppStore.lang;
   }
 
+  get isLogged() {
+    return AuthStore.isLogged;
+  }
+
+  get allLang() {
+    return LANG;
+  }
+
   get sidebarLeft() {
     return AppStore.sidebarLeft;
   }
 
   onInput(input: boolean) {
     AppStore.sidebarLeft = input;
+  }
+
+  get langLabel() {
+    let label = "";
+    this.allLang.forEach((langIterator) => {
+      if (langIterator.tag === this.appLang) {
+        label = langIterator.label;
+      }
+    });
+    return label;
   }
 }
 </script>

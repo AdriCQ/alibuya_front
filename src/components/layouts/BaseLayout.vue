@@ -1,10 +1,15 @@
 <template>
   <div>
+    <!-- Popups -->
+    <popup-auth-register />
+    <popup-auth-login />
+    <!--/  Popups -->
+
     <app-sidebar-left />
     <app-header />
 
     <!-- Sizes your content based upon application components -->
-    <v-main id="app-content" style="padding: 0; height: 1000px;">
+    <v-main id="app-content" style="padding: 0; height: 1000px">
       <!-- Provides the application the proper gutter -->
       <!-- If using vue-router -->
       <router-view></router-view>
@@ -25,6 +30,9 @@ import AppSidebarLeft from "./SidebarLeft.vue";
   components: {
     AppHeader,
     AppSidebarLeft,
+    "popup-auth-register": () =>
+      import("@/components/popups/auth/RegisterPopup.vue"),
+    "popup-auth-login": () => import("@/components/popups/auth/LoginPopup.vue"),
   },
 })
 export default class BaseLayout extends Vue {}
