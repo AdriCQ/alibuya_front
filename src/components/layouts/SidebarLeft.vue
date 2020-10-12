@@ -2,6 +2,25 @@
   <v-navigation-drawer dark color="primary" :value="sidebarLeft" @input="onInput" app>
     <!-- Pages -->
     <v-list nav dense>
+      <v-list-item link>
+        <v-list-item-icon>
+          <v-icon>mdi-account</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>Perfil</v-list-item-title>
+      </v-list-item>
+      <v-list-item link>
+        <v-list-item-icon>
+          <v-icon>mdi-earth</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>Lenguage</v-list-item-title>
+        <v-list-item-subtitle>Español</v-list-item-subtitle>
+      </v-list-item>
+    </v-list>
+    <!-- / Pages -->
+    <v-divider />
+
+    <!-- Pages -->
+    <v-list nav dense>
       <v-list-item>
         <v-list-item-title class="text-center">Páginas</v-list-item-title>
       </v-list-item>
@@ -47,6 +66,13 @@ export default class AppSidebarLeft extends Vue {
       });
     }
   }
+  items = [
+    {
+      action: "local_activity",
+      title: "Attractions",
+      items: [{ title: "List Item" }],
+    },
+  ];
 
   departments: ILinkIconLabel[] = [];
 

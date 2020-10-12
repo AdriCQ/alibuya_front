@@ -1,5 +1,11 @@
 <template>
-  <v-app-bar dark color="primary" tag="div" class="pa-2" :class="{'sidebar-open':sidebarLeft}">
+  <v-app-bar
+    dark
+    color="primary"
+    tag="div"
+    class="pt-3"
+    :class="{'app-bar-margin-top-sidebar-open':sidebarLeft}"
+  >
     <template v-if="$vuetify.breakpoint.mdAndUp">
       <v-toolbar-title>Alibuya</v-toolbar-title>
     </template>
@@ -30,10 +36,3 @@ export default class AppBarSearch extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.sidebar-open {
-  margin-top: 64px !important;
-  // margin-left: 256px !important;
-}
-</style>

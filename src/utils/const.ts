@@ -4,12 +4,12 @@ export const DEPARTMENTS = {
     label: { es: 'Automotriz' }
   },
   cell: {
-    icon: 'mdi-phone',
+    icon: 'mdi-cellphone-android',
     label: { es: 'Celulares' }
 
   },
   electronic: {
-    icon: 'mdi-phone',
+    icon: 'mdi-home-assistant',
     label: { es: 'Electrodomésticos' }
   },
   home: {
@@ -22,7 +22,7 @@ export const DEPARTMENTS = {
     label: { es: 'Niños' }
   },
   health: {
-    icon: 'mdi-plus-box',
+    icon: 'mdi-medical-bag',
     label: { es: 'Salud' }
 
   },

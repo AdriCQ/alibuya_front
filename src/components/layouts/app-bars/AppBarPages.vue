@@ -17,6 +17,7 @@
         <v-tab>Inicio</v-tab>
         <v-tab>Tienda</v-tab>
         <v-tab>Contacto</v-tab>
+        <v-tab>Perfil</v-tab>
       </v-tabs>
     </div>
     <!-- / Page Links -->

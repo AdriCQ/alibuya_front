@@ -2,7 +2,7 @@
   <v-form class="form-inline" @submit.prevent="submit">
     <div class="input-group">
       <div class="input-group-prepend mr-1" :style="`width: ${ inputWidth*0.75 }rem`">
-        <v-select :items="departments" filled dense></v-select>
+        <v-select placeholder="Departamento" :items="departments" filled dense></v-select>
       </div>
       <v-text-field
         v-model="search"

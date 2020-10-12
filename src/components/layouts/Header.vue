@@ -1,6 +1,6 @@
 <template>
   <header>
-    <!-- <app-bar-social /> -->
+    <app-bar-social />
     <app-bar-search v-if="$vuetify.breakpoint.smAndUp" />
     <app-bar-pages />
   </header>
@@ -10,13 +10,13 @@
 import { Vue, Component } from "vue-property-decorator";
 import AppBarPages from "./app-bars/AppBarPages.vue";
 import AppBarSearch from "./app-bars/AppBarSearch.vue";
-// import AppBarSocial from "./app-bars/AppBarSocial.vue";
+import AppBarSocial from "./app-bars/AppBarSocial.vue";
 
 @Component({
   components: {
     AppBarPages,
     AppBarSearch,
-    // AppBarSocial,
+    AppBarSocial,
   },
 })
 export default class AppHeader extends Vue {}

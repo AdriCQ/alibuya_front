@@ -1,7 +1,7 @@
 <template>
-  <v-card class="mx-auto" :max-width="`${width}rem`">
-    <template v-if="!horizontal">
-      <div :style="`width:${width}rem`">
+  <v-card class="mx-auto" :max-width="`${width}px`">
+    <template v-if="!(horizontal && $vuetify.breakpoint.smAndUp)">
+      <div :style="`width:${width}px`">
         <v-img width="100%" :src="product.img" />
       </div>
       <v-card-title>${{ Number(product.price).toFixed(2) }}</v-card-title>
@@ -18,7 +18,7 @@
     </template>
     <!-- Horizontal -->
     <div class="d-flex pb-2" v-else>
-      <div :style="`width:${width*0.4}rem`">
+      <div :style="`width:${width*0.5}px`">
         <v-img width="100%" :src="product.img" />
       </div>
       <div class="d-block">
@@ -63,8 +63,9 @@ export default class ProductWidget extends Vue {
   readonly horizontal!: boolean;
 
   get width() {
-    if (this.horizontal) return 40;
-    else return 15;
+    const rem = 18;
+    if (this.horizontal && this.$vuetify.breakpoint.smAndUp) return 25 * rem;
+    else return 13 * rem;
   }
 }
 </script>

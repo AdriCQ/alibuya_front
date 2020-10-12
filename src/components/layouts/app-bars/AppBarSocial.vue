@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar tag="div" dense>
+  <v-app-bar tag="div" dense color="primary" dark>
     <!-- Social -->
     <v-btn icon>
       <v-icon>mdi-facebook</v-icon>

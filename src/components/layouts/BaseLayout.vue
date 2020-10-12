@@ -19,7 +19,7 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import AppHeader from "./Header.vue";
-import AppSidebarLeft from "./Sidebar.vue";
+import AppSidebarLeft from "./SidebarLeft.vue";
 
 @Component({
   components: {
