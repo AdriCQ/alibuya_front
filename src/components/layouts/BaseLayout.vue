@@ -6,10 +6,8 @@
     <!-- Sizes your content based upon application components -->
     <v-main id="app-content" style="padding: 0; height: 1000px;">
       <!-- Provides the application the proper gutter -->
-      <v-container>
-        <!-- If using vue-router -->
-        <router-view></router-view>
-      </v-container>
+      <!-- If using vue-router -->
+      <router-view></router-view>
     </v-main>
 
     <v-footer app>

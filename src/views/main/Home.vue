@@ -19,7 +19,13 @@
       <v-container>
         <div class="text-center headline mb-1">Productos Destacados</div>
         <v-row>
-          <v-col cols="4" v-for="(product, index) in products" :key="index">
+          <v-col sm="12" md="6" v-for="index in 2" :key="index">
+            <product-widget :product="products[index]" horizontal />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col sm="6" md="4" lg="3" v-for="(product, index) in products" :key="index">
             <product-widget :product="product" />
           </v-col>
         </v-row>

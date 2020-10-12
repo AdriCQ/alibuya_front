@@ -1,11 +1,12 @@
 <template>
   <v-app-bar dark color="primary" tag="div" class="pa-2" :class="{'sidebar-open':sidebarLeft}">
-    <v-toolbar-title>Alibuya</v-toolbar-title>
-
+    <template v-if="$vuetify.breakpoint.mdAndUp">
+      <v-toolbar-title>Alibuya</v-toolbar-title>
+    </template>
     <v-spacer></v-spacer>
 
     <!-- Search -->
-    <div>
+    <div v-if="this.$vuetify.breakpoint.smAndUp">
       <search-inline-form />
     </div>
     <!-- Search -->
@@ -25,7 +26,6 @@ import { Vue, Component } from "vue-property-decorator";
 })
 export default class AppBarSearch extends Vue {
   get sidebarLeft() {
-    console.log(AppStore.sidebarLeft);
     return AppStore.sidebarLeft;
   }
 }
@@ -34,6 +34,6 @@ export default class AppBarSearch extends Vue {
 <style lang="scss" scoped>
 .sidebar-open {
   margin-top: 64px !important;
-  margin-left: 256px !important;
+  // margin-left: 256px !important;
 }
 </style>

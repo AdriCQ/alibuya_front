@@ -12,7 +12,7 @@
     <v-spacer></v-spacer>
 
     <!-- Page Links -->
-    <div>
+    <div v-if="$vuetify.breakpoint.mdAndUp">
       <v-tabs background-color="primary" dark>
         <v-tab>Inicio</v-tab>
         <v-tab>Tienda</v-tab>
@@ -47,7 +47,10 @@ export default class AppBarPages extends Vue {
   }
 
   fixed = false;
-  app = false;
+
+  get app() {
+    return AppStore.sidebarLeft;
+  }
 
   onScroll() {
     if (
@@ -62,11 +65,6 @@ export default class AppBarPages extends Vue {
 
   toggleSidebarLeft() {
     AppStore.sidebarLeft = !AppStore.sidebarLeft;
-    if (AppStore.sidebarLeft) {
-      this.app = true;
-    } else {
-      this.app = false;
-    }
   }
 }
 </script>

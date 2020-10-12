@@ -6,6 +6,10 @@
  */
 export * from './store/product';
 
-export {
-  TDepartment, IVSelectItem
-} from './utils';
+/**
+ * -----------------------------------------
+ * Utils
+ * -----------------------------------------
+ */
+
+export * from './utils';

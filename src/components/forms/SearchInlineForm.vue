@@ -1,7 +1,7 @@
 <template>
   <v-form class="form-inline" @submit.prevent="submit">
     <div class="input-group">
-      <div class="input-group-prepend mr-1" style="width: 12rem">
+      <div class="input-group-prepend mr-1" :style="`width: ${ inputWidth*0.75 }rem`">
         <v-select :items="departments" filled dense></v-select>
       </div>
       <v-text-field
@@ -9,7 +9,7 @@
         placeholder="Buscar Producto"
         dense
         filled
-        style="width: 20rem"
+        :style="`width: ${ inputWidth }rem`"
       ></v-text-field>
       <div class="input-group-append ml-2">
         <v-btn type="submit" color="secondary">
@@ -41,6 +41,16 @@ export default class SearchInlineForm extends Vue {
 
   search = "";
   departments: IVSelectItem[] = [];
+
+  get inputWidth() {
+    if (this.$vuetify.breakpoint.mdAndUp) {
+      return 20;
+    } else if (this.$vuetify.breakpoint.smOnly) {
+      return 14;
+    } else {
+      return 0;
+    }
+  }
 
   submit() {
     console.log("Submit Search");

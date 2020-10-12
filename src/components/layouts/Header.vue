@@ -1,7 +1,7 @@
 <template>
   <header>
     <!-- <app-bar-social /> -->
-    <app-bar-search />
+    <app-bar-search v-if="$vuetify.breakpoint.smAndUp" />
     <app-bar-pages />
   </header>
 </template>
