@@ -1,0 +1,13 @@
+// Settings
+@import "settings/variables";
+
+// Components
+@import "components/categories-slider";
+
+// Elements
+@import "elements/forms";
+@import "elements/section";
+
+/* Import Vuetify style definition */
+@import "~vuetify/src/styles/main.sass";
+@import "~vuetify/src/styles/styles.sass";
