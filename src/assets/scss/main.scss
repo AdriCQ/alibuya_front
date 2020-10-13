@@ -6,8 +6,12 @@
 @import "components/categories-slider";
 
 // Elements
+@import "elements/body";
 @import "elements/forms";
 @import "elements/section";
+
+// Utils
+@import "utils/utils";
 
 /* Import Vuetify style definition */
 @import "~vuetify/src/styles/main.sass";

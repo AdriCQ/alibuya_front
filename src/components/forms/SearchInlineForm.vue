@@ -20,7 +20,7 @@
         :style="`width: ${inputWidth}rem`"
       ></v-text-field>
       <div class="input-group-append ml-2">
-        <v-btn type="submit" color="secondary">
+        <v-btn type="submit" color="primary">
           <v-icon>mdi-magnify</v-icon>Buscar
         </v-btn>
       </div>
@@ -39,6 +39,9 @@ export default class SearchInlineForm extends Vue {
   created() {
     for (const key in DEPARTMENTS) {
       this.departments.push({
+        // TODO: Remove TS IGNORE
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
         text: DEPARTMENTS[key as keyof typeof DEPARTMENTS].label[
           AppStore.lang
         ].toLocaleUpperCase(),

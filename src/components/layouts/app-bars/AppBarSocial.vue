@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar tag="div" dense color="primary" dark>
+  <v-app-bar tag="div" dense dark color="secondary">
     <!-- Social -->
     <template v-if="$vuetify.breakpoint.smAndUp">
       <v-btn icon>
@@ -12,11 +12,31 @@
         <v-icon>mdi-youtube</v-icon>
       </v-btn>
     </template>
-    <v-spacer></v-spacer>
-
     <!-- Social -->
-    <v-divider vertical />
 
+    <template v-if="!$vuetify.breakpoint.smAndUp">
+      <span>Alibuya Logo</span>
+    </template>
+    <v-spacer />
+
+    <!-- Accounts -->
+    <template v-if="isLogged">
+      <v-btn text>
+        <v-icon>mdi-account-circle</v-icon>
+        <span class="ml-1" v-if="$vuetify.breakpoint.smAndUp">Perfil</span>
+      </v-btn>
+    </template>
+    <template v-else>
+      <v-btn text @click="openRegisterPopup">
+        <v-icon>mdi-account-plus</v-icon>
+        <span class="ml-1" v-if="$vuetify.breakpoint.smAndUp">Registro</span>
+      </v-btn>
+      <v-btn text @click="openLoginPopup">
+        <v-icon>mdi-account-arrow-right</v-icon>
+        <span class="ml-1" v-if="$vuetify.breakpoint.smAndUp">Login</span>
+      </v-btn>
+    </template>
+    <!-- / Accounts -->
     <!-- Lanuage -->
     <v-menu>
       <template v-slot:activator="{ on }">
@@ -41,27 +61,6 @@
     </v-menu>
 
     <!-- / Lanuage -->
-    <v-divider vertical />
-
-    <!-- Accounts -->
-    <template v-if="isLogged">
-      <v-btn text>
-        <v-icon>mdi-account-circle</v-icon>
-        <span class="ml-1" v-if="$vuetify.breakpoint.smAndUp">Perfil</span>
-      </v-btn>
-    </template>
-    <template v-else>
-      <v-btn text @click="openRegisterPopup">
-        <v-icon>mdi-account-plus</v-icon>
-        <span class="ml-1" v-if="$vuetify.breakpoint.smAndUp">Registro</span>
-      </v-btn>
-      <v-btn text @click="openLoginPopup">
-        <v-icon>mdi-account-arrow-right</v-icon>
-        <span class="ml-1" v-if="$vuetify.breakpoint.smAndUp">Login</span>
-      </v-btn>
-    </template>
-    <!-- / Accounts -->
-    <v-spacer v-if="!$vuetify.breakpoint.smAndUp"></v-spacer>
   </v-app-bar>
 </template>
 
@@ -85,19 +84,6 @@ export default class AppBarSocial extends Vue {
 
   get lang() {
     return AppStore.lang;
-  }
-
-  /**
-   *
-   */
-  openRegisterPopup() {
-    PopupStore.auth.register = true;
-  }
-  /**
-   *
-   */
-  openLoginPopup() {
-    PopupStore.auth.login = true;
   }
   /**
    *

@@ -1,38 +1,27 @@
 <template>
-  <v-card class="mx-auto" :max-width="`${width}px`">
+  <v-card
+    class="mx-auto"
+    :max-width="`${width}px`"
+    @click="showProductDetails(product)"
+  >
     <template v-if="!(horizontal && $vuetify.breakpoint.smAndUp)">
-      <div :style="`width:${width}px`">
-        <v-img width="100%" :src="product.img" />
+      <div :style="`width:${width}px`" class="mt-1">
+        <v-img width="100%" src="images/default.png" />
+
+        <!-- <v-img width="100%" :src="product.img" /> -->
       </div>
       <v-card-title>${{ Number(product.price).toFixed(2) }}</v-card-title>
       <v-card-subtitle class="pb-0">{{ product.title }}</v-card-subtitle>
-      <v-card-actions>
-        <v-btn color="primary" small>
-          <v-icon class="mr-1">mdi-eye</v-icon>Detalles
-        </v-btn>
-
-        <v-btn color="primary" small>
-          <v-icon>mdi-cart-plus</v-icon>
-        </v-btn>
-      </v-card-actions>
     </template>
     <!-- Horizontal -->
     <div class="d-flex pb-2" v-else>
-      <div :style="`width:${width*0.5}px`">
-        <v-img width="100%" :src="product.img" />
+      <div :style="`width:${width * 0.5}px`" class="mt-1">
+        <v-img width="100%" src="images/default.png" />
+        <!-- <v-img width="100%" :src="product.img" /> -->
       </div>
       <div class="d-block">
         <v-card-title>${{ Number(product.price).toFixed(2) }}</v-card-title>
         <v-card-subtitle class="pb-0">{{ product.title }}</v-card-subtitle>
-        <v-card-actions style="position: absolute; bottom: 2px">
-          <v-btn color="primary" small>
-            <v-icon class="mr-1">mdi-eye</v-icon>Detalles
-          </v-btn>
-
-          <v-btn color="primary" small>
-            <v-icon>mdi-cart-plus</v-icon>
-          </v-btn>
-        </v-card-actions>
       </div>
     </div>
     <!--/ Horizontal -->
@@ -42,6 +31,7 @@
 <script lang='ts'>
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { IProduct } from "@/types";
+import { PopupStore } from "@/store/Poups";
 
 @Component
 export default class ProductWidget extends Vue {
@@ -64,8 +54,25 @@ export default class ProductWidget extends Vue {
 
   get width() {
     const rem = 18;
-    if (this.horizontal && this.$vuetify.breakpoint.smAndUp) return 25 * rem;
-    else return 13 * rem;
+    switch (this.$vuetify.breakpoint.name) {
+      case "xl":
+        return this.horizontal ? 20 * rem : 13 * rem;
+      case "lg":
+        return this.horizontal ? 20 * rem : 13 * rem;
+      case "md":
+        return this.horizontal ? 20 * rem : 15 * rem;
+      case "sm":
+        return this.horizontal ? 20 * rem : 18 * rem;
+      case "xs":
+        return this.horizontal ? 20 * rem : 13 * rem;
+      default:
+        return this.horizontal ? 20 * rem : 13 * rem;
+    }
+  }
+
+  showProductDetails(product: IProduct) {
+    PopupStore.productToShow = product;
+    PopupStore.productPopup = true;
   }
 }
 </script>

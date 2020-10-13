@@ -15,14 +15,18 @@
       :autoplay="true"
       dotsClass="slick-dots"
     >
-      <div class="categories-slider-item" v-for="(department, label) in departments" :key="label">
+      <div
+        class="categories-slider-item"
+        v-for="(department, label) in departments"
+        :key="label"
+      >
         <v-card>
           <v-card-text class="text-center">
-            <v-avatar color="primary" size="5rem">
-              <v-icon color="secondary" size="3rem">{{ department.icon }}</v-icon>
+            <v-avatar color="secondary" size="5rem">
+              <v-icon color="primary" size="3rem">{{ department.icon }}</v-icon>
             </v-avatar>
           </v-card-text>
-          <v-card-text v-if="$vuetify.breakpoint.smAndUp">{{ department.label[lang] }}</v-card-text>
+          <v-card-text>{{ department.label[lang] }}</v-card-text>
         </v-card>
       </div>
     </slick-carousel>
@@ -54,8 +58,10 @@ export default class CategoriesSlider extends Vue {
         return 4;
       case "sm":
         return 3;
+      case "xs":
+        return 1;
       default:
-        return 2;
+        return 1;
     }
   }
 }

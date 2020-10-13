@@ -1,18 +1,17 @@
 import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store';
+import { IProduct } from '@/types';
+import { ProductStore } from '@/store/Products';
 
 @Module({ generateMutationSetters: true })
 class PopupModule extends VuexModule {
-  auth = {
-    register: false,
-    login: false,
-  }
+  auth = false;
+  productPopup = false
+  productToShow: IProduct = ProductStore.products[0];
 
   closeAll() {
-    this.auth = {
-      register: false,
-      login: false,
-    }
+    this.auth = false;
+    this.productPopup = false;
   }
 }
 

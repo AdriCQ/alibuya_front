@@ -8,7 +8,7 @@
 
     <!-- Departments Slider -->
     <section>
-      <v-container>
+      <v-container class="section-container">
         <div class="headline text-center mb-1">Departamentos</div>
         <categories-slider />
       </v-container>
@@ -16,7 +16,7 @@
     <!-- / Departments Slider -->
 
     <section>
-      <v-container>
+      <v-container class="section-container">
         <div class="text-center headline mb-1">Productos Destacados</div>
         <v-row>
           <v-col sm="12" md="6" v-for="index in 2" :key="index">
@@ -25,7 +25,13 @@
         </v-row>
 
         <v-row>
-          <v-col sm="6" md="4" lg="3" v-for="(product, index) in products" :key="index">
+          <v-col
+            sm="6"
+            md="4"
+            lg="3"
+            v-for="(product, index) in products"
+            :key="index"
+          >
             <product-widget :product="product" />
           </v-col>
         </v-row>
@@ -36,7 +42,7 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { PRODUCTS } from "@/utils/test";
+import { ProductStore } from "@/store/Products";
 
 @Component({
   components: {
@@ -48,7 +54,7 @@ import { PRODUCTS } from "@/utils/test";
 })
 export default class HomeMainView extends Vue {
   get products() {
-    return PRODUCTS;
+    return ProductStore.products;
   }
 }
 </script>

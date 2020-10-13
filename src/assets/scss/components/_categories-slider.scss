@@ -3,8 +3,9 @@
     text-align: center;
     align-content: center;
     padding: 1rem;
+    cursor: pointer;
     &:hover{
-      background-color: rgba(0,0,0,0.2);
+      background-color:$body-color;
     }
   }
 
@@ -15,14 +16,14 @@
       left: 15px !important;
       z-index: 3;
       &:before{
-        color: $primary-color !important;
+        color: $secondary-color !important;
       }
     }
     .slick-next {
       right: 15px !important;
       z-index: 3;
       &:before{
-       color: $primary-color !important;
+       color: $secondary-color !important;
       }
     }
   }

@@ -1,14 +1,5 @@
 <template>
-  <v-app-bar
-    dark
-    color="primary"
-    tag="div"
-    class="pt-3"
-    :class="{'app-bar-margin-top-sidebar-open':sidebarLeft}"
-  >
-    <template v-if="$vuetify.breakpoint.mdAndUp">
-      <v-toolbar-title>Alibuya</v-toolbar-title>
-    </template>
+  <v-app-bar dark color="secondary" tag="div" class="pt-3">
     <v-spacer></v-spacer>
 
     <!-- Search -->
