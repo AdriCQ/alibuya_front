@@ -11,7 +11,7 @@
       </v-list-item>
       <!-- / Profile -->
 
-      <v-list-item link>
+      <v-list-item>
         <v-list-item-icon>
           <v-icon>mdi-earth</v-icon>
         </v-list-item-icon>
@@ -19,11 +19,16 @@
         <v-list-item-subtitle>{{ langLabel }}</v-list-item-subtitle>
       </v-list-item>
       <!-- Pages -->
-      <v-list-item v-for="(link, key) in links" :key="key" link>
+      <v-list-item
+        v-for="(link, key) in links"
+        :key="key"
+        link
+        :to="{ name: link.to }"
+      >
         <v-list-item-icon>
           <v-icon>{{ link.icon }}</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>{{ link.label }}</v-list-item-title>
+        <v-list-item-title>{{ link.label }} </v-list-item-title>
       </v-list-item>
       <!-- / Pages -->
     </v-list>
@@ -88,7 +93,7 @@ export default class AppSidebarLeft extends Vue {
       icon: "mdi-cart",
     },
     {
-      to: "main.home",
+      to: "shop.cart",
       label: "Mis Pedidos",
       icon: "mdi-basket",
     },

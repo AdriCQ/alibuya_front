@@ -20,7 +20,12 @@
         <div class="text-center headline mb-1">Productos Destacados</div>
         <v-row>
           <v-col sm="12" md="6" v-for="index in 2" :key="index">
-            <product-widget :product="products[index]" horizontal />
+            <product-widget
+              :product="products[index]"
+              horizontal
+              badge
+              badge-text="-20%"
+            />
           </v-col>
         </v-row>
 

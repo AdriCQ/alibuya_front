@@ -4,11 +4,14 @@
     :max-width="`${width}px`"
     @click="showProductDetails(product)"
   >
+    <div class="badge-offer pa-2" v-if="badge">
+      <span class="text-center white--text">{{ badgeText }}</span>
+    </div>
     <template v-if="!(horizontal && $vuetify.breakpoint.smAndUp)">
       <div :style="`width:${width}px`" class="mt-1">
-        <v-img width="100%" src="images/default.png" />
+        <!-- <v-img width="100%" src="images/default.png" /> -->
 
-        <!-- <v-img width="100%" :src="product.img" /> -->
+        <v-img width="100%" :src="product.img" />
       </div>
       <v-card-title>${{ Number(product.price).toFixed(2) }}</v-card-title>
       <v-card-subtitle class="pb-0">{{ product.title }}</v-card-subtitle>
@@ -16,8 +19,8 @@
     <!-- Horizontal -->
     <div class="d-flex pb-2" v-else>
       <div :style="`width:${width * 0.5}px`" class="mt-1">
-        <v-img width="100%" src="images/default.png" />
-        <!-- <v-img width="100%" :src="product.img" /> -->
+        <!-- <v-img width="100%" src="images/default.png" /> -->
+        <v-img width="100%" :src="product.img" />
       </div>
       <div class="d-block">
         <v-card-title>${{ Number(product.price).toFixed(2) }}</v-card-title>
@@ -51,6 +54,18 @@ export default class ProductWidget extends Vue {
     default: false,
   })
   readonly horizontal!: boolean;
+
+  @Prop({
+    type: Boolean,
+    default: false,
+  })
+  readonly badge!: boolean;
+
+  @Prop({
+    type: String,
+    default: "",
+  })
+  readonly badgeText!: string;
 
   get width() {
     const rem = 18;

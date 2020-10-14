@@ -1,3 +1,18 @@
 .cursor-pointer{
   cursor: pointer;
 }
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.badge-offer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: $primary-color;
+  z-index: 2;
+}

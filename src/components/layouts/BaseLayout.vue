@@ -10,7 +10,7 @@
     <app-header />
 
     <!-- Sizes your content based upon application components -->
-    <v-main id="app-content" style="padding-top: 0px">
+    <v-main id="app-content" style="min-height: 900px; padding-top: 0px">
       <!-- Provides the application the proper gutter -->
       <!-- If using vue-router -->
       <router-view></router-view>

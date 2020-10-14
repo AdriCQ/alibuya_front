@@ -11,3 +11,7 @@ export interface IProduct {
   img: string;
   description?: string[];
 }
+
+export interface IProductCart extends IProduct {
+  cant: number;
+}

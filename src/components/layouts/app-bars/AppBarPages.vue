@@ -17,8 +17,10 @@
     <!-- Page Links -->
     <div v-if="$vuetify.breakpoint.mdAndUp">
       <v-tabs background-color="secondary" dark>
-        <v-tab>Inicio</v-tab>
-        <v-tab>Tienda</v-tab>
+        <v-tab exact :to="{ name: 'main.home' }">Inicio</v-tab>
+        <v-tab exact :to="{ name: 'shop.cart' }"
+          ><v-badge content="3">Mis Pedidos</v-badge></v-tab
+        >
         <v-tab>Contacto</v-tab>
         <v-tab @click="openAuthPopup">Perfil</v-tab>
       </v-tabs>
@@ -26,33 +28,42 @@
     <!-- / Page Links -->
 
     <v-spacer />
+    <template v-if="$vuetify.breakpoint.smAndUp">
+      <!-- Lanuage -->
+      <v-menu>
+        <template v-slot:activator="{ on }">
+          <v-btn icon v-on="on">
+            <v-icon>mdi-flag</v-icon>
+            <span>{{ lang.toLocaleUpperCase() }}</span>
+          </v-btn>
+        </template>
 
-    <!-- Lanuage -->
-    <v-menu>
-      <template v-slot:activator="{ on }">
-        <v-btn icon v-on="on">
-          <v-icon>mdi-flag</v-icon>
-          <span>{{ lang.toLocaleUpperCase() }}</span>
-        </v-btn>
-      </template>
+        <v-list>
+          <v-list-item
+            v-for="(lang, key) in allLang"
+            :key="key"
+            @click="setLang(lang.tag)"
+          >
+            <v-list-item-title
+              ><span>{{ lang.tag.toLocaleUpperCase() }}</span
+              ><v-img :src="lang.flag"></v-img
+            ></v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      <!-- / Lanuage -->
+      <v-btn icon @click="openAuthPopup">
+        <v-icon>mdi-account-circle</v-icon>
+      </v-btn>
+    </template>
 
-      <v-list>
-        <v-list-item
-          v-for="(lang, key) in allLang"
-          :key="key"
-          @click="setLang(lang.tag)"
-        >
-          <v-list-item-title
-            ><span>{{ lang.tag.toLocaleUpperCase() }}</span
-            ><v-img :src="lang.flag"></v-img
-          ></v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
-    <!-- / Lanuage -->
-    <v-btn icon @click="openAuthPopup">
-      <v-icon>mdi-account-circle</v-icon>
-    </v-btn>
+    <template v-if="$vuetify.breakpoint.mdAndDown">
+      <v-btn icon :to="{ name: 'shop.cart' }">
+        <v-badge content="3">
+          <v-icon>mdi-cart</v-icon>
+        </v-badge>
+      </v-btn>
+    </template>
   </v-app-bar>
 </template>
 
