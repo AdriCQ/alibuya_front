@@ -7,8 +7,13 @@ export const shopRoutes: RouteConfig = {
   children: [
     {
       name: 'shop.cart',
-      path: '/',
+      path: '',
       component: () => import('@/views/shop/Cart.vue'),
+    },
+    {
+      name: 'shop.details',
+      path: 'details',
+      component: () => import('@/views/shop/ProductDetails.vue'),
     },
   ],
 };

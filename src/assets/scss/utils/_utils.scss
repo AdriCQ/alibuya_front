@@ -16,3 +16,9 @@
   background-color: $primary-color;
   z-index: 2;
 }
+
+@for $value from 1rem through 100rem {
+  .w-#{$value} {
+    max-width: #{$value}rem;
+  }
+}

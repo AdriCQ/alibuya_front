@@ -1,8 +1,8 @@
 <template>
   <div id="shop-cart-view">
     <section class="mt-0">
-      <banner-widget height="auto">
-        <div class="text-h4 text-center white--text">Mis Pedidos</div>
+      <banner-widget height="auto" img="images/banners/b2.jpeg">
+        <div class="text-h4 text-center white--text pa-2">Mis Pedidos</div>
       </banner-widget>
     </section>
 
@@ -40,23 +40,7 @@
                     <td>${{ Number(product.price).toFixed(2) }}</td>
                     <td class="text-center">
                       <!-- Less More buttons -->
-                      <v-icon
-                        class="cursor-pointer"
-                        small
-                        @click="increase(key)"
-                        >mdi-arrow-up-drop-circle-outline</v-icon
-                      ><br />
-                      <div class="mx-2">{{ product.cant }}</div>
-                      <v-icon
-                        v-if="product.cant > 1"
-                        class="cursor-pointer"
-                        small
-                        @click="decrease(key)"
-                        >mdi-arrow-down-drop-circle-outline</v-icon
-                      >
-                      <v-icon v-else class="cursor-pointer" small
-                        >mdi-close</v-icon
-                      >
+                      <cant-input :cant.sync="product.cant" />
                       <!-- / Less More buttons -->
                     </td>
                     <td>
@@ -110,6 +94,7 @@ import { ProductStore } from "@/store/Products";
 @Component({
   components: {
     "banner-widget": () => import("@/components/widgets/Banner.vue"),
+    "cant-input": () => import("@/components/forms/ProductCantInput.vue"),
     "products-slider": () => import("@/components/sliders/ProductsSlider.vue"),
   },
 })

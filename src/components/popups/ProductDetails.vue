@@ -27,7 +27,14 @@
       </v-container>
 
       <v-card-actions>
+        <v-btn color="secondary" icon @click="closePopup">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
         <v-spacer></v-spacer>
+        <v-btn color="primary" @click="goToDetails"
+          ><v-icon class="mr-1">mdi-eye</v-icon>
+          <span v-if="$vuetify.breakpoint.smAndUp">Detalles Avanzados</span>
+        </v-btn>
         <v-btn color="primary" @click="closePopup"
           ><v-icon class="mr-1">mdi-cart-plus</v-icon>
           <span v-if="$vuetify.breakpoint.smAndUp">Añadir al Carrito</span>
@@ -70,6 +77,13 @@ export default class ProductDetailsPopup extends Vue {
 
   closePopup() {
     PopupStore.productPopup = false;
+  }
+
+  goToDetails() {
+    this.$router.push({
+      name: "shop.details",
+    });
+    this.closePopup();
   }
 }
 </script>

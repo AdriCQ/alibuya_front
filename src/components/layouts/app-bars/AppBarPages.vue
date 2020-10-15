@@ -58,6 +58,11 @@
     </template>
 
     <template v-if="$vuetify.breakpoint.mdAndDown">
+      <v-btn icon>
+        <v-badge content="1">
+          <v-icon>mdi-heart</v-icon>
+        </v-badge>
+      </v-btn>
       <v-btn icon :to="{ name: 'shop.cart' }">
         <v-badge content="3">
           <v-icon>mdi-cart</v-icon>
@@ -79,7 +84,7 @@ import { TLang } from "@/types";
 export default class AppBarPages extends Vue {
   mounted() {
     window.onscroll = () => {
-      this.onScroll();
+      if (!this.app) this.onScroll();
     };
   }
 
