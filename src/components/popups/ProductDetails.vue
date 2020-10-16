@@ -31,11 +31,11 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="goToDetails"
+        <!-- <v-btn color="primary" @click="goToDetails"
           ><v-icon class="mr-1">mdi-eye</v-icon>
           <span v-if="$vuetify.breakpoint.smAndUp">Detalles Avanzados</span>
-        </v-btn>
-        <v-btn color="primary" @click="closePopup"
+        </v-btn> -->
+        <v-btn color="primary" @click="goToDetails()"
           ><v-icon class="mr-1">mdi-cart-plus</v-icon>
           <span v-if="$vuetify.breakpoint.smAndUp">Añadir al Carrito</span>
         </v-btn>
@@ -80,9 +80,10 @@ export default class ProductDetailsPopup extends Vue {
   }
 
   goToDetails() {
-    this.$router.push({
-      name: "shop.details",
-    });
+    if (this.$route.name !== "shop.details")
+      this.$router.push({
+        name: "shop.details",
+      });
     this.closePopup();
   }
 }

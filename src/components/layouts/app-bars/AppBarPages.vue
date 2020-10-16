@@ -19,7 +19,7 @@
       <v-tabs background-color="secondary" dark>
         <v-tab exact :to="{ name: 'main.home' }">Inicio</v-tab>
         <v-tab exact :to="{ name: 'shop.cart' }"
-          ><v-badge content="3">Mis Pedidos</v-badge></v-tab
+          ><v-badge content="3">Mi Carrito</v-badge></v-tab
         >
         <v-tab>Contacto</v-tab>
         <v-tab @click="openAuthPopup">Perfil</v-tab>

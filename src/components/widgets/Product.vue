@@ -3,6 +3,7 @@
     class="mx-auto"
     :max-width="`${width}px`"
     @click="showProductDetails(product)"
+    min-height="280px"
   >
     <div class="badge-offer pa-2" v-if="badge">
       <span class="text-center white--text">{{ badgeText }}</span>
@@ -77,9 +78,9 @@ export default class ProductWidget extends Vue {
       case "md":
         return this.horizontal ? 20 * rem : 15 * rem;
       case "sm":
-        return this.horizontal ? 20 * rem : 18 * rem;
+        return this.horizontal ? 20 * rem : 16 * rem;
       case "xs":
-        return this.horizontal ? 20 * rem : 13 * rem;
+        return this.horizontal ? 20 * rem : 20 * rem;
       default:
         return this.horizontal ? 20 * rem : 13 * rem;
     }

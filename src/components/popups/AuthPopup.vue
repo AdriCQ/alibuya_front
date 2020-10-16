@@ -1,7 +1,7 @@
   <template>
   <v-dialog v-model="show" persistent max-width="600px" scrollable>
     <keep-alive>
-      <component :is="activeComponent" @toggle="switchForm" />
+      <component :is="`${authDefault}-form`" @toggle="switchForm" />
     </keep-alive>
   </v-dialog>
 </template>
@@ -17,17 +17,19 @@ import { PopupStore } from "@/store/Poups";
   },
 })
 export default class AuthPopup extends Vue {
-  activeComponent: "register-form" | "login-form" = "register-form";
-
   get show() {
     return PopupStore.auth;
   }
 
+  get authDefault() {
+    return PopupStore.authDefault;
+  }
+
   switchForm() {
-    if (this.activeComponent === "register-form") {
-      this.activeComponent = "login-form";
+    if (PopupStore.authDefault === "register") {
+      PopupStore.authDefault = "login";
     } else {
-      this.activeComponent = "register-form";
+      PopupStore.authDefault = "register";
     }
   }
 }

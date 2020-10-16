@@ -1,10 +1,5 @@
 <template>
-  <v-carousel
-    hide-delimiter-background
-    height="auto"
-    cycle
-    show-arrows-on-hover
-  >
+  <v-carousel hide-delimiter-background height="auto" cycle show-arrows>
     <!-- Carousel 1 -->
     <v-carousel-item>
       <v-sheet color="info" height="400px" class="pb-5">
@@ -31,13 +26,13 @@
     <!-- / Carousel 1 -->
 
     <!-- Carousel 2 -->
-    <v-carousel-item>
+    <!-- <v-carousel-item>
       <v-sheet color="secondary" height="400px" class="pb-5">
         <v-row class="fill-height" align="center" justify="center">
           <v-col cols="12" xs="12" sm="6" md="6" lg="6" xl="6">
             <v-card-text
               class="text-center"
-              :style="`font-size: ${titleSize}rem`"
+              :style="`font-size: ${subtitleSize}rem`"
               >Identifícate para utilizar nuestros servicios</v-card-text
             >
             <v-card-text
@@ -52,7 +47,7 @@
           </v-col>
         </v-row>
       </v-sheet>
-    </v-carousel-item>
+    </v-carousel-item> -->
     <!-- / Carousel 2 -->
 
     <!-- Carousel 3 -->

@@ -35,7 +35,7 @@ import { DEPARTMENTS } from "@/utils/const";
 import { AppStore } from "@/store/App";
 
 @Component
-export default class SearchInlineForm extends Vue {
+export default class SearchInlineFormDepartments extends Vue {
   created() {
     for (const key in DEPARTMENTS) {
       this.departments.push({

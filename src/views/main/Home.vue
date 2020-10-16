@@ -7,13 +7,56 @@
     <!-- / banner Carousel -->
 
     <!-- Departments Slider -->
-    <section>
+    <!-- <section>
       <v-container class="section-container">
         <div class="headline text-center mb-1">Departamentos</div>
         <categories-slider />
       </v-container>
-    </section>
+    </section> -->
     <!-- / Departments Slider -->
+    <section>
+      <v-container>
+        <v-row dense>
+          <v-col cols="12" xs="12" sm="6" md="6" lg="6" xl="6">
+            <v-card>
+              <v-sheet min-height="13.75rem">
+                <v-card-text class="pb-0">
+                  <p class="title text-center">
+                    Inicia sesión para vivir tu mejor experiencia
+                  </p>
+                </v-card-text>
+                <v-card-text class="mt-0">
+                  <v-btn
+                    color="primary"
+                    large
+                    width="100%"
+                    @click="openAuthPopup('login')"
+                  >
+                    Iniciar Sesión
+                  </v-btn>
+                  <p
+                    class="anchor--text pt-2 cursor-pointer"
+                    @click="openAuthPopup('register')"
+                  >
+                    Registrar Cuenta
+                  </p>
+                </v-card-text>
+              </v-sheet>
+            </v-card>
+          </v-col>
+
+          <v-col>
+            <v-card>
+              <v-sheet min-height="13.75rem" color="orange darken-2">
+                <v-card-text class="centered text-center">
+                  <v-icon x-large color="white">mdi-gift</v-icon>
+                </v-card-text>
+              </v-sheet>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </section>
 
     <section>
       <v-container class="section-container">
@@ -48,18 +91,23 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { ProductStore } from "@/store/Products";
+import { PopupStore } from "@/store/Poups";
 
 @Component({
   components: {
     "banner-carousel": () => import("@/components/sliders/BannerCarousel.vue"),
-    "categories-slider": () =>
-      import("@/components/sliders/CategoriesSlider.vue"),
+    // "categories-slider": () =>
+    //   import("@/components/sliders/CategoriesSlider.vue"),
     "product-widget": () => import("@/components/widgets/Product.vue"),
   },
 })
 export default class HomeMainView extends Vue {
   get products() {
     return ProductStore.products;
+  }
+
+  openAuthPopup(type: "register" | "login") {
+    PopupStore.openAuth(type);
   }
 }
 </script>

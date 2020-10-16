@@ -22,11 +22,12 @@
       >
         <v-card>
           <v-card-text class="text-center">
-            <v-avatar color="secondary" size="5rem">
-              <v-icon color="primary" size="3rem">{{ department.icon }}</v-icon>
+            <v-avatar color="secondary" size="6rem">
+              <v-icon color="primary" size="5rem">{{ department.icon }}</v-icon>
             </v-avatar>
           </v-card-text>
-          <v-card-text>{{ department.label[lang] }}</v-card-text>
+          <!-- TODO: Fix Electrodomesticos text -->
+          <v-card-text class="title">{{ department.label[lang] }}</v-card-text>
         </v-card>
       </div>
     </slick-carousel>

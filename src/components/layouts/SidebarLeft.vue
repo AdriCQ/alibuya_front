@@ -1,52 +1,52 @@
 <template>
-  <v-navigation-drawer :value="sidebarLeft" @input="onInput" app>
+  <v-navigation-drawer
+    :value="sidebarLeft"
+    @input="onInput"
+    app
+    :hide-overlay="false"
+  >
     <!-- Pages -->
     <v-list nav dense>
-      <!-- Profile -->
-      <v-list-item link @click="openAuthPopup">
+      <v-list-item @click="openAuthPopup">
         <v-list-item-icon>
-          <v-icon>mdi-account-circle</v-icon>
+          <v-icon>mdi-account</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Perfil</v-list-item-title>
+        <v-list-item-title class="font-weight-bold"
+          >Hola, Identifícate</v-list-item-title
+        >
       </v-list-item>
-      <!-- / Profile -->
 
-      <v-list-item>
-        <v-list-item-icon>
-          <v-icon>mdi-earth</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Lenguage</v-list-item-title>
-        <v-list-item-subtitle>{{ langLabel }}</v-list-item-subtitle>
-      </v-list-item>
+      <v-divider />
+
       <!-- Pages -->
-      <v-list-item
-        v-for="(link, key) in links"
-        :key="key"
-        link
-        :to="{ name: link.to }"
-      >
-        <v-list-item-icon>
+      <v-list-item v-for="(link, key) in pages" :key="key" link>
+        <!-- <v-list-item-icon>
           <v-icon>{{ link.icon }}</v-icon>
-        </v-list-item-icon>
+        </v-list-item-icon> -->
         <v-list-item-title>{{ link.label }} </v-list-item-title>
       </v-list-item>
       <!-- / Pages -->
-    </v-list>
 
-    <v-divider />
-    <!-- Departments -->
-    <v-list nav dense>
+      <v-divider />
+
+      <!-- DEPARTMENTS -->
       <v-list-item>
-        <v-list-item-title class="text-center">Departamentos</v-list-item-title>
+        <v-list-item-title class="font-weight-bold">
+          DEPARTAMENTOS
+        </v-list-item-title>
       </v-list-item>
-      <v-list-item v-for="(link, key) in departments" :key="key" link>
-        <v-list-item-icon>
+      <v-list-item
+        v-for="(link, dKey) in departments"
+        :key="`dep-${dKey}`"
+        link
+      >
+        <!-- <v-list-item-icon>
           <v-icon>{{ link.icon }}</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>{{ link.label }}</v-list-item-title>
+        </v-list-item-icon> -->
+        <v-list-item-title>{{ link.label }} </v-list-item-title>
       </v-list-item>
+      <!-- / DEPARTMENTS -->
     </v-list>
-    <!-- / Departments -->
   </v-navigation-drawer>
 </template>
 
@@ -71,36 +71,33 @@ export default class AppSidebarLeft extends Vue {
       });
     }
   }
-  items = [
-    {
-      action: "local_activity",
-      title: "Attractions",
-      items: [{ title: "List Item" }],
-    },
-  ];
 
   departments: ILinkIconLabel[] = [];
 
-  links: ILinkIconLabel[] = [
+  pages: ILinkIconLabel[] = [
     {
-      to: "main.home",
-      label: "Inicio",
       icon: "mdi-home",
+      label: "Inicio",
     },
     {
-      to: "main.home",
-      label: "Tienda",
-      icon: "mdi-cart",
+      icon: "mdi-account-circle",
+      label: "Cuenta",
     },
     {
-      to: "shop.cart",
-      label: "Mis Pedidos",
-      icon: "mdi-basket",
+      icon: "mdi-account-circle",
+      label: "Pedidos",
     },
     {
-      to: "main.home",
-      label: "Atención a Cliente",
-      icon: "mdi-account-settings",
+      icon: "mdi-account-circle",
+      label: "Comprar de nuevo",
+    },
+    {
+      icon: "mdi-account-circle",
+      label: "Listas",
+    },
+    {
+      icon: "mdi-account-circle",
+      label: "Atención al Cliente",
     },
   ];
 
@@ -138,7 +135,7 @@ export default class AppSidebarLeft extends Vue {
    *
    */
   openAuthPopup() {
-    PopupStore.auth = true;
+    PopupStore.openAuth("login");
   }
 }
 </script>
