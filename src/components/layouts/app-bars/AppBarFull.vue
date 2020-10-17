@@ -13,6 +13,10 @@
 
         <div>ALIBUYA</div>
         <v-spacer />
+        <template v-if="$vuetify.breakpoint.mdAndUp">
+          <search-product-form style="max-width: 35rem" />
+          <v-spacer />
+        </template>
         <v-btn text @click="openAuthPopup">
           Identifícate
           <v-icon class="ml-2" v-if="$vuetify.breakpoint.smAndUp"
@@ -21,7 +25,7 @@
         </v-btn>
       </div>
 
-      <div class="h-3 d-flex align-center">
+      <div class="h-3 d-flex align-center" v-if="!$vuetify.breakpoint.mdAndUp">
         <v-spacer />
         <search-product-form style="max-width: 50rem" />
         <v-spacer />
@@ -29,7 +33,7 @@
     </div>
 
     <template v-slot:extension>
-      <v-tabs show-arrows centered>
+      <v-tabs centered>
         <v-tab v-for="(dep, key) in departments" :key="key">{{
           dep.label[appLang]
         }}</v-tab>

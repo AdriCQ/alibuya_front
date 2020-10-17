@@ -1,4 +1,8 @@
 #app-content{
   min-height: 400px;
   margin-top: 9rem;
+
+  @media #{map-get($display-breakpoints, 'md-and-up')} {
+    margin-top: 6rem;
+  }
 }

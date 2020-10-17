@@ -14,7 +14,8 @@ require('@/assets/scss/main.scss');
 // import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 // Vue.component('slick-carousel', VueSlickCarousel)
 
-
+// App Section
+Vue.component('v-section', () => import('@/components/layouts/Section.vue'))
 Vue.config.productionTip = false
 
 new Vue({

@@ -13,8 +13,7 @@
             <v-card-text
               class="text-center"
               :style="`font-size: ${subtitleSize}rem`"
-              >Envío a cualquier parte de Cuba de más de 1,076 productos de
-              calidad
+              >Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </v-card-text>
           </v-col>
           <v-col cols="12" xs="12" sm="6" md="6" lg="6" xl="6">
@@ -52,7 +51,7 @@
 
     <!-- Carousel 3 -->
     <v-carousel-item>
-      <v-sheet color="error" height="400px" class="pb-5">
+      <v-sheet color="secondary" height="400px" class="pb-5">
         <v-row class="fill-height" align="center" justify="center">
           <v-col cols="12" xs="12" sm="6" md="6" lg="6" xl="6">
             <v-card-text

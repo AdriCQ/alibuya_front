@@ -19,7 +19,7 @@
       <v-divider />
 
       <!-- Pages -->
-      <v-list-item v-for="(link, key) in pages" :key="key" link>
+      <v-list-item v-for="(link, key) in pages" :key="key" link :to="link.to">
         <!-- <v-list-item-icon>
           <v-icon>{{ link.icon }}</v-icon>
         </v-list-item-icon> -->
@@ -78,6 +78,9 @@ export default class AppSidebarLeft extends Vue {
     {
       icon: "mdi-home",
       label: "Inicio",
+      to: {
+        name: "main.home",
+      },
     },
     {
       icon: "mdi-account-circle",
@@ -86,6 +89,7 @@ export default class AppSidebarLeft extends Vue {
     {
       icon: "mdi-account-circle",
       label: "Pedidos",
+      to: { name: "shop.cart" },
     },
     {
       icon: "mdi-account-circle",
@@ -98,6 +102,7 @@ export default class AppSidebarLeft extends Vue {
     {
       icon: "mdi-account-circle",
       label: "Atención al Cliente",
+      to: { name: "main.contact" },
     },
   ];
 

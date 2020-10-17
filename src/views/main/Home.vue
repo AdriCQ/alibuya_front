@@ -14,49 +14,45 @@
       </v-container>
     </section> -->
     <!-- / Departments Slider -->
-    <section>
+    <!-- <section>
       <v-container>
         <v-row dense>
           <v-col cols="12" xs="12" sm="6" md="6" lg="6" xl="6">
             <v-card>
-              <v-sheet min-height="13.75rem">
-                <v-card-text class="pb-0">
-                  <p class="title text-center">
-                    Inicia sesión para vivir tu mejor experiencia
-                  </p>
-                </v-card-text>
-                <v-card-text class="mt-0">
-                  <v-btn
-                    color="primary"
-                    large
-                    width="100%"
-                    @click="openAuthPopup('login')"
-                  >
-                    Iniciar Sesión
-                  </v-btn>
-                  <p
-                    class="anchor--text pt-2 cursor-pointer"
-                    @click="openAuthPopup('register')"
-                  >
-                    Registrar Cuenta
-                  </p>
-                </v-card-text>
-              </v-sheet>
+              <v-card-text class="pb-0">
+                <p class="title text-center">
+                  Inicia sesión para vivir tu mejor experiencia
+                </p>
+              </v-card-text>
+              <v-card-text class="mt-0">
+                <v-btn
+                  color="primary"
+                  large
+                  width="100%"
+                  @click="openAuthPopup('login')"
+                >
+                  Iniciar Sesión
+                </v-btn>
+                <p
+                  class="anchor--text pt-2 cursor-pointer"
+                  @click="openAuthPopup('register')"
+                >
+                  Registrar Cuenta
+                </p>
+              </v-card-text>
             </v-card>
           </v-col>
 
           <v-col>
-            <v-card>
-              <v-sheet min-height="13.75rem" color="orange darken-2">
-                <v-card-text class="centered text-center">
-                  <v-icon x-large color="white">mdi-gift</v-icon>
-                </v-card-text>
-              </v-sheet>
+            <v-card height="100%" min-height="8rem" color="orange darken-2">
+              <v-card-text class="text-center centered">
+                <v-icon x-large color="white">mdi-gift</v-icon>
+              </v-card-text>
             </v-card>
           </v-col>
         </v-row>
       </v-container>
-    </section>
+    </section> -->
 
     <section>
       <v-container class="section-container">
@@ -95,7 +91,7 @@ import { PopupStore } from "@/store/Poups";
 
 @Component({
   components: {
-    "banner-carousel": () => import("@/components/sliders/BannerCarousel.vue"),
+    "banner-carousel": () => import("@/components/sliders/HomeAppSlider.vue"),
     // "categories-slider": () =>
     //   import("@/components/sliders/CategoriesSlider.vue"),
     "product-widget": () => import("@/components/widgets/Product.vue"),

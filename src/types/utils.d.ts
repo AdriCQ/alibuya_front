@@ -6,7 +6,10 @@ export type TDepartment = 'automotriz' | 'cell' | 'electronic' | 'home' | 'child
 export interface ILinkIconLabel {
   icon?: string;
   label?: string;
-  to?: string;
+  to?: {
+    name?: string;
+    path?: string;
+  } | string;
 }
 
 /**

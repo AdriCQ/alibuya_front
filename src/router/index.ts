@@ -6,7 +6,12 @@ import { shopRoutes } from './shop';
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
-  mainRoutes, shopRoutes
+  mainRoutes, shopRoutes, {
+    path: '*',
+    redirect: {
+      name: 'main.home'
+    }
+  }
 ]
 
 const router = new VueRouter({

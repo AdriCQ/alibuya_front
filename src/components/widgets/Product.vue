@@ -3,7 +3,7 @@
     class="mx-auto"
     :max-width="`${width}px`"
     @click="showProductDetails(product)"
-    min-height="280px"
+    :min-height="minHeight"
   >
     <div class="badge-offer pa-2" v-if="badge">
       <span class="text-center white--text">{{ badgeText }}</span>
@@ -84,6 +84,10 @@ export default class ProductWidget extends Vue {
       default:
         return this.horizontal ? 20 * rem : 13 * rem;
     }
+  }
+
+  get minHeight() {
+    return this.horizontal ? "auto" : "280px";
   }
 
   showProductDetails(product: IProduct) {
