@@ -1,6 +1,6 @@
 <template>
-  <section class="app-section" :style="sStyle">
-    <v-container>
+  <section :style="sStyle">
+    <v-container class="py-0 my-0">
       <slot></slot>
     </v-container>
   </section>

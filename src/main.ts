@@ -7,12 +7,10 @@ import vuetify from './plugins/vuetify';
 require('@/assets/scss/main.scss');
 
 // Vue Slick Carousel
-// import VueSlickCarousel from 'vue-slick-carousel';
-
-// import "vue-slick-carousel/dist/vue-slick-carousel.css";
-// optional style for arrows & dots
-// import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
-// Vue.component('slick-carousel', VueSlickCarousel)
+import VueSlickCarousel from 'vue-slick-carousel';
+import "vue-slick-carousel/dist/vue-slick-carousel.css";
+import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
+Vue.component('slick-carousel', VueSlickCarousel)
 
 // App Section
 Vue.component('v-section', () => import('@/components/layouts/Section.vue'))

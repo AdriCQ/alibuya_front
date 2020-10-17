@@ -6,81 +6,88 @@
     </section>
     <!-- / banner Carousel -->
 
-    <!-- Departments Slider -->
-    <!-- <section>
-      <v-container class="section-container">
-        <div class="headline text-center mb-1">Departamentos</div>
-        <categories-slider />
-      </v-container>
-    </section> -->
-    <!-- / Departments Slider -->
-    <!-- <section>
-      <v-container>
-        <v-row dense>
-          <v-col cols="12" xs="12" sm="6" md="6" lg="6" xl="6">
-            <v-card>
-              <v-card-text class="pb-0">
-                <p class="title text-center">
-                  Inicia sesión para vivir tu mejor experiencia
-                </p>
-              </v-card-text>
-              <v-card-text class="mt-0">
-                <v-btn
-                  color="primary"
-                  large
-                  width="100%"
-                  @click="openAuthPopup('login')"
-                >
-                  Iniciar Sesión
-                </v-btn>
-                <p
-                  class="anchor--text pt-2 cursor-pointer"
-                  @click="openAuthPopup('register')"
-                >
-                  Registrar Cuenta
-                </p>
-              </v-card-text>
+    <!-- Suggested Products -->
+    <v-section>
+      <products-slider :products="products" title="Productos sugeridos" />
+    </v-section>
+    <!-- / Suggested Products -->
+
+    <!-- Suggested -->
+    <v-section class="mt-2">
+      <v-card flat class="px-4">
+        <v-row justify="space-between">
+          <!-- Col 1 -->
+          <v-col cols="12" xs="12" sm="6" md="4" lg="4" xl="4">
+            <v-card flat>
+              <v-card-title> Ofertas por menos de $25 </v-card-title>
+              <v-row v-for="i in 2" :key="i" dense>
+                <v-col cols="6" v-for="j in 2" :key="j">
+                  <v-sheet width="100%" height="8rem" color="secondary">
+                    <div class="text-center pt-10">
+                      <v-icon dark x-large>mdi-gift</v-icon>
+                    </div>
+                  </v-sheet>
+                  <div class="subtitle text-center">Lorem ipsum dolor</div>
+                </v-col>
+              </v-row>
             </v-card>
           </v-col>
+          <!-- / Col 1 -->
 
-          <v-col>
-            <v-card height="100%" min-height="8rem" color="orange darken-2">
-              <v-card-text class="text-center centered">
-                <v-icon x-large color="white">mdi-gift</v-icon>
-              </v-card-text>
+          <!-- Col 2 -->
+          <v-col cols="12" xs="12" sm="6" md="4" lg="4" xl="4">
+            <v-card flat>
+              <v-card-title>Producto más comprado </v-card-title>
+              <v-sheet height="17.7rem" color="primary" class="mt-1" />
+              <div class="subtitle text-center">Lorem ipsum dolor</div>
             </v-card>
           </v-col>
-        </v-row>
-      </v-container>
-    </section> -->
+          <!-- / Col 2 -->
 
-    <section>
-      <v-container class="section-container">
-        <div class="text-center headline mb-1">Productos Destacados</div>
-        <v-row>
-          <v-col sm="12" md="6" v-for="index in 2" :key="index">
-            <product-widget
-              :product="products[index]"
-              horizontal
-              badge
-              badge-text="-20%"
-            />
-          </v-col>
-        </v-row>
+          <!-- Col 3 -->
+          <v-col cols="12" xs="12" sm="6" md="4" lg="4" xl="4">
+            <v-card flat>
+              <v-card-title
+                ><label>Departamentos sobresalientes</label></v-card-title
+              >
+              <v-sheet
+                width="100%"
+                class="mt-1"
+                height="8rem"
+                color="secondary"
+              >
+                <div class="text-center pt-10">
+                  <v-icon dark x-large>mdi-gift</v-icon>
+                </div>
+              </v-sheet>
+              <div class="subtitle text-center">Lorem ipsum dolor</div>
 
-        <v-row>
-          <v-col
-            sm="6"
-            md="4"
-            lg="3"
-            v-for="(product, index) in products"
-            :key="index"
-          >
-            <product-widget :product="product" />
+              <v-row dense class="mt-1">
+                <v-col cols="6" v-for="j in 2" :key="j">
+                  <v-sheet width="100%" height="8rem" color="secondary">
+                    <div class="text-center pt-10">
+                      <v-icon dark x-large>mdi-gift</v-icon>
+                    </div>
+                  </v-sheet>
+                  <div class="subtitle text-center">Lorem ipsum dolor</div>
+                </v-col>
+              </v-row>
+            </v-card>
           </v-col>
+          <!-- / Col 3 -->
         </v-row>
-      </v-container>
-    </section>
+      </v-card>
+    </v-section>
+    <!-- Suggested -->
+
+    <!-- Departments -->
+    <v-section class="mt-2">
+      <v-card>
+        <v-card-title>Departamentos</v-card-title>
+        <department-slider />
+      </v-card>
+    </v-section>
+    <!-- Departments -->
   </div>
 </template>
 
@@ -92,8 +99,10 @@ import { PopupStore } from "@/store/Poups";
 @Component({
   components: {
     "banner-carousel": () => import("@/components/sliders/HomeAppSlider.vue"),
-    // "categories-slider": () =>
-    //   import("@/components/sliders/CategoriesSlider.vue"),
+    "products-slider": () =>
+      import("@/components/sliders/ProductSliderMultiple.vue"),
+    "department-slider": () =>
+      import("@/components/sliders/CategoriesSlider.vue"),
     "product-widget": () => import("@/components/widgets/Product.vue"),
   },
 })

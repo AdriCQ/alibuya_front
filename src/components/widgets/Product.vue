@@ -6,7 +6,7 @@
     :min-height="minHeight"
   >
     <div class="badge-offer pa-2" v-if="badge">
-      <span class="text-center white--text">{{ badgeText }}</span>
+      <span class="text-center white--text">{{ badge }}</span>
     </div>
     <template v-if="!(horizontal && $vuetify.breakpoint.smAndUp)">
       <div :style="`width:${width}px`" class="mt-1">
@@ -57,30 +57,24 @@ export default class ProductWidget extends Vue {
   readonly horizontal!: boolean;
 
   @Prop({
-    type: Boolean,
-    default: false,
-  })
-  readonly badge!: boolean;
-
-  @Prop({
     type: String,
     default: "",
   })
-  readonly badgeText!: string;
+  readonly badge!: string;
 
   get width() {
     const rem = 18;
     switch (this.$vuetify.breakpoint.name) {
       case "xl":
-        return this.horizontal ? 20 * rem : 13 * rem;
+        return this.horizontal ? 20 * rem : 14 * rem;
       case "lg":
-        return this.horizontal ? 20 * rem : 13 * rem;
+        return this.horizontal ? 20 * rem : 12 * rem;
       case "md":
-        return this.horizontal ? 20 * rem : 15 * rem;
+        return this.horizontal ? 20 * rem : 12 * rem;
       case "sm":
-        return this.horizontal ? 20 * rem : 16 * rem;
+        return this.horizontal ? 18 * rem : 12 * rem;
       case "xs":
-        return this.horizontal ? 20 * rem : 20 * rem;
+        return this.horizontal ? 16 * rem : 14 * rem;
       default:
         return this.horizontal ? 20 * rem : 13 * rem;
     }
