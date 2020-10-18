@@ -11,7 +11,9 @@
       <div class="h-3 d-flex align-center">
         <v-app-bar-nav-icon @click="toggleSidebarLeft" />
 
-        <div>ALIBUYA</div>
+        <div @click="goToRoute('main.home')" class="cursor-pointer">
+          ALIBUYA
+        </div>
         <v-spacer />
         <template v-if="$vuetify.breakpoint.mdAndUp">
           <search-product-form style="max-width: 35rem" />
@@ -22,6 +24,12 @@
           <v-icon class="ml-2" v-if="$vuetify.breakpoint.smAndUp"
             >mdi-account-circle</v-icon
           >
+        </v-btn>
+        <v-btn text @click="goToRoute('shop.cart')">
+          <span v-if="$vuetify.breakpoint.smAndUp" class="mr-2">
+            Mi Carrito
+          </span>
+          <v-icon>mdi-cart</v-icon>
         </v-btn>
       </div>
 
@@ -74,6 +82,12 @@ export default class AppBarFull extends Vue {
    */
   openAuthPopup() {
     PopupStore.openAuth("login");
+  }
+
+  goToRoute(_name: string) {
+    if (this.$route.name !== _name) {
+      this.$router.push({ name: _name });
+    }
   }
 }
 </script>

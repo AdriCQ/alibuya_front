@@ -12,7 +12,7 @@ export const mainRoutes: RouteConfig = {
     },
     {
       name: 'main.contact',
-      path: '',
+      path: 'contact',
       component: () => import('@/views/main/Contact.vue'),
     },
   ],

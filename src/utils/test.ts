@@ -44,3 +44,16 @@ export const PRODUCTS: IProduct[] = [
     description: ['Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.']
   },
 ];
+
+const _CLOTHES: IProduct[] = []
+for (let i = 1; i <= 100; i++) {
+  _CLOTHES.push({
+    title: 'Ropa ' + i,
+    img: '',
+    price: (104 - i),
+    description: ['Ropa description'],
+    weight: (101 - i) * 10,
+  })
+}
+
+export const CLOTHES: IProduct[] = _CLOTHES;

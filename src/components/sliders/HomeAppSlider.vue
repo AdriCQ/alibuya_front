@@ -1,5 +1,10 @@
 <template>
-  <v-carousel hide-delimiter-background height="auto" cycle>
+  <v-carousel
+    hide-delimiter-background
+    height="auto"
+    cycle
+    show-arrows-on-hover
+  >
     <v-carousel-item>
       <v-section
         bg="images/banners/b3.jpg"

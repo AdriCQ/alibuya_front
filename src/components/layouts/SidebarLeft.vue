@@ -93,7 +93,7 @@ export default class AppSidebarLeft extends Vue {
     },
     {
       icon: "mdi-account-circle",
-      label: "Comprar de nuevo",
+      label: "Rastrear Pedido",
     },
     {
       icon: "mdi-account-circle",
