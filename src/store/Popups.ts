@@ -1,14 +1,14 @@
 import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store';
 import { IProduct } from '@/types';
-import { ProductStore } from '@/store/Products';
+import { ShopStore } from '@/store/Shop';
 
 @Module({ generateMutationSetters: true })
 class PopupModule extends VuexModule {
   auth = false;
   authDefault = 'register';
   productPopup = false
-  productToShow: IProduct = ProductStore.products[0];
+  productToShow: IProduct = ShopStore.allProducts[0];
 
   closeAll() {
     this.auth = false;
@@ -18,6 +18,11 @@ class PopupModule extends VuexModule {
   openAuth(type: 'register' | 'login' = 'register') {
     this.authDefault = type;
     this.auth = true;
+  }
+
+  showProduct(_prod: IProduct) {
+    this.productToShow = _prod;
+    this.productPopup = true;
   }
 }
 

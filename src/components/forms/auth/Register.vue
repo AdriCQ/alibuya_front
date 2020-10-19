@@ -60,7 +60,7 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { PopupStore } from "@/store/Poups";
+import { PopupStore } from "@/store/Popups";
 
 @Component
 export default class RegisterForm extends Vue {

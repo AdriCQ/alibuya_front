@@ -66,7 +66,7 @@
 
 <script lang='ts'>
 import { AppStore } from "@/store/App";
-import { PopupStore } from "@/store/Poups";
+import { PopupStore } from "@/store/Popups";
 import { LANG } from "@/utils/const";
 import { Vue, Component } from "vue-property-decorator";
 import { TLang } from "@/types";

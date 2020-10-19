@@ -93,8 +93,8 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { ProductStore } from "@/store/Products";
-import { PopupStore } from "@/store/Poups";
+import { ShopStore } from "@/store/Shop";
+import { PopupStore } from "@/store/Popups";
 
 @Component({
   components: {
@@ -108,7 +108,7 @@ import { PopupStore } from "@/store/Poups";
 })
 export default class HomeMainView extends Vue {
   get products() {
-    return ProductStore.products;
+    return ShopStore.allProducts;
   }
 
   openAuthPopup(type: "register" | "login") {

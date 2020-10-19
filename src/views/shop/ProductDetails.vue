@@ -76,7 +76,7 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { ProductStore } from "@/store/Products";
+import { ShopStore } from "@/store/Shop";
 
 @Component({
   components: {
@@ -87,11 +87,11 @@ import { ProductStore } from "@/store/Products";
 export default class ProductDetailsView extends Vue {
   cant = 0;
   get product() {
-    return ProductStore.products[0];
+    return ShopStore.allProducts[0];
   }
 
   get suggestProducts() {
-    return ProductStore.products;
+    return ShopStore.allProducts;
   }
 }
 </script>

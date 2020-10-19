@@ -16,7 +16,7 @@
         </div>
         <v-spacer />
         <template v-if="$vuetify.breakpoint.mdAndUp">
-          <search-product-form style="max-width: 35rem" />
+          <search-product-form style="max-width: 30rem" />
           <v-spacer />
         </template>
         <v-btn text @click="openAuthPopup">
@@ -53,7 +53,7 @@
 import { Vue, Component } from "vue-property-decorator";
 import { DEPARTMENTS } from "@/utils/const";
 import { AppStore } from "@/store/App";
-import { PopupStore } from "@/store/Poups";
+import { PopupStore } from "@/store/Popups";
 
 @Component({
   components: {

@@ -107,19 +107,20 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { IProductCart } from "@/types";
-import { ProductStore } from "@/store/Products";
+import { ShopStore } from "@/store/Shop";
 
 @Component({
   components: {
     // "banner-widget": () => import("@/components/widgets/Banner.vue"),
     "cant-input": () => import("@/components/forms/shop/ProductCantInput.vue"),
     "products-cart": () => import("@/components/widgets/ProductCart.vue"),
-    "products-slider": () => import("@/components/sliders/ProductsSlider.vue"),
+    "products-slider": () =>
+      import("@/components/sliders/ProductSliderMultiple.vue"),
   },
 })
 export default class ShoppingCartView extends Vue {
   mounted() {
-    ProductStore.products.forEach((p) => {
+    ShopStore.allProducts.forEach((p) => {
       this.shopProducts.push({
         cant: 1,
         title: p.title,
@@ -133,7 +134,7 @@ export default class ShoppingCartView extends Vue {
   shopProducts: IProductCart[] = [];
 
   get suggestedProducts() {
-    return ProductStore.products;
+    return ShopStore.allProducts;
   }
 
   /**

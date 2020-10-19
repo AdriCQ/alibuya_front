@@ -35,7 +35,7 @@
 <script lang='ts'>
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { IProduct } from "@/types";
-import { PopupStore } from "@/store/Poups";
+import { PopupStore } from "@/store/Popups";
 
 @Component
 export default class ProductWidget extends Vue {
@@ -85,8 +85,7 @@ export default class ProductWidget extends Vue {
   }
 
   showProductDetails(product: IProduct) {
-    PopupStore.productToShow = product;
-    PopupStore.productPopup = true;
+    PopupStore.showProduct(product);
   }
 }
 </script>

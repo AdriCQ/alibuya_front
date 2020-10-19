@@ -75,7 +75,7 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { AppStore } from "@/store/App";
-import { PopupStore } from "@/store/Poups";
+import { PopupStore } from "@/store/Popups";
 import { LANG } from "@/utils/const";
 import { AuthStore } from "@/store/Auth";
 import { TLang } from "@/types";

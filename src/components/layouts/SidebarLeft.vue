@@ -56,7 +56,7 @@ import { AppStore } from "@/store/App";
 import { ILinkIconLabel } from "@/types";
 import { DEPARTMENTS, LANG } from "@/utils/const";
 import { AuthStore } from "@/store/Auth";
-import { PopupStore } from "@/store/Poups";
+import { PopupStore } from "@/store/Popups";
 
 @Component
 export default class AppSidebarLeft extends Vue {
@@ -90,6 +90,11 @@ export default class AppSidebarLeft extends Vue {
       icon: "mdi-account-circle",
       label: "Pedidos",
       to: { name: "shop.cart" },
+    },
+    {
+      icon: "mdi-account-circle",
+      label: "Venta Mayorista",
+      to: { name: "shop.home" },
     },
     {
       icon: "mdi-account-circle",
