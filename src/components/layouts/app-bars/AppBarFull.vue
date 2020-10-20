@@ -20,10 +20,10 @@
           <v-spacer />
         </template>
         <v-btn text @click="openAuthPopup">
-          Identifícate
-          <v-icon class="ml-2" v-if="$vuetify.breakpoint.smAndUp"
-            >mdi-account-circle</v-icon
-          >
+          <span v-if="$vuetify.breakpoint.smAndUp" class="mr-2">
+            Identifícate
+          </span>
+          <v-icon class="ml-2">mdi-account-circle</v-icon>
         </v-btn>
         <v-btn text @click="goToRoute('shop.cart')">
           <span v-if="$vuetify.breakpoint.smAndUp" class="mr-2">

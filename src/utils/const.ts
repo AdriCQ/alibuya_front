@@ -1,13 +1,20 @@
 export const LANG = [
   { label: 'Español', flag: 'images/flags/es.png', tag: 'es' },
   { label: 'English', flag: 'images/flags/en.png', tag: 'en' },
-  { label: 'Detush', flag: 'images/flags/de.png', tag: 'de' },
-  { label: 'Detush', flag: 'images/flags/cn.png', tag: 'cn' },
-  { label: 'Fran', flag: 'images/flags/fr.png', tag: 'fr' },
-  { label: 'Fran', flag: 'images/flags/hu.png', tag: 'hu' },
+  // { label: 'Detush', flag: 'images/flags/de.png', tag: 'de' },
+  // { label: 'Detush', flag: 'images/flags/cn.png', tag: 'cn' },
+  // { label: 'Fran', flag: 'images/flags/fr.png', tag: 'fr' },
+  // { label: 'Fran', flag: 'images/flags/hu.png', tag: 'hu' },
 ];
 
 export const DEPARTMENTS = {
+  clothes: {
+    icon: 'mdi-hanger',
+    label: { es: 'Ropas' },
+    to: {
+      name: 'shop.pack'
+    }
+  },
   automotriz: {
     icon: 'mdi-car',
     label: { es: 'Automotriz' }
@@ -18,7 +25,7 @@ export const DEPARTMENTS = {
 
   },
   electronic: {
-    icon: 'mdi-home-assistant',
+    icon: 'mdi-lamp',
     label: { es: 'Electrodomésticos' }
   },
   home: {

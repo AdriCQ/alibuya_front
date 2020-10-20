@@ -8,7 +8,7 @@
             <v-card-title>Paquetes</v-card-title>
             <v-card-text>
               <p>
-                Explicación sobre los límites de compra de 1,48 Kg por paquete y
+                Explicación sobre los límites de compra de 1,50 Kg por paquete y
                 que pude crear más de un paquete a la vez.
               </p>
               <p>
@@ -85,7 +85,7 @@
                         Total: ${{ Number(subTotalPrice).toFixed(2) }}
                       </v-list-item-title>
                       <v-list-item-subtitle>
-                        {{ packWeight }} g de 1480 g
+                        {{ Number(packWeight / 1000).toFixed(2) }} Kg de 1,50 Kg
                       </v-list-item-subtitle>
                     </v-list-item>
                     <v-list-item
@@ -208,7 +208,7 @@ import { IProduct, IProductsPack } from "@/types";
   },
 })
 export default class ShopView extends Vue {
-  maxWeight = 1480;
+  maxWeight = 1500;
   dialog = false;
   packFull = false;
 
@@ -229,6 +229,9 @@ export default class ShopView extends Vue {
       p.weight ? (w += p.weight * p.cant) : (w += 0);
       this.subTotalPrice += p.price * p.cant;
     });
+    if (w > 0) {
+      w += 20;
+    }
     if (w >= this.maxWeight) {
       this.packFull = true;
     } else {

@@ -20,7 +20,7 @@
         v-for="(department, label) in departments"
         :key="label"
       >
-        <v-card>
+        <v-card :to="department.to">
           <v-card-text class="text-center">
             <v-avatar color="secondary" size="6rem">
               <v-icon color="primary" size="5rem">{{ department.icon }}</v-icon>

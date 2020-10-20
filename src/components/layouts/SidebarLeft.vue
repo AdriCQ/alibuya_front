@@ -39,6 +39,7 @@
         v-for="(link, dKey) in departments"
         :key="`dep-${dKey}`"
         link
+        :to="link.to"
       >
         <!-- <v-list-item-icon>
           <v-icon>{{ link.icon }}</v-icon>
@@ -51,6 +52,8 @@
 </template>
 
 <script lang='ts'>
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
+
 import { Vue, Component } from "vue-property-decorator";
 import { AppStore } from "@/store/App";
 import { ILinkIconLabel } from "@/types";
@@ -63,11 +66,12 @@ export default class AppSidebarLeft extends Vue {
   created() {
     for (const key in DEPARTMENTS) {
       this.departments.push({
-        icon: DEPARTMENTS[key as keyof typeof DEPARTMENTS].icon,
-        // TODO: Remove TS IGNORE
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
-        label: DEPARTMENTS[key as keyof typeof DEPARTMENTS].label[this.appLang],
+        icon: DEPARTMENTS[key].icon,
+        // @ts-ignore
+        label: DEPARTMENTS[key].label[this.appLang],
+        // @ts-ignore
+        to: DEPARTMENTS[key as keyof typeof DEPARTMENTS].to,
       });
     }
   }
@@ -90,11 +94,6 @@ export default class AppSidebarLeft extends Vue {
       icon: "mdi-account-circle",
       label: "Pedidos",
       to: { name: "shop.cart" },
-    },
-    {
-      icon: "mdi-account-circle",
-      label: "Venta Mayorista",
-      to: { name: "shop.home" },
     },
     {
       icon: "mdi-account-circle",

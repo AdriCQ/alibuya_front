@@ -35,8 +35,8 @@ class ShopModule extends VuexModule {
    * Remove product from shopgingCartProducts
    * @param prod IProduct
    */
-  removeProductFromShoppingCart(prod: IProduct) {
-
+  removeShoppingCartProduct(prod: IProduct) {
+    console.log(prod)
   }
 }
 

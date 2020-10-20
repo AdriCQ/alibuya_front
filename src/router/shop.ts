@@ -6,8 +6,8 @@ export const shopRoutes: RouteConfig = {
   component: BaseLayout,
   children: [
     {
-      name: 'shop.home',
-      path: '',
+      name: 'shop.pack',
+      path: 'pack',
       component: () => import('@/views/shop/PackShop.vue'),
     },
     {

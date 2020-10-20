@@ -66,7 +66,7 @@ export default class ProductWidget extends Vue {
     const rem = 18;
     switch (this.$vuetify.breakpoint.name) {
       case "xl":
-        return this.horizontal ? 20 * rem : 14 * rem;
+        return this.horizontal ? 20 * rem : 12 * rem;
       case "lg":
         return this.horizontal ? 20 * rem : 12 * rem;
       case "md":
@@ -74,9 +74,9 @@ export default class ProductWidget extends Vue {
       case "sm":
         return this.horizontal ? 18 * rem : 12 * rem;
       case "xs":
-        return this.horizontal ? 16 * rem : 14 * rem;
+        return 12 * rem;
       default:
-        return this.horizontal ? 20 * rem : 13 * rem;
+        return this.horizontal ? 20 * rem : 12 * rem;
     }
   }
 
