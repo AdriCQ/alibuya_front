@@ -2,6 +2,7 @@
   <div>
     <!-- Popups -->
     <popup-auth />
+    <popup-notification />
     <popup-product-details />
 
     <!--/  Popups -->
@@ -32,6 +33,8 @@ import AppSidebarLeft from "./SidebarLeft.vue";
     AppHeader,
     AppSidebarLeft,
     "popup-auth": () => import("@/components/popups/AuthPopup.vue"),
+    "popup-notification": () =>
+      import("@/components/popups/NotificationPopup.vue"),
     "popup-product-details": () =>
       import("@/components/popups/ProductDetails.vue"),
   },

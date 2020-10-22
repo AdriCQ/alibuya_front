@@ -16,6 +16,10 @@ class ShopModule extends VuexModule {
     return PRODUCTS;
   }
 
+  get shoppingCartCounter() {
+    return this.shoppingCartProducts.length;
+  }
+
   /**
    * Push product to shopgingCartProducts
    * @param prod IProduct
@@ -33,10 +37,9 @@ class ShopModule extends VuexModule {
 
   /**
    * Remove product from shopgingCartProducts
-   * @param prod IProduct
    */
-  removeShoppingCartProduct(prod: IProduct) {
-    console.log(prod)
+  removeShoppingCartProduct(key: number) {
+    this.shoppingCartProducts.splice(key, 1);
   }
 }
 

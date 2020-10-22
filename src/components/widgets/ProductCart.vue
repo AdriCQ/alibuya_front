@@ -1,11 +1,22 @@
 <template>
-  <v-card class="mx-auto" max-width="25rem" flat>
+  <v-card
+    class="mx-auto"
+    :max-width="`${width + 6}rem`"
+    :min-width="`${width}rem`"
+  >
     <div style="position: absolute; right: 3px; top: 0px; z-index: 2">
       <v-btn color="error" @click="deleteProduct" icon
         ><v-icon>mdi-delete-circle</v-icon></v-btn
       >
     </div>
-    <v-img :src="product.img" class="mx-auto" max-width="15rem" />
+    <div
+      :style="`width:${width}rem; max-width: ${width + 2}rem; min-width: ${
+        width - 2
+      }rem`"
+      class="mt-1"
+    >
+      <v-img width="100%" :src="product.img" />
+    </div>
     <v-card-title
       ><span class="text-center" style="width: 100%">{{ product.title }}</span>
     </v-card-title>
@@ -29,6 +40,10 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 })
 export default class ProductCart extends Vue {
   @Prop(Object) readonly product!: IProductCart;
+
+  get width() {
+    return 15;
+  }
 
   deleteProduct() {
     this.$emit("delete");

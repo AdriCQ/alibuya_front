@@ -1,9 +1,9 @@
 <template>
-  <div id="checkout-view">
+  <div id="account-view">
     <v-section>
       <v-container>
         <v-card>
-          <v-card-title>Checkout</v-card-title>
+          <v-card-title>Cuenta</v-card-title>
         </v-card>
       </v-container>
     </v-section>
@@ -14,5 +14,5 @@
 import { Vue, Component } from "vue-property-decorator";
 
 @Component
-export default class CheckoutView extends Vue {}
+export default class AccountView extends Vue {}
 </script>

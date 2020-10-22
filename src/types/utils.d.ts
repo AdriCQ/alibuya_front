@@ -9,7 +9,13 @@ export interface ILinkIconLabel {
   to?: {
     name?: string;
     path?: string;
+    query?: Dictionary<string | (string | null)[]>;
+    params?: Dictionary<string | (string | null)[]>;
   } | string;
+}
+
+interface Dictionary<T> {
+  [Key: string]: T;
 }
 
 /**

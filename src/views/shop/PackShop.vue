@@ -25,12 +25,15 @@
                   v-for="(pack, packKey) in packs"
                   :key="`pack-list-${packKey}`"
                 >
-                  <v-card flat>
+                  <v-card>
                     <v-card-title>{{ pack.title }}</v-card-title>
                     <v-card-text
                       >Precio: ${{ Number(pack.price).toFixed(2) }}</v-card-text
                     >
                     <v-card-text>Peso: {{ Number(pack.weight) }} g</v-card-text>
+                    <v-card-text
+                      ><cant-input :cant.sync="pack.cant"
+                    /></v-card-text>
                     <v-card-actions>
                       <v-btn @click="editPack(packKey)">
                         <v-icon>mdi-table-edit</v-icon>
@@ -301,6 +304,7 @@ export default class ShopView extends Vue {
       products: [],
       weight: 0,
       price: 0,
+      cant: 1,
     });
     this.activePack = this.packs.length - 1;
     this.packName = "Paquete " + this.packs.length;

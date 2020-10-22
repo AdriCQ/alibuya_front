@@ -1,3 +1,5 @@
+import { ILinkIconLabel, Dictionary } from '@/types';
+
 export const LANG = [
   { label: 'Español', flag: 'images/flags/es.png', tag: 'es' },
   { label: 'English', flag: 'images/flags/en.png', tag: 'en' },
@@ -7,43 +9,67 @@ export const LANG = [
   // { label: 'Fran', flag: 'images/flags/hu.png', tag: 'hu' },
 ];
 
-export const DEPARTMENTS = {
+interface ILinkIconLabelModified extends ILinkIconLabel {
+  labelLang: {
+    es?: string;
+    en?: string;
+  };
+}
+
+export const DEPARTMENTS: Dictionary<ILinkIconLabelModified> = {
   clothes: {
     icon: 'mdi-hanger',
-    label: { es: 'Ropas' },
+    labelLang: { es: 'Ropas' },
     to: {
-      name: 'shop.pack'
+      name: 'shop.pack',
+      query: { tag: 'clothes' }
     }
   },
   automotriz: {
     icon: 'mdi-car',
-    label: { es: 'Automotriz' }
+    labelLang: { es: 'Automotriz' },
+    to: {
+      name: 'shop.tags',
+      params: { tag: 'auto' }
+    }
   },
   cell: {
     icon: 'mdi-cellphone-android',
-    label: { es: 'Celulares' }
+    labelLang: { es: 'Celulares' },
+    to: {
+      name: 'shop.tags',
+      params: { tag: 'cell' }
+    }
 
-  },
-  electronic: {
-    icon: 'mdi-lamp',
-    label: { es: 'Electrodomésticos' }
   },
   home: {
     icon: 'mdi-home',
-    label: { es: 'Hogar' }
+    labelLang: { es: 'Hogar' },
+    to: {
+      name: 'shop.tags',
+      params: { tag: 'home' }
+    }
 
   },
   child: {
     icon: 'mdi-human-child',
-    label: { es: 'Niños' }
+    labelLang: { es: 'Niños' },
+    to: {
+      name: 'shop.tags',
+      params: { tag: 'child' }
+    }
   },
   health: {
     icon: 'mdi-medical-bag',
-    label: { es: 'Salud' }
+    labelLang: { es: 'Salud' }, to: {
+      name: 'shop.tags',
+      params: { tag: 'health' }
+    }
+
 
   },
   market: {
     icon: 'mdi-basket',
-    label: { es: 'Mercado' }
+    labelLang: { es: 'Mercado' }
   }
 }

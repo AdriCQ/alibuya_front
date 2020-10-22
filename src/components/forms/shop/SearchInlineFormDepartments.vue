@@ -42,7 +42,7 @@ export default class SearchInlineFormDepartments extends Vue {
         // TODO: Remove TS IGNORE
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
-        text: DEPARTMENTS[key as keyof typeof DEPARTMENTS].label[
+        text: DEPARTMENTS[key as keyof typeof DEPARTMENTS].labelLang[
           AppStore.lang
         ].toLocaleUpperCase(),
         value: key,

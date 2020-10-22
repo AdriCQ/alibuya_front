@@ -6,6 +6,7 @@
  */
 export * from './store/app';
 export * from './store/auth';
+export * from './store/popups';
 export * from './store/product';
 
 

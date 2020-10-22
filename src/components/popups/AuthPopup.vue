@@ -1,8 +1,21 @@
   <template>
   <v-dialog v-model="show" persistent max-width="600px" scrollable>
-    <keep-alive>
-      <component :is="`${authDefault}-form`" @toggle="switchForm" />
-    </keep-alive>
+    <v-card>
+      <div class="text-center pa-2" v-if="loading">
+        <v-progress-circular
+          :size="50"
+          color="primary"
+          indeterminate
+        ></v-progress-circular>
+      </div>
+      <keep-alive>
+        <component
+          :is="`${authDefault}-form`"
+          @toggle="switchForm"
+          @loading:update="updateLoading"
+        />
+      </keep-alive>
+    </v-card>
   </v-dialog>
 </template>
 
@@ -17,6 +30,8 @@ import { PopupStore } from "@/store/Popups";
   },
 })
 export default class AuthPopup extends Vue {
+  loading = false;
+
   get show() {
     return PopupStore.auth;
   }
@@ -31,6 +46,10 @@ export default class AuthPopup extends Vue {
     } else {
       PopupStore.authDefault = "register";
     }
+  }
+
+  updateLoading(_loading: boolean) {
+    this.loading = _loading;
   }
 }
 </script>

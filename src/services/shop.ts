@@ -3,7 +3,7 @@ import { ApiResponse, IProduct, ISuggesedParams, ApiResponsePaginated } from '@/
 import Axios from 'axios';
 
 class ShopServiceClass {
-  private baseUrl = SERVICE_CONFIG + '/shop';
+  private baseUrl = SERVICE_CONFIG.SERVER_API + '/shop';
 
   /**
    * Get Sugegsted products

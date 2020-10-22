@@ -11,9 +11,11 @@
         <v-list-item-icon>
           <v-icon>mdi-account</v-icon>
         </v-list-item-icon>
-        <v-list-item-title class="font-weight-bold"
-          >Hola, Identifícate</v-list-item-title
-        >
+        <v-list-item-title class="font-weight-bold">
+          Hola,
+          <span v-if="!userName">Identifícate</span>
+          <span else>{{ userName }}</span>
+        </v-list-item-title>
       </v-list-item>
 
       <v-divider />
@@ -69,7 +71,7 @@ export default class AppSidebarLeft extends Vue {
         // @ts-ignore
         icon: DEPARTMENTS[key].icon,
         // @ts-ignore
-        label: DEPARTMENTS[key].label[this.appLang],
+        label: DEPARTMENTS[key].labelLang[this.appLang],
         // @ts-ignore
         to: DEPARTMENTS[key as keyof typeof DEPARTMENTS].to,
       });
@@ -89,6 +91,9 @@ export default class AppSidebarLeft extends Vue {
     {
       icon: "mdi-account-circle",
       label: "Cuenta",
+      to: {
+        name: "settings.account",
+      },
     },
     {
       icon: "mdi-account-circle",
@@ -98,10 +103,6 @@ export default class AppSidebarLeft extends Vue {
     {
       icon: "mdi-account-circle",
       label: "Rastrear Pedido",
-    },
-    {
-      icon: "mdi-account-circle",
-      label: "Listas",
     },
     {
       icon: "mdi-account-circle",
@@ -116,6 +117,10 @@ export default class AppSidebarLeft extends Vue {
 
   get isLogged() {
     return AuthStore.isLogged;
+  }
+
+  get userName() {
+    return AuthStore.profile.first_name;
   }
 
   get allLang() {

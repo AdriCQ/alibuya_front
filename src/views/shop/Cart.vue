@@ -10,7 +10,7 @@
       <v-container>
         <v-card>
           <v-card-title
-            ><v-icon class="mr-2">mdi-cart</v-icon> Carrito</v-card-title
+            ><v-icon class="mr-2">mdi-cart</v-icon> Mis Pedidos</v-card-title
           >
           <v-card-subtitle
             >Tienes {{ shopProducts.length }} productos
@@ -71,13 +71,13 @@
 
     <section class="mt-0">
       <v-container class="pt-0">
-        <v-row>
+        <v-row justify="center">
           <v-col
             cols="12"
             sm="6"
-            md="6"
-            lg="6"
-            xl="6"
+            md="4"
+            lg="4"
+            xl="4"
             v-if="shopProducts.length"
           >
             <v-card>
@@ -86,9 +86,7 @@
                 >Total: ${{ Number(totalPrice + 5).toFixed(2) }}</v-card-text
               >
               <v-card-actions class="d-block text-center">
-                <v-btn style="width: 80%" color="primary">
-                  Proceder a Pagar
-                </v-btn>
+                <v-btn color="primary"> Proceder a Pagar </v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -106,7 +104,6 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { IProductCart } from "@/types";
 import { ShopStore } from "@/store/Shop";
 
 @Component({
@@ -119,19 +116,9 @@ import { ShopStore } from "@/store/Shop";
   },
 })
 export default class ShoppingCartView extends Vue {
-  mounted() {
-    ShopStore.allProducts.forEach((p) => {
-      this.shopProducts.push({
-        cant: 1,
-        title: p.title,
-        price: p.price,
-        img: p.img,
-        description: p.description,
-      });
-    });
+  get shopProducts() {
+    return ShopStore.shoppingCartProducts;
   }
-
-  shopProducts: IProductCart[] = [];
 
   get suggestedProducts() {
     return ShopStore.allProducts;
@@ -162,7 +149,7 @@ export default class ShoppingCartView extends Vue {
   }
 
   deleteProduct(key: number) {
-    this.shopProducts.splice(key, 1);
+    ShopStore.removeShoppingCartProduct(key);
   }
 }
 </script>

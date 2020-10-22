@@ -3,7 +3,7 @@ import { ILoginParams, ApiResponse, IRegisterParams, IAuthResponse } from '@/typ
 import Axios from 'axios';
 
 class AuthSericeClass {
-  private baseUrl = SERVICE_CONFIG + '/auth';
+  private baseUrl = SERVICE_CONFIG.SERVER_API + '/auth';
 
   /**
    * Auth Login Service

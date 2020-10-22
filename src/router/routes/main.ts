@@ -9,11 +9,17 @@ export const mainRoutes: RouteConfig = {
       name: 'main.home',
       path: '',
       component: () => import('@/views/main/Home.vue'),
+      meta: {
+        title: 'Inicio'
+      }
     },
     {
       name: 'main.contact',
       path: 'contact',
       component: () => import('@/views/main/Contact.vue'),
+      meta: {
+        title: 'Contacto'
+      }
     },
   ],
 };

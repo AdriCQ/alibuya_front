@@ -47,7 +47,7 @@
                   >
                 </div>
 
-                <v-btn color="primary" class="mt-4"
+                <v-btn color="primary" class="mt-4" @click="addToCart"
                   ><v-icon class="mr-2">mdi-cart-plus</v-icon>Listo para
                   añadir</v-btn
                 >
@@ -66,9 +66,6 @@
             <products-slider :products="suggestProducts" />
           </v-card>
         </v-col>
-        <v-col>
-          <v-simple-table> </v-simple-table>
-        </v-col>
       </v-row>
     </section>
   </v-container>
@@ -77,6 +74,7 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { ShopStore } from "@/store/Shop";
+import { PopupStore } from "@/store/Popups";
 
 @Component({
   components: {
@@ -92,6 +90,15 @@ export default class ProductDetailsView extends Vue {
 
   get suggestProducts() {
     return ShopStore.allProducts;
+  }
+
+  addToCart() {
+    ShopStore.addShoppingCartProduct(this.product, this.cant);
+    this.cant = 0;
+    PopupStore.addNotification(
+      ["Producto añadido al carrito correctamente"],
+      "info"
+    );
   }
 }
 </script>

@@ -22,4 +22,5 @@ export interface IProductsPack {
   products: IProductCart[];
   weight: number;
   price: number;
+  cant?: number;
 }
