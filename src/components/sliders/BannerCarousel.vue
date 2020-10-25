@@ -1,5 +1,10 @@
 <template>
-  <v-carousel hide-delimiter-background height="auto" cycle show-arrows>
+  <v-carousel
+    hide-delimiter-background
+    height="auto"
+    cycle
+    show-arrows-on-hover
+  >
     <!-- Carousel 1 -->
     <v-carousel-item>
       <v-sheet color="info" height="400px" class="pb-5">

@@ -59,7 +59,7 @@
 import { Vue, Component } from "vue-property-decorator";
 import { AppStore } from "@/store/App";
 import { ILinkIconLabel } from "@/types";
-import { DEPARTMENTS, LANG } from "@/utils/const";
+import { DEPARTMENTS, LANG, WEB_PAGES } from "@/utils/const";
 import { AuthStore } from "@/store/Auth";
 import { PopupStore } from "@/store/Popups";
 
@@ -80,36 +80,9 @@ export default class AppSidebarLeft extends Vue {
 
   departments: ILinkIconLabel[] = [];
 
-  pages: ILinkIconLabel[] = [
-    {
-      icon: "mdi-home",
-      label: "Inicio",
-      to: {
-        name: "main.home",
-      },
-    },
-    {
-      icon: "mdi-account-circle",
-      label: "Cuenta",
-      to: {
-        name: "settings.account",
-      },
-    },
-    {
-      icon: "mdi-account-circle",
-      label: "Pedidos",
-      to: { name: "shop.cart" },
-    },
-    {
-      icon: "mdi-account-circle",
-      label: "Rastrear Pedido",
-    },
-    {
-      icon: "mdi-account-circle",
-      label: "Atención al Cliente",
-      to: { name: "main.contact" },
-    },
-  ];
+  get pages() {
+    return WEB_PAGES;
+  }
 
   get appLang() {
     return AppStore.lang;

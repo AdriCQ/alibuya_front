@@ -8,6 +8,8 @@ class ShopModule extends VuexModule {
 
   shoppingCartProducts: IProductCart[] = [];
 
+  productDetails: IProduct | null = null;
+
   get allProducts() {
     return PRODUCTS;
   }

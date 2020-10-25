@@ -1,13 +1,60 @@
 <template>
   <div id="main-home">
     <!-- banner Carousel -->
-    <section class="mt-0">
-      <banner-carousel />
-    </section>
+    <v-section
+      bg="images/banners/b3.jpg"
+      height="auto"
+      class="pa-5"
+      min-height="300px"
+    >
+      <v-row justify="end" align="center">
+        <v-col xs="12" sm="8" md="6" lg="4" xl="4">
+          <v-card light>
+            <v-card-text class="pb-0">
+              <p class="title text-center">
+                Lorem, ipsum dolor sit amet consectetur
+              </p>
+            </v-card-text>
+            <v-card-text class="mt-0">
+              <v-btn color="primary" width="100%">
+                <v-icon class="mr-2">mdi-cart</v-icon> lorem
+              </v-btn>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-section>
     <!-- / banner Carousel -->
 
     <!-- Suggested Products -->
     <v-section>
+      <v-row justify="center">
+        <v-col xs="12" sm="12" md="6" lg="4" xl="3">
+          <v-card light>
+            <v-card-text class="pb-0">
+              <p class="title text-center">
+                Inicia sesión para vivir tu mejor experiencia
+              </p>
+            </v-card-text>
+            <v-card-text class="mt-0">
+              <v-btn
+                color="primary"
+                large
+                width="100%"
+                @click="openAuthPopup('login')"
+              >
+                Iniciar Sesión
+              </v-btn>
+              <p
+                class="anchor--text pt-2 cursor-pointer"
+                @click="openAuthPopup('register')"
+              >
+                Registrar Cuenta
+              </p>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
       <products-slider :products="products" title="Productos sugeridos" />
     </v-section>
     <!-- / Suggested Products -->
@@ -79,15 +126,6 @@
       </v-card>
     </v-section>
     <!-- Suggested -->
-
-    <!-- Departments -->
-    <v-section class="mt-2">
-      <v-card>
-        <v-card-title>Departamentos</v-card-title>
-        <department-slider />
-      </v-card>
-    </v-section>
-    <!-- Departments -->
   </div>
 </template>
 
@@ -98,11 +136,9 @@ import { PopupStore } from "@/store/Popups";
 
 @Component({
   components: {
-    "banner-carousel": () => import("@/components/sliders/HomeAppSlider.vue"),
+    // "banner-carousel": () => import("@/components/sliders/HomeAppSlider.vue"),
     "products-slider": () =>
       import("@/components/sliders/ProductSliderMultiple.vue"),
-    "department-slider": () =>
-      import("@/components/sliders/CategoriesSlider.vue"),
     "product-widget": () => import("@/components/widgets/Product.vue"),
   },
 })

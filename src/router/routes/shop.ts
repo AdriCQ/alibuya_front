@@ -16,7 +16,7 @@ export const shopRoutes: RouteConfig = {
     },
     {
       name: 'shop.pack',
-      path: 'pack',
+      path: 'pack/:tag',
       component: () => import('@/views/shop/PackShop.vue'),
       meta: {
         title: 'Tienda'
@@ -51,7 +51,7 @@ export const shopRoutes: RouteConfig = {
 
     {
       name: 'shop.tags',
-      path: ':tag',
+      path: 'tag/:tag',
       component: () => import('@/views/shop/Tag.vue'),
       meta: {
         title: 'Tienda'

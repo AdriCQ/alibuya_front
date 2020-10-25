@@ -6,14 +6,16 @@
     dark
     shrink-on-scroll
     height="auto"
+    id="app-bar-full"
   >
     <div class="d-block" style="width: 100%">
       <div class="h-3 d-flex align-center">
         <v-app-bar-nav-icon @click="toggleSidebarLeft" />
 
-        <div @click="goToRoute('main.home')" class="cursor-pointer">
-          ALIBUYA
-        </div>
+        <v-btn text @click="goToRoute('main.home')">
+          <span class="mr-1">Alibuya</span>
+          <v-icon color="primary" class="">mdi-emoticon-excited</v-icon>
+        </v-btn>
         <v-spacer />
         <template v-if="$vuetify.breakpoint.mdAndUp">
           <search-product-form style="max-width: 30rem" />
@@ -21,19 +23,21 @@
         </template>
         <!-- Auth buttons -->
         <v-btn text @click="openAuthPopup" v-if="!isLogged">
-          <span v-if="$vuetify.breakpoint.smAndUp" class="mr-2">
-            Identifícate
-          </span>
-          <v-icon class="ml-2">mdi-account-circle</v-icon>
+          <span> Identifícate </span>
+          <v-icon v-if="$vuetify.breakpoint.smAndUp" class="ml-2">
+            mdi-account-circle
+          </v-icon>
         </v-btn>
 
         <v-menu v-else>
           <template v-slot:activator="{ on }">
             <v-btn text v-on="on">
-              <span v-if="$vuetify.breakpoint.smAndUp" class="mr-2">
+              <span>
                 {{ userName }}
               </span>
-              <v-icon>mdi-account-circle</v-icon>
+              <v-icon v-if="$vuetify.breakpoint.smAndUp">
+                mdi-account-circle
+              </v-icon>
             </v-btn>
           </template>
 
@@ -47,45 +51,60 @@
           </v-list>
         </v-menu>
         <!-- / Auth buttons -->
-        <v-btn text @click="goToRoute('shop.cart')">
+        <v-btn text @click="goToRoute('shop.cart')" class="ml-2">
           <v-badge
             v-if="shopingCartCounter"
             color="primary"
             :content="shopingCartCounter"
           >
-            <span v-if="$vuetify.breakpoint.smAndUp" class="mr-2">
-              Mi Carrito
-            </span>
-            <v-icon>mdi-cart</v-icon>
+            <span v-if="$vuetify.breakpoint.smAndUp"> Mi Carrito </span>
+            <v-icon>mdi-cart-outline</v-icon>
           </v-badge>
           <template v-else>
-            <span v-if="$vuetify.breakpoint.smAndUp" class="mr-2">
-              Mi Carrito
-            </span>
-            <v-icon>mdi-cart</v-icon>
+            <span v-if="$vuetify.breakpoint.smAndUp"> Mi Carrito </span>
+            <v-icon>mdi-cart-outline</v-icon>
           </template>
         </v-btn>
       </div>
 
       <div class="h-3 d-flex align-center" v-if="!$vuetify.breakpoint.mdAndUp">
         <v-spacer />
-        <search-product-form style="max-width: 50rem" />
+        <search-product-form class="px-2" style="max-width: 50rem" />
         <v-spacer />
       </div>
     </div>
 
     <template v-slot:extension>
       <v-tabs centered>
-        <v-tab v-for="(dep, key) in departments" :key="key">{{
-          dep.labelLang[appLang]
-        }}</v-tab>
+        <!-- Pages -->
+        <!-- <v-tab
+          v-for="(page, pKey) in webPages"
+          :key="pKey"
+          exact
+          link
+          :to="page.to"
+        >
+          {{ page.label }}
+        </v-tab> -->
+        <!-- / Pages -->
+        <!-- Departments -->
+        <v-tab
+          v-for="(dep, key) in departments"
+          :key="key"
+          exact
+          link
+          :to="dep.to"
+        >
+          {{ dep.labelLang[appLang] }}
+        </v-tab>
+        <!-- / Departments -->
       </v-tabs>
     </template>
   </v-app-bar>
 </template>
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { DEPARTMENTS } from "@/utils/const";
+import { DEPARTMENTS, WEB_PAGES } from "@/utils/const";
 import { AppStore } from "@/store/App";
 import { PopupStore } from "@/store/Popups";
 import { AuthStore } from "@/store/Auth";
@@ -100,6 +119,10 @@ import { ShopStore } from "@/store/Shop";
 export default class AppBarFull extends Vue {
   get departments() {
     return DEPARTMENTS;
+  }
+
+  get webPages() {
+    return WEB_PAGES;
   }
 
   get appLang() {

@@ -1,6 +1,6 @@
 import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store';
-import { IProduct } from '@/types';
+import { IProduct, TNotificationAction, TRouteLink } from '@/types';
 import { ShopStore } from '@/store/Shop';
 import { INotification } from '@/types';
 import { AuthStore } from './Auth';
@@ -17,7 +17,13 @@ class PopupModule extends VuexModule {
   notificationPopup = false;
   notificationPopupContent: INotification = {
     content: [],
-    type: 'error'
+    type: 'error',
+    timeout: 2500,
+    action: {
+      icon: 'mdi-cart',
+      label: 'Ver',
+      to: { name: 'shop.cart' }
+    }
   };
 
   closeAll() {
@@ -35,9 +41,12 @@ class PopupModule extends VuexModule {
     this.productPopup = true;
   }
 
-  addNotification(_notifications: string[], _type: 'error' | 'info' | 'warning' | 'primary' | 'secondary' = 'error') {
+  addNotification(_notifications: string[], _type: 'error' | 'info' | 'warning' | 'primary' | 'secondary' = 'error', _timeout = 5000, _to?: TRouteLink, _action?: TNotificationAction) {
     this.clearNotifications();
     this.notificationPopupContent.type = _type;
+    this.notificationPopupContent.action = _action;
+    this.notificationPopupContent.timeout = _timeout;
+    this.notificationPopupContent.to = _to;
     for (const _data in _notifications) {
       if (String(_notifications[_data]).toString().includes("status code 401")) {
         this.notificationPopupContent.content.push('Autenticacion requerida')

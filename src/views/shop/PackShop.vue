@@ -5,7 +5,10 @@
         <!-- All Packs -->
         <v-col cols="12">
           <v-card>
-            <v-card-title>Paquetes</v-card-title>
+            <v-card-title>
+              <v-icon class="mr-1">{{ departmentIcon }}</v-icon>
+              Paquetes de {{ departmentName }}
+            </v-card-title>
             <v-card-text>
               <p>
                 Explicación sobre los límites de compra de 1,50 Kg por paquete y
@@ -25,15 +28,25 @@
                   v-for="(pack, packKey) in packs"
                   :key="`pack-list-${packKey}`"
                 >
-                  <v-card>
+                  <v-card max-width="350px">
                     <v-card-title>{{ pack.title }}</v-card-title>
                     <v-card-text
                       >Precio: ${{ Number(pack.price).toFixed(2) }}</v-card-text
                     >
                     <v-card-text>Peso: {{ Number(pack.weight) }} g</v-card-text>
-                    <v-card-text
-                      ><cant-input :cant.sync="pack.cant"
-                    /></v-card-text>
+                    <v-card-text>
+                      <cant-input :cant.sync="pack.cant" />
+                    </v-card-text>
+                    <v-card-text>
+                      <template v-if="pack.cant > 10">
+                        <!-- TODO: Add person form data -->
+                        <v-alert color="warning">
+                          Ha sobrepasado el límite de 10 paquetes por persona.
+                          Debe agregar los datos de otras
+                          {{ parseInt(pack.cant / 10) }} personas
+                        </v-alert>
+                      </template>
+                    </v-card-text>
                     <v-card-actions>
                       <v-btn @click="editPack(packKey)">
                         <v-icon>mdi-table-edit</v-icon>
@@ -60,7 +73,12 @@
       </v-row>
     </v-section>
 
-    <v-dialog v-model="dialog" scrollable fullscreen>
+    <v-dialog
+      v-model="dialog"
+      scrollable
+      fullscreen
+      transition="dialog-bottom-transition"
+    >
       <v-form>
         <v-card>
           <v-row no-gutters>
@@ -75,12 +93,23 @@
               v-if="packs.length"
             >
               <v-card :height="productAddedHeight" style="overflow-y: auto">
-                <v-text-field
-                  class="px-4"
-                  label="Nombre del Paquete"
-                  placeholder="Cambie el nombre del paquete"
-                  v-model="packName"
-                />
+                <v-row>
+                  <v-col cols="auto">
+                    <v-text-field
+                      class="px-4"
+                      label="Nombre del Paquete"
+                      placeholder="Cambie el nombre del paquete"
+                      v-model="packName"
+                    />
+                  </v-col>
+                  <v-col cols="auto">
+                    <cant-input
+                      :cant.sync="packCant"
+                      :can-minus="packCant > 1"
+                    />
+                  </v-col>
+                </v-row>
+
                 <v-card-text>
                   <v-list>
                     <v-list-item>
@@ -204,6 +233,8 @@
 import { Vue, Component } from "vue-property-decorator";
 import { CLOTHES } from "@/utils/test";
 import { IProduct, IProductsPack } from "@/types";
+import { DEPARTMENTS } from "@/utils/const";
+import { AppStore } from "@/store/App";
 
 @Component({
   components: {
@@ -218,6 +249,7 @@ export default class ShopView extends Vue {
   packs: IProductsPack[] = [];
   activePack = 0;
   packName = "";
+  packCant = 1;
 
   subTotalPrice = 0;
 
@@ -243,6 +275,22 @@ export default class ShopView extends Vue {
     return w;
   }
 
+  get tag() {
+    return this.$route.params.tag;
+  }
+  get departmentName(): string {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    return DEPARTMENTS[this.tag].labelLang[this.appLang];
+  }
+
+  get departmentIcon() {
+    return DEPARTMENTS[this.tag].icon;
+  }
+  get appLang() {
+    return AppStore.lang;
+  }
+
   get productListHeight() {
     switch (this.$vuetify.breakpoint.name) {
       case "xs":
@@ -258,11 +306,11 @@ export default class ShopView extends Vue {
     switch (this.$vuetify.breakpoint.name) {
       case "xs":
         if (!this.packFull) return "40vh";
-        else return "75vh";
+        else return "70vh";
 
       case "sm":
         if (!this.packFull) return "40vh";
-        else return "75vh";
+        else return "70vh";
       default:
         return "90vh";
     }
@@ -308,6 +356,7 @@ export default class ShopView extends Vue {
     });
     this.activePack = this.packs.length - 1;
     this.packName = "Paquete " + this.packs.length;
+    this.packCant = 1;
     this.dialog = true;
   }
 
@@ -315,6 +364,7 @@ export default class ShopView extends Vue {
     this.packs[this.activePack].price = this.subTotalPrice;
     this.packs[this.activePack].weight = this.packWeight;
     this.packs[this.activePack].title = this.packName;
+    this.packs[this.activePack].cant = this.packCant;
     this.dialog = false;
   }
 

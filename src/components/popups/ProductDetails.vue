@@ -2,7 +2,7 @@
   <v-dialog
     v-model="show"
     scrollable
-    :max-width="`${dialogMaxWidth}rem`"
+    :width="`${dialogMaxWidth}rem`"
     @click:outside="closePopup"
   >
     <v-card>
@@ -17,7 +17,7 @@
             <v-img :src="product.img" />
           </v-col>
           <v-col>
-            <ul>
+            <ul class="li-circle">
               <li v-for="(text, i) in product.description" :key="i">
                 {{ text }}
               </li>
@@ -37,7 +37,7 @@
         </v-btn> -->
         <v-btn color="primary" @click="goToDetails()"
           ><v-icon class="mr-1">mdi-cart-plus</v-icon>
-          <span v-if="$vuetify.breakpoint.smAndUp">Añadir al Carrito</span>
+          <span v-if="$vuetify.breakpoint.smAndUp">Ver Detalles</span>
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -47,6 +47,7 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { PopupStore } from "@/store/Popups";
+import { ShopStore } from "@/store/Shop";
 
 @Component
 export default class ProductDetailsPopup extends Vue {
@@ -80,6 +81,7 @@ export default class ProductDetailsPopup extends Vue {
   }
 
   goToDetails() {
+    ShopStore.productDetails = this.product;
     if (this.$route.name !== "shop.details")
       this.$router.push({
         name: "shop.details",

@@ -4,7 +4,7 @@
     <slick-carousel
       class="slick"
       ref="icons-carousel"
-      :arrows="true"
+      :arrows="false"
       :dots="true"
       :centerMode="false"
       :infinite="true"
@@ -13,7 +13,7 @@
       :swipeToSlide="true"
       :slidesToScroll="1"
       :centerPadding="'20px'"
-      :autoplay="false"
+      :autoplay="true"
       dotsClass="slick-dots"
     >
       <div v-for="(v, i) in products" :key="i" class="mx-2">

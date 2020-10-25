@@ -22,7 +22,7 @@ export const DEPARTMENTS: Dictionary<ILinkIconLabelModified> = {
     labelLang: { es: 'Ropas' },
     to: {
       name: 'shop.pack',
-      query: { tag: 'clothes' }
+      params: { tag: 'clothes' }
     }
   },
   automotriz: {
@@ -30,14 +30,14 @@ export const DEPARTMENTS: Dictionary<ILinkIconLabelModified> = {
     labelLang: { es: 'Automotriz' },
     to: {
       name: 'shop.tags',
-      params: { tag: 'auto' }
+      params: { tag: 'automotriz' }
     }
   },
   cell: {
     icon: 'mdi-cellphone-android',
     labelLang: { es: 'Celulares' },
     to: {
-      name: 'shop.tags',
+      name: 'shop.pack',
       params: { tag: 'cell' }
     }
 
@@ -65,11 +65,36 @@ export const DEPARTMENTS: Dictionary<ILinkIconLabelModified> = {
       name: 'shop.tags',
       params: { tag: 'health' }
     }
-
-
-  },
-  market: {
-    icon: 'mdi-basket',
-    labelLang: { es: 'Mercado' }
   }
 }
+
+export const WEB_PAGES: ILinkIconLabel[] = [
+  {
+    icon: "mdi-home",
+    label: "Inicio",
+    to: {
+      name: "main.home",
+    },
+  },
+  {
+    icon: "mdi-account-circle",
+    label: "Cuenta",
+    to: {
+      name: "settings.account",
+    },
+  },
+  {
+    icon: "mdi-account-circle",
+    label: "Pedidos",
+    to: { name: "shop.cart" },
+  },
+  {
+    icon: "mdi-account-circle",
+    label: "Rastrear Pedido",
+  },
+  {
+    icon: "mdi-account-circle",
+    label: "Atención al Cliente",
+    to: { name: "main.contact" },
+  },
+];

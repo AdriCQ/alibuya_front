@@ -28,7 +28,7 @@
           </v-card-text>
           <!-- TODO: Fix Electrodomesticos text -->
           <v-card-text class="subtitle">{{
-            department.label[lang]
+            department.labelLang[lang]
           }}</v-card-text>
         </v-card>
       </div>

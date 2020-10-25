@@ -5,7 +5,7 @@
     :min-width="`${width}rem`"
   >
     <div style="position: absolute; right: 3px; top: 0px; z-index: 2">
-      <v-btn color="error" @click="deleteProduct" icon
+      <v-btn color="error" x-large @click="deleteProduct" icon
         ><v-icon>mdi-delete-circle</v-icon></v-btn
       >
     </div>
@@ -17,14 +17,14 @@
     >
       <v-img width="100%" :src="product.img" />
     </div>
-    <v-card-title
-      ><span class="text-center" style="width: 100%">{{ product.title }}</span>
+    <v-card-title>
+      <span class="text-center" style="width: 100%">{{ product.title }}</span>
     </v-card-title>
     <v-card-text class="d-flex justify-center align-center">
-      <input-cant :cant.sync="product.cant" />
-      <span class="ml-2"
-        >Subtotal: ${{ Number(product.price * product.cant).toFixed(2) }}</span
-      >
+      <input-cant :cant.sync="product.cant" :can-minus="product.cant > 1" />
+      <span class="ml-2">
+        Subtotal: ${{ Number(product.price * product.cant).toFixed(2) }}
+      </span>
     </v-card-text>
   </v-card>
 </template>

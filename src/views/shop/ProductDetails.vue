@@ -1,6 +1,6 @@
 <template>
   <v-container id="product-details-view">
-    <section>
+    <section v-if="product">
       <v-card>
         <v-row>
           <v-col xs="12" sm="12" md="4" lg="4" xl="4" cols="12">
@@ -14,8 +14,8 @@
             </v-row>
           </v-col>
           <v-col xs="12" sm="12" md="8" lg="8" xl="8" cols="12">
-            <v-card-title class="font-weight-bold"
-              >${{ Number(product.price).toFixed(2) }}
+            <v-card-title class="font-weight-bold">
+              ${{ Number(product.price).toFixed(2) }}
             </v-card-title>
             <v-card-title>{{ product.title }} </v-card-title>
             <v-form>
@@ -34,23 +34,20 @@
                 ></v-select>
                 <v-checkbox
                   label="Entiendo que este producto tiene un cargo en destino de 5,00 CUC"
-                >
-                </v-checkbox>
+                />
                 <div class="d-flex d-flex-row align-center">
                   <span>
-                    <cant-input :cant.sync="cant" />
+                    <cant-input :cant.sync="cant" :can-minus="canMinus" />
                   </span>
-                  <span class="ml-3"
-                    >Subtotal: ${{
-                      Number(product.price * cant).toFixed(2)
-                    }}</span
-                  >
+                  <span class="ml-3">
+                    Subtotal: ${{ Number(product.price * cant).toFixed(2) }}
+                  </span>
                 </div>
 
-                <v-btn color="primary" class="mt-4" @click="addToCart"
-                  ><v-icon class="mr-2">mdi-cart-plus</v-icon>Listo para
-                  añadir</v-btn
-                >
+                <v-btn color="primary" class="mt-4" @click="addToCart">
+                  <v-icon class="mr-2">mdi-cart-plus</v-icon>
+                  Listo para añadir
+                </v-btn>
               </v-card-text>
             </v-form>
           </v-col>
@@ -75,6 +72,7 @@
 import { Vue, Component } from "vue-property-decorator";
 import { ShopStore } from "@/store/Shop";
 import { PopupStore } from "@/store/Popups";
+import { IProduct } from "@/types";
 
 @Component({
   components: {
@@ -83,21 +81,40 @@ import { PopupStore } from "@/store/Popups";
   },
 })
 export default class ProductDetailsView extends Vue {
-  cant = 0;
+  created() {
+    if (this.product === null) {
+      this.$router.push({
+        name: "main.home",
+      });
+    }
+  }
+  cant = 1;
+
   get product() {
-    return ShopStore.allProducts[0];
+    return ShopStore.productDetails;
   }
 
   get suggestProducts() {
     return ShopStore.allProducts;
   }
 
+  get canMinus() {
+    return this.cant > 1 ? true : false;
+  }
+
   addToCart() {
-    ShopStore.addShoppingCartProduct(this.product, this.cant);
-    this.cant = 0;
+    ShopStore.addShoppingCartProduct(this.product as IProduct, this.cant);
+    this.cant = 1;
     PopupStore.addNotification(
-      ["Producto añadido al carrito correctamente"],
-      "info"
+      [
+        "Producto añadido al carrito correctamente",
+        "Presione aquí para ver más detalles",
+      ],
+      "secondary",
+      5000,
+      {
+        name: "shop.cart",
+      }
     );
   }
 }

@@ -1,4 +1,3 @@
-
 /**
  * -----------------------------------------
  * Products
@@ -24,3 +23,5 @@ export interface IProductsPack {
   price: number;
   cant?: number;
 }
+
+export type TDepartment = 'clothes' | 'automotriz' | 'cell' | 'home' | 'child' | 'health' | 'market'

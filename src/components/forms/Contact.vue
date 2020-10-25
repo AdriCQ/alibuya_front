@@ -1,5 +1,5 @@
 <template>
-  <v-form>
+  <v-form @submit.prevent="submit">
     <v-text-field
       v-model="form.email"
       label="Su Email"
@@ -7,6 +7,10 @@
     />
     <v-text-field v-model="form.subject" label="Asunto" placeholder="Asunto" />
     <v-textarea v-model="form.message" label="Mensaje" />
+    <v-btn type="submit" color="primary">
+      <v-icon>mdi-send</v-icon>
+      <span class="ml-2">Enviar</span>
+    </v-btn>
   </v-form>
 </template>
 
@@ -25,5 +29,15 @@ export default class ContactForm extends Vue {
     message: "",
     subject: "",
   };
+
+  get isValid() {
+    return true;
+  }
+
+  submit() {
+    if (this.isValid) {
+      alert("Submit");
+    }
+  }
 }
 </script>

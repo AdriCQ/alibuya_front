@@ -9,26 +9,34 @@
       <v-container class="py-0 my-0">
         <v-row>
           <v-col cols="12" sm="6">
-            <v-text-field
-              label="Email*"
-              v-model="form.email"
-              required
-            ></v-text-field>
+            <v-text-field label="Email*" v-model="form.email" required />
           </v-col>
           <v-col cols="12" sm="6">
             <v-text-field
               v-model="form.password"
               label="Contraseña*"
-              type="password"
+              :type="passwordType"
               required
-            ></v-text-field>
+            >
+              <template v-slot:append>
+                <v-icon
+                  v-if="!showPassword"
+                  @click="showPassword = !showPassword"
+                >
+                  mdi-eye-outline
+                </v-icon>
+                <v-icon v-else @click="showPassword = !showPassword">
+                  mdi-eye-off-outline
+                </v-icon>
+              </template>
+            </v-text-field>
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="12" sm="6">
-            <span class="info--text cursor-pointer" @click="$emit('toggle')"
-              >No tengo Usuario</span
-            >
+            <span class="info--text cursor-pointer" @click="$emit('toggle')">
+              No tengo Usuario
+            </span>
           </v-col>
         </v-row>
       </v-container>
@@ -51,10 +59,18 @@ import { AuthStore } from "@/store/Auth";
 
 @Component
 export default class LoginForm extends Vue {
+  showPassword = false;
+
   form: ILoginParams = {
     email: "",
     password: "",
   };
+  /**
+   *
+   */
+  get passwordType() {
+    return this.showPassword ? "text" : "password";
+  }
 
   /**
    *
