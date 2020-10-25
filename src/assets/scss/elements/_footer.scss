@@ -1,0 +1,34 @@
+// variables
+$footer-trans-hover-time: 0.5s;
+
+footer.footer-main {
+  .external-links .v-list-item--link {
+    min-height: 45px;
+    @include hover {
+      .v-list-item__action-text {
+        color: white !important;
+      }
+    }
+  }
+
+  .contact-banners .v-list-item {
+    padding-left: 0;
+    .v-banner {
+      transition: $footer-trans-hover-time all;
+      .v-banner__wrapper {
+        padding: {
+          top: 0;
+          bottom: 0;
+        }
+        border-bottom: none;
+
+        .v-avatar {
+          &,
+          .v-icon {
+            transition: $footer-trans-hover-time all;
+          }
+        }
+      }
+    }
+  }
+}

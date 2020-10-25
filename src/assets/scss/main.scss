@@ -1,6 +1,10 @@
 // Settings
 @import "settings/variables";
 
+// Utils
+@import "utils/mixins";
+@import "utils/utils";
+
 // Components
 @import "components/app-bar";
 @import "components/banner-widget";
@@ -10,11 +14,10 @@
 // Elements
 @import "elements/body";
 @import "elements/forms";
+@import "elements/footer";
 @import "elements/lists";
 @import "elements/main";
 
-// Utils
-@import "utils/utils";
 
 /* Import Vuetify style definition */
 @import "~vuetify/src/styles/main.sass";
