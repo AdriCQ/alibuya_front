@@ -4,7 +4,7 @@
       <v-row>
         <v-col cols="12" sm="6" md>
           <div class="d-flex align-center justify-center justify-md-start">
-            <v-img src="images/logo.png" max-width="65" />
+            <v-img src="img/icons/logo.png" max-width="65" />
             <span class="text-h3"> Alibuya </span>
           </div>
 
