@@ -15,9 +15,9 @@
       <!-- Provides the application the proper gutter -->
       <!-- If using vue-router -->
       <router-view></router-view>
-    </v-main>
 
-    <app-footer />
+      <app-footer />
+    </v-main>
   </div>
 </template>
 
