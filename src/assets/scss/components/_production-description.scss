@@ -1,0 +1,11 @@
+.production-description {
+  table {
+    margin-bottom: 20px;
+    thead tr:first-child th:first-child {
+      width: 180px;
+    }
+    thead tr th {
+      font-size: 0.8rem !important;
+    }
+  }
+}

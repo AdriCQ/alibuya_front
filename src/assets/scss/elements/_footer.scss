@@ -1,31 +1,26 @@
-// variables
-$footer-trans-hover-time: 0.5s;
-
 footer.footer-main {
-  .external-links .v-list-item--link {
-    min-height: 45px;
-    @include hover {
-      .v-list-item__action-text {
-        color: white !important;
-      }
-    }
-  }
+  .links {
+    .v-list {
+      padding: 0;
+      .v-list-item--link {
+        min-height: 32px;
 
-  .contact-banners .v-list-item {
-    padding-left: 0;
-    .v-banner {
-      transition: $footer-trans-hover-time all;
-      .v-banner__wrapper {
-        padding: {
-          top: 0;
-          bottom: 0;
+        @include hover {
+          color: white !important;
         }
-        border-bottom: none;
 
-        .v-avatar {
-          &,
-          .v-icon {
-            transition: $footer-trans-hover-time all;
+        &:before {
+          background-color: transparent;
+        }
+
+        .v-list-item__content {
+          padding: {
+            top: 3px;
+            bottom: 3px;
+          }
+          .v-list-item__title {
+            text-align: center;
+            font-size: 14px;
           }
         }
       }

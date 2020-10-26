@@ -1,109 +1,98 @@
 <template>
-  <v-footer padless dark color="secondary" class="pt-3 pb-0 px-2 footer-main">
-    <v-container fluid>
-      <v-row dense>
-        <v-col cols="12" md="8">
-          <v-row justify="center">
-            <v-col v-for="n in 3" :key="n" cols="6" sm="3" class="pt-0">
-              <!-- External Links -->
-              <v-list color="secondary" class="external-links pt-0" dark>
-                <v-list-item class="text-center">
-                  <v-list-item-content>
-                    <v-list-item-title>Title</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
+  <v-footer padless dark inset color="secondary" class="pt-3 footer-main">
+    <v-container>
+      <v-row>
+        <v-col cols="12" sm="6" md>
+          <div class="d-flex align-center justify-center justify-md-start">
+            <v-img src="images/logo.png" max-width="65" />
+            <span class="text-h3"> Alibuya </span>
+          </div>
 
-                <v-list-item
-                  color="secondary"
-                  v-for="(link, key) in externalLinks"
-                  :key="key"
-                  :to="{ name: link.to }"
-                  class="fit-width mx-auto"
-                >
-                  <v-list-item-content>
-                    <v-list-item-action-text>
-                      {{ link.label }}
-                    </v-list-item-action-text>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-              <!-- / External Links -->
-            </v-col>
-          </v-row>
+          <p class="mb-0">
+            Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada
+            terra videa magna derita valies.
+          </p>
         </v-col>
 
-        <v-col cols="12" md="4">
-          <!-- Contact Banners -->
-          <div class="contact-banners mx-auto">
-            <h4 class="title text-center text-md-left">Title</h4>
-            <v-list
-              color="secondary"
-              class="mx-auto mx-md-0 pt-0"
-              max-width="300"
-              subheader
-              dense
-              dark
-            >
-              <v-list-item v-for="(link, key) in contactLinks" :key="key" dense>
+        <v-divider v-if="$vuetify.breakpoint.mdAndUp" vertical class="my-4" />
+
+        <v-col cols="12" sm="3" md="2">
+          <!-- Navigation Links -->
+          <div class="links">
+            <h5 class="subtitle-1 text-center">Navegación</h5>
+            <v-list class="secondary d-flex d-sm-block">
+              <v-list-item
+                v-for="(link, key) in navLinks"
+                :key="key"
+                :to="{ name: link.to }"
+                class="grey--text text--lighten-1 fit-width mx-auto"
+              >
                 <v-list-item-content>
                   <v-list-item-title>
-                    <v-hover v-slot="{ hover }">
-                      <v-banner
-                        rounded="xl"
-                        :color="hover ? 'primary' : 'white'"
-                        :width="link.width"
-                        class="py-1 mx-auto mx-md-0"
-                        :light="hover ? false : true"
-                        single-line
-                      >
-                        <template v-slot:icon>
-                          <v-icon
-                            :color="hover ? 'white' : 'primary'"
-                            class="mr-auto"
-                            medium
-                            >{{ link.icon }}</v-icon
-                          >
-                        </template>
-                        <span class="text-body-1"> {{ link.label }}</span>
-                      </v-banner>
-                    </v-hover>
+                    {{ link.label }}
                   </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
           </div>
-          <!-- / Contact Banners -->
+          <!-- / Navigation Links -->
+        </v-col>
+
+        <v-col cols="12" sm="3" md="2">
+          <!-- Others Links -->
+          <div class="links">
+            <h5 class="subtitle-1 text-center">Otros</h5>
+            <v-list class="secondary d-flex d-sm-block">
+              <v-list-item
+                v-for="(link, key) in otherLinks"
+                :key="key"
+                :to="{ name: link.to }"
+                class="grey--text text--lighten-1 fit-width mx-auto"
+              >
+                <v-list-item-content>
+                  <v-list-item-title>
+                    {{ link.label }}
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </div>
+          <!-- /  Others Links -->
+        </v-col>
+
+        <v-col cols="12" sm="6" md="4">
+          <div class="contact-banners mx-auto">
+            <div class="links">
+              <h4 class="title text-center">Contáctenos</h4>
+              <v-list
+                color="secondary"
+                class="mx-auto mx-md-0"
+                subheader
+                dense
+                dark
+              >
+                <v-list-item
+                  v-for="(link, key) in contactLinks"
+                  :key="key"
+                  dense
+                >
+                  <v-list-item-icon>
+                    <v-icon color="light" size="22">{{ link.icon }}</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title> {{ link.label }} </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </div>
+          </div>
         </v-col>
       </v-row>
 
       <v-divider></v-divider>
 
       <v-row justify="space-between" align="center">
-        <v-col sm="4" md="4">
-          <v-img
-            src="images/logo.png"
-            max-width="200"
-            alt="logo"
-            class="mx-auto mx-md-0"
-          />
-        </v-col>
-        <!-- Main Links -->
-        <!--
-        <v-col cols="12" sm>     
-          <v-list dense color="secondary" class="d-flex">
-            <v-list-item v-for="(link, key) in links" :key="key" class="px-0">
-              <v-list-item-content>
-                <v-btn color="transparent" small depressed dark>
-                  {{ link.label }}
-                </v-btn>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>  
-        </v-col>
-          -->
-        <!-- / Main Links -->
-
-        <v-col md="3" offset-md="1">
+        <v-col>
           <!-- Social Links -->
           <div class="text-center">
             <v-btn
@@ -124,51 +113,51 @@
 </template>
 
 <script lang='ts'>
-import { ILinkIconLabel } from "@/types";
 import { Vue, Component } from "vue-property-decorator";
 
 @Component
 export default class AppFooter extends Vue {
   icons = ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"];
 
-  get links(): ILinkIconLabel[] {
+  get navLinks() {
     return [
       {
-        label: "Link 1",
+        label: "Inicio",
+        to: "main.home",
       },
       {
-        label: "Link 2",
+        label: "Carrito",
+        to: "main.home",
       },
       {
-        label: "Link 3",
-      },
-      {
-        label: "Link 4",
+        label: "Cuentas",
+        to: "main.home",
       },
     ];
   }
 
-  get externalLinks() {
+  get otherLinks() {
     return [
       {
-        label: "Link 1",
-        to: "link 1",
+        label: "Ropas",
+        to: "main.home",
       },
       {
-        label: "Link 2",
-        to: "link 2",
+        label: "Automotiz",
+        to: "main.home",
       },
       {
-        label: "Link 3",
-        to: "link 3",
+        label: "Celulares",
+        to: "main.home",
       },
     ];
   }
 
   get contactLinks() {
     return [
-      { icon: "mdi-phone", label: "+53 92 71 28", width: 200 },
-      { icon: "mdi-mail", label: "royal.boxx@nauta.cu", width: 260 },
+      { icon: "mdi-chat", label: "chat.alibuya" },
+      { icon: "mdi-mail", label: "correo.alibuya.com" },
+      { icon: "mdi-phone", label: "+1 (844) 777 0122" },
     ];
   }
 }
