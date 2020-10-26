@@ -22,7 +22,7 @@
             </v-card-text>
           </v-col>
           <v-col cols="12" xs="12" sm="6" md="6" lg="6" xl="6">
-            <v-img src="images/png/1.png" width="100%" />
+            <v-img src="img/png/1.png" width="100%" />
           </v-col>
         </v-row>
       </v-sheet>
@@ -47,7 +47,7 @@
           </v-col>
 
           <v-col cols="12" xs="12" sm="4" md="4" lg="4" xl="4">
-            <v-img src="images/png/2.png" width="100%" />
+            <v-img src="img/png/2.png" width="100%" />
           </v-col>
         </v-row>
       </v-sheet>
@@ -78,7 +78,7 @@
           </v-col>
 
           <v-col cols="12" xs="12" sm="4" md="4" lg="4" xl="4">
-            <v-img src="images/png/4.png" width="100%" />
+            <v-img src="img/png/4.png" width="100%" />
           </v-col>
         </v-row>
       </v-sheet>

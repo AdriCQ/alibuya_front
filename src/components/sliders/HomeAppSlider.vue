@@ -7,7 +7,7 @@
   >
     <v-carousel-item>
       <v-section
-        bg="images/banners/b3.jpg"
+        bg="img/banners/b3.jpg"
         height="auto"
         class="pa-5"
         :minHeight="minHeight"
@@ -43,7 +43,7 @@
     </v-carousel-item>
     <v-carousel-item>
       <v-section
-        bg="images/banners/b1.jpg"
+        bg="img/banners/b1.jpg"
         height="auto"
         class="pa-5"
         :minHeight="minHeight"
@@ -73,7 +73,7 @@
 
     <v-carousel-item>
       <v-section
-        bg="images/banners/b2.png"
+        bg="img/banners/b2.png"
         height="auto"
         class="pa-5"
         :minHeight="minHeight"
