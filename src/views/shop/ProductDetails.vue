@@ -55,6 +55,7 @@
       </v-card>
     </section>
 
+    <!--
     <section>
       <v-row class="py-0">
         <v-col>
@@ -62,6 +63,15 @@
             <v-card-title>Sugerencias</v-card-title>
             <products-slider :products="suggestProducts" />
           </v-card>
+        </v-col>
+      </v-row>
+    </section>
+    -->
+
+    <section>
+      <v-row class="py-0">
+        <v-col>
+          <tabs-description />
         </v-col>
       </v-row>
     </section>
@@ -73,11 +83,13 @@ import { Vue, Component } from "vue-property-decorator";
 import { ShopStore } from "@/store/Shop";
 import { PopupStore } from "@/store/Popups";
 import { IProduct } from "@/types";
+import TabsDescription from "@/components/data/TabsDescription.vue";
 
 @Component({
   components: {
     "cant-input": () => import("@/components/forms/shop/ProductCantInput.vue"),
     "products-slider": () => import("@/components/sliders/ProductsSlider.vue"),
+    "tabs-description": TabsDescription,
   },
 })
 export default class ProductDetailsView extends Vue {
