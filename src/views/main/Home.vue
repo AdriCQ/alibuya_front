@@ -2,7 +2,7 @@
   <div id="main-home">
     <!-- banner Carousel -->
     <v-section
-      bg="images/banners/b3.jpg"
+      bg="img/banners/b3.jpg"
       height="auto"
       class="pa-5"
       min-height="300px"
