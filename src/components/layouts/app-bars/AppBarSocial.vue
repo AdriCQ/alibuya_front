@@ -65,12 +65,10 @@
 </template>
 
 <script lang='ts'>
-import { AppStore } from "@/store/App";
-import { PopupStore } from "@/store/Popups";
+import { AppStore, AuthStore } from "@/store";
 import { LANG } from "@/utils/const";
 import { Vue, Component } from "vue-property-decorator";
 import { TLang } from "@/types";
-import { AuthStore } from "@/store/Auth";
 
 @Component
 export default class AppBarSocial extends Vue {

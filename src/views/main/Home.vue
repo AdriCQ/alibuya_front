@@ -131,8 +131,7 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { ShopStore } from "@/store/Shop";
-import { PopupStore } from "@/store/Popups";
+import { PopupStore, ShopStore } from "@/store";
 
 @Component({
   components: {

@@ -1,4 +1,4 @@
-import { Dictionary, TRouteLink } from '../utils';
+import { Dictionary, TRouteLink, TStatusColor } from '@/types';
 
 export type TNotificationAction = {
   icon: string;
@@ -7,7 +7,7 @@ export type TNotificationAction = {
 };
 
 export interface INotification {
-  type: 'error' | 'info' | 'warning' | 'primary' | 'secondary';
+  type: TStatusColor;
   icon?: string;
   content: string[];
   timeout: number;

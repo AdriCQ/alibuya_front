@@ -5,4 +5,5 @@ export interface IUserProfile {
   email: string;
   mobile_phone?: string;
   gender?: 'm' | 'f';
+  address?: string;
 }

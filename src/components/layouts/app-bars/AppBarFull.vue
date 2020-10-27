@@ -51,7 +51,8 @@
           </v-list>
         </v-menu>
         <!-- / Auth buttons -->
-        <v-btn text @click="goToRoute('shop.cart')" class="ml-2">
+
+        <v-btn text @click="goToRoute('shop.cart')" class="ml-2 mr-2">
           <v-badge
             v-if="shopingCartCounter"
             color="primary"
@@ -105,10 +106,7 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { DEPARTMENTS, WEB_PAGES } from "@/utils/const";
-import { AppStore } from "@/store/App";
-import { PopupStore } from "@/store/Popups";
-import { AuthStore } from "@/store/Auth";
-import { ShopStore } from "@/store/Shop";
+import { AppStore, AuthStore, PopupStore, ShopStore } from "@/store";
 
 @Component({
   components: {

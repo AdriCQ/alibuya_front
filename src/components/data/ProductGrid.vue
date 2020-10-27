@@ -11,7 +11,7 @@
 </template>
 
 <script lang='ts'>
-import { ShopStore } from "@/store/Shop";
+import { ShopStore } from "@/store";
 import { IProduct, TDepartment } from "@/types";
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 

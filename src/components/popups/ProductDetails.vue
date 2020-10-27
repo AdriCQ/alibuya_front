@@ -36,8 +36,8 @@
           <span v-if="$vuetify.breakpoint.smAndUp">Detalles Avanzados</span>
         </v-btn> -->
         <v-btn color="primary" @click="goToDetails()"
-          ><v-icon class="mr-1">mdi-cart-plus</v-icon>
-          <span v-if="$vuetify.breakpoint.smAndUp">Ver Detalles</span>
+          ><v-icon class="mr-1">mdi-cart-outline</v-icon>
+          <span>Más Opciones</span>
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -70,7 +70,7 @@ export default class ProductDetailsPopup extends Vue {
       case "sm":
         return 40;
       case "xs":
-        return 20;
+        return 28;
       default:
         return 10;
     }

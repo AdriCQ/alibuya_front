@@ -8,13 +8,13 @@
     <!--/  Popups -->
 
     <app-sidebar-left />
-    <app-header />
+    <app-header class="pa-2" />
 
     <!-- Sizes your content based upon application components -->
     <v-main id="app-content">
       <!-- Provides the application the proper gutter -->
       <!-- If using vue-router -->
-      <router-view></router-view>
+      <router-view class="min-main-content" />
 
       <app-footer />
     </v-main>

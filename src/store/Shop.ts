@@ -1,7 +1,8 @@
 import { VuexModule, Module } from 'vuex-class-modules';
-import store from '@/store';
+import store from '@/store/store';
+import { AuthStore } from '@/store';
 import { PRODUCTS } from '@/utils/test';
-import { IProductCart, IProduct } from '@/types';
+import { IProductCart, IProduct, TPackDestinationPerson } from '@/types';
 
 @Module({ generateMutationSetters: true })
 class ShopModule extends VuexModule {
@@ -9,6 +10,9 @@ class ShopModule extends VuexModule {
   shoppingCartProducts: IProductCart[] = [];
 
   productDetails: IProduct | null = null;
+
+  // Packs
+  _userDestinataries: TPackDestinationPerson[] = [];
 
   get allProducts() {
     return PRODUCTS;
@@ -42,6 +46,28 @@ class ShopModule extends VuexModule {
    */
   removeShoppingCartProduct(key: number) {
     this.shoppingCartProducts.splice(key, 1);
+  }
+
+  get userPacks() { return [] }
+
+  get userDestinataries(): TPackDestinationPerson[] {
+    if (AuthStore.isLogged) {
+      this._userDestinataries.push({
+        first_name: AuthStore.profile.first_name,
+        last_name: AuthStore.profile.last_name,
+        address: AuthStore.profile.address ? AuthStore.profile.address : '',
+      })
+    }
+    return this._userDestinataries;
+  }
+
+  /**
+   * addUserDestinatary
+   * @param dest TPackDestinationPerson
+   */
+  addUserDestinatary(dest: TPackDestinationPerson) {
+    if (dest.first_name !== '' && dest.last_name !== '' && dest.address !== '')
+      this._userDestinataries.unshift(dest);
   }
 }
 

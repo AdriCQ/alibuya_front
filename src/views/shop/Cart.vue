@@ -1,5 +1,5 @@
 <template>
-  <div id="shop-cart-view">
+  <div id="shop-cart-view" class="mt-2">
     <!-- Confirm delete -->
     <v-dialog v-model="deleteDialog" max-width="600px">
       <v-card>
@@ -23,7 +23,7 @@
     </v-dialog>
     <!-- / Confirm delete -->
 
-    <v-section class="mt-0">
+    <v-section>
       <v-card>
         <v-card-title>
           <v-icon class="mr-2">mdi-cart</v-icon>
@@ -117,7 +117,7 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { ShopStore } from "@/store/Shop";
+import { ShopStore } from "@/store";
 
 @Component({
   components: {

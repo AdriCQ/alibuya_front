@@ -15,7 +15,7 @@
 </template>
 
 <script lang='ts'>
-import { AuthStore } from "@/store/Auth";
+import { AuthStore } from "@/store";
 import { Vue, Component } from "vue-property-decorator";
 
 @Component

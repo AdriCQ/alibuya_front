@@ -1,5 +1,5 @@
 import { VuexModule, Module, Action } from 'vuex-class-modules';
-import store from '@/store';
+import store from '@/store/store';
 import { IUserProfile, ILoginParams, IRegisterParams } from '@/types';
 import { AuthService } from '@/services';
 

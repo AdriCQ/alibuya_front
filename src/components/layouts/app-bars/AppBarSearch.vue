@@ -12,7 +12,7 @@
 </template>
 
 <script lang='ts'>
-import { AppStore } from "@/store/App";
+import { AppStore } from "@/store";
 import { Vue, Component } from "vue-property-decorator";
 
 @Component({

@@ -53,9 +53,8 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { PopupStore } from "@/store/Popups";
 import { ILoginParams } from "@/types";
-import { AuthStore } from "@/store/Auth";
+import { AuthStore, PopupStore } from "@/store";
 
 @Component
 export default class LoginForm extends Vue {

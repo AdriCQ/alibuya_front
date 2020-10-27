@@ -1,6 +1,6 @@
 <template>
-  <div id="show-view">
-    <v-section class="mt-2">
+  <div id="show-view" class="mt-2">
+    <v-section>
       <v-row>
         <!-- All Packs -->
         <v-col cols="12">
@@ -234,7 +234,7 @@ import { Vue, Component } from "vue-property-decorator";
 import { CLOTHES } from "@/utils/test";
 import { IProduct, IProductsPack } from "@/types";
 import { DEPARTMENTS } from "@/utils/const";
-import { AppStore } from "@/store/App";
+import { AppStore } from "@/store";
 
 @Component({
   components: {

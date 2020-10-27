@@ -37,7 +37,7 @@ export const DEPARTMENTS: Dictionary<ILinkIconLabelModified> = {
     icon: 'mdi-cellphone-android',
     labelLang: { es: 'Celulares' },
     to: {
-      name: 'shop.pack',
+      name: 'shop.tags',
       params: { tag: 'cell' }
     }
 

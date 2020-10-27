@@ -104,9 +104,8 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { PopupStore } from "@/store/Popups";
 import { IRegisterParams } from "@/types";
-import { AuthStore } from "@/store/Auth";
+import { AuthStore, PopupStore } from "@/store";
 
 @Component
 export default class RegisterForm extends Vue {

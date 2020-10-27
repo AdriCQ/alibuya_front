@@ -57,11 +57,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 
 import { Vue, Component } from "vue-property-decorator";
-import { AppStore } from "@/store/App";
+import { AppStore, AuthStore, PopupStore } from "@/store";
 import { ILinkIconLabel } from "@/types";
 import { DEPARTMENTS, LANG, WEB_PAGES } from "@/utils/const";
-import { AuthStore } from "@/store/Auth";
-import { PopupStore } from "@/store/Popups";
 
 @Component
 export default class AppSidebarLeft extends Vue {

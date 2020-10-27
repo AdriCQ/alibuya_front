@@ -1,4 +1,5 @@
-import { SERVICE_CONFIG } from "./config";
+import { SERVICE_CONFIG } from '@/services';
+
 import { ApiResponse, IProduct, ISuggesedParams, ApiResponsePaginated } from '@/types';
 import Axios from 'axios';
 

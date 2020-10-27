@@ -30,8 +30,7 @@
 
 <script lang='ts'>
 import { Vue, Component, Watch, Prop } from "vue-property-decorator";
-import { PopupStore } from "@/store/Popups";
-import { ShopStore } from "@/store/Shop";
+import { PopupStore, ShopStore } from "@/store";
 import { IProduct, TDepartment } from "@/types";
 
 @Component

@@ -28,7 +28,8 @@ export const shopRoutes: RouteConfig = {
       component: () => import('@/views/shop/Cart.vue'),
       meta: {
         title: 'Mi Carrito'
-      }
+      },
+      beforeEnter: BaseAuthGuard
     },
     {
       name: 'shop.details',
@@ -36,9 +37,9 @@ export const shopRoutes: RouteConfig = {
       component: () => import('@/views/shop/ProductDetails.vue'),
       meta: {
         title: 'Productos'
-      }
+      },
+      beforeEnter: BaseAuthGuard
     },
-
     {
       name: 'shop.checkout',
       path: 'checkout',

@@ -13,7 +13,7 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { DEPARTMENTS } from "@/utils/const";
-import { AppStore } from "@/store/App";
+import { AppStore } from "@/store";
 
 @Component
 export default class ShopHome extends Vue {

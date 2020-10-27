@@ -30,3 +30,5 @@ export interface IVSelectItem {
   text: string;
   value: string;
 }
+
+export type TStatusColor = 'error' | 'info' | 'warning' | 'success' | 'primary' | 'secondary';
