@@ -4,7 +4,24 @@
   max-width: 8rem;
   border-radius: 1rem;
   display: flex;
-  padding: 0.5rem;
+  // padding: 0.5rem;
   justify-content: center;
   align-content: center;
+  .cant {
+    padding: 0.5rem 0 0.5rem 0;
+  }
+  .ci-button {
+    cursor: pointer;
+    min-width: 30%;
+    &:hover {
+      background-color: $primary-color;
+      color: white;
+    }
+  }
+  .ci-button-plus {
+    border-radius: 0 1rem 1rem 0;
+  }
+  .ci-button-minus {
+    border-radius: 1rem 0 0 1rem;
+  }
 }

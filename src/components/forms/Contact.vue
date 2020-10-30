@@ -15,13 +15,13 @@
 </template>
 
 <script lang='ts'>
-import { AuthStore } from "@/store";
+import { UserStore } from "@/store";
 import { Vue, Component } from "vue-property-decorator";
 
 @Component
 export default class ContactForm extends Vue {
   mounted() {
-    this.form.email = AuthStore.profile?.email;
+    this.form.email = UserStore.profile?.email;
   }
 
   form = {

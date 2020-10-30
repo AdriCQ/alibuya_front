@@ -65,7 +65,7 @@
 </template>
 
 <script lang='ts'>
-import { AppStore, AuthStore } from "@/store";
+import { AppStore, UserStore } from "@/store";
 import { LANG } from "@/utils/const";
 import { Vue, Component } from "vue-property-decorator";
 import { TLang } from "@/types";
@@ -73,7 +73,7 @@ import { TLang } from "@/types";
 @Component
 export default class AppBarSocial extends Vue {
   get isLogged() {
-    return AuthStore.isLogged;
+    return UserStore.isLogged;
   }
 
   get allLang() {

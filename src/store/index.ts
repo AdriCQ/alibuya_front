@@ -1,5 +1,5 @@
 
 export * from './App';
-export * from './Auth';
+export * from './User';
 export * from './Shop';
 export * from './Popups';

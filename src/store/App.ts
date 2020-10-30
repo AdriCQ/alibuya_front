@@ -6,6 +6,7 @@ import { TLang } from '@/types';
 class AppModule extends VuexModule {
   sidebarLeft = false;
   lang: TLang = "es";
+  cookieAcceted = false;
 }
 // register module (could be in any file)
 export const AppStore = new AppModule({ store, name: 'App' });

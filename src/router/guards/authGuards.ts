@@ -1,4 +1,4 @@
-import { AuthStore } from '@/store/Auth';
+import { UserStore } from '@/store/User';
 import { NavigationGuard } from 'vue-router';
 import { PopupStore } from '@/store/Popups';
 
@@ -9,7 +9,7 @@ import { PopupStore } from '@/store/Popups';
  * @param next 
  */
 export const BaseAuthGuard: NavigationGuard = (to, from, next) => {
-  if (!AuthStore.isLogged) {
+  if (!UserStore.isLogged) {
     PopupStore.openAuth('login');
   } else {
     next();

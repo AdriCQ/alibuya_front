@@ -74,7 +74,7 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { AppStore, AuthStore, PopupStore } from "@/store";
+import { AppStore, UserStore, PopupStore } from "@/store";
 import { LANG } from "@/utils/const";
 import { TLang } from "@/types";
 
@@ -93,7 +93,7 @@ export default class AppBarPages extends Vue {
   }
 
   get isLogged() {
-    return AuthStore.isLogged;
+    return UserStore.isLogged;
   }
 
   get allLang() {

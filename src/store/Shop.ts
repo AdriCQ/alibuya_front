@@ -1,18 +1,16 @@
 import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store/store';
-import { AuthStore } from '@/store';
 import { PRODUCTS } from '@/utils/test';
-import { IProductCart, IProduct, TPackDestinationPerson } from '@/types';
+import { IProductCart, IProduct, IProductsPack } from '@/types';
 
 @Module({ generateMutationSetters: true })
 class ShopModule extends VuexModule {
 
   shoppingCartProducts: IProductCart[] = [];
 
-  productDetails: IProduct | null = null;
+  shoppingCartPacks: IProductsPack[] = [];
 
-  // Packs
-  _userDestinataries: TPackDestinationPerson[] = [];
+  productDetails: IProduct | null = null;
 
   get allProducts() {
     return PRODUCTS;
@@ -48,27 +46,51 @@ class ShopModule extends VuexModule {
     this.shoppingCartProducts.splice(key, 1);
   }
 
-  get userPacks() { return [] }
-
-  get userDestinataries(): TPackDestinationPerson[] {
-    if (AuthStore.isLogged) {
-      this._userDestinataries.push({
-        first_name: AuthStore.profile.first_name,
-        last_name: AuthStore.profile.last_name,
-        address: AuthStore.profile.address ? AuthStore.profile.address : '',
-      })
-    }
-    return this._userDestinataries;
+  /**
+   * Add ShopingCartPack
+   * @param _pack IProductsPack[]
+   */
+  addShoppingCartPacks(_pack: IProductsPack[]) {
+    this.shoppingCartPacks.push(..._pack);
   }
 
   /**
-   * addUserDestinatary
-   * @param dest TPackDestinationPerson
+   * Remove pack from shoppingCartPacks
    */
-  addUserDestinatary(dest: TPackDestinationPerson) {
-    if (dest.first_name !== '' && dest.last_name !== '' && dest.address !== '')
-      this._userDestinataries.unshift(dest);
+  removeShoppingCartPack(key: number) {
+    this.shoppingCartPacks.splice(key, 1);
   }
+
+  get userPacks() { return [] }
+
+  /**
+   * Extra
+   */
+  get totalPrice() {
+    let productsPrice = 0;
+    let packsPrice = 0;
+    this.shoppingCartProducts.forEach(p => {
+      productsPrice += p.price * p.cant;
+    })
+
+    this.shoppingCartPacks.forEach(pack => {
+      packsPrice += pack.price * (pack.cant ? pack.cant : 1);
+    });
+    return productsPrice + packsPrice;
+  }
+
+  get packsCounter() {
+    return this.shoppingCartPacks.length;
+  }
+
+  get productsCounter() {
+    return this.shoppingCartProducts.length;
+  }
+
+  get countAll() {
+    return this.productsCounter + this.packsCounter;
+  }
+
 }
 
 // register module (could be in any file) 

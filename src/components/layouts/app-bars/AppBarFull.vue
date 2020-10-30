@@ -13,7 +13,7 @@
         <v-app-bar-nav-icon @click="toggleSidebarLeft" />
 
         <v-btn text @click="goToRoute('main.home')">
-          <span class="mr-1">Alibuya</span>
+          <span class="mr-1">alibuya</span>
           <v-icon color="primary" class="">mdi-emoticon-excited</v-icon>
         </v-btn>
         <v-spacer />
@@ -106,7 +106,7 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { DEPARTMENTS, WEB_PAGES } from "@/utils/const";
-import { AppStore, AuthStore, PopupStore, ShopStore } from "@/store";
+import { AppStore, UserStore, PopupStore, ShopStore } from "@/store";
 
 @Component({
   components: {
@@ -128,15 +128,15 @@ export default class AppBarFull extends Vue {
   }
 
   get isLogged() {
-    return AuthStore.isLogged;
+    return UserStore.isLogged;
   }
 
   get userName() {
-    return AuthStore.profile.first_name;
+    return UserStore.profile.first_name;
   }
 
   get shopingCartCounter() {
-    return ShopStore.shoppingCartCounter;
+    return ShopStore.countAll;
   }
 
   /**
@@ -160,7 +160,7 @@ export default class AppBarFull extends Vue {
   }
 
   logout() {
-    AuthStore.logout();
+    UserStore.logout();
   }
 }
 </script>

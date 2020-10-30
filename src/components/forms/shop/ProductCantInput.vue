@@ -1,15 +1,16 @@
 <template>
   <div class="cant-input">
-    <v-icon class="cursor-pointer" v-if="canMinus" @click="minus"
-      >mdi-minus</v-icon
-    >
+    <v-icon class="ci-button ci-button-minus" v-if="canMinus" @click="minus">
+      mdi-minus
+    </v-icon>
+    <div class="ci-button ci-button-minus" v-else />
     <v-spacer />
-    <span>{{ cant }}</span>
+    <span class="cant">{{ cant }}</span>
     <v-spacer />
 
-    <v-icon class="cursor-pointer" v-if="canPlus" @click="plus"
-      >mdi-plus</v-icon
-    >
+    <v-icon class="ci-button ci-button-plus" v-if="canPlus" @click="plus">
+      mdi-plus
+    </v-icon>
   </div>
 </template>
 

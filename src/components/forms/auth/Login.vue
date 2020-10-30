@@ -54,7 +54,7 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { ILoginParams } from "@/types";
-import { AuthStore, PopupStore } from "@/store";
+import { UserStore, PopupStore } from "@/store";
 
 @Component
 export default class LoginForm extends Vue {
@@ -92,12 +92,15 @@ export default class LoginForm extends Vue {
     if (this.isValid) {
       this.$emit("loading:update", true);
       try {
-        await AuthStore.login(this.form);
+        await UserStore.login(this.form);
         PopupStore.addNotification(
-          ["Bienvenido " + AuthStore.profile.first_name],
-          "info"
+          [
+            `Bienvenido ${UserStore.profile.first_name} ${UserStore.profile.last_name}`,
+          ],
+          "success"
         );
         this.closePopup();
+        UserStore.storeOnLocalStorage();
       } catch (error) {
         PopupStore.addNotification(error);
       }

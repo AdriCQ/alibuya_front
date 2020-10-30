@@ -38,7 +38,7 @@ export const shopRoutes: RouteConfig = {
       meta: {
         title: 'Productos'
       },
-      beforeEnter: BaseAuthGuard
+      // beforeEnter: BaseAuthGuard
     },
     {
       name: 'shop.checkout',
@@ -47,7 +47,7 @@ export const shopRoutes: RouteConfig = {
       meta: {
         title: 'Checkout'
       },
-      beforeEnter: BaseAuthGuard
+      // beforeEnter: BaseAuthGuard
     },
 
     {

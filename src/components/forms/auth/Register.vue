@@ -105,7 +105,7 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { IRegisterParams } from "@/types";
-import { AuthStore, PopupStore } from "@/store";
+import { UserStore, PopupStore } from "@/store";
 
 @Component
 export default class RegisterForm extends Vue {
@@ -151,12 +151,16 @@ export default class RegisterForm extends Vue {
       this.$emit("loading:update", true);
 
       try {
-        await AuthStore.register(this.form);
+        await UserStore.register(this.form);
         PopupStore.addNotification(
-          ["Bienvenido " + AuthStore.profile.first_name],
+          [
+            `Bienvenido ${UserStore.profile.first_name} ${UserStore.profile.last_name}`,
+          ],
+
           "info"
         );
         this.closePopup();
+        UserStore.storeOnLocalStorage();
       } catch (err) {
         PopupStore.addNotification(err);
       }

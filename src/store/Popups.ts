@@ -1,6 +1,6 @@
 import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store/store';
-import { AuthStore, ShopStore } from '@/store';
+import { UserStore, ShopStore } from '@/store';
 import { IProduct, TNotificationAction, TRouteLink, INotification, TStatusColor } from '@/types';
 
 @Module({ generateMutationSetters: true })
@@ -48,7 +48,7 @@ class PopupModule extends VuexModule {
     for (const _data in _notifications) {
       if (String(_notifications[_data]).toString().includes("status code 401")) {
         this.notificationPopupContent.content.push('Autenticacion requerida')
-        AuthStore.logout();
+        UserStore.logout();
         break;
       }
       else {

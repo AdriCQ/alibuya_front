@@ -29,7 +29,8 @@
               <!-- Delivery method -->
               <v-select class="w-20" label="Recogida" hint="Método de envío" />
               <!-- / Delivery method -->
-
+            </v-card-text>
+            <v-card-text>
               <!-- Cant Input -->
               <div class="d-flex d-flex-row align-center">
                 <span>
@@ -40,31 +41,18 @@
                 </span>
               </div>
               <!-- / Cant Input -->
+            </v-card-text>
 
-              <!-- Persons info -->
-              <v-select
-                v-model="personsInfo"
-                :items="allPersonsItems"
-                @input="limiter"
+            <v-card-text>
+              <destinatary-input
                 class="w-20"
-                menu-props="auto"
-                label="Destinatarios"
-                multiple
-                :hint="`${cant} destinatarios requeridos`"
-                persistent-hint
-                chips
-              >
-                <template v-slot:prepend-item>
-                  <v-list-item class="cursor-pointer" @click="showPopup = true">
-                    <v-list-item-icon>
-                      <v-icon>mdi-account-plus</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>Nuevo Destinatario</v-list-item-title>
-                  </v-list-item>
-                </template>
-              </v-select>
-              <!-- / Persons info -->
+                :selected.sync="personsInfo"
+                :cant="cant"
+                :limit="productLimit"
+              />
+            </v-card-text>
 
+            <v-card-text>
               <v-checkbox
                 label="Entiendo que este producto tiene un cargo en destino de 5,00 CUC"
               />
@@ -77,97 +65,36 @@
         </v-col>
       </v-row>
     </v-card>
-
-    <!-- Popup add person -->
-    <v-dialog v-model="showPopup" max-width="600px" scrollable>
-      <v-card class="pa-2">
-        <v-card-title>
-          <v-icon class="mr-2">mdi-account-plus</v-icon>
-          Añadir Destinatario
-        </v-card-title>
-        <v-form class="pa-3">
-          <v-text-field
-            v-model="contactForm.first_name"
-            placeholder="Nombre"
-            label="Nombre"
-          />
-          <v-text-field
-            v-model="contactForm.last_name"
-            placeholder="Apellidos"
-            label="Apellidos"
-          />
-          <v-textarea
-            v-model="contactForm.address"
-            placeholder="Dirección"
-            label="Dirección"
-          />
-          <v-card-actions>
-            <v-btn
-              color="primary"
-              type="submit"
-              @click.prevent="submitAddContact"
-            >
-              <v-icon>mdi-account-plus</v-icon>
-              <span class="ml-1">Añadir</span>
-            </v-btn>
-
-            <v-btn color="primary" @click="closeAddContact">
-              <v-icon>mdi-close</v-icon>
-              <span class="ml-1">Cancelar</span>
-            </v-btn>
-          </v-card-actions>
-        </v-form>
-      </v-card>
-    </v-dialog>
-    <!-- Popup add person -->
   </div>
 </template>
 
 <script lang='ts'>
-import { AuthStore, PopupStore, ShopStore } from "@/store";
+import { PopupStore, ShopStore, UserStore } from "@/store";
 import { IProduct, TPackDestinationPerson } from "@/types";
 import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component({
   components: {
     "cant-input": () => import("@/components/forms/shop/ProductCantInput.vue"),
+    "destinatary-input": () =>
+      import("@/components/forms/shop/SelectDestinatary.vue"),
   },
 })
 export default class AddToCartForm extends Vue {
   @Prop({ type: Object }) readonly product!: IProduct;
 
-  showPopup = false;
-
   personsInfo: TPackDestinationPerson[] = [];
 
   cant = 1;
-
-  contactForm: TPackDestinationPerson = {
-    first_name: "",
-    last_name: "",
-    address: "",
-  };
-
-  get allPersonsItems() {
-    const p: string[] = [];
-    ShopStore.userDestinataries.forEach((person) => {
-      p.unshift(`${person.first_name} ${person.last_name}`);
-    });
-    return p;
-  }
+  // TODO: Work with limits
+  productLimit = 1;
 
   get canMinus() {
     return this.cant > 1 ? true : false;
   }
 
   get isLogged() {
-    return AuthStore.isLogged;
-  }
-
-  limiter() {
-    if (this.personsInfo.length > this.cant) {
-      this.personsInfo.shift();
-    }
+    return UserStore.isLogged;
   }
 
   addToCart() {
@@ -200,22 +127,8 @@ export default class AddToCartForm extends Vue {
         );
       }
     } else {
-      PopupStore.openAuth("login");
-      PopupStore.addNotification(["Por favor, Identifícate"], "warning");
+      // TODO: Handle when user is not logged
     }
-  }
-  /**
-   *
-   */
-  submitAddContact() {
-    //TODO: Validate form
-
-    ShopStore.addUserDestinatary(this.contactForm);
-    this.closeAddContact();
-  }
-
-  closeAddContact() {
-    this.showPopup = false;
   }
 }
 </script>

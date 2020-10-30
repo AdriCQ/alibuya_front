@@ -10,16 +10,30 @@
               Paquetes de {{ departmentName }}
             </v-card-title>
             <v-card-text>
-              <p>
-                Explicación sobre los límites de compra de 1,50 Kg por paquete y
-                que pude crear más de un paquete a la vez.
-              </p>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Pariatur itaque quo fugit a inventore laudantium dolor minima
-                consectetur, sunt dolores ipsum culpa eius quod ducimus et error
-                impedit repellat cum!
-              </p>
+              <v-alert type="info" color="secondary" dark dismissible>
+                <p class="title">Detalles que usted debe tener en cuenta</p>
+                <ul class="li-circle">
+                  <li>
+                    <p>
+                      Si sobrepasa el límite de 10 paquetes debe añadir un nuevo
+                      destinatario.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Los paquetes limitados por peso permiten el envío de hasta
+                      10 paquetes por persona con un peso de 1.5Kg en cada
+                      paquete.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Si usted compra más de 6 piezas tendrá un DESCUENTO por
+                      compra mayorista de un 5%
+                    </p>
+                  </li>
+                </ul>
+              </v-alert>
             </v-card-text>
             <v-card-text>
               <v-row>
@@ -37,15 +51,25 @@
                     <v-card-text>
                       <cant-input :cant.sync="pack.cant" />
                     </v-card-text>
+
                     <v-card-text>
-                      <template v-if="pack.cant > 10">
-                        <!-- TODO: Add person form data -->
-                        <v-alert color="warning">
-                          Ha sobrepasado el límite de 10 paquetes por persona.
-                          Debe agregar los datos de otras
-                          {{ parseInt(pack.cant / 10) }} personas
-                        </v-alert>
-                      </template>
+                      <destinatary-input
+                        :selected.sync="pack.destinataries"
+                        :cant="pack.cant"
+                        :limit="10"
+                      />
+                    </v-card-text>
+
+                    <v-card-text v-if="pack.cant > 6">
+                      <v-alert color="success" dark>
+                        Su pedido tiene un descuento del 3% por compra mayorista
+                      </v-alert>
+                      <!-- TODO: Add person form data -->
+                      <v-alert color="warning" v-if="pack.cant > 10">
+                        Ha sobrepasado el límite de 10 paquetes por persona.
+                        Debe agregar los datos de otras
+                        {{ parseInt(pack.cant / 10) }} personas
+                      </v-alert>
                     </v-card-text>
                     <v-card-actions>
                       <v-btn @click="editPack(packKey)">
@@ -65,6 +89,10 @@
               <v-btn color="primary" @click="addPack">
                 <v-icon>mdi-plus</v-icon>
                 <span class="ml-2">Nuevo Paquete</span>
+              </v-btn>
+              <v-btn color="primary" @click="addToCart">
+                <v-icon>mdi-cart-plus</v-icon>
+                <span class="ml-2">Finalizar Compra</span>
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -234,11 +262,13 @@ import { Vue, Component } from "vue-property-decorator";
 import { CLOTHES } from "@/utils/test";
 import { IProduct, IProductsPack } from "@/types";
 import { DEPARTMENTS } from "@/utils/const";
-import { AppStore } from "@/store";
+import { AppStore, ShopStore } from "@/store";
 
 @Component({
   components: {
     "cant-input": () => import("@/components/forms/shop/ProductCantInput.vue"),
+    "destinatary-input": () =>
+      import("@/components/forms/shop/SelectDestinatary.vue"),
   },
 })
 export default class ShopView extends Vue {
@@ -250,6 +280,7 @@ export default class ShopView extends Vue {
   activePack = 0;
   packName = "";
   packCant = 1;
+  // packDestinataries: TPackDestinationPerson[] = [];
 
   subTotalPrice = 0;
 
@@ -287,10 +318,15 @@ export default class ShopView extends Vue {
   get departmentIcon() {
     return DEPARTMENTS[this.tag].icon;
   }
+  /**
+   *
+   */
   get appLang() {
     return AppStore.lang;
   }
-
+  /**
+   *
+   */
   get productListHeight() {
     switch (this.$vuetify.breakpoint.name) {
       case "xs":
@@ -301,7 +337,9 @@ export default class ShopView extends Vue {
         return "90vh";
     }
   }
-
+  /**
+   *
+   */
   get productAddedHeight() {
     switch (this.$vuetify.breakpoint.name) {
       case "xs":
@@ -315,14 +353,18 @@ export default class ShopView extends Vue {
         return "90vh";
     }
   }
-
+  /**
+   *
+   */
   isAvailable(product: IProduct) {
     if (this.maxWeight < this.packWeight + (product.weight as number)) {
       return false;
     }
     return true;
   }
-
+  /**
+   *
+   */
   addProduct(product: IProduct) {
     this.packs[this.activePack].products.push({
       title: product.title,
@@ -333,11 +375,15 @@ export default class ShopView extends Vue {
       cant: 1,
     });
   }
-
+  /**
+   *
+   */
   removeProduct(key: number) {
     this.packs[this.activePack].products.splice(key, 1);
   }
-
+  /**
+   *
+   */
   onInputZero(key: number) {
     this.removeProduct(key);
   }
@@ -353,6 +399,7 @@ export default class ShopView extends Vue {
       weight: 0,
       price: 0,
       cant: 1,
+      destinataries: [],
     });
     this.activePack = this.packs.length - 1;
     this.packName = "Paquete " + this.packs.length;
@@ -365,6 +412,7 @@ export default class ShopView extends Vue {
     this.packs[this.activePack].weight = this.packWeight;
     this.packs[this.activePack].title = this.packName;
     this.packs[this.activePack].cant = this.packCant;
+    // TODO: Save destinataries
     this.dialog = false;
   }
 
@@ -377,6 +425,13 @@ export default class ShopView extends Vue {
     this.activePack = 0;
     this.packs.splice(packKey, 1);
     this.dialog = false;
+  }
+
+  /**
+   *
+   */
+  addToCart() {
+    ShopStore.addShoppingCartPacks(this.packs);
   }
 }
 </script>

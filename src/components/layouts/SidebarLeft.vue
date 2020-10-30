@@ -57,7 +57,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 
 import { Vue, Component } from "vue-property-decorator";
-import { AppStore, AuthStore, PopupStore } from "@/store";
+import { AppStore, UserStore, PopupStore } from "@/store";
 import { ILinkIconLabel } from "@/types";
 import { DEPARTMENTS, LANG, WEB_PAGES } from "@/utils/const";
 
@@ -87,11 +87,11 @@ export default class AppSidebarLeft extends Vue {
   }
 
   get isLogged() {
-    return AuthStore.isLogged;
+    return UserStore.isLogged;
   }
 
   get userName() {
-    return AuthStore.profile.first_name;
+    return UserStore.profile.first_name;
   }
 
   get allLang() {

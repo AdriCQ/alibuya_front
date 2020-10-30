@@ -1,10 +1,8 @@
-import { SERVICE_CONFIG } from '@/services';
-
 import { ApiResponse, IProduct, ISuggesedParams, ApiResponsePaginated } from '@/types';
 import Axios from 'axios';
 
 class ShopServiceClass {
-  private baseUrl = SERVICE_CONFIG.SERVER_API + '/shop';
+  private baseUrl = '/shop';
 
   /**
    * Get Sugegsted products

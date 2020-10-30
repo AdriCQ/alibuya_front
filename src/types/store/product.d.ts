@@ -22,6 +22,7 @@ export interface IProductsPack {
   weight: number;
   price: number;
   cant?: number;
+  destinataries?: TPackDestinationPerson[];
 }
 
 export type TPackDestinationPerson = {

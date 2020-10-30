@@ -28,31 +28,12 @@
 
     <!-- Suggested Products -->
     <v-section>
-      <v-row justify="center">
-        <v-col xs="12" sm="12" md="6" lg="4" xl="3">
-          <v-card light>
-            <v-card-text class="pb-0">
-              <p class="title text-center">
-                Inicia sesión para vivir tu mejor experiencia
-              </p>
-            </v-card-text>
-            <v-card-text class="mt-0">
-              <v-btn
-                color="primary"
-                large
-                width="100%"
-                @click="openAuthPopup('login')"
-              >
-                Iniciar Sesión
-              </v-btn>
-              <p
-                class="anchor--text pt-2 cursor-pointer"
-                @click="openAuthPopup('register')"
-              >
-                Registrar Cuenta
-              </p>
-            </v-card-text>
-          </v-card>
+      <v-row>
+        <v-col cols="12" xs="12" sm="12" md="6" lg="4" xl="3" v-if="!isLogged">
+          <login-card />
+        </v-col>
+        <v-col cols="12" xs="12" sm="12" md="6" lg="8" xl="9">
+          <v-sheet color="primary" width="100%" height="100%" />
         </v-col>
       </v-row>
       <products-slider :products="products" title="Productos sugeridos" />
@@ -131,11 +112,11 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { PopupStore, ShopStore } from "@/store";
+import { ShopStore, UserStore } from "@/store";
 
 @Component({
   components: {
-    // "banner-carousel": () => import("@/components/sliders/HomeAppSlider.vue"),
+    "login-card": () => import("@/components/widgets/LoginCard.vue"),
     "products-slider": () =>
       import("@/components/sliders/ProductSliderMultiple.vue"),
     "product-widget": () => import("@/components/widgets/Product.vue"),
@@ -146,8 +127,8 @@ export default class HomeMainView extends Vue {
     return ShopStore.allProducts;
   }
 
-  openAuthPopup(type: "register" | "login") {
-    PopupStore.openAuth(type);
+  get isLogged() {
+    return UserStore.isLogged;
   }
 }
 </script>

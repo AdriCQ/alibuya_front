@@ -1,9 +1,8 @@
-import { SERVICE_CONFIG } from '@/services';
 import { ILoginParams, ApiResponse, IRegisterParams, IAuthResponse } from '@/types';
 import Axios from 'axios';
 
 class AuthSericeClass {
-  private baseUrl = SERVICE_CONFIG.SERVER_API + '/auth';
+  private baseUrl = '/auth';
 
   /**
    * Auth Login Service

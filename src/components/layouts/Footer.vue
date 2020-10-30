@@ -1,22 +1,40 @@
 <template>
   <v-footer padless dark inset color="secondary" class="pt-3 footer-main">
     <v-container>
-      <v-row>
-        <v-col cols="12" sm="6" md>
+      <v-row justify="space-around">
+        <!-- <v-col cols="12" sm="6" md="4" v-if>
           <div class="d-flex align-center justify-center justify-md-start">
             <v-img src="img/icons/logo.png" max-width="65" />
-            <span class="text-h3"> Alibuya </span>
+            <span class="title"> alibuya </span>
           </div>
 
-          <p class="mb-0">
+          <p class="subtitle-2">
             Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada
             terra videa magna derita valies.
           </p>
+        </v-col> -->
+        <v-col cols="auto">
+          <!-- Navigation Links -->
+          <div class="links">
+            <h5 class="subtitle-1 text-center">Navegación</h5>
+            <v-list class="secondary d-flex d-sm-block">
+              <v-list-item
+                v-for="(link, key) in navLinks"
+                :key="key"
+                :to="{ name: link.to }"
+                class="grey--text text--lighten-1 fit-width mx-auto"
+              >
+                <v-list-item-content>
+                  <v-list-item-title>
+                    {{ link.label }}
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </div>
+          <!-- / Navigation Links -->
         </v-col>
-
-        <v-divider v-if="$vuetify.breakpoint.mdAndUp" vertical class="my-4" />
-
-        <v-col cols="12" sm="3" md="2">
+        <v-col cols="auto">
           <!-- Navigation Links -->
           <div class="links">
             <h5 class="subtitle-1 text-center">Navegación</h5>
@@ -38,7 +56,7 @@
           <!-- / Navigation Links -->
         </v-col>
 
-        <v-col cols="12" sm="3" md="2">
+        <v-col cols="auto">
           <!-- Others Links -->
           <div class="links">
             <h5 class="subtitle-1 text-center">Otros</h5>
@@ -59,8 +77,9 @@
           </div>
           <!-- /  Others Links -->
         </v-col>
+        <!-- <v-divider v-if="$vuetify.breakpoint.mdAndUp" vertical class="my-4" /> -->
 
-        <v-col cols="12" sm="6" md="4">
+        <v-col cols="auto">
           <div class="contact-banners mx-auto">
             <div class="links">
               <h4 class="title text-center">Contáctenos</h4>
