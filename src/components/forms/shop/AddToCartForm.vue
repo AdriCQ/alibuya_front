@@ -4,13 +4,13 @@
       <v-row>
         <v-col xs="12" sm="12" md="4" lg="4" xl="4" cols="12">
           <v-img :src="product.img" class="mx-auto" max-width="20rem" />
-          <v-row align-content="center" class="mt-4" no-gutters>
+          <!-- <v-row align-content="center" class="mt-4" no-gutters>
             <v-col v-for="i in 3" :key="i">
               <div class="box-selector py-2">
                 <v-img class="mx-auto" :src="product.img" max-width="5rem" />
               </div>
             </v-col>
-          </v-row>
+          </v-row> -->
         </v-col>
         <v-col xs="12" sm="12" md="8" lg="8" xl="8" cols="12">
           <v-card-title class="font-weight-bold">
@@ -25,13 +25,17 @@
                 </li>
               </ul>
             </v-card-text>
+            <!-- Delivery method -->
             <v-card-text>
-              <!-- Delivery method -->
-              <v-select class="w-20" label="Recogida" hint="Método de envío" />
-              <!-- / Delivery method -->
+              <v-select
+                class="w-20"
+                label="Método de Recogida"
+                :items="deliveryMethods"
+              />
             </v-card-text>
+            <!-- / Delivery method -->
+            <!-- Cant Input -->
             <v-card-text>
-              <!-- Cant Input -->
               <div class="d-flex d-flex-row align-center">
                 <span>
                   <cant-input :cant.sync="cant" :can-minus="canMinus" />
@@ -40,9 +44,9 @@
                   Subtotal: ${{ Number(product.price * cant).toFixed(2) }}
                 </span>
               </div>
-              <!-- / Cant Input -->
             </v-card-text>
-
+            <!-- / Cant Input -->
+            <!-- Destinataries Input -->
             <v-card-text>
               <destinatary-input
                 class="w-20"
@@ -51,6 +55,7 @@
                 :limit="productLimit"
               />
             </v-card-text>
+            <!-- / Destinataries Input -->
 
             <v-card-text>
               <v-checkbox
@@ -87,7 +92,17 @@ export default class AddToCartForm extends Vue {
 
   cant = 1;
   // TODO: Work with limits
-  productLimit = 1;
+  productLimit = 2;
+
+  deliveryMethods = [
+    "La Habana Transcargo",
+    "Oficina de Correos de su Localidad",
+    "La Habana – Aerovaradero",
+    "Camagüey – Aerovaradero",
+    "Holguín -Aerovaradero",
+    "Varadero – Aerovaradero",
+    "Santiago de Cuba – Aerovaradero",
+  ];
 
   get canMinus() {
     return this.cant > 1 ? true : false;

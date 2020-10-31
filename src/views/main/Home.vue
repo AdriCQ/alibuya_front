@@ -1,5 +1,5 @@
 <template>
-  <div id="main-home">
+  <div id="main-home" class="view-container">
     <!-- banner Carousel -->
     <v-section
       bg="img/banners/b3.jpg"

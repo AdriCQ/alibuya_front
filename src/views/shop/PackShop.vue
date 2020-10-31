@@ -1,5 +1,5 @@
 <template>
-  <div id="show-view" class="mt-2">
+  <div id="show-view" class="view-container">
     <v-section>
       <v-row>
         <!-- All Packs -->
@@ -9,9 +9,29 @@
               <v-icon class="mr-1">{{ departmentIcon }}</v-icon>
               Paquetes de {{ departmentName }}
             </v-card-title>
+            <!-- Brand Select -->
+            <v-card-text>
+              <v-select
+                class="w-20"
+                v-if="tag === 'clothes'"
+                :items="['Todos', 'ADIDAS', 'NIKE', 'PUMA']"
+                :menu-props="{ maxHeight: '400' }"
+                label="Marcas"
+                multiple
+                chips
+                deletable-chips
+                hint="Seleccione las marcas que desea ver"
+                persistent-hint
+              />
+            </v-card-text>
+            <!-- Brand Select -->
+            <!-- Info descuento and limits -->
             <v-card-text>
               <v-alert type="info" color="secondary" dark dismissible>
-                <p class="title">Detalles que usted debe tener en cuenta</p>
+                <p class="title">
+                  <span v-if="isLogged">Hola {{ userName }}.&nbsp;</span>Usted
+                  debe tener en cuenta:
+                </p>
                 <ul class="li-circle">
                   <li>
                     <p>
@@ -35,6 +55,8 @@
                 </ul>
               </v-alert>
             </v-card-text>
+            <!-- / Info descuento and limits -->
+
             <v-card-text>
               <v-row>
                 <v-col
@@ -86,14 +108,20 @@
               </v-row>
             </v-card-text>
             <v-card-actions>
-              <v-btn color="primary" @click="addPack">
-                <v-icon>mdi-plus</v-icon>
-                <span class="ml-2">Nuevo Paquete</span>
-              </v-btn>
-              <v-btn color="primary" @click="addToCart">
-                <v-icon>mdi-cart-plus</v-icon>
-                <span class="ml-2">Finalizar Compra</span>
-              </v-btn>
+              <v-row>
+                <v-col cols="auto">
+                  <v-btn color="primary" @click="addPack">
+                    <v-icon>mdi-plus</v-icon>
+                    <span class="ml-2">Nuevo Paquete</span>
+                  </v-btn>
+                </v-col>
+                <v-col cols="auto">
+                  <v-btn color="primary" @click="addToCart">
+                    <v-icon>mdi-cart-plus</v-icon>
+                    <span class="ml-2">Finalizar Compra</span>
+                  </v-btn>
+                </v-col>
+              </v-row>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -262,7 +290,7 @@ import { Vue, Component } from "vue-property-decorator";
 import { CLOTHES } from "@/utils/test";
 import { IProduct, IProductsPack } from "@/types";
 import { DEPARTMENTS } from "@/utils/const";
-import { AppStore, ShopStore } from "@/store";
+import { AppStore, ShopStore, UserStore } from "@/store";
 
 @Component({
   components: {
@@ -283,6 +311,14 @@ export default class ShopView extends Vue {
   // packDestinataries: TPackDestinationPerson[] = [];
 
   subTotalPrice = 0;
+
+  get isLogged() {
+    return UserStore.isLogged;
+  }
+
+  get userName() {
+    return UserStore.profile.first_name + " " + UserStore.profile.last_name;
+  }
 
   get products() {
     return CLOTHES;

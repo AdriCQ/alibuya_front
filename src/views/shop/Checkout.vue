@@ -1,5 +1,5 @@
 <template>
-  <div id="checkout-view">
+  <div id="checkout-view" class="view-container">
     <v-section>
       <v-container>
         <v-card>

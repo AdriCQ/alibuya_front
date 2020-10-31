@@ -1,5 +1,5 @@
 <template>
-  <div id="shop-view">
+  <div id="shop-view" class="view-container">
     <v-section>
       <v-container>
         <v-card>

@@ -1,5 +1,5 @@
 <template>
-  <div id="shop-cart-view" class="mt-2">
+  <div id="shop-cart-view" class="view-container">
     <v-section>
       <v-card>
         <v-card-title>

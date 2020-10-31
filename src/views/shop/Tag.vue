@@ -1,5 +1,5 @@
 <template>
-  <div id="shop-tag-view">
+  <div id="shop-tag-view" class="view-container">
     <v-section class="mt-2">
       <v-card>
         <!-- Section title -->

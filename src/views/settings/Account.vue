@@ -1,11 +1,9 @@
 <template>
-  <div id="account-view">
+  <div id="account-view" class="view-container">
     <v-section>
-      <v-container>
-        <v-card>
-          <v-card-title>Cuenta</v-card-title>
-        </v-card>
-      </v-container>
+      <v-card>
+        <v-card-title>Cuenta</v-card-title>
+      </v-card>
     </v-section>
   </div>
 </template>

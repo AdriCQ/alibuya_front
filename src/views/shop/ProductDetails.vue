@@ -1,5 +1,5 @@
 <template>
-  <div id="product-details-virew">
+  <div id="product-details-virew" class="view-container">
     <!-- Add to Cart -->
     <v-section v-if="product">
       <add-to-cart-form :product="product" />
