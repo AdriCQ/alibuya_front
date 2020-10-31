@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import './registerServiceWorker'
+// import './registerServiceWorker'
 import router from './router';
 import store from '@/store/store';
 import vuetify from './plugins/vuetify';
@@ -18,18 +18,18 @@ Vue.component('slick-carousel', VueSlickCarousel)
 
 // App Section
 Vue.component('v-section', () => import('@/components/layouts/Section.vue'))
-Vue.config.productionTip = false;
 
 // Setup axios
 
-axios.defaults.timeout = 600000
+axios.defaults.timeout = 600000;
 
 /**
  * AXIOS interceptor to inject authentication into requests
  */
 axios.interceptors.request.use((request) => {
-  // request.baseURL = 'https://alibuya.com/api/public/api';
-  request.baseURL = 'http://localhost:8000/api';
+  request.baseURL = 'https://alibuya.com/api/public/api';
+  // request.baseURL = 'http://localhost:8000/api';
+  // request.baseURL = 'http://192.168.1.6:8000/api';
   /* Append content type header if its not present */
   if (!request.headers["Content-Type"]) {
     request.headers["Content-Type"] = "application/json"
@@ -48,6 +48,7 @@ axios.interceptors.request.use((request) => {
   }
   return request
 })
+Vue.config.productionTip = false;
 
 new Vue({
   router,
