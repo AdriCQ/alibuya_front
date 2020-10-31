@@ -1,14 +1,14 @@
 import { ApiResponse, IProduct, ISuggesedParams, ApiResponsePaginated } from '@/types';
 import Axios from 'axios';
 
-class ShopServiceClass {
-  private baseUrl = '/shop';
+export class ShopService {
+  private static baseUrl = '/shop';
 
   /**
    * Get Sugegsted products
    * @param _params ISuggesedParams
    */
-  suggested(_params: ISuggesedParams): ApiResponse<IProduct[]> {
+  static uggested(_params: ISuggesedParams): ApiResponse<IProduct[]> {
     return Axios.get(this.baseUrl + '/product/suggested', {
       params: _params
     })
@@ -17,10 +17,7 @@ class ShopServiceClass {
   /**
    * Get all products paginated
    */
-  allPaginated(): ApiResponsePaginated<IProduct[]> {
+  static allPaginated(): ApiResponsePaginated<IProduct[]> {
     return Axios.get(this.baseUrl + '/product/all-paginated');
   }
-
 }
-
-export const ShopService = new ShopServiceClass();
