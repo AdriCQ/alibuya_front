@@ -1,5 +1,5 @@
 <template>
-  <div id="show-view" class="view-container">
+  <div id="pack-shop-view" class="view-container">
     <v-section>
       <v-row>
         <!-- All Packs -->
@@ -13,9 +13,11 @@
             <v-card-text>
               <v-select
                 class="w-20"
+                v-model="brandsFilter"
                 v-if="tag === 'clothes'"
                 :items="['Todos', 'ADIDAS', 'NIKE', 'PUMA']"
                 :menu-props="{ maxHeight: '400' }"
+                @input="handleBrandFilter"
                 label="Marcas"
                 multiple
                 chips
@@ -303,12 +305,13 @@ export default class ShopView extends Vue {
   maxWeight = 1500;
   dialog = false;
   packFull = false;
+  // TODO: Handle brands filter
+  brandsFilter = ["Todos"];
 
   packs: IProductsPack[] = [];
   activePack = 0;
   packName = "";
   packCant = 1;
-  // packDestinataries: TPackDestinationPerson[] = [];
 
   subTotalPrice = 0;
 
@@ -468,6 +471,14 @@ export default class ShopView extends Vue {
    */
   addToCart() {
     ShopStore.addShoppingCartPacks(this.packs);
+  }
+
+  handleBrandFilter() {
+    this.brandsFilter.filter((_val) => {
+      if (_val === "Todos") {
+        return ["Todos"];
+      }
+    });
   }
 }
 </script>
