@@ -6,11 +6,12 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { UserStore } from "@/store";
+import { UserStore, AppStore } from "@/store";
 
 @Component
 export default class App extends Vue {
   created() {
+    AppStore.getFromLocalStorage();
     UserStore.getFromLocalStorage();
   }
 }
