@@ -1,8 +1,8 @@
 .cant-input {
-  border: solid 1px $border-color;
   min-width: 6rem;
   max-width: 8rem;
   border-radius: 1rem;
+  box-shadow: 1px 1px 3px 1px $border-color;
   display: flex;
   // padding: 0.5rem;
   justify-content: center;

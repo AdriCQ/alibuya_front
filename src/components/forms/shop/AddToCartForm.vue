@@ -47,14 +47,14 @@
             </v-card-text>
             <!-- / Cant Input -->
             <!-- Destinataries Input -->
-            <v-card-text>
+            <!-- <v-card-text>
               <destinatary-input
                 class="w-20"
                 :selected.sync="personsInfo"
                 :cant="cant"
                 :limit="productLimit"
               />
-            </v-card-text>
+            </v-card-text> -->
             <!-- / Destinataries Input -->
 
             <v-card-text>
@@ -81,18 +81,18 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 @Component({
   components: {
     "cant-input": () => import("@/components/forms/shop/ProductCantInput.vue"),
-    "destinatary-input": () =>
-      import("@/components/forms/shop/SelectDestinatary.vue"),
+    // "destinatary-input": () =>
+    //   import("@/components/forms/shop/SelectDestinatary.vue"),
   },
 })
 export default class AddToCartForm extends Vue {
   @Prop({ type: Object }) readonly product!: IProduct;
 
-  personsInfo: TPackDestinationPerson[] = [];
+  // personsInfo: TPackDestinationPerson[] = [];
 
   cant = 1;
   // TODO: Work with limits
-  productLimit = 2;
+  // productLimit = 2;
 
   deliveryMethods = [
     "La Habana Transcargo",
@@ -114,35 +114,22 @@ export default class AddToCartForm extends Vue {
 
   addToCart() {
     if (this.isLogged) {
-      //! Validation
-      if (this.cant > this.personsInfo.length) {
-        PopupStore.addNotification(
-          [
-            `Necesita agregar ${
-              this.cant - this.personsInfo.length
-            } destinatarios`,
-          ],
-          "error"
-        );
-      }
-      //? Validation Passed
-      else {
-        ShopStore.addShoppingCartProduct(this.product as IProduct, this.cant);
-        this.cant = 1;
-        PopupStore.addNotification(
-          [
-            "Producto añadido al carrito correctamente",
-            "Presione aquí para ver más detalles",
-          ],
-          "success",
-          5000,
-          {
-            name: "shop.cart",
-          }
-        );
-      }
+      ShopStore.addShoppingCartProduct(this.product as IProduct, this.cant);
+      this.cant = 1;
+      PopupStore.addNotification(
+        [
+          "Producto añadido al carrito correctamente",
+          "Presione aquí para ver más detalles",
+        ],
+        "success",
+        5000,
+        {
+          name: "shop.cart",
+        }
+      );
     } else {
-      // TODO: Handle when user is not logged
+      // TODO: Handle when user is not loggeder
+      console.log("US");
     }
   }
 }
