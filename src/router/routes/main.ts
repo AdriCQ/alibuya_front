@@ -7,7 +7,7 @@ export const mainRoutes: RouteConfig = {
   children: [
     {
       name: 'main.home',
-      path: '',
+      path: 'home',
       component: () => import('@/views/main/Home.vue'),
       meta: {
         title: 'Inicio'

@@ -79,8 +79,8 @@
             </v-checkbox>
             <!-- TODO: Terms and conditions -->
             <router-link
-              tag="a"
               class="ml-1 cursor-pointer"
+              style="font-size: 1rem"
               :to="{ name: 'main.home' }"
               >Términos y Condiciones</router-link
             >
