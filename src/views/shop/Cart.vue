@@ -7,7 +7,7 @@
           Mis Paquetes
         </v-card-title>
         <v-card-subtitle>
-          Tienes {{ shopProducts.length }} productos pendientes
+          Tienes {{ packCant }} paquetes pendientes
         </v-card-subtitle>
         <product-display />
         <pack-display />
@@ -53,8 +53,10 @@ import { ShopStore } from "@/store";
   },
 })
 export default class ShoppingCartView extends Vue {
-  get shopProducts() {
-    return ShopStore.shoppingCartProducts;
+  get packCant() {
+    return (
+      ShopStore.shoppingCartProducts.length + ShopStore.shoppingCartPacks.length
+    );
   }
 
   get suggestedProducts() {

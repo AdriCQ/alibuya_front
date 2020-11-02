@@ -28,6 +28,7 @@
         <!-- Small View Grid Mode -->
         <template v-if="$vuetify.breakpoint.xs">
           <pack-cart
+            cart
             class="mt-4"
             :pack="pack"
             v-for="(pack, key) in shopPacks"
@@ -88,7 +89,7 @@ import { Vue, Component } from "vue-property-decorator";
 @Component({
   components: {
     "cant-input": () => import("@/components/forms/shop/ProductCantInput.vue"),
-    "pack-cart": () => import("@/components/widgets/PackCart.vue"),
+    "pack-cart": () => import("@/components/widgets/PackWidget.vue"),
   },
 })
 export default class ProductPackDataCart extends Vue {

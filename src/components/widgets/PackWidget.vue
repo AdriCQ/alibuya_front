@@ -1,4 +1,5 @@
 <template>
+  <!-- Pack Cart -->
   <v-card
     class="mx-auto"
     :max-width="`${width + 6}rem`"
@@ -27,6 +28,7 @@
       </span>
     </v-card-text>
   </v-card>
+  <!-- / Pack Cart -->
 </template>
 
 <script lang='ts'>
@@ -38,9 +40,8 @@ import { Vue, Component, Prop } from "vue-property-decorator";
     "input-cant": () => import("@/components/forms/shop/ProductCantInput.vue"),
   },
 })
-export default class PackCart extends Vue {
+export default class PackWidget extends Vue {
   @Prop(Object) readonly pack!: IProductsPack;
-
   get width() {
     return 15;
   }

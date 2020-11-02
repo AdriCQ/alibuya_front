@@ -75,7 +75,7 @@
 
 <script lang='ts'>
 import { PopupStore, ShopStore, UserStore } from "@/store";
-import { IProduct, TPackDestinationPerson } from "@/types";
+import { IProduct } from "@/types";
 import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component({
@@ -112,8 +112,12 @@ export default class AddToCartForm extends Vue {
     return UserStore.isLogged;
   }
 
+  get isValid() {
+    return true;
+  }
+
   addToCart() {
-    if (this.isLogged) {
+    if (this.isValid) {
       ShopStore.addShoppingCartProduct(this.product as IProduct, this.cant);
       this.cant = 1;
       PopupStore.addNotification(
@@ -127,9 +131,6 @@ export default class AddToCartForm extends Vue {
           name: "shop.cart",
         }
       );
-    } else {
-      // TODO: Handle when user is not loggeder
-      console.log("US");
     }
   }
 }
