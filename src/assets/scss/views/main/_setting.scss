@@ -1,0 +1,13 @@
+#account-view {
+  .account {
+    .v-card {
+      .v-banner .v-banner__wrapper {
+        padding: 5px;
+        border-bottom: none;
+        .v-banner__text {
+          white-space: normal;
+        }
+      }
+    }
+  }
+}
