@@ -27,3 +27,12 @@
     @content;
   }
 }
+
+// border
+@mixin border($side: "", $color: $primary-color, $width: 4px) {
+  @if ($side == "") {
+    border: solid $width $color;
+  } @else {
+    border-#{$side}: solid $width $color;
+  }
+}
