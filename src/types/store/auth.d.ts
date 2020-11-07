@@ -7,3 +7,9 @@ export interface IUserProfile {
   gender?: 'm' | 'f';
   address?: string;
 }
+
+export interface IUserContact {
+  full_name: string;
+  ci: string;
+  address: string;
+}
