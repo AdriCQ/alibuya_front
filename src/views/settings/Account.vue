@@ -7,20 +7,24 @@
             <v-tab v-for="(tab, key) in tabs" :key="`account-tab-${key}`">
               {{ tab }}
             </v-tab>
-            <v-tabs-slider color="primary"></v-tabs-slider>
+            <v-tabs-slider color="primary" />
           </v-tabs>
         </v-card-title>
 
         <v-tabs-items v-model="tabActive">
           <v-tab-item
-            v-for="(tab, key) in tabs"
+            v-for="(component, key) in components"
             :key="`account-tab-items-${key}`"
           >
-            <v-container class="py-0">
-              <keep-alive>
-                <component :is="'account-form'"></component
-              ></keep-alive>
-            </v-container>
+            <div class="px-2 px-md-4 px-lg-5">
+              <v-container>
+                <keep-alive>
+                  <component
+                    :is="component"
+                    @change:component="change(key, $event)"
+                /></keep-alive>
+              </v-container>
+            </div>
           </v-tab-item>
         </v-tabs-items>
       </v-card>
@@ -33,11 +37,19 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component({
   components: {
-    "account-form": () => import("@/components/forms/setting/Account.vue"),
+    account: () => import("@/components/data/setting/Account.vue"),
+    "account-edit": () => import("@/components/forms/setting/AccountEdit.vue"),
+    "account-contacts": () =>
+      import("@/components/data/setting/AccountContacts.vue"),
   },
 })
 export default class AccountView extends Vue {
   tabActive = 0;
-  tabs = ["Cuenta"];
+  tabs = ["Cuenta", "Contactos"];
+  components = ["account", "account-contacts"];
+
+  change(_idx: number, _component: string) {
+    Vue.set(this.components, _idx, _component);
+  }
 }
 </script>
