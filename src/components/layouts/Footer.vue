@@ -2,82 +2,34 @@
   <v-footer padless dark inset color="secondary" class="pt-3 footer-main">
     <v-container>
       <v-row justify="space-around">
-        <!-- <v-col cols="12" sm="6" md="4" v-if>
-          <div class="d-flex align-center justify-center justify-md-start">
-            <v-img src="img/icons/logo.png" max-width="65" />
-            <span class="title"> alibuya </span>
-          </div>
-
-          <p class="subtitle-2">
-            Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada
-            terra videa magna derita valies.
-          </p>
-        </v-col> -->
-        <v-col cols="auto">
-          <!-- Navigation Links -->
-          <div class="links">
-            <h5 class="subtitle-1 text-center">Navegación</h5>
-            <v-list class="secondary d-flex d-sm-block">
-              <v-list-item
-                v-for="(link, key) in navLinks"
-                :key="key"
-                :to="{ name: link.to }"
-                class="grey--text text--lighten-1 fit-width mx-auto"
+        <v-col
+          cols="auto"
+          v-for="(group, gKey) in footerLinks"
+          :key="`group-${gKey}`"
+        >
+          <div class="contact-banners mx-auto">
+            <div class="links">
+              <v-list
+                color="secondary"
+                class="mx-auto mx-md-0"
+                subheader
+                dense
+                dark
               >
-                <v-list-item-content>
-                  <v-list-item-title>
-                    {{ link.label }}
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
+                <v-list-item
+                  v-for="(link, key) in group"
+                  :key="key"
+                  dense
+                  :to="link.to"
+                >
+                  <v-list-item-content>
+                    <v-list-item-title> {{ link.label }} </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </div>
           </div>
-          <!-- / Navigation Links -->
         </v-col>
-        <v-col cols="auto">
-          <!-- Navigation Links -->
-          <div class="links">
-            <h5 class="subtitle-1 text-center">Navegación</h5>
-            <v-list class="secondary d-flex d-sm-block">
-              <v-list-item
-                v-for="(link, key) in navLinks"
-                :key="key"
-                :to="{ name: link.to }"
-                class="grey--text text--lighten-1 fit-width mx-auto"
-              >
-                <v-list-item-content>
-                  <v-list-item-title>
-                    {{ link.label }}
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-          </div>
-          <!-- / Navigation Links -->
-        </v-col>
-
-        <v-col cols="auto">
-          <!-- Others Links -->
-          <div class="links">
-            <h5 class="subtitle-1 text-center">Otros</h5>
-            <v-list class="secondary d-flex d-sm-block">
-              <v-list-item
-                v-for="(link, key) in otherLinks"
-                :key="key"
-                :to="{ name: link.to }"
-                class="grey--text text--lighten-1 fit-width mx-auto"
-              >
-                <v-list-item-content>
-                  <v-list-item-title>
-                    {{ link.label }}
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-          </div>
-          <!-- /  Others Links -->
-        </v-col>
-        <!-- <v-divider v-if="$vuetify.breakpoint.mdAndUp" vertical class="my-4" /> -->
 
         <v-col cols="auto">
           <div class="contact-banners mx-auto">
@@ -133,45 +85,29 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
+import { ILinkIconLabel } from "@/types";
+import { WEB_PAGES } from "@/utils";
 
 @Component
 export default class AppFooter extends Vue {
   icons = ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"];
 
-  get navLinks() {
+  get footerLinks(): Array<ILinkIconLabel[]> {
     return [
-      {
-        label: "Inicio",
-        to: "main.home",
-      },
-      {
-        label: "Carrito",
-        to: "main.home",
-      },
-      {
-        label: "Cuentas",
-        to: "main.home",
-      },
+      WEB_PAGES,
+      // Row 2
+      [
+        {
+          label: "Empieza a Vender",
+          to: { name: "vendor.home" },
+        },
+        {
+          label: "Afiliados",
+          to: { name: "vendor.home" },
+        },
+      ],
     ];
   }
-
-  get otherLinks() {
-    return [
-      {
-        label: "Ropas",
-        to: "main.home",
-      },
-      {
-        label: "Automotiz",
-        to: "main.home",
-      },
-      {
-        label: "Celulares",
-        to: "main.home",
-      },
-    ];
-  }
-
   get contactLinks() {
     return [
       { icon: "mdi-chat", label: "chat.alibuya" },

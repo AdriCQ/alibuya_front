@@ -199,7 +199,7 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { Dictionary, IVSelectItem } from "@/types";
+import { IDictionary, IVSelectItem } from "@/types";
 
 @Component
 export default class Account extends Vue {
@@ -225,7 +225,7 @@ export default class Account extends Vue {
     { text: "España", value: "ESP" },
   ];
 
-  states: Dictionary<IVSelectItem[]> = {
+  states: IDictionary<IVSelectItem[]> = {
     CUB: [
       { text: "Cuba-State-1", value: "CUB_1" },
       { text: "Cuba-State-2", value: "CUB_2" },
@@ -236,7 +236,7 @@ export default class Account extends Vue {
     ],
   };
 
-  cities: Dictionary<IVSelectItem[]> = {
+  cities: IDictionary<IVSelectItem[]> = {
     // CUB
     CUB_1: [{ text: "Cuba-State-1-City-1", value: "CUB_1_1" }],
     CUB_2: [{ text: "Cuba-State-2-City-1", value: "CUB_2_1" }],

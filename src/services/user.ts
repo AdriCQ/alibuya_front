@@ -1,9 +1,9 @@
 import { ILoginParams, ApiResponse, IRegisterParams, IAuthResponse } from '@/types';
 import Axios from 'axios';
 
-export class AuthService {
+export class UserService {
   // private baseUrl = '/auth';
-  static baseUrl = '/auth';
+  static baseUrl = '/user';
 
   /**
    * Auth Login Service

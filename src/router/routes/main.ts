@@ -2,7 +2,7 @@ import { RouteConfig } from 'vue-router';
 import BaseLayout from '@/components/layouts/BaseLayout.vue';
 
 export const mainRoutes: RouteConfig = {
-  path: '/',
+  path: '/main',
   component: BaseLayout,
   children: [
     {

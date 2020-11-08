@@ -1,9 +1,9 @@
-import { Dictionary, TRouteLink, TStatusColor } from '@/types';
+import { IDictionary, TRouteLink, TStatusColor } from '@/types';
 
 export type TNotificationAction = {
   icon: string;
   label?: string;
-  to?: { name: string; params?: Dictionary<string> };
+  to?: { name: string; params?: IDictionary<string> };
 };
 
 export interface INotification {

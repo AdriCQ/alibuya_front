@@ -6,4 +6,5 @@ export interface IUserProfile {
   mobile_phone?: string;
   gender?: 'm' | 'f';
   address?: string;
+  country?: string;
 }

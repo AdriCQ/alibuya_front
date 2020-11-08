@@ -7,12 +7,7 @@
         </p>
       </v-card-text>
       <v-card-text class="mt-0">
-        <v-btn
-          color="primary"
-          large
-          width="100%"
-          @click="openAuthPopup('login')"
-        >
+        <v-btn color="primary" width="100%" @click="openAuthPopup('login')">
           Iniciar Sesión
         </v-btn>
         <p

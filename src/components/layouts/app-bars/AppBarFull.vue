@@ -77,35 +77,37 @@
 
     <template v-slot:extension>
       <v-tabs centered>
-        <!-- Pages -->
-        <!-- <v-tab
-          v-for="(page, pKey) in webPages"
-          :key="pKey"
-          exact
-          link
-          :to="page.to"
-        >
-          {{ page.label }}
-        </v-tab> -->
-        <!-- / Pages -->
         <!-- Departments -->
-        <v-tab
-          v-for="(dep, key) in departments"
-          :key="key"
-          exact
-          link
-          :to="dep.to"
-        >
-          {{ dep.labelLang[appLang] }}
-        </v-tab>
+        <template v-if="activeTab === 'departments'">
+          <v-tab
+            v-for="(dep, key) in departments"
+            :key="key"
+            exact
+            link
+            :to="dep.to"
+          >
+            {{ dep.labelLang[appLang] }}
+          </v-tab>
+        </template>
         <!-- / Departments -->
+        <template v-else>
+          <v-tab
+            v-for="(link, key) in vendorPages"
+            :key="key"
+            exact
+            link
+            :to="link.to"
+          >
+            {{ link.label }}
+          </v-tab>
+        </template>
       </v-tabs>
     </template>
   </v-app-bar>
 </template>
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { DEPARTMENTS, WEB_PAGES } from "@/utils/const";
+import { DEPARTMENTS, VENDOR_PAGES } from "@/utils/const";
 import { AppStore, UserStore, PopupStore, ShopStore } from "@/store";
 
 @Component({
@@ -119,8 +121,8 @@ export default class AppBarFull extends Vue {
     return DEPARTMENTS;
   }
 
-  get webPages() {
-    return WEB_PAGES;
+  get vendorPages() {
+    return VENDOR_PAGES;
   }
 
   get appLang() {
@@ -142,6 +144,13 @@ export default class AppBarFull extends Vue {
   /**
    *
    */
+  get activeTab() {
+    return this.$route.path.includes("vendor") ? "vendor" : "departments";
+  }
+
+  /**
+   *
+   */
   toggleSidebarLeft() {
     AppStore.sidebarLeft = !AppStore.sidebarLeft;
   }
@@ -153,12 +162,18 @@ export default class AppBarFull extends Vue {
     PopupStore.openAuth("login");
   }
 
+  /**
+   *
+   */
   goToRoute(_name: string) {
     if (this.$route.name !== _name) {
       this.$router.push({ name: _name });
     }
   }
 
+  /**
+   *
+   */
   logout() {
     UserStore.logout();
   }

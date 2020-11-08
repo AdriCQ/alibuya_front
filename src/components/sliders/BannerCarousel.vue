@@ -56,7 +56,7 @@
 
     <!-- Carousel 3 -->
     <v-carousel-item>
-      <v-sheet color="secondary" height="400px" class="pb-5">
+      <v-sheet color="red" height="400px" class="pb-5">
         <v-row class="fill-height" align="center" justify="center">
           <v-col cols="12" xs="12" sm="6" md="6" lg="6" xl="6">
             <v-card-text
@@ -67,13 +67,14 @@
             <v-card-text
               class="text-center"
               :style="`font-size: ${subtitleSize}rem`"
-              >Ponte en contacto con nosotros. Haremos llegar tus productos a
-              muchos más clientes</v-card-text
+              >Comienza a vender tus productos en Alibuya!!!</v-card-text
             >
             <v-card-text
               class="text-center"
               :style="`font-size: ${subtitleSize}rem`"
-              ><v-btn color="primary" light>Contactar</v-btn>
+              ><v-btn :to="{ name: 'vendor.home' }" color="primary" light
+                >Empezar</v-btn
+              >
             </v-card-text>
           </v-col>
 

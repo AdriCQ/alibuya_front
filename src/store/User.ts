@@ -1,7 +1,7 @@
 import { VuexModule, Module, Action } from 'vuex-class-modules';
 import store from '@/store/store';
 import { IUserProfile, ILoginParams, IRegisterParams } from '@/types';
-import { AuthService } from '@/services';
+import { UserService } from '@/services';
 import Storage from '@/utils/Storage';
 import { TPackDestinationPerson } from '../types/store/product';
 
@@ -61,7 +61,7 @@ class UserModule extends VuexModule {
   @Action
   async login(_params: ILoginParams) {
     try {
-      const _resp = (await AuthService.login(_params)).data;
+      const _resp = (await UserService.login(_params)).data;
       if (_resp.STATUS) {
         this.profile = _resp.DATA.profile;
         this.api_token = _resp.DATA.api_token;
@@ -89,7 +89,7 @@ class UserModule extends VuexModule {
   @Action
   async register(_params: IRegisterParams) {
     try {
-      const _resp = (await AuthService.register(_params)).data;
+      const _resp = (await UserService.register(_params)).data;
       if (_resp.STATUS) {
         this.profile = _resp.DATA.profile;
         this.api_token = _resp.DATA.api_token;

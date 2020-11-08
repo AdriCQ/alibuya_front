@@ -1,4 +1,4 @@
-import { ILinkIconLabel, Dictionary } from '@/types';
+import { ILinkIconLabel, IDictionary } from '@/types';
 
 export const LANG = [
   { label: 'Español', flag: 'images/flags/es.png', tag: 'es' },
@@ -16,7 +16,7 @@ interface ILinkIconLabelModified extends ILinkIconLabel {
   };
 }
 
-export const DEPARTMENTS: Dictionary<ILinkIconLabelModified> = {
+export const DEPARTMENTS: IDictionary<ILinkIconLabelModified> = {
   clothes: {
     icon: 'mdi-hanger',
     labelLang: { es: 'Ropas' },
@@ -56,7 +56,7 @@ export const DEPARTMENTS: Dictionary<ILinkIconLabelModified> = {
     labelLang: { es: 'Niños' },
     to: {
       name: 'shop.tags',
-      params: { tag: 'child' }
+      params: { tag: 'kids' }
     }
   },
   health: {
@@ -96,5 +96,34 @@ export const WEB_PAGES: ILinkIconLabel[] = [
     icon: "mdi-account-circle",
     label: "Atención al Cliente",
     to: { name: "main.contact" },
+  },
+];
+
+export const VENDOR_PAGES: ILinkIconLabel[] = [
+  {
+    icon: "mdi-shopping",
+    label: "Tienda",
+    to: { name: "vendor.business" },
+  },
+  {
+    icon: "mdi-cart-outline",
+    label: "Productos",
+    to: { name: "vendor.products" },
+  },
+  {
+    icon: "mdi-chart-bar",
+    label: "Estadísticas",
+  },
+  {
+    icon: "mdi-account-multiple",
+    label: "Colaboladores",
+  },
+  {
+    icon: "mdi-database",
+    label: "Ajustes",
+  },
+  {
+    icon: "mdi-help-circle",
+    label: "Ayuda",
   },
 ];

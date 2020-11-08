@@ -5,10 +5,13 @@
  */
 
 export interface IProduct {
+  id?: number;
   title: string;
   price: number;
-  img: string;
+  img: string | File[];
   weight?: number;
+  color?: string;
+  brand?: string;
   description?: string[];
 }
 

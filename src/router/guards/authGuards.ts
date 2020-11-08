@@ -10,6 +10,9 @@ import { PopupStore } from '@/store/Popups';
  */
 export const BaseAuthGuard: NavigationGuard = (to, from, next) => {
   if (!UserStore.isLogged) {
+    next({
+      path: from.path
+    })
     PopupStore.openAuth('login');
   } else {
     next();

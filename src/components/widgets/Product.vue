@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="mx-auto"
+    class="mx-auto product-widget"
     :max-width="`${width}px`"
     @click="showProductDetails(product)"
     :min-height="minHeight"
@@ -8,12 +8,17 @@
     <div class="badge-offer pa-2" v-if="badge">
       <span class="text-center white--text">{{ badge }}</span>
     </div>
+
+    <div class="badge-edit pa-2" v-if="editable">
+      <v-icon @click="$emit('edit')">mdi-table-edit</v-icon>
+      <v-icon @click="$emit('delete')">mdi-delete</v-icon>
+    </div>
     <template v-if="!(horizontal && $vuetify.breakpoint.smAndUp)">
-      <v-sheet :width="`${width}px`" :height="`${width * 0.75}px`">
-        <div :style="`width:${width}px`" class="mt-1">
-          <v-img width="100%" :src="product.img" />
-        </div>
-      </v-sheet>
+      <!-- <v-sheet :width="`${width}px`" :height="`${width * 0.75}px`"> -->
+      <div :style="`width:${width}px`" class="mt-1">
+        <v-img width="100%" :src="product.img" />
+      </div>
+      <!-- </v-sheet> -->
       <v-card-title>${{ Number(product.price).toFixed(2) }}</v-card-title>
       <v-card-subtitle class="pb-0">{{ product.title }}</v-card-subtitle>
     </template>
@@ -21,7 +26,7 @@
     <div class="d-flex pb-2" v-else>
       <v-sheet :width="`${width}px`" :height="`${width * 0.75}px`">
         <div :style="`width:${width * 0.5}px`" class="mt-1">
-          <v-img width="100%" :src="product.img" />
+          <v-img width="100%" height="320px" :src="product.img" />
         </div>
       </v-sheet>
       <div class="d-block">
@@ -63,6 +68,9 @@ export default class ProductWidget extends Vue {
   })
   readonly badge!: string;
 
+  @Prop(Boolean) readonly editable!: boolean;
+  @Prop(Boolean) readonly noLink!: boolean;
+
   get width() {
     const rem = 18;
     switch (this.$vuetify.breakpoint.name) {
@@ -86,12 +94,13 @@ export default class ProductWidget extends Vue {
   }
 
   showProductDetails(product: IProduct) {
-    // PopupStore.showProduct(product);
-    ShopStore.productDetails = product;
-    if (this.$route.name !== "shop.details")
-      this.$router.push({
-        name: "shop.details",
-      });
+    if (!this.editable && !this.noLink) {
+      ShopStore.productDetails = product;
+      if (this.$route.name !== "shop.details")
+        this.$router.push({
+          name: "shop.details",
+        });
+    }
   }
 }
 </script>

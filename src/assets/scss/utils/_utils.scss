@@ -14,15 +14,9 @@ $table-border-color: #dee2e6;
 
 .view-container {
   margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
-.badge-offer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: $primary-color;
-  z-index: 2;
-}
 .box-selector {
   border: solid 1px $border-color;
   &:hover {

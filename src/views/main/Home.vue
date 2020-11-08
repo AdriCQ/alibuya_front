@@ -1,29 +1,7 @@
 <template>
   <div id="main-home" class="view-container">
     <!-- banner Carousel -->
-    <v-section
-      bg="img/banners/b3.jpg"
-      height="auto"
-      class="pa-5"
-      min-height="300px"
-    >
-      <v-row justify="end" align="center">
-        <v-col xs="12" sm="8" md="6" lg="4" xl="4">
-          <v-card light>
-            <v-card-text class="pb-0">
-              <p class="title text-center">
-                Lorem, ipsum dolor sit amet consectetur
-              </p>
-            </v-card-text>
-            <v-card-text class="mt-0">
-              <v-btn color="primary" width="100%">
-                <v-icon class="mr-2">mdi-cart</v-icon> lorem
-              </v-btn>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-section>
+    <banner-carousel />
     <!-- / banner Carousel -->
 
     <!-- Suggested Products -->
@@ -116,6 +94,7 @@ import { ShopStore, UserStore } from "@/store";
 
 @Component({
   components: {
+    "banner-carousel": () => import("@/components/sliders/BannerCarousel.vue"),
     "login-card": () => import("@/components/widgets/LoginCard.vue"),
     "products-slider": () =>
       import("@/components/sliders/ProductSliderMultiple.vue"),

@@ -5,9 +5,10 @@
  * -----------------------------------------
  */
 export * from './store/app';
-export * from './store/auth';
+export * from './store/user';
 export * from './store/popups';
 export * from './store/product';
+export * from './store/vendor';
 
 
 /**
@@ -17,7 +18,7 @@ export * from './store/product';
  */
 
 export * from './services';
-export * from './services/auth';
+export * from './services/user';
 export * from './services/shop';
 
 

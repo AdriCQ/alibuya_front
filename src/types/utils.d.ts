@@ -13,8 +13,19 @@ export interface ILinkIconLabel {
   to?: TRouteLink;
 }
 
-interface Dictionary<T> {
+interface IDictionary<T> {
   [Key: string]: T;
+}
+
+export interface ICity {
+  id: number;
+  code: string;
+  name: string;
+}
+
+export interface ICountry {
+  code: string;
+  name: string;
 }
 
 /**
