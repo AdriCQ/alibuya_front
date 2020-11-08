@@ -252,7 +252,7 @@ export default class AccountEdit extends Vue {
   }
 
   cancel() {
-    this.$emit("change:component", "account");
+    this.$emit("change:component", "account-details");
   }
 }
 </script>
