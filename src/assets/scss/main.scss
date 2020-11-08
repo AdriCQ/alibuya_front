@@ -17,6 +17,8 @@
 @import "components/product-widget";
 @import "components/slick-carousel";
 @import "components/production-description";
+// Widgets
+@import "components/widgets/contact";
 
 // Elements
 @import "elements/body";
@@ -24,3 +26,7 @@
 @import "elements/footer";
 @import "elements/lists";
 @import "elements/main";
+
+// Views
+// main
+@import "views/main/setting";

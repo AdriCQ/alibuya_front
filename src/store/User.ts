@@ -3,7 +3,7 @@ import store from '@/store/store';
 import { IUserProfile, ILoginParams, IRegisterParams } from '@/types';
 import { UserService } from '@/services';
 import Storage from '@/utils/Storage';
-import { TPackDestinationPerson } from '../types/store/product';
+import { IUserContact } from '@/types/store/auth';
 
 const storage = new Storage("userStorage");
 
@@ -18,18 +18,41 @@ class UserModule extends VuexModule {
 
   api_token: string | null = null;
 
-  _userDestinataries: TPackDestinationPerson[] = [
-    {
-      first_name: "Adel",
-      last_name: "Ferz",
-      address: "Address",
+  userContacts: IUserContact[] = [{
+     
+      full_name: "Darian",
+      ci: "01083172380",
+      address:
+        "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
     },
     {
-      first_name: "Rafael",
-      last_name: "Lopez",
-      address: "Address",
+     
+      full_name: "Pedro",
+      ci: "01083172380",
+      address:
+        "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
     },
-  ];
+    {
+     
+      full_name: "Raquel",
+      ci: "01083172380",
+      address:
+        "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
+    },
+    {
+    
+      full_name: "Leo",
+      ci: "01083172380",
+      address:
+        "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
+    },
+    {
+     
+      full_name: "Julio",
+      ci: "01083172380",
+      address:
+        "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
+    },];
 
   /**
    * 
@@ -131,26 +154,22 @@ class UserModule extends VuexModule {
   }
 
   /**
-   * 
+   * Remove contact from userContacts
+   * @param _key number
    */
-  get userDestinataries(): TPackDestinationPerson[] {
-    if (this.isLogged && !this._userDestinataries.length) {
-      this._userDestinataries.push({
-        first_name: this.profile.first_name,
-        last_name: this.profile.last_name,
-        address: this.profile.address ? this.profile.address : '',
-      })
-    }
-    return this._userDestinataries;
+  removeContact(_key: number) {
+    this.userContacts.splice(_key, 1);
   }
 
   /**
-   * addUserDestinatary
-   * @param dest TPackDestinationPerson
+   * Save contact in idx [_key] with _new_contact
+   * @param _new_contact IUserContact
+   * @param _key number
    */
-  addUserDestinatary(dest: TPackDestinationPerson) {
-    if (dest.first_name !== '' && dest.last_name !== '' && dest.address !== '')
-      this._userDestinataries.push(dest);
+  saveContact(_new_contact: IUserContact, _key: number) {
+    this.userContacts[_key].full_name = _new_contact.full_name;
+    this.userContacts[_key].ci = _new_contact.ci;
+    this.userContacts[_key].address = _new_contact.address;
   }
 }
 

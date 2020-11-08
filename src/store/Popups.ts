@@ -2,6 +2,7 @@ import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store/store';
 import { UserStore, ShopStore } from '@/store';
 import { IProduct, TNotificationAction, TRouteLink, INotification, TStatusColor } from '@/types';
+import { IUserContact } from '../types/store/auth';
 
 @Module({ generateMutationSetters: true })
 class PopupModule extends VuexModule {
@@ -9,7 +10,7 @@ class PopupModule extends VuexModule {
   auth = false;
   authDefault = 'register';
   // Products
-  productPopup = false
+  productPopup = false;
   productToShow: IProduct = ShopStore.allProducts[0];
   // Notifications
   notificationPopup = false;
@@ -23,6 +24,9 @@ class PopupModule extends VuexModule {
       to: { name: 'shop.cart' }
     }
   };
+  // Contact
+  contactPopup = false;
+  contactToEdit: number|null = null;
 
   closeAll() {
     this.auth = false;
@@ -60,6 +64,11 @@ class PopupModule extends VuexModule {
 
   clearNotifications() {
     this.notificationPopupContent.content = [];
+  }
+
+  showEditContact(_key: number) {
+    this.contactToEdit = _key;
+    this.contactPopup = true;
   }
 }
 

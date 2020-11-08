@@ -6,5 +6,10 @@ export interface IUserProfile {
   mobile_phone?: string;
   gender?: 'm' | 'f';
   address?: string;
-  country?: string;
+}
+
+export interface IUserContact {
+  full_name: string;
+  ci: string;
+  address: string;
 }
