@@ -25,10 +25,4 @@ export interface IProductsPack {
   destinataries?: TPackDestinationPerson[];
 }
 
-export type TPackDestinationPerson = {
-  first_name: string;
-  last_name: string;
-  address: string;
-}
-
 export type TDepartment = 'clothes' | 'automotriz' | 'cell' | 'home' | 'child' | 'health' | 'market'

@@ -3,7 +3,7 @@
     <v-section class="pt-2">
       <v-card>
         <v-card-title>
-          <v-tabs v-model="tabActive">
+          <v-tabs v-model="tabActive" @change="tabsChange($event)">
             <v-tab v-for="(tab, key) in tabs" :key="`account-tab-${key}`">
               {{ tab }}
             </v-tab>
@@ -37,19 +37,26 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component({
   components: {
-    account: () => import("@/components/data/setting/Account.vue"),
+    "account-details": () =>
+      import("@/components/parts/setting/AccountDetails.vue"),
     "account-edit": () => import("@/components/forms/setting/AccountEdit.vue"),
     "account-contacts": () =>
-      import("@/components/data/setting/AccountContacts.vue"),
+      import("@/components/parts/setting/AccountContacts.vue"),
   },
 })
 export default class AccountView extends Vue {
   tabActive = 0;
   tabs = ["Cuenta", "Contactos"];
-  components = ["account", "account-contacts"];
+  components = ["account-details", "account-contacts"];
 
   change(_idx: number, _component: string) {
     Vue.set(this.components, _idx, _component);
+  }
+
+  tabsChange(_id: number) {
+    if (this.tabs[_id] == "Cuenta") {
+      Vue.set(this.components, _id, "account-details");
+    }
   }
 }
 </script>
