@@ -1,35 +1,39 @@
 <template>
   <v-app-bar
-    :absolute="!$vuetify.breakpoint.lgAndUp"
-    :app="$vuetify.breakpoint.lgAndUp"
+    id="app-bar-full"
+    :absolute="!lgAndUp"
+    :app="lgAndUp"
     color="secondary"
+    :extension-height="tabsHeight"
+    height="auto"
     dark
     shrink-on-scroll
-    height="auto"
-    id="app-bar-full"
   >
-    <div class="d-block" style="width: 100%">
-      <div class="h-3 d-flex align-center">
-        <v-app-bar-nav-icon @click="toggleSidebarLeft" />
+    <div class="full-width">
+      <div class="d-flex align-center mb-1">
+        <v-app-bar-nav-icon @click="toggleSidebarLeft">
+          <v-icon> mdi-menu </v-icon>
+        </v-app-bar-nav-icon>
 
         <v-btn text @click="goToRoute('main.home')">
           <span class="mr-1">alibuya</span>
-          <v-icon color="primary" class="">mdi-emoticon-excited</v-icon>
+          <v-icon color="primary">mdi-emoticon-excited</v-icon>
         </v-btn>
+
         <v-spacer />
-        <template v-if="$vuetify.breakpoint.mdAndUp">
+
+        <template v-if="mdAndUp">
           <search-product-form style="max-width: 30rem" />
           <v-spacer />
         </template>
+
         <!-- Auth buttons -->
         <v-btn text @click="openAuthPopup" v-if="!isLogged">
           <span> Identifícate </span>
-          <v-icon v-if="$vuetify.breakpoint.smAndUp" class="ml-2">
-            mdi-account-circle
-          </v-icon>
+          <v-icon v-if="smAndUp" class="ml-2"> mdi-account-circle </v-icon>
         </v-btn>
 
-        <v-menu v-else>
+        <v-menu transition="scale-transition" offset-y v-else>
           <template v-slot:activator="{ on }">
             <v-btn text v-on="on">
               <span>
@@ -52,33 +56,37 @@
         </v-menu>
         <!-- / Auth buttons -->
 
-        <v-btn text @click="goToRoute('shop.cart')" class="ml-2 mr-2">
+        <v-btn
+          :fab="!smAndUp"
+          :small="!smAndUp"
+          text
+          @click="goToRoute('shop.cart')"
+          class="ml-2 mr-2"
+        >
           <v-badge
             v-if="shopingCartCounter"
             color="primary"
             :content="shopingCartCounter"
           >
-            <span v-if="$vuetify.breakpoint.smAndUp"> Mi Carrito </span>
+            <span v-if="smAndUp"> Mi Carrito </span>
             <v-icon>mdi-cart-outline</v-icon>
           </v-badge>
           <template v-else>
-            <span v-if="$vuetify.breakpoint.smAndUp"> Mi Carrito </span>
+            <span v-if="smAndUp"> Mi Carrito </span>
             <v-icon>mdi-cart-outline</v-icon>
           </template>
         </v-btn>
       </div>
 
-      <div class="h-3 d-flex align-center" v-if="!$vuetify.breakpoint.mdAndUp">
-        <v-spacer />
-        <search-product-form class="px-2" style="max-width: 50rem" />
-        <v-spacer />
+      <div class="d-flex align-center mb-2" v-if="!$vuetify.breakpoint.mdAndUp">
+        <search-product-form style="max-width: 50rem" />
       </div>
     </div>
 
     <template v-slot:extension>
-      <v-tabs centered>
+      <v-tabs :height="tabsHeight" optional centered>
         <!-- Departments -->
-        <template v-if="activeTab === 'departments'">
+        <template v-if="typeTabs === 'departments'">
           <v-tab
             v-for="(dep, key) in departments"
             :key="key"
@@ -86,10 +94,13 @@
             link
             :to="dep.to"
           >
-            {{ dep.labelLang[appLang] }}
+            <span class="text-transform-none">
+              {{ dep.labelLang[appLang] }}
+            </span>
           </v-tab>
         </template>
         <!-- / Departments -->
+
         <template v-else>
           <v-tab
             v-for="(link, key) in vendorPages"
@@ -117,6 +128,7 @@ import { AppStore, UserStore, PopupStore, ShopStore } from "@/store";
   },
 })
 export default class AppBarFull extends Vue {
+  tabsHeight = 40;
   get departments() {
     return DEPARTMENTS;
   }
@@ -144,8 +156,21 @@ export default class AppBarFull extends Vue {
   /**
    *
    */
-  get activeTab() {
+  get typeTabs() {
     return this.$route.path.includes("vendor") ? "vendor" : "departments";
+  }
+
+  // breakpoints
+  get smAndUp() {
+    return this.$vuetify.breakpoint.smAndUp;
+  }
+
+  get mdAndUp() {
+    return this.$vuetify.breakpoint.mdAndUp;
+  }
+
+  get lgAndUp() {
+    return this.$vuetify.breakpoint.lgAndUp;
   }
 
   /**

@@ -2,7 +2,7 @@
   <v-form class="full-width">
     <v-text-field
       background-color="white"
-      placeholder="Buscar en ALIBUYA"
+      placeholder="Buscar en alibuya"
       dense
       light
       flat
@@ -10,7 +10,7 @@
       class="input-padding"
     >
       <template v-slot:append>
-        <v-btn tile color="primary">
+        <v-btn height="32" min-width="50" tile color="primary">
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
       </template>
