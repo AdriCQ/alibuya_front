@@ -98,7 +98,6 @@ import { ShopStore, UserStore } from "@/store";
     "login-card": () => import("@/components/widgets/LoginCard.vue"),
     "products-slider": () =>
       import("@/components/sliders/ProductSliderMultiple.vue"),
-    "product-widget": () => import("@/components/widgets/Product.vue"),
   },
 })
 export default class HomeMainView extends Vue {

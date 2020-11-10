@@ -51,7 +51,7 @@ export const DEPARTMENTS: IDictionary<ILinkIconLabelModified> = {
     }
 
   },
-  child: {
+  kids: {
     icon: 'mdi-human-child',
     labelLang: { es: 'Niños' },
     to: {
