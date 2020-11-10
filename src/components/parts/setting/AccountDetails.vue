@@ -39,7 +39,6 @@
             <v-col>
               <v-banner icon="mdi-account" class="pr-1" single-line>
                 <span>
-                  Nombre:
                   {{ fullName }}
                 </span>
               </v-banner>
@@ -49,19 +48,19 @@
           <v-row no-gutters>
             <v-col cols="12">
               <v-banner icon="mdi-mail" class="pr-1" single-line>
-                <span> Email: {{ profile.email }} </span>
+                <span> {{ profile.email }} </span>
               </v-banner>
             </v-col>
 
             <v-col cols="12">
               <v-banner icon="mdi-phone" class="pr-1" single-line>
-                <span>Teléfono: {{ profile.phone_number }} </span>
+                <span>{{ profile.mobile_phone }} </span>
               </v-banner>
             </v-col>
 
             <v-col cols="12">
               <v-banner icon="mdi-map-marker" class="pr-1" single-line>
-                <span>Dirección: {{ fullAdress }} </span>
+                <span> {{ fullAdress }} </span>
               </v-banner>
             </v-col>
           </v-row>
@@ -84,15 +83,16 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
+import { IUserProfile } from "@/types";
 
 @Component
 export default class AccountDetails extends Vue {
-  get profile() {
+  get profile(): IUserProfile {
     return {
       first_name: "Darián",
       last_name: "Capote Quintana",
-      email: "darian@alibuya.com",
-      phone_number: "53927128",
+      email: "royal.boxx@nauta.cu",
+      mobile_phone: "53927128",
       country: "Cuba",
       address:
         "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",

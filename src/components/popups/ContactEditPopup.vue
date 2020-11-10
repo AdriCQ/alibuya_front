@@ -44,7 +44,9 @@
 
       <v-card-actions>
         <v-spacer />
-        <v-btn color="primary" dark small @click="save"> Guardar </v-btn>
+        <v-btn color="primary" dark small @click="emitEvent">
+          {{ formEmpty ? "Agregar" : "Guardar" }}
+        </v-btn>
         <v-btn color="primary" dark small @click="close"> Cancelar </v-btn>
       </v-card-actions>
     </v-card>
@@ -52,39 +54,44 @@
 </template>
 
 <script lang='ts'>
-import { Vue, Component } from "vue-property-decorator";
-import { PopupStore, UserStore } from "@/store";
+import { Vue, Component, Prop } from "vue-property-decorator";
+import { PopupStore } from "@/store";
 import { IUserContact } from "@/types";
 
 @Component
 export default class ContactEditPopup extends Vue {
+  @Prop(Boolean) formEmpty!: boolean;
+
   form: IUserContact = {
     full_name: "",
     ci: "",
     address: "",
   };
 
-  get contactKey() {
+  get contact() {
     return PopupStore.contactToEdit;
   }
 
   get show() {
-    if (PopupStore.contactPopup) {
-      this.setContact(UserStore.userContacts[this.contactKey as number]);
+    if (!this.formEmpty && PopupStore.contactPopup) {
+      this.setForm(this.contact);
+    } else if (PopupStore.contactPopup) {
+      this.setForm({ full_name: "", ci: "", address: "" });
     }
 
     return PopupStore.contactPopup;
   }
 
-  setContact(_contact: IUserContact) {
-    this.form.full_name = _contact.full_name;
-    this.form.ci = _contact.ci;
-    this.form.address = _contact.address;
+  setForm(_contact: IUserContact) {
+    this.form = _contact;
   }
 
-  save() {
-    UserStore.saveContact(this.form, this.contactKey as number);
-    this.close();
+  emitEvent() {
+    if (this.formEmpty) {
+      this.$emit("add-contact", this.form);
+    } else {
+      this.$emit("update-contact", this.form);
+    }
   }
 
   close() {

@@ -86,11 +86,13 @@
 
           <!--- Address Input -->
           <v-col cols="12" lg="6">
-            <v-text-field
+            <v-textarea
               label="Dirección"
               v-model="form.address"
               prepend-icon="mdi-map-marker"
+              rows="2"
               dense
+              auto-grow
             />
           </v-col>
         </v-row>
@@ -149,9 +151,7 @@
     <!-- Buttons -->
     <v-row justify="center">
       <v-col cols="auto">
-        <v-btn :small="smAndDown" type="submit" color="primary">
-          Aceptar
-        </v-btn>
+        <v-btn :small="smAndDown" color="primary"> Aceptar </v-btn>
       </v-col>
 
       <v-col cols="auto">

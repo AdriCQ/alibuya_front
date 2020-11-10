@@ -3,56 +3,22 @@ import store from '@/store/store';
 import { IUserProfile, ILoginParams, IRegisterParams } from '@/types';
 import { UserService } from '@/services';
 import Storage from '@/utils/Storage';
-import { IUserContact } from '@/types/store/auth';
+import { IUserContact } from '@/types/store/user';
 
 const storage = new Storage("userStorage");
 
 @Module({ generateMutationSetters: true })
 class UserModule extends VuexModule {
   profile: IUserProfile = {
-    email: '',
     first_name: '',
     last_name: '',
+    email: '',
     address: ''
   };
 
   api_token: string | null = null;
 
-  userContacts: IUserContact[] = [{
-     
-      full_name: "Darian",
-      ci: "01083172380",
-      address:
-        "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
-    },
-    {
-     
-      full_name: "Pedro",
-      ci: "01083172380",
-      address:
-        "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
-    },
-    {
-     
-      full_name: "Raquel",
-      ci: "01083172380",
-      address:
-        "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
-    },
-    {
-    
-      full_name: "Leo",
-      ci: "01083172380",
-      address:
-        "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
-    },
-    {
-     
-      full_name: "Julio",
-      ci: "01083172380",
-      address:
-        "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
-    },];
+  contacts: IUserContact[] = [];
 
   /**
    * 
@@ -158,18 +124,26 @@ class UserModule extends VuexModule {
    * @param _key number
    */
   removeContact(_key: number) {
-    this.userContacts.splice(_key, 1);
+    this.contacts.splice(_key, 1);
+     console.log(this.contacts);
   }
 
   /**
-   * Save contact in idx [_key] with _new_contact
-   * @param _new_contact IUserContact
+   * Add contact to store
+   * @param _contact IUserContact
+   */
+  addContact(_contact: IUserContact) {
+    this.contacts.push(_contact);
+    console.log(this.contacts);
+  }
+
+  /**
+   * Update contact in idx [_key] with _contact
+   * @param _contact IUserContact
    * @param _key number
    */
-  saveContact(_new_contact: IUserContact, _key: number) {
-    this.userContacts[_key].full_name = _new_contact.full_name;
-    this.userContacts[_key].ci = _new_contact.ci;
-    this.userContacts[_key].address = _new_contact.address;
+  updateContact(_contact: IUserContact, _key: number) {
+    this.contacts[_key] = _contact;
   }
 }
 

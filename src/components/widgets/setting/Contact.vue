@@ -34,19 +34,17 @@
 <script lang='ts'>
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { IUserContact } from "@/types";
-import { PopupStore, UserStore } from "@/store";
 
 @Component
 export default class Contact extends Vue {
   @Prop({ type: Object, required: true }) readonly contact!: IUserContact;
-  @Prop(Number) readonly keyContact!: number;
 
   remove() {
-    UserStore.removeContact(this.keyContact);
+    this.$emit("click-remove");
   }
 
   showEditPopup() {
-    PopupStore.showEditContact(this.keyContact);
+    this.$emit("click-edit");
   }
 }
 </script>

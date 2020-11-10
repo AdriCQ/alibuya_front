@@ -5,9 +5,9 @@ export interface IUserProfile {
   email: string;
   mobile_phone?: string;
   gender?: 'm' | 'f';
+  country?: string;
   address?: string;
 }
-
 export interface IUserContact {
   full_name: string;
   ci: string;
