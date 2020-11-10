@@ -16,8 +16,7 @@
         </v-app-bar-nav-icon>
 
         <v-btn text @click="goToRoute('main.home')">
-          <span class="mr-1">alibuya</span>
-          <v-icon color="primary">mdi-emoticon-excited</v-icon>
+          <v-img src="img/logos/logo_text_white.png" width="5rem" />
         </v-btn>
 
         <v-spacer />

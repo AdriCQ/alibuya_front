@@ -1,5 +1,5 @@
 {
-  "name": "Alibuya",
+  "name": "alibuya",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -16,6 +16,7 @@
     "vue-class-component": "^7.2.3",
     "vue-cookies": "^1.7.4",
     "vue-property-decorator": "^8.5.1",
+    "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.2.0",
     "vue-slick-carousel": "^1.0.6",
     "vuelidate": "^0.7.5",

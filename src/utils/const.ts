@@ -17,6 +17,13 @@ interface ILinkIconLabelModified extends ILinkIconLabel {
 }
 
 export const DEPARTMENTS: IDictionary<ILinkIconLabelModified> = {
+  all: {
+    icon: 'mdi-hanger',
+    labelLang: { es: 'Todos' },
+    to: {
+      name: 'shop.home',
+    }
+  },
   clothes: {
     icon: 'mdi-hanger',
     labelLang: { es: 'Ropas' },

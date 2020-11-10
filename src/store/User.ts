@@ -1,13 +1,8 @@
 import { VuexModule, Module, Action } from 'vuex-class-modules';
 import store from '@/store/store';
-import { IUserProfile, ILoginParams, IRegisterParams } from '@/types';
+import { IUserProfile, ILoginParams, IRegisterParams, IUserContact } from '@/types';
 import { UserService } from '@/services';
 import Storage from '@/utils/Storage';
-<<<<<<< HEAD
-import { IUserContact } from '@/types/store/user';
-=======
-import { IUserContact } from '@/types';
->>>>>>> 7d722b76e4e7d774e97b7a6c8b0d295195767461
 
 const storage = new Storage("userStorage");
 
@@ -22,10 +17,7 @@ class UserModule extends VuexModule {
 
   api_token: string | null = null;
 
-<<<<<<< HEAD
-  contacts: IUserContact[] = [];
-=======
-  userContacts: IUserContact[] = [{
+  contacts: IUserContact[] = [{
 
     full_name: "Darian",
     ci: "01083172380",
@@ -60,7 +52,6 @@ class UserModule extends VuexModule {
     address:
       "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
   },];
->>>>>>> 7d722b76e4e7d774e97b7a6c8b0d295195767461
 
   /**
    * 
@@ -162,12 +153,11 @@ class UserModule extends VuexModule {
   }
 
   /**
-   * Remove contact from userContacts
+   * Remove contact from contacts
    * @param _key number
    */
   removeContact(_key: number) {
     this.contacts.splice(_key, 1);
-     console.log(this.contacts);
   }
 
   /**
@@ -176,7 +166,6 @@ class UserModule extends VuexModule {
    */
   addContact(_contact: IUserContact) {
     this.contacts.push(_contact);
-    console.log(this.contacts);
   }
 
   /**
