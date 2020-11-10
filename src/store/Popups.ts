@@ -2,7 +2,6 @@ import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store/store';
 import { UserStore, ShopStore } from '@/store';
 import { IProduct, TNotificationAction, TRouteLink, INotification, TStatusColor } from '@/types';
-import { IUserContact } from '../types/store/auth';
 
 @Module({ generateMutationSetters: true })
 class PopupModule extends VuexModule {
@@ -26,7 +25,7 @@ class PopupModule extends VuexModule {
   };
   // Contact
   contactPopup = false;
-  contactToEdit: number|null = null;
+  contactToEdit: number | null = null;
 
   closeAll() {
     this.auth = false;

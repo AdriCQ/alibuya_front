@@ -4,7 +4,12 @@
       <v-card>
         <v-card-title>Editar Producto</v-card-title>
         <v-card-text>
-          <product-form :product="product" edit @submit="saveProduct" />
+          <product-form
+            :product="product"
+            edit
+            @submit="saveProduct"
+            @reset="reset"
+          />
         </v-card-text>
       </v-card>
     </v-section>
@@ -24,6 +29,9 @@ import { Vue, Component } from "vue-property-decorator";
 export default class EditVendorProductView extends Vue {
   beforeMount() {
     if (this.$route.params.productKey)
+      // TODO: Remove ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
       this.product =
         VendorStore.myProducts[Number(this.$route.params.productKey)];
   }
@@ -43,6 +51,14 @@ export default class EditVendorProductView extends Vue {
     this.$router.push({
       name: "vendor.products",
     });
+  }
+
+  reset() {
+    if (this.$route.name !== "vendor.products") {
+      this.$router.push({
+        name: "vendor.products",
+      });
+    }
   }
 }
 </script>

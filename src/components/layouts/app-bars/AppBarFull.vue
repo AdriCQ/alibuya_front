@@ -2,7 +2,7 @@
   <v-app-bar
     :absolute="!$vuetify.breakpoint.lgAndUp"
     :app="$vuetify.breakpoint.lgAndUp"
-    color="secondary"
+    color="tertiary"
     dark
     shrink-on-scroll
     height="auto"
@@ -12,9 +12,12 @@
       <div class="h-3 d-flex align-center">
         <v-app-bar-nav-icon @click="toggleSidebarLeft" />
 
-        <v-btn text @click="goToRoute('main.home')">
-          <span class="mr-1">alibuya</span>
-          <v-icon color="primary" class="">mdi-emoticon-excited</v-icon>
+        <v-btn
+          text
+          @click="goToRoute('main.home')"
+          v-if="$vuetify.breakpoint.smAndUp"
+        >
+          <v-img width="5rem" src="img/logos/logo_text_white.png" />
         </v-btn>
         <v-spacer />
         <template v-if="$vuetify.breakpoint.mdAndUp">

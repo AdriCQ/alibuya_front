@@ -3,7 +3,7 @@ import store from '@/store/store';
 import { IUserProfile, ILoginParams, IRegisterParams } from '@/types';
 import { UserService } from '@/services';
 import Storage from '@/utils/Storage';
-import { IUserContact } from '@/types/store/auth';
+import { IUserContact } from '@/types';
 
 const storage = new Storage("userStorage");
 
@@ -19,40 +19,40 @@ class UserModule extends VuexModule {
   api_token: string | null = null;
 
   userContacts: IUserContact[] = [{
-     
-      full_name: "Darian",
-      ci: "01083172380",
-      address:
-        "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
-    },
-    {
-     
-      full_name: "Pedro",
-      ci: "01083172380",
-      address:
-        "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
-    },
-    {
-     
-      full_name: "Raquel",
-      ci: "01083172380",
-      address:
-        "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
-    },
-    {
-    
-      full_name: "Leo",
-      ci: "01083172380",
-      address:
-        "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
-    },
-    {
-     
-      full_name: "Julio",
-      ci: "01083172380",
-      address:
-        "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
-    },];
+
+    full_name: "Darian",
+    ci: "01083172380",
+    address:
+      "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
+  },
+  {
+
+    full_name: "Pedro",
+    ci: "01083172380",
+    address:
+      "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
+  },
+  {
+
+    full_name: "Raquel",
+    ci: "01083172380",
+    address:
+      "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
+  },
+  {
+
+    full_name: "Leo",
+    ci: "01083172380",
+    address:
+      "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
+  },
+  {
+
+    full_name: "Julio",
+    ci: "01083172380",
+    address:
+      "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
+  },];
 
   /**
    * 

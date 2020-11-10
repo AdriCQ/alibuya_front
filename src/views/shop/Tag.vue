@@ -4,14 +4,14 @@
       <v-card>
         <!-- Section title -->
         <v-card-title>
-          <v-icon class="mr-2">{{ departmentIcon }}</v-icon>
+          <!-- <v-icon class="mr-2">{{ departmentIcon }}</v-icon> -->
           Departamento de {{ departmentName }}
         </v-card-title>
         <!-- / Section title -->
 
-        <v-card-subtitle class="mt-2 pb-0 mb-0">
+        <!-- <v-card-subtitle class="mt-2 pb-0 mb-0">
           <search-inline :active-department="tag" />
-        </v-card-subtitle>
+        </v-card-subtitle> -->
 
         <!-- Section Content -->
         <template>

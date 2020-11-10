@@ -7,18 +7,19 @@
   >
     <!-- Carousel 1 -->
     <v-carousel-item>
-      <v-sheet color="info" height="400px" class="pb-5">
+      <v-sheet color="#FFE082" light height="400px" class="pb-5">
         <v-row class="fill-height" align="center" justify="center">
           <v-col cols="12" xs="12" sm="6" md="6" lg="6" xl="6">
             <v-card-text
               class="text-center"
               :style="`font-size: ${titleSize}rem`"
-              ><v-icon>mdi-cart</v-icon> ALIBUYA</v-card-text
+              >ALIBUYA</v-card-text
             >
             <v-card-text
               class="text-center"
               :style="`font-size: ${subtitleSize}rem`"
-              >Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              >Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
+              nam ea quam unde.
             </v-card-text>
           </v-col>
           <v-col cols="12" xs="12" sm="6" md="6" lg="6" xl="6">
@@ -30,33 +31,8 @@
     <!-- / Carousel 1 -->
 
     <!-- Carousel 2 -->
-    <!-- <v-carousel-item>
-      <v-sheet color="secondary" height="400px" class="pb-5">
-        <v-row class="fill-height" align="center" justify="center">
-          <v-col cols="12" xs="12" sm="6" md="6" lg="6" xl="6">
-            <v-card-text
-              class="text-center"
-              :style="`font-size: ${subtitleSize}rem`"
-              >Identifícate para utilizar nuestros servicios</v-card-text
-            >
-            <v-card-text
-              class="text-center"
-              :style="`font-size: ${subtitleSize}rem`"
-              ><v-btn color="primary" @click="openRegisterPopup">Acceder</v-btn>
-            </v-card-text>
-          </v-col>
-
-          <v-col cols="12" xs="12" sm="4" md="4" lg="4" xl="4">
-            <v-img src="img/png/2.png" width="100%" />
-          </v-col>
-        </v-row>
-      </v-sheet>
-    </v-carousel-item> -->
-    <!-- / Carousel 2 -->
-
-    <!-- Carousel 3 -->
     <v-carousel-item>
-      <v-sheet color="red" height="400px" class="pb-5">
+      <v-sheet color="accent" light height="400px" class="pb-5">
         <v-row class="fill-height" align="center" justify="center">
           <v-col cols="12" xs="12" sm="6" md="6" lg="6" xl="6">
             <v-card-text
@@ -72,8 +48,11 @@
             <v-card-text
               class="text-center"
               :style="`font-size: ${subtitleSize}rem`"
-              ><v-btn :to="{ name: 'vendor.home' }" color="primary" light
-                >Empezar</v-btn
+              ><v-btn
+                :to="{ name: 'vendor.home' }"
+                class="black--text"
+                color="primary"
+                >Empezar a vender</v-btn
               >
             </v-card-text>
           </v-col>
