@@ -1,5 +1,5 @@
 <template>
-  <v-form @submit.prevent="submit" @reset="reset">
+  <v-form @submit.prevent="submit">
     <v-card>
       <v-card-text>
         <v-row justify="space-around">
@@ -56,7 +56,7 @@
       </v-card-text>
       <v-card-actions>
         <v-btn color="primary" type="submit">Guardar</v-btn>
-        <v-btn color="primary" class="ml-2" type="reset">Cancelar</v-btn>
+        <v-btn color="primary" class="ml-2" @click="reset">Cancelar</v-btn>
       </v-card-actions>
     </v-card>
   </v-form>

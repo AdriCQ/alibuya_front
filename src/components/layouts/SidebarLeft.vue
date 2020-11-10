@@ -7,7 +7,7 @@
   >
     <!-- Pages -->
     <v-list nav dense>
-      <v-list-item @click="openAuthPopup">
+      <v-list-item @click="openProfile">
         <v-list-item-icon>
           <v-icon>mdi-account</v-icon>
         </v-list-item-icon>
@@ -121,6 +121,18 @@ export default class AppSidebarLeft extends Vue {
    */
   openAuthPopup() {
     PopupStore.openAuth("login");
+  }
+
+  openProfile() {
+    if (this.isLogged) {
+      if (this.$route.name !== "settings.account") {
+        this.$router.push({
+          name: "settings.account",
+        });
+      }
+    } else {
+      this.openAuthPopup();
+    }
   }
 }
 </script>

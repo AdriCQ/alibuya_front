@@ -7,7 +7,7 @@
     <!-- / Add to Cart -->
 
     <v-section class="mt-2">
-      <v-card>
+      <v-card tile>
         <v-tabs v-model="tab" color="primary" style="margin-right: -15px">
           <v-tabs-slider color="primary"></v-tabs-slider>
 

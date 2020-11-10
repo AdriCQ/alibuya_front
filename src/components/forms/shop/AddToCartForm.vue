@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card>
+    <v-card flat>
       <v-row>
         <v-col xs="12" sm="12" md="4" lg="4" xl="4" cols="12">
           <v-img :src="product.img" class="mx-auto" max-width="20rem" />

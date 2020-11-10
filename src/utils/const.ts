@@ -65,6 +65,13 @@ export const DEPARTMENTS: IDictionary<ILinkIconLabelModified> = {
       name: 'shop.tags',
       params: { tag: 'health' }
     }
+  },
+  pets: {
+    icon: 'mdi-medical-bag',
+    labelLang: { es: 'Mascotas' }, to: {
+      name: 'shop.tags',
+      params: { tag: 'pets' }
+    }
   }
 }
 
@@ -90,7 +97,15 @@ export const WEB_PAGES: ILinkIconLabel[] = [
   },
   {
     icon: "mdi-account-circle",
+    label: "Vender",
+    to: { name: "vendor.home" },
+  },
+  {
+    icon: "mdi-account-circle",
     label: "Rastrear Pedido",
+    to: {
+      name: "main.home",
+    },
   },
   {
     icon: "mdi-account-circle",
