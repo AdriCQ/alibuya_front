@@ -28,7 +28,12 @@
               <v-card-title> Ofertas por menos de $25 </v-card-title>
               <v-row v-for="i in 2" :key="i" dense>
                 <v-col cols="6" v-for="j in 2" :key="j">
-                  <v-sheet width="100%" height="8rem" color="grayLight" light>
+                  <v-sheet
+                    width="100%"
+                    height="8rem"
+                    color="secondaryBetha"
+                    light
+                  >
                     <div class="text-center pt-10">
                       <v-icon x-large>mdi-gift</v-icon>
                     </div>
@@ -44,7 +49,12 @@
           <v-col cols="12" xs="12" sm="6" md="4" lg="4" xl="4">
             <v-card flat>
               <v-card-title>Producto más comprado </v-card-title>
-              <v-sheet height="17.7rem" color="grayLight" class="mt-1" light />
+              <v-sheet
+                height="17.7rem"
+                color="secondaryBetha"
+                class="mt-1"
+                light
+              />
               <div class="subtitle text-center">Lorem ipsum dolor</div>
             </v-card>
           </v-col>
@@ -60,7 +70,7 @@
                 width="100%"
                 class="mt-1"
                 height="8rem"
-                color="grayLight"
+                color="secondaryBetha"
                 light
               >
                 <div class="text-center pt-10">
@@ -71,7 +81,7 @@
 
               <v-row dense class="mt-1">
                 <v-col cols="6" v-for="j in 2" :key="j">
-                  <v-sheet width="100%" height="8rem" color="grayLight">
+                  <v-sheet width="100%" height="8rem" color="secondaryBetha">
                     <div class="text-center pt-10">
                       <v-icon x-large>mdi-gift</v-icon>
                     </div>

@@ -95,8 +95,8 @@
       </v-card-text>
       <v-card-actions class="mt-0">
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="closePopup"> Cancelar </v-btn>
-        <v-btn color="primary" type="submit"> Registrar </v-btn>
+        <v-btn color="primaryBetha" @click="closePopup"> Cancelar </v-btn>
+        <v-btn color="primaryAlpha" type="submit"> Registrar </v-btn>
       </v-card-actions>
     </v-card>
   </v-form>

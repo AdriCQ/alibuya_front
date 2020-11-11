@@ -10,7 +10,7 @@
       class="input-padding"
     >
       <template v-slot:append>
-        <v-btn tile color="primaryDark" dark rounded>
+        <v-btn tile color="primary" dark rounded>
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
       </template>

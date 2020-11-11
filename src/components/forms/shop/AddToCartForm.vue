@@ -4,26 +4,46 @@
       <v-row>
         <v-col xs="12" sm="12" md="4" lg="4" xl="4" cols="12">
           <v-img :src="product.img" class="mx-auto" max-width="20rem" />
-          <!-- <v-row align-content="center" class="mt-4" no-gutters>
-            <v-col v-for="i in 3" :key="i">
-              <div class="box-selector py-2">
-                <v-img class="mx-auto" :src="product.img" max-width="5rem" />
-              </div>
-            </v-col>
-          </v-row> -->
         </v-col>
         <v-col xs="12" sm="12" md="8" lg="8" xl="8" cols="12">
           <v-card-title class="font-weight-bold">
-            ${{ Number(product.price).toFixed(2) }}
+            {{ product.title }}
           </v-card-title>
-          <v-card-title>{{ product.title }} </v-card-title>
+          <v-card-title>
+            Disponible desde US${{ Number(product.price).toFixed(2) }}
+          </v-card-title>
+
           <v-form>
+            <!-- Product Description -->
             <v-card-text>
-              <ul class="li-circle">
-                <li v-for="(p, i) in product.description" :key="i">
-                  {{ p }}
-                </li>
-              </ul>
+              <v-text-field class="w-20" outlined label="Peso" color="primary">
+                <template v-slot:append>
+                  <label>Kg</label>
+                </template>
+              </v-text-field>
+              <v-select
+                label="Color"
+                outlined
+                class="w-20"
+                :items="['Rojo', 'Azul', 'Negro']"
+              />
+            </v-card-text>
+            <!-- / Product Description -->
+            <v-card-title>Sobre éste artículo</v-card-title>
+            <v-card-text>
+              <b>Lorem ipsum dolor sit amet</b>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
+                reprehenderit hic earum in repellat tempore pariatur rerum ipsam
+                suscipit sint maiores cum, itaque eaque quis dolorum eum vel
+                explicabo fugiat.
+              </p>
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Dolore, culpa, nostrum animi placeat ducimus a aut ipsam
+                deserunt, minima praesentium ut quia dolorum natus omnis ex
+                atque fugiat! Error, ratione.
+              </p>
             </v-card-text>
             <!-- Delivery method -->
             <v-card-text>
@@ -31,6 +51,7 @@
                 class="w-20"
                 label="Método de Recogida"
                 :items="deliveryMethods"
+                outlined
               />
             </v-card-text>
             <!-- / Delivery method -->
@@ -46,22 +67,12 @@
               </div>
             </v-card-text>
             <!-- / Cant Input -->
-            <!-- Destinataries Input -->
-            <!-- <v-card-text>
-              <destinatary-input
-                class="w-20"
-                :selected.sync="personsInfo"
-                :cant="cant"
-                :limit="productLimit"
-              />
-            </v-card-text> -->
-            <!-- / Destinataries Input -->
 
             <v-card-text>
               <v-checkbox
                 label="Entiendo que este producto tiene un cargo en destino de 5,00 CUC"
               />
-              <v-btn color="primary" class="mt-4" @click="addToCart">
+              <v-btn color="primaryAlpha" class="mt-4" @click="addToCart">
                 <v-icon class="mr-2">mdi-cart-plus</v-icon>
                 Listo para añadir
               </v-btn>

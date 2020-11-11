@@ -43,8 +43,8 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="primary" @click="closePopup"> Cancelar </v-btn>
-      <v-btn color="primary" type="submit" @click.prevent="login">
+      <v-btn color="primaryBeta" @click="closePopup"> Cancelar </v-btn>
+      <v-btn color="primaryAlpha" type="submit" @click.prevent="login">
         Login
       </v-btn>
     </v-card-actions>

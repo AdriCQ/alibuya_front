@@ -7,7 +7,7 @@
     />
     <v-text-field v-model="form.subject" label="Asunto" placeholder="Asunto" />
     <v-textarea v-model="form.message" label="Mensaje" />
-    <v-btn type="submit" color="primary">
+    <v-btn type="submit" color="primaryAlpha">
       <v-icon>mdi-send</v-icon>
       <span class="ml-2">Enviar</span>
     </v-btn>
