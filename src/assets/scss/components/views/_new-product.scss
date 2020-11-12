@@ -1,0 +1,22 @@
+#new-product-view {
+  $container-size: 10rem;
+  .img-container-qwer,
+  .img-container-plus-qwer {
+    width: $container-size;
+    height: $container-size;
+    text-align: center;
+    border: solid 1px $secondary-color;
+    border-radius: 1rem;
+    align-content: center;
+    .v-image__image {
+      border-radius: 1rem;
+    }
+    .v-responsive__content {
+      border-radius: 1rem;
+    }
+  }
+
+  .img-container-plus-qwer {
+    border-style: dashed;
+  }
+}

@@ -1,10 +1,19 @@
 @import "~vuetify/src/styles/settings/_variables";
 
 /* Predefined colors */
-$primary-color:#FF9100;
-$secondary-color:#263238;
-$tertiary-color:#FFD740;
-$border-color: rgba(0,0,0,0.3);
+$primary-color: #fb8c00;
+$secondary-color: #263238;
+$tertiary-color: #263238;
+$border-color: rgba(0, 0, 0, 0.3);
 
-$body-color: rgba(0,0,0,0.08);
-$body-color-border: rgba(0,0,0,0.1);
+$primary-alpha-color: #ffca28;
+$primary-betha-color: #ffecb3;
+
+$secondary-alpha-color: #cfd8dc;
+$secondary-betha-color: #cfd8dc;
+
+$tertiary-alpha-color: #263238;
+$tertiary-betha-color: #263238;
+
+$body-color: rgba(0, 0, 0, 0.08);
+$body-color-border: rgba(0, 0, 0, 0.1);

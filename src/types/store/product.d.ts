@@ -12,7 +12,7 @@ export interface IProduct {
   weight?: number;
   color?: string;
   brand?: string;
-  description?: string[];
+  description?: string[] | string;
 }
 
 export interface IProductCart extends IProduct {

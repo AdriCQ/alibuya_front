@@ -10,7 +10,8 @@ export const vendorRoutes: RouteConfig = {
     {
       name: 'vendor.home',
       path: 'home',
-      component: () => import('@/views/vendor/Home.vue'),
+      component: () => import('@/views/vendor/NewProduct.vue'),
+      // component: () => import('@/views/vendor/Home.vue'),
     },
     {
       name: 'vendor.business',
