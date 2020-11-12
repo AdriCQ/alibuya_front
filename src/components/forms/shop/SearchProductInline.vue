@@ -1,16 +1,17 @@
 <template>
-  <v-form class="full-width">
+  <v-form class="form-search-product full-width">
     <v-text-field
       background-color="white"
       placeholder="Buscar en alibuya"
       dense
       light
       flat
+      solo
       hide-details
-      class="input-padding"
+      class="input-padding rounded-lg"
     >
       <template v-slot:append>
-        <v-btn tile color="primary" dark rounded>
+        <v-btn color="primary" :height="38" dark class="rounded-lg">
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
       </template>

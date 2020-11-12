@@ -38,9 +38,7 @@
               <span>
                 {{ userName }}
               </span>
-              <v-icon v-if="$vuetify.breakpoint.smAndUp">
-                mdi-account-circle
-              </v-icon>
+              <v-icon v-if="smAndUp"> mdi-account-circle </v-icon>
             </v-btn>
           </template>
 
@@ -77,8 +75,8 @@
         </v-btn>
       </div>
 
-      <div class="d-flex align-center mb-2" v-if="!$vuetify.breakpoint.mdAndUp">
-        <search-product-form style="max-width: 50rem" />
+      <div class="d-flex align-center mb-2" v-if="!mdAndUp">
+        <search-product-form class="mx-auto" style="max-width: 50rem" />
       </div>
     </div>
 
