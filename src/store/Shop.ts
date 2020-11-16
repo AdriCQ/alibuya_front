@@ -2,10 +2,11 @@ import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store/store';
 import { PRODUCTS } from '@/utils/test';
 import { IProductCart, IProduct, IProductsPack } from '@/types';
+import { ShopService } from '@/services';
 
 @Module({ generateMutationSetters: true })
 class ShopModule extends VuexModule {
-
+  suggestedProducts: IProduct[] = [];
   shoppingCartProducts: IProductCart[] = [];
 
   tempShoppingCartPacks: IProductsPack[] = [];
@@ -17,12 +18,29 @@ class ShopModule extends VuexModule {
     return PRODUCTS;
   }
 
-  get suggestedProducts() {
-    return PRODUCTS;
-  }
-
   get shoppingCartCounter() {
     return this.shoppingCartProducts.length;
+  }
+
+  async getSuggestedProducts() {
+    try {
+      const _resp = (await ShopService.suggested()).data;
+      if (_resp.STATUS) {
+        this.suggestedProducts = _resp.DATA.data;
+      } else {
+        const errors: string[] = [];
+        for (const _key in _resp.ERRORS as unknown[]) {
+          errors.push(_resp.ERRORS[_key]);
+        }
+        throw errors;
+      }
+    }
+    catch (error) {
+      if (Array.isArray(error))
+        throw error;
+      else
+        throw [error]
+    }
   }
 
   /**

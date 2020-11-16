@@ -1,4 +1,4 @@
-import { ApiResponse, IProduct, ISuggesedParams, ApiResponsePaginated } from '@/types';
+import { IProduct, ISuggesedParams, ApiResponsePaginated } from '@/types';
 import Axios from 'axios';
 
 export class ShopService {
@@ -8,7 +8,7 @@ export class ShopService {
    * Get Sugegsted products
    * @param _params ISuggesedParams
    */
-  static uggested(_params: ISuggesedParams): ApiResponse<IProduct[]> {
+  static suggested(_params?: ISuggesedParams): ApiResponsePaginated<IProduct[]> {
     return Axios.get(this.baseUrl + '/product/suggested', {
       params: _params
     })

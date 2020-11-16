@@ -16,11 +16,11 @@
           <v-form>
             <!-- Product Description -->
             <v-card-text>
-              <v-text-field class="w-20" outlined label="Peso" color="primary">
+              <!-- <v-text-field class="w-20" outlined label="Peso" color="primary">
                 <template v-slot:append>
                   <label>Kg</label>
                 </template>
-              </v-text-field>
+              </v-text-field> -->
               <v-select
                 label="Color"
                 outlined

@@ -3,7 +3,6 @@ import Axios from 'axios';
 
 export class UserService {
   static baseUrl = '/user';
-  // static baseUrl = '/auth';
 
   /**
    * Auth Login Service

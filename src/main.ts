@@ -27,7 +27,7 @@ axios.defaults.timeout = 600000;
  * AXIOS interceptor to inject authentication into requests
  */
 axios.interceptors.request.use((request) => {
-  // request.baseURL = 'https://alibuya.com/api/public/api';
+  // request.baseURL = 'http://olympus-apps.com/api/public';
   request.baseURL = 'http://localhost:8000';
   /* Append content type header if its not present */
   if (!request.headers["Content-Type"]) {
