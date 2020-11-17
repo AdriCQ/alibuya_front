@@ -10,6 +10,7 @@
         cycle
         v-model="activeImg"
         :show-arrows="!mdAndUp"
+        :show-arrows-on-hover="!mdAndUp"
         hide-delimiters
         interval="3000"
         height="250"
