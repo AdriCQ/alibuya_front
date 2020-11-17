@@ -2,10 +2,19 @@
   <div>
     <v-card flat>
       <v-row>
-        <v-col xs="12" sm="12" md="4" lg="4" xl="4" cols="12">
-          <v-img :src="product.img" class="mx-auto" max-width="20rem" />
+        <v-col cols="12" md="4" lg="4" xl="4">
+          <product-gallery
+            :imgs-src="[
+              product.img,
+              product.img,
+              product.img,
+              product.img,
+              product.img,
+              product.img,
+            ]"
+          />
         </v-col>
-        <v-col xs="12" sm="12" md="8" lg="8" xl="8" cols="12">
+        <v-col cols="12" md="8" lg="8" xl="8">
           <v-card-title class="font-weight-bold">
             {{ product.title }}
           </v-card-title>
@@ -87,17 +96,19 @@
 <script lang='ts'>
 import { PopupStore, ShopStore, UserStore } from "@/store";
 import { IProduct } from "@/types";
+import { PropType } from "vue";
 import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component({
   components: {
     "cant-input": () => import("@/components/forms/shop/ProductCantInput.vue"),
+    "product-gallery": () => import("@/components/sliders/ProductGallery.vue"),
     // "destinatary-input": () =>
     //   import("@/components/forms/shop/SelectDestinatary.vue"),
   },
 })
 export default class AddToCartForm extends Vue {
-  @Prop({ type: Object }) readonly product!: IProduct;
+  @Prop({ type: Object as PropType<IProduct> }) readonly product!: IProduct;
 
   // personsInfo: TPackDestinationPerson[] = [];
 
