@@ -1,4 +1,4 @@
-import { IProduct, ISuggesedParams, ApiResponsePaginated, ApiResponse } from '@/types';
+import { IProduct, ISuggesedParams, ApiResponsePaginated, ApiResponse, TDepartment } from '@/types';
 import Axios from 'axios';
 
 export class ShopService {
@@ -28,6 +28,18 @@ export class ShopService {
     return Axios.get(this.baseUrl + '/product/by-id', {
       params: {
         "product_id": _id
+      }
+    })
+  }
+
+
+  /**
+   * Get products by Category
+   */
+  static getProductsByCategory(_params: TDepartment): ApiResponsePaginated<IProduct[]> {
+    return Axios.get(this.baseUrl + '/category', {
+      params: {
+        "category": _params
       }
     })
   }

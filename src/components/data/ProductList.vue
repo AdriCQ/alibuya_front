@@ -29,40 +29,27 @@
 </template>
 
 <script lang='ts'>
-import { Vue, Component, Watch, Prop } from "vue-property-decorator";
-import { PopupStore, ShopStore } from "@/store";
-import { IProduct, TDepartment } from "@/types";
+import { ShopStore } from "@/store";
+import { IProduct } from "@/types";
+import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class ProductList extends Vue {
-  created() {
-    this.products = ShopStore.allProducts;
-  }
-
   @Prop({
-    type: String,
-    default: "cell",
+    type: Array,
+    default: [],
   })
-  readonly productTag!: TDepartment;
+  readonly products!: IProduct[];
 
-  products: IProduct[] = [];
-
-  @Watch("productTag")
-  onProductTagChange(_tagTo: TDepartment) {
-    console.log("Tag", _tagTo);
-    this.products = ShopStore.allProducts;
-  }
-
-  showProductDetails(product: IProduct) {
-    PopupStore.showProduct(product);
-  }
-
-  goToDetails(_product: IProduct) {
-    if (this.$route.name !== "shop.details")
-      ShopStore.productDetails = _product;
-    this.$router.push({
-      name: "shop.details",
-    });
+  async showProductDetails(product: IProduct) {
+    if (product.id) {
+      await ShopStore.getProductById(product.id);
+      if (this.$route.name !== "shop.details")
+        this.$router.push({
+          name: "shop.details",
+        });
+    }
+    // TODO: handle if productID
   }
 }
 </script>

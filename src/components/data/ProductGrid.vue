@@ -11,9 +11,8 @@
 </template>
 
 <script lang='ts'>
-import { ShopStore } from "@/store";
-import { IProduct, TDepartment } from "@/types";
-import { Vue, Component, Prop, Watch } from "vue-property-decorator";
+import { IProduct } from "@/types";
+import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component({
   components: {
@@ -21,22 +20,10 @@ import { Vue, Component, Prop, Watch } from "vue-property-decorator";
   },
 })
 export default class ProductListGrid extends Vue {
-  created() {
-    this.products = ShopStore.allProducts;
-  }
-
   @Prop({
-    type: String,
-    default: "cell",
+    type: Array,
+    default: [],
   })
-  readonly productTag!: TDepartment;
-
-  products: IProduct[] = [];
-
-  @Watch("productTag")
-  onProductTagChange(_tagTo: TDepartment) {
-    console.log("Tag", _tagTo);
-    this.products = ShopStore.allProducts;
-  }
+  readonly products!: IProduct[];
 }
 </script>

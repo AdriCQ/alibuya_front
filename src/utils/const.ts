@@ -1,4 +1,4 @@
-import { ILinkIconLabel, IDictionary } from '@/types';
+import { ILinkIconLabel, IDictionary, IProductCategory } from '@/types';
 
 export const LANG = [
   { label: 'Español', flag: 'images/flags/es.png', tag: 'es' },
@@ -9,14 +9,7 @@ export const LANG = [
   // { label: 'Fran', flag: 'images/flags/hu.png', tag: 'hu' },
 ];
 
-interface ILinkIconLabelModified extends ILinkIconLabel {
-  labelLang: {
-    es?: string;
-    en?: string;
-  };
-}
-
-export const DEPARTMENTS: IDictionary<ILinkIconLabelModified> = {
+export const DEPARTMENTS: IDictionary<IProductCategory> = {
   all: {
     icon: 'mdi-hanger',
     labelLang: { es: 'Todos' },
@@ -24,15 +17,9 @@ export const DEPARTMENTS: IDictionary<ILinkIconLabelModified> = {
       name: 'shop.home',
     }
   },
-  clothes: {
-    icon: 'mdi-hanger',
-    labelLang: { es: 'Ropas' },
-    to: {
-      name: 'shop.pack',
-      params: { tag: 'clothes' }
-    }
-  },
   automotriz: {
+    id: 1,
+    types: [],
     icon: 'mdi-car',
     labelLang: { es: 'Automotriz' },
     to: {
@@ -41,24 +28,47 @@ export const DEPARTMENTS: IDictionary<ILinkIconLabelModified> = {
     }
   },
   cell: {
+    id: 2,
+    types: [],
     icon: 'mdi-cellphone-android',
     labelLang: { es: 'Celulares' },
     to: {
       name: 'shop.tags',
       params: { tag: 'cell' }
     }
-
+  },
+  clothes: {
+    id: 3,
+    types: [],
+    icon: 'mdi-hanger',
+    labelLang: { es: 'Ropas' },
+    to: {
+      name: 'shop.pack',
+      params: { tag: 'clothes' }
+    }
+  },
+  health: {
+    id: 4,
+    types: [],
+    icon: 'mdi-medical-bag',
+    labelLang: { es: 'Salud' }, to: {
+      name: 'shop.tags',
+      params: { tag: 'health' }
+    }
   },
   home: {
+    id: 5,
+    types: [],
     icon: 'mdi-home',
     labelLang: { es: 'Hogar' },
     to: {
       name: 'shop.tags',
       params: { tag: 'home' }
     }
-
   },
   kids: {
+    id: 6,
+    types: [],
     icon: 'mdi-human-child',
     labelLang: { es: 'Niños' },
     to: {
@@ -66,14 +76,9 @@ export const DEPARTMENTS: IDictionary<ILinkIconLabelModified> = {
       params: { tag: 'kids' }
     }
   },
-  health: {
-    icon: 'mdi-medical-bag',
-    labelLang: { es: 'Salud' }, to: {
-      name: 'shop.tags',
-      params: { tag: 'health' }
-    }
-  },
   pets: {
+    id: 7,
+    types: [],
     icon: 'mdi-medical-bag',
     labelLang: { es: 'Mascotas' }, to: {
       name: 'shop.tags',

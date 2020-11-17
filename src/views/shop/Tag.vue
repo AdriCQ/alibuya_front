@@ -9,10 +9,6 @@
         </v-card-title>
         <!-- / Section title -->
 
-        <!-- <v-card-subtitle class="mt-2 pb-0 mb-0">
-          <search-inline :active-department="tag" />
-        </v-card-subtitle> -->
-
         <!-- Section Content -->
         <template>
           <v-card>
@@ -26,7 +22,7 @@
             </v-card-subtitle>
 
             <keep-alive>
-              <component :is="activeComponent" :tag="tag" />
+              <component :is="activeComponent" :products="products" />
             </keep-alive>
           </v-card>
         </template>
@@ -39,7 +35,8 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { DEPARTMENTS } from "@/utils/const";
-import { AppStore } from "@/store";
+import { AppStore, PopupStore, ShopStore } from "@/store";
+import { IProduct, TDepartment } from "@/types";
 
 @Component({
   components: {
@@ -51,8 +48,10 @@ import { AppStore } from "@/store";
 })
 export default class ShopTag extends Vue {
   activeComponent: "product-grid" | "product-list" = "product-grid";
+  products: IProduct[] = [];
 
   get tag() {
+    this.laodProducts(this.$route.params.tag as TDepartment);
     return this.$route.params.tag;
   }
   get departmentName(): string {
@@ -67,6 +66,15 @@ export default class ShopTag extends Vue {
 
   get appLang() {
     return AppStore.lang;
+  }
+
+  async laodProducts(_category: TDepartment) {
+    try {
+      await ShopStore.getProductsByCategory(_category);
+      this.products = ShopStore.allProducts[this.tag];
+    } catch (error) {
+      PopupStore.addNotification(error);
+    }
   }
 }
 </script>

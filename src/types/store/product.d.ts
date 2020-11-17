@@ -1,3 +1,4 @@
+import { ILinkIconLabel } from '@/types';
 /**
  * -----------------------------------------
  * Products
@@ -28,7 +29,27 @@ export interface IProductOptions {
   size?: string;
   // sizes?: number[];
 }
-
+/**
+ * 
+ */
+export interface IProductType {
+  id?: number;
+  name: string;
+}
+/**
+ * 
+ */
+export interface IProductCategory extends ILinkIconLabel {
+  id?: number;
+  labelLang: {
+    es?: string;
+    en?: string;
+  };
+  types?: IProductType[];
+}
+/**
+ * 
+ */
 export interface IProductsPack {
   title: string;
   products: IProductCart[];
