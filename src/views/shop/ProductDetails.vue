@@ -47,6 +47,7 @@ export default class ProductDetailsView extends Vue {
       });
     }
   }
+
   tab = 0;
   tabItems = [
     "Descripción",
@@ -60,7 +61,7 @@ export default class ProductDetailsView extends Vue {
   }
 
   get suggestProducts() {
-    return ShopStore.allProducts;
+    return ShopStore.suggestedProducts;
   }
 }
 </script>

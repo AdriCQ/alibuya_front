@@ -85,14 +85,14 @@
 </template>
 
 <script lang='ts'>
-import { IProductCart } from "@/types";
+import { IProduct } from "@/types";
 import { Vue, Component } from "vue-property-decorator";
 import { VendorStore } from "@/store";
 
 interface IDialogControl {
   show: boolean;
   edit: boolean;
-  product: IProductCart;
+  product: IProduct;
 }
 
 @Component({

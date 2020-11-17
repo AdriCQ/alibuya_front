@@ -132,7 +132,6 @@
 <script lang='ts'>
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { IProduct, IProductsPack } from "@/types";
-import { CLOTHES } from "@/utils";
 
 @Component({
   components: {
@@ -207,7 +206,7 @@ export default class PackMakerPopup extends Vue {
    * Get Products from storage
    */
   get products() {
-    return CLOTHES;
+    return [];
   }
 
   /**

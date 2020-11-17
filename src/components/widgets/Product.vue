@@ -16,7 +16,7 @@
     <template v-if="!(horizontal && $vuetify.breakpoint.smAndUp)">
       <!-- <v-sheet :width="`${width}px`" :height="`${width * 0.75}px`"> -->
       <div :style="`width:${width}px`" class="mt-1">
-        <v-img width="100%" :src="product.img" />
+        <v-img width="100%" :src="image" />
       </div>
       <!-- </v-sheet> -->
       <v-card-title>${{ Number(product.price).toFixed(2) }}</v-card-title>
@@ -26,7 +26,7 @@
     <div class="d-flex pb-2" v-else>
       <v-sheet :width="`${width}px`" :height="`${width * 0.75}px`">
         <div :style="`width:${width * 0.5}px`" class="mt-1">
-          <v-img width="100%" height="320px" :src="product.img" />
+          <v-img width="100%" height="320px" :src="image" />
         </div>
       </v-sheet>
       <div class="d-block">
@@ -93,13 +93,20 @@ export default class ProductWidget extends Vue {
     return this.horizontal ? "auto" : "280px";
   }
 
-  showProductDetails(product: IProduct) {
+  get image() {
+    return this.product.img ? this.product.img : "img/logos/logo_300x225.png";
+  }
+
+  async showProductDetails(product: IProduct) {
     if (!this.editable && !this.noLink) {
-      ShopStore.productDetails = product;
-      if (this.$route.name !== "shop.details")
-        this.$router.push({
-          name: "shop.details",
-        });
+      if (product.id) {
+        await ShopStore.getProductById(product.id);
+        if (this.$route.name !== "shop.details")
+          this.$router.push({
+            name: "shop.details",
+          });
+      }
+      // TODO: handle if productID
     }
   }
 }

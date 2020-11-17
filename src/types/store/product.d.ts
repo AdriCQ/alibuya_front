@@ -7,16 +7,26 @@
 export interface IProduct {
   id?: number;
   title: string;
+  brand?: string;
+  tax?: number;
+  description?: string;
   price: number;
   img: string | File[];
   weight?: number;
-  color?: string;
+  options?: IProductOptions;
   brand?: string;
-  description?: string[] | string;
+  tags?: TDepartment[] | string[];
+  rating?: number;
+  suggested?: boolean;
+  cant?: number;
 }
-
-export interface IProductCart extends IProduct {
-  cant: number;
+/**
+ * 
+ */
+export interface IProductOptions {
+  colors?: string[];
+  size?: string;
+  // sizes?: number[];
 }
 
 export interface IProductsPack {

@@ -30,7 +30,7 @@
 </template>
 
 <script lang='ts'>
-import { IProductCart } from "@/types";
+import { IProduct } from "@/types";
 import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component({
@@ -39,7 +39,7 @@ import { Vue, Component, Prop } from "vue-property-decorator";
   },
 })
 export default class ProductCart extends Vue {
-  @Prop(Object) readonly product!: IProductCart;
+  @Prop(Object) readonly product!: IProduct;
 
   get width() {
     return 15;

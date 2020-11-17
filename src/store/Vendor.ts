@@ -1,7 +1,6 @@
 import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store/store';
 import { IVendor, IVendorColaborator, IProduct } from '@/types';
-import { PRODUCTS } from '@/utils';
 
 @Module({ generateMutationSetters: true })
 class VendorModule extends VuexModule {
@@ -12,7 +11,7 @@ class VendorModule extends VuexModule {
     type: []
   }
 
-  _myProducts: IProduct[] = PRODUCTS;
+  _myProducts: IProduct[] = [];
 
   _colaborators: IVendorColaborator[] = [];
 

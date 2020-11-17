@@ -1,47 +1,109 @@
 <template>
   <v-form>
     <v-card flat>
-      <v-card-title>Información del Producto</v-card-title>
-      <v-card-text>
-        <!-- Department Selec -->
-        <v-select :items="departments" label="Departamento" outlined dense />
-        <!-- / Department Selec -->
+      <v-row>
+        <v-col>
+          <v-card-title>Información del Producto</v-card-title>
+          <v-card-text>
+            <!-- Department Selec -->
+            <v-select
+              :items="departments"
+              label="Departamento"
+              v-model="form.department"
+              outlined
+              dense
+            />
+            <!-- / Department Selec -->
 
-        <!-- Name -->
-        <v-text-field outlined dense label="Nombre del producto" />
-        <!-- / Name -->
+            <!-- Name -->
+            <v-text-field outlined dense label="Nombre del producto" />
+            <!-- / Name -->
 
-        <!-- Price -->
-        <v-text-field outlined dense label="Precio" type="number" min="0">
-          <template v-slot:prepend-inner>
-            <v-icon>mdi-currency-usd</v-icon>
-          </template>
-        </v-text-field>
-        <!-- / Price -->
-        <v-switch class="w-10" label="Disponibilidad" />
-        <v-text-field type="number" outlined dense label="Inventario">
-          <template v-slot:append>
-            <v-icon color="primary" class="cursor-pointer">mdi-infinity</v-icon>
-          </template>
-        </v-text-field>
+            <!-- Price -->
+            <v-text-field outlined dense label="Precio" type="number" min="0">
+              <template v-slot:prepend-inner>
+                <v-icon>mdi-currency-usd</v-icon>
+              </template>
+            </v-text-field>
+            <!-- / Price -->
+          </v-card-text>
+        </v-col>
+        <v-col>
+          <v-card-title>Disponibilidad</v-card-title>
+          <v-card-text>
+            <v-text-field
+              type="number"
+              :disabled="infinity"
+              :placeholder="inventaryPlaceholder"
+              outlined
+              dense
+              label="Inventario"
+            />
+            <v-switch
+              class="w-10 mt-0"
+              label="Inventario Infinito"
+              v-model="infinity"
+            />
 
-        <!-- Size -->
-        <v-text-field outlined dense label="Peso (Kg)" type="number" min="0">
-          <template v-slot:append>
-            <v-icon>mdi-weight-kilogram</v-icon>
-          </template>
-        </v-text-field>
-        <!-- / Size -->
+            <!-- Size -->
+            <v-text-field
+              outlined
+              dense
+              label="Peso (Kg)"
+              type="number"
+              min="0"
+            >
+              <template v-slot:append>
+                <v-icon>mdi-weight-kilogram</v-icon>
+              </template>
+            </v-text-field>
+            <!-- / Size -->
+          </v-card-text>
+        </v-col>
+        <v-col>
+          <v-card-title>Extra</v-card-title>
+          <v-card-text>
+            <!-- Colors -->
+            <v-select
+              multiple
+              dense
+              outlined
+              chips
+              deletable-chips
+              label="Colores"
+              :items="['Rojo', 'Negro', 'Azul']"
+            />
+            <!-- / Colors -->
 
-        <v-card-title>Descripción</v-card-title>
-        <quill-editor
-          class="editor"
-          ref="myTextEditor"
-          :options="editorOption"
-        />
-      </v-card-text>
+            <!-- Tallas -->
+            <template v-if="form.department === 'clothes'">
+              <v-select
+                multiple
+                chips
+                deletable-chips
+                dense
+                outlined
+                label="Tallas"
+              />
+            </template>
+            <!-- / Tallas -->
+          </v-card-text>
+        </v-col>
+        <v-col cols="12">
+          <v-card-text>
+            <v-card-title>Descripción</v-card-title>
+            <quill-editor
+              class="editor"
+              ref="myTextEditor"
+              :options="editorOption"
+            />
+          </v-card-text>
+        </v-col>
+      </v-row>
+
       <v-card-actions>
         <v-btn color="primaryAlpha">Guardar</v-btn>
+        <v-btn color="primaryBetha" class="ml-2">Cancelar</v-btn>
       </v-card-actions>
     </v-card>
   </v-form>
@@ -51,13 +113,16 @@
 import { DEPARTMENTS } from "@/utils";
 import { Vue, Component } from "vue-property-decorator";
 import { AppStore } from "@/store";
-import { IVSelectItem, TDepartment } from "@/types";
+import { IProduct, IVSelectItem, TDepartment } from "@/types";
 
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
 
 import { quillEditor } from "vue-quill-editor";
+interface INewProductForm extends IProduct {
+  department: TDepartment;
+}
 
 @Component({
   components: {
@@ -77,7 +142,10 @@ export default class NewProductForm extends Vue {
         value: key,
       });
     }
+    console.log("All Departments", this.departments);
   }
+  infinity = false;
+
   editorOption = {
     modules: {
       toolbar: [
@@ -99,11 +167,32 @@ export default class NewProductForm extends Vue {
     },
   };
 
-  department: TDepartment = "automotriz";
+  form: INewProductForm = {
+    department: "automotriz",
+    title: "",
+    price: 0,
+    img: [],
+    brand: "",
+    tax: 0,
+    description: "",
+    weight: 0,
+    options: {
+      colors: [],
+      size: "",
+    },
+    tags: [],
+    cant: 0,
+  };
+
   departments: IVSelectItem[] = [];
   quillEditor = "";
+
   get editor() {
     return (this.$refs.myTextEditor as any).quill;
+  }
+
+  get inventaryPlaceholder() {
+    return this.infinity ? "Infinito" : "";
   }
 }
 </script>

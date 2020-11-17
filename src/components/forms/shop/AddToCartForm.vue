@@ -14,37 +14,24 @@
           </v-card-title>
 
           <v-form>
-            <!-- Product Description -->
-            <v-card-text>
-              <!-- <v-text-field class="w-20" outlined label="Peso" color="primary">
-                <template v-slot:append>
-                  <label>Kg</label>
-                </template>
-              </v-text-field> -->
-              <v-select
-                label="Color"
-                outlined
-                class="w-20"
-                :items="['Rojo', 'Azul', 'Negro']"
-              />
+            <!-- Product Options -->
+            <v-card-text v-if="product.options">
+              <!-- Option Colors -->
+              <template v-if="product.options.colors">
+                <v-select
+                  label="Color"
+                  outlined
+                  class="w-20"
+                  :items="product.options.colors"
+                />
+              </template>
+              <!-- / Option Colors -->
             </v-card-text>
-            <!-- / Product Description -->
+            <!-- / Product Options -->
             <v-card-title>Sobre éste artículo</v-card-title>
-            <v-card-text>
-              <b>Lorem ipsum dolor sit amet</b>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
-                reprehenderit hic earum in repellat tempore pariatur rerum ipsam
-                suscipit sint maiores cum, itaque eaque quis dolorum eum vel
-                explicabo fugiat.
-              </p>
-              <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Dolore, culpa, nostrum animi placeat ducimus a aut ipsam
-                deserunt, minima praesentium ut quia dolorum natus omnis ex
-                atque fugiat! Error, ratione.
-              </p>
-            </v-card-text>
+            <!-- Production Description -->
+            <v-card-text v-html="product.description" />
+            <!-- / Production Description -->
             <!-- Delivery method -->
             <v-card-text>
               <v-select

@@ -47,7 +47,7 @@
 
 <script lang='ts'>
 import { AppStore } from "@/store";
-import { IProduct, IProductCart, IVSelectItem, TDepartment } from "@/types";
+import { IProduct, IVSelectItem, TDepartment } from "@/types";
 import { DEPARTMENTS } from "@/utils";
 import { Vue, Component } from "vue-property-decorator";
 
@@ -82,7 +82,7 @@ export default class NewProductView extends Vue {
     }
   }
 
-  product: IProductCart = {
+  product: IProduct = {
     cant: 1,
     title: "",
     price: 0,

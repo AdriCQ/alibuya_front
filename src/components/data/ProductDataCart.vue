@@ -157,13 +157,14 @@ export default class ProductDataCart extends Vue {
    *
    */
   increase(key: number) {
-    this.shopProducts[key].cant++;
+    if (this.shopProducts[key]) (this.shopProducts[key].cant as number)++;
   }
   /**
    *
    */
   decrease(key: number) {
-    if (this.shopProducts[key].cant > 0) this.shopProducts[key].cant--;
+    if (this.shopProducts[key] && (this.shopProducts[key].cant as number) > 0)
+      (this.shopProducts[key].cant as number)--;
   }
   /**
    *

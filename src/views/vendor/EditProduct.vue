@@ -18,7 +18,7 @@
 
 <script lang='ts'>
 import { VendorStore } from "@/store";
-import { IProductCart } from "@/types";
+import { IProduct } from "@/types";
 import { Vue, Component } from "vue-property-decorator";
 
 @Component({
@@ -36,17 +36,17 @@ export default class EditVendorProductView extends Vue {
         VendorStore.myProducts[Number(this.$route.params.productKey)];
   }
 
-  product: IProductCart = {
+  product: IProduct = {
     cant: 0,
     title: "",
     price: 0,
     img: "",
     id: 0,
     weight: 0,
-    description: [],
+    description: "",
   };
 
-  saveProduct(_product: IProductCart) {
+  saveProduct(_product: IProduct) {
     VendorStore.myProducts[Number(this.$route.params.productKey)] = _product;
     this.$router.push({
       name: "vendor.products",

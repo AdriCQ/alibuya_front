@@ -63,7 +63,7 @@
 </template>
 
 <script lang='ts'>
-import { IProductCart } from "@/types";
+import { IProduct } from "@/types";
 import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component
@@ -74,16 +74,16 @@ export default class ProductForm extends Vue {
     }
   }
   @Prop(Boolean) readonly edit?: boolean;
-  @Prop(Object) readonly product?: IProductCart;
+  @Prop(Object) readonly product?: IProduct;
 
-  form: IProductCart = {
+  form: IProduct = {
     id: 0,
     cant: 0,
     title: "",
     price: 0,
     img: "",
     weight: 0,
-    description: [],
+    description: "",
   };
 
   submit() {

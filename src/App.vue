@@ -11,9 +11,18 @@ import { UserStore, AppStore, ShopStore } from "@/store";
 @Component
 export default class App extends Vue {
   created() {
+    this.getAsyncData();
+
     AppStore.getFromLocalStorage();
     UserStore.getFromLocalStorage();
-    ShopStore.getSuggestedProducts();
+  }
+
+  async getAsyncData() {
+    try {
+      await ShopStore.getSuggestedProducts();
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 </script>

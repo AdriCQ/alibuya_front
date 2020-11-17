@@ -14,7 +14,11 @@
           <v-sheet color="primary" width="100%" height="100%" />
         </v-col>
       </v-row>
-      <products-slider :products="products" title="Productos sugeridos" />
+      <products-slider
+        v-if="suggestedProducts.length"
+        :products="suggestedProducts"
+        title="Productos sugeridos"
+      />
     </v-section>
     <!-- / Suggested Products -->
 
@@ -112,8 +116,8 @@ import { ShopStore, UserStore } from "@/store";
   },
 })
 export default class HomeMainView extends Vue {
-  get products() {
-    return ShopStore.allProducts;
+  get suggestedProducts() {
+    return ShopStore.suggestedProducts;
   }
 
   get isLogged() {

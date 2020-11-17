@@ -1,21 +1,25 @@
 import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store/store';
-import { PRODUCTS } from '@/utils/test';
-import { IProductCart, IProduct, IProductsPack } from '@/types';
+import { IProduct, IProductsPack } from '@/types';
 import { ShopService } from '@/services';
 
 @Module({ generateMutationSetters: true })
 class ShopModule extends VuexModule {
-  suggestedProducts: IProduct[] = [];
-  shoppingCartProducts: IProductCart[] = [];
+  _suggestedProducts: IProduct[] = [];
+  _products: IProduct[] = [];
 
+  shoppingCartProducts: IProduct[] = [];
   tempShoppingCartPacks: IProductsPack[] = [];
   shoppingCartPacks: IProductsPack[] = [];
 
   productDetails: IProduct | null = null;
 
   get allProducts() {
-    return PRODUCTS;
+    return this._products;
+  }
+
+  get suggestedProducts() {
+    return this._suggestedProducts;
   }
 
   get shoppingCartCounter() {
@@ -26,7 +30,34 @@ class ShopModule extends VuexModule {
     try {
       const _resp = (await ShopService.suggested()).data;
       if (_resp.STATUS) {
-        this.suggestedProducts = _resp.DATA.data;
+        this._suggestedProducts = _resp.DATA.data;
+        console.log("Sugeridos", this._suggestedProducts);
+      } else {
+        const errors: string[] = [];
+        for (const _key in _resp.ERRORS as unknown[]) {
+          errors.push(_resp.ERRORS[_key]);
+        }
+        throw errors;
+      }
+    }
+    catch (error) {
+      if (Array.isArray(error))
+        throw error;
+      else
+        throw [error]
+    }
+  }
+
+  /**
+   * Get Product by Id
+   * @param _productId number
+   */
+  async getProductById(_productId: number) {
+    try {
+      const _resp = (await ShopService.getById(_productId)).data;
+      if (_resp.STATUS) {
+        this.productDetails = _resp.DATA;
+        console.log("Product Details", this.productDetails.options)
       } else {
         const errors: string[] = [];
         for (const _key in _resp.ERRORS as unknown[]) {
@@ -89,7 +120,7 @@ class ShopModule extends VuexModule {
     let productsPrice = 0;
     let packsPrice = 0;
     this.shoppingCartProducts.forEach(p => {
-      productsPrice += p.price * p.cant;
+      productsPrice += p.price * (p.cant as number);
     })
 
     this.shoppingCartPacks.forEach(pack => {
