@@ -1,13 +1,13 @@
 import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store/store';
-import { IProduct, IProductsPack, TDepartment, IDictionary } from '@/types';
+import { IProduct, IProductsPack, TCategory, IDictionary } from '@/types';
 import { ShopService } from '@/services';
 
 @Module({ generateMutationSetters: true })
 class ShopModule extends VuexModule {
   _suggestedProducts: IProduct[] = [];
   _products: IDictionary<IProduct[]> = {};
-  _productTypes: any[] = [];
+  _productTypes: string[] = [];
 
   shoppingCartProducts: IProduct[] = [];
   tempShoppingCartPacks: IProductsPack[] = [];
@@ -81,7 +81,7 @@ class ShopModule extends VuexModule {
    * Get Product by Id
    * @param _productId number
    */
-  async getProductsByCategory(_category: TDepartment) {
+  async getProductsByCategory(_category: TCategory) {
     try {
       const _resp = (await ShopService.getProductsByCategory(_category)).data;
       if (_resp.STATUS) {

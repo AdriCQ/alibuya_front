@@ -14,16 +14,16 @@
       <!--  / File input hidden -->
 
       <v-card flat class="pl-2">
-        <v-card-text>Imágenes</v-card-text>
-        <v-row>
+        <v-card-title>Imágenes</v-card-title>
+        <v-row justify="space-around">
           <v-col cols="auto" v-for="(img, key) in images" :key="key">
             <div class="img-container-qwer">
               <v-img :src="img.url" width="100%" height="100%" />
             </div>
           </v-col>
-          <v-col>
+          <v-col cols="auto">
             <div
-              class="img-container-plus-qwer d-flex align-center justify-center"
+              class="img-container-plus-qwer d-flex align-center justify-center cursor-pointer"
               @click="pickImage"
             >
               <div>
@@ -39,7 +39,7 @@
 
     <!-- Form Product -->
     <v-section class="mt-2">
-      <new-product-form />
+      <new-product-form @submit="formSubmit" />
     </v-section>
     <!-- / Form Product -->
   </div>
@@ -47,8 +47,8 @@
 
 <script lang='ts'>
 import { AppStore } from "@/store";
-import { IProduct, IVSelectItem, TDepartment } from "@/types";
-import { DEPARTMENTS } from "@/utils";
+import { IProduct, IVSelectItem, TCategory } from "@/types";
+import { CATEGORIES } from "@/utils";
 import { Vue, Component } from "vue-property-decorator";
 
 interface EventTarget extends globalThis.EventTarget {
@@ -69,12 +69,12 @@ interface IIMages {
 })
 export default class NewProductView extends Vue {
   created() {
-    for (const key in DEPARTMENTS) {
-      this.departments.push({
+    for (const key in CATEGORIES) {
+      this.CATEGORIES.push({
         // TODO: Remove TS IGNORE
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
-        text: DEPARTMENTS[key as keyof typeof DEPARTMENTS].labelLang[
+        text: CATEGORIES[key as keyof typeof CATEGORIES].labelLang[
           AppStore.lang
         ].toLocaleUpperCase(),
         value: key,
@@ -89,15 +89,22 @@ export default class NewProductView extends Vue {
     img: [],
     weight: 0,
     description: "",
+    brand: "",
+    tax: 0,
+    options: {
+      colors: [],
+      sizes: [],
+    },
+    tags: [],
+    type_id: 0,
   };
-  description = "";
   imagePreviewSrc: string | ArrayBuffer | null | undefined = null;
   images: IIMages[] = [];
 
   stepper = 1;
 
-  department: TDepartment = "automotriz";
-  departments: IVSelectItem[] = [];
+  category: TCategory = "automotriz";
+  CATEGORIES: IVSelectItem[] = [];
 
   get productPreview(): IProduct {
     return {
@@ -145,6 +152,10 @@ export default class NewProductView extends Vue {
         fr.readAsDataURL(files[i]);
       }
     }
+  }
+
+  formSubmit(_product: IProduct) {
+    console.log("Product", _product);
   }
 }
 </script>

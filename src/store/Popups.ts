@@ -1,6 +1,6 @@
 import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store/store';
-import { UserStore, ShopStore } from '@/store';
+import { UserStore } from '@/store';
 import { IProduct, TNotificationAction, TRouteLink, INotification, TStatusColor } from '@/types';
 import { IUserContact } from '@/types/store/user';
 
@@ -11,7 +11,7 @@ class PopupModule extends VuexModule {
   authDefault = 'register';
   // Products
   productPopup = false;
-  productToShow: IProduct = ShopStore.allProducts[0];
+  productToShow!: IProduct;
   // Notifications
   notificationPopup = false;
   notificationPopupContent: INotification = {

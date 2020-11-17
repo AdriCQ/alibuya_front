@@ -57,20 +57,20 @@
 <script lang='ts'>
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 
-import { IVSelectItem, TDepartment } from "@/types";
-import { DEPARTMENTS } from "@/utils/const";
+import { IVSelectItem, TCategory } from "@/types";
+import { CATEGORIES } from "@/utils";
 import { AppStore } from "@/store";
 
 @Component
 export default class SearchInlineFormDepartments extends Vue {
   created() {
     this.department = this.activeDepartment;
-    for (const key in DEPARTMENTS) {
+    for (const key in CATEGORIES) {
       this.departments.push({
         // TODO: Remove TS IGNORE
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
-        text: DEPARTMENTS[key as keyof typeof DEPARTMENTS].labelLang[
+        text: CATEGORIES[key as keyof typeof CATEGORIES].labelLang[
           AppStore.lang
         ].toLocaleUpperCase(),
         value: key,
@@ -78,14 +78,14 @@ export default class SearchInlineFormDepartments extends Vue {
     }
   }
 
-  @Prop(String) readonly activeDepartment!: TDepartment;
+  @Prop(String) readonly activeDepartment!: TCategory;
 
   search = "";
-  department: TDepartment = "automotriz";
+  department: TCategory = "automotriz";
   departments: IVSelectItem[] = [];
 
   @Watch("activeDepartment")
-  onActiveDepartmentChange(_to: TDepartment) {
+  onActiveDepartmentChange(_to: TCategory) {
     this.department = _to;
   }
 

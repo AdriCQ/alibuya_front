@@ -27,7 +27,12 @@
       <v-card>
         <v-card-title>Mis Productos</v-card-title>
         <v-card-subtitle>
-          <v-btn color="primary" @click="newProduct">Añadir Producto</v-btn>
+          <v-btn
+            color="primaryAlpha"
+            class="full-width mt-2"
+            @click="newProduct"
+            >Añadir Producto</v-btn
+          >
         </v-card-subtitle>
         <!-- Mobile View -->
         <v-row justify="space-around" v-if="$vuetify.breakpoint.smAndDown">

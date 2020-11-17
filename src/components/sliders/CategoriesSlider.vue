@@ -17,7 +17,7 @@
     >
       <div
         class="categories-slider-item"
-        v-for="(department, label) in departments"
+        v-for="(department, label) in categories"
         :key="label"
       >
         <v-card :to="department.to">
@@ -38,13 +38,13 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { DEPARTMENTS } from "@/utils/const";
+import { CATEGORIES } from "@/utils/const";
 import { AppStore } from "@/store";
 
 @Component
 export default class CategoriesSlider extends Vue {
-  get departments() {
-    return DEPARTMENTS;
+  get categories() {
+    return CATEGORIES;
   }
 
   get lang() {

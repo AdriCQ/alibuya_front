@@ -16,17 +16,18 @@ export interface IProduct {
   weight?: number;
   options?: IProductOptions;
   brand?: string;
-  tags?: TDepartment[] | string[];
+  tags?: TCategory[] | string[];
   rating?: number;
   suggested?: boolean;
   cant?: number;
+  type_id?: number;
 }
 /**
  * 
  */
 export interface IProductOptions {
   colors?: string[];
-  size?: string;
+  sizes?: string[];
   // sizes?: number[];
 }
 /**
@@ -59,4 +60,4 @@ export interface IProductsPack {
   destinataries?: TPackDestinationPerson[];
 }
 
-export type TDepartment = 'clothes' | 'automotriz' | 'cell' | 'home' | 'child' | 'health' | 'market'
+export type TCategory = 'clothes' | 'automotriz' | 'cell' | 'home' | 'child' | 'health' | 'market'

@@ -9,14 +9,7 @@ export const LANG = [
   // { label: 'Fran', flag: 'images/flags/hu.png', tag: 'hu' },
 ];
 
-export const DEPARTMENTS: IDictionary<IProductCategory> = {
-  all: {
-    icon: 'mdi-hanger',
-    labelLang: { es: 'Todos' },
-    to: {
-      name: 'shop.home',
-    }
-  },
+export const CATEGORIES: IDictionary<IProductCategory> = {
   automotriz: {
     id: 1,
     types: [],
@@ -86,6 +79,18 @@ export const DEPARTMENTS: IDictionary<IProductCategory> = {
     }
   }
 }
+
+const _dep = {
+  all: {
+    icon: 'mdi-hanger',
+    labelLang: { es: 'Todos' },
+    to: {
+      name: 'shop.home',
+    }
+  },
+  ...CATEGORIES,
+};
+export const CATEGORIES_PLUS = _dep;
 
 export const WEB_PAGES: ILinkIconLabel[] = [
   {

@@ -38,8 +38,8 @@ export interface ICountry {
  * 
  */
 export interface IVSelectItem {
-  text: string;
-  value: string;
+  text?: string;
+  value?: string;
 }
 
 export type TStatusColor = 'error' | 'info' | 'warning' | 'success' | 'primary' | 'secondary';

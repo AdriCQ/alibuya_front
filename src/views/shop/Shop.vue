@@ -6,15 +6,15 @@
           <v-card-title>Todos los departamentos</v-card-title>
           <v-card-text>
             <v-row justify="space-between">
-              <v-col cols="3" v-for="(dep, key) in departments" :key="key">
-                <v-card flat class="cursor-pointer" width="12rem" :to="dep.to">
+              <v-col cols="3" v-for="(cat, key) in categories" :key="key">
+                <v-card flat class="cursor-pointer" width="12rem" :to="cat.to">
                   <div class="text-center">
                     <v-sheet color="secondaryBetha" class="pa-8">
-                      <v-icon x-large color="primary">{{ dep.icon }}</v-icon>
+                      <v-icon x-large color="secondary">{{ cat.icon }}</v-icon>
                     </v-sheet>
                   </div>
                   <v-card-text class="text-center title">{{
-                    dep.labelLang.es
+                    cat.labelLang.es
                   }}</v-card-text>
                 </v-card>
               </v-col>
@@ -28,12 +28,12 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { DEPARTMENTS } from "@/utils";
+import { CATEGORIES } from "@/utils";
 
 @Component
 export default class ShopHome extends Vue {
-  get departments() {
-    return DEPARTMENTS;
+  get categories() {
+    return CATEGORIES;
   }
 }
 </script>

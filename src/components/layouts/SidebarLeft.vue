@@ -31,14 +31,14 @@
 
       <v-divider />
 
-      <!-- DEPARTMENTS -->
+      <!-- CATEGORIES_PLUS -->
       <v-list-item>
         <v-list-item-title class="font-weight-bold">
           DEPARTAMENTOS
         </v-list-item-title>
       </v-list-item>
       <v-list-item
-        v-for="(link, dKey) in departments"
+        v-for="(link, dKey) in CATEGORIES_PLUS"
         :key="`dep-${dKey}`"
         link
         :to="link.to"
@@ -48,7 +48,7 @@
         </v-list-item-icon> -->
         <v-list-item-title>{{ link.label }} </v-list-item-title>
       </v-list-item>
-      <!-- / DEPARTMENTS -->
+      <!-- / CATEGORIES_PLUS -->
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -59,24 +59,24 @@
 import { Vue, Component } from "vue-property-decorator";
 import { AppStore, UserStore, PopupStore } from "@/store";
 import { ILinkIconLabel } from "@/types";
-import { DEPARTMENTS, LANG, WEB_PAGES } from "@/utils/const";
+import { CATEGORIES_PLUS, LANG, WEB_PAGES } from "@/utils";
 
 @Component
 export default class AppSidebarLeft extends Vue {
   created() {
-    for (const key in DEPARTMENTS) {
-      this.departments.push({
+    for (const key in CATEGORIES_PLUS) {
+      this.CATEGORIES_PLUS.push({
         // @ts-ignore
-        icon: DEPARTMENTS[key].icon,
+        icon: CATEGORIES_PLUS[key].icon,
         // @ts-ignore
-        label: DEPARTMENTS[key].labelLang[this.appLang],
+        label: CATEGORIES_PLUS[key].labelLang[this.appLang],
         // @ts-ignore
-        to: DEPARTMENTS[key as keyof typeof DEPARTMENTS].to,
+        to: CATEGORIES_PLUS[key as keyof typeof CATEGORIES_PLUS].to,
       });
     }
   }
 
-  departments: ILinkIconLabel[] = [];
+  CATEGORIES_PLUS: ILinkIconLabel[] = [];
 
   get pages() {
     return WEB_PAGES;

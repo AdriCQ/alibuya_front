@@ -1,7 +1,7 @@
 <template>
   <div id="shop-tag-view" class="view-container">
     <v-section>
-      <v-card>
+      <v-card flat>
         <!-- Section title -->
         <v-card-title>
           <!-- <v-icon class="mr-2">{{ departmentIcon }}</v-icon> -->
@@ -34,9 +34,9 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { DEPARTMENTS } from "@/utils/const";
+import { CATEGORIES } from "@/utils/const";
 import { AppStore, PopupStore, ShopStore } from "@/store";
-import { IProduct, TDepartment } from "@/types";
+import { IProduct, TCategory } from "@/types";
 
 @Component({
   components: {
@@ -51,27 +51,31 @@ export default class ShopTag extends Vue {
   products: IProduct[] = [];
 
   get tag() {
-    this.laodProducts(this.$route.params.tag as TDepartment);
+    this.laodProducts(this.$route.params.tag as TCategory);
     return this.$route.params.tag;
   }
   get departmentName(): string {
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
-    return DEPARTMENTS[this.tag].labelLang[this.appLang];
+    return CATEGORIES[this.tag].labelLang[this.appLang];
   }
 
   get departmentIcon() {
-    return DEPARTMENTS[this.tag].icon;
+    return CATEGORIES[this.tag].icon;
   }
 
   get appLang() {
     return AppStore.lang;
   }
 
-  async laodProducts(_category: TDepartment) {
+  async laodProducts(_category: TCategory) {
     try {
       await ShopStore.getProductsByCategory(_category);
-      this.products = ShopStore.allProducts[this.tag];
+      if (ShopStore.allProducts[this.tag].length) {
+        this.products = ShopStore.allProducts[this.tag];
+      } else {
+        this.products = [];
+      }
     } catch (error) {
       PopupStore.addNotification(error);
     }

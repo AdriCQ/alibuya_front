@@ -82,10 +82,10 @@
 
     <template v-slot:extension>
       <v-tabs :height="tabsHeight" optional centered>
-        <!-- Departments -->
-        <template v-if="typeTabs === 'departments'">
+        <!-- CATEGORIES_PLUS -->
+        <template v-if="typeTabs === 'CATEGORIES_PLUS'">
           <v-tab
-            v-for="(dep, key) in departments"
+            v-for="(dep, key) in CATEGORIES_PLUS"
             :key="key"
             exact
             link
@@ -96,7 +96,7 @@
             </span>
           </v-tab>
         </template>
-        <!-- / Departments -->
+        <!-- / CATEGORIES_PLUS -->
 
         <template v-else>
           <v-tab
@@ -115,7 +115,7 @@
 </template>
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { DEPARTMENTS, VENDOR_PAGES } from "@/utils/const";
+import { CATEGORIES_PLUS, VENDOR_PAGES } from "@/utils/const";
 import { AppStore, UserStore, PopupStore, ShopStore } from "@/store";
 
 @Component({
@@ -126,8 +126,10 @@ import { AppStore, UserStore, PopupStore, ShopStore } from "@/store";
 })
 export default class AppBarFull extends Vue {
   tabsHeight = 40;
-  get departments() {
-    return DEPARTMENTS;
+  get CATEGORIES_PLUS() {
+    console.log(CATEGORIES_PLUS);
+
+    return CATEGORIES_PLUS;
   }
 
   get vendorPages() {
@@ -154,7 +156,7 @@ export default class AppBarFull extends Vue {
    *
    */
   get typeTabs() {
-    return this.$route.path.includes("vendor") ? "vendor" : "departments";
+    return this.$route.path.includes("vendor") ? "vendor" : "CATEGORIES_PLUS";
   }
 
   // breakpoints
