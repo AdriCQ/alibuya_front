@@ -196,7 +196,7 @@ export default class NewProductForm extends Vue {
     department: "automotriz",
     title: "",
     price: 0,
-    img: [],
+    images: [],
     brand: "",
     tax: 0,
     description: "",
@@ -233,10 +233,3 @@ export default class NewProductForm extends Vue {
   }
 }
 </script>
-
-
-<style lang="scss">
-.ql-editor {
-  height: 10rem !important;
-}
-</style>

@@ -40,7 +40,7 @@ export default class EditVendorProductView extends Vue {
     cant: 0,
     title: "",
     price: 0,
-    img: "",
+    images: "",
     id: 0,
     weight: 0,
     description: "",

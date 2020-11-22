@@ -1,7 +1,7 @@
 <template>
   <v-card class="cursor-pointer" width="12rem" :to="option.to">
     <div class="text-center">
-      <v-sheet color="secondary" class="pa-8">
+      <v-sheet color="secondaryBetha" class="pa-8">
         <v-icon x-large color="primary">{{ option.icon }}</v-icon>
       </v-sheet>
     </div>

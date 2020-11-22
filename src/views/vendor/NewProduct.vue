@@ -47,17 +47,12 @@
 
 <script lang='ts'>
 import { AppStore } from "@/store";
-import { IProduct, IVSelectItem, TCategory } from "@/types";
+import { IImage, IProduct, IVSelectItem, TCategory } from "@/types";
 import { CATEGORIES } from "@/utils";
 import { Vue, Component } from "vue-property-decorator";
 
 interface EventTarget extends globalThis.EventTarget {
   files: FileList;
-}
-
-interface IIMages {
-  name: string;
-  url: string | ArrayBuffer | null | undefined;
 }
 
 @Component({
@@ -86,7 +81,7 @@ export default class NewProductView extends Vue {
     cant: 1,
     title: "",
     price: 0,
-    img: [],
+    images: [],
     weight: 0,
     description: "",
     brand: "",
@@ -99,7 +94,7 @@ export default class NewProductView extends Vue {
     type_id: 0,
   };
   imagePreviewSrc: string | ArrayBuffer | null | undefined = null;
-  images: IIMages[] = [];
+  images: IImage[] = [];
 
   stepper = 1;
 
@@ -110,7 +105,7 @@ export default class NewProductView extends Vue {
     return {
       title: this.product.title,
       price: this.product.price,
-      img: this.imagePreviewSrc as string,
+      images: this.images,
       weight: this.product.weight,
       description: this.product.description,
     };
@@ -145,8 +140,10 @@ export default class NewProductView extends Vue {
         fr.onload = (e) => {
           _url = e.target?.result;
           this.images.push({
-            name: _name,
-            url: _url,
+            title: name,
+            paths: {
+              sm: _url as string,
+            },
           });
         };
         fr.readAsDataURL(files[i]);

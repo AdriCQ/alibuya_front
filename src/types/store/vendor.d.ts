@@ -1,11 +1,16 @@
-import { IUserProfile } from '@/types';
-export type TVendorType = 'clothes' | 'cell';
+import { IUserProfile, TImage } from '@/types';
 
+export type TVendorTags = 'clothes' | 'cell';
+/**
+ * Ivendor
+ */
 export interface IVendor {
   id?: number;
+  image?: TImage;
   title: string;
-  description: string[] | string;
-  type: TVendorType[];
+  description: string;
+  tags: TVendorTags[];
+  active?: boolean;
 }
 
 export interface IVendorColaborator extends IUserProfile {

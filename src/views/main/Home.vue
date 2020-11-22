@@ -29,7 +29,9 @@
           <!-- Col 1 -->
           <v-col cols="12" xs="12" sm="6" md="4" lg="4" xl="4">
             <v-card flat>
-              <v-card-title> Ofertas por menos de $25 </v-card-title>
+              <v-card-subtitle class="black--text title">
+                Ofertas por menos de $25
+              </v-card-subtitle>
               <v-row v-for="i in 2" :key="i" dense>
                 <v-col cols="6" v-for="j in 2" :key="j">
                   <v-sheet
@@ -38,9 +40,7 @@
                     color="secondaryBetha"
                     light
                   >
-                    <div class="text-center pt-10">
-                      <v-icon x-large>mdi-gift</v-icon>
-                    </div>
+                    <v-img src="img/logos/logo_300x225.png" height="8rem" />
                   </v-sheet>
                   <div class="subtitle text-center">Lorem ipsum dolor</div>
                 </v-col>
@@ -52,7 +52,9 @@
           <!-- Col 2 -->
           <v-col cols="12" xs="12" sm="6" md="4" lg="4" xl="4">
             <v-card flat>
-              <v-card-title>Producto más comprado </v-card-title>
+              <v-card-subtitle class="black--text title"
+                >Producto más comprado
+              </v-card-subtitle>
               <v-sheet
                 height="17.7rem"
                 color="secondaryBetha"
@@ -67,8 +69,8 @@
           <!-- Col 3 -->
           <v-col cols="12" xs="12" sm="6" md="4" lg="4" xl="4">
             <v-card flat>
-              <v-card-title
-                ><label>Departamentos sobresalientes</label></v-card-title
+              <v-card-subtitle class="black--text title"
+                >Departamentos sobresalientes</v-card-subtitle
               >
               <v-sheet
                 width="100%"
@@ -77,18 +79,14 @@
                 color="secondaryBetha"
                 light
               >
-                <div class="text-center pt-10">
-                  <v-icon x-large>mdi-gift</v-icon>
-                </div>
+                <v-img height="8rem" src="img/logos/logo_300x225.png" />
               </v-sheet>
               <div class="subtitle text-center">Lorem ipsum dolor</div>
 
               <v-row dense class="mt-1">
                 <v-col cols="6" v-for="j in 2" :key="j">
                   <v-sheet width="100%" height="8rem" color="secondaryBetha">
-                    <div class="text-center pt-10">
-                      <v-icon x-large>mdi-gift</v-icon>
-                    </div>
+                    <v-img height="8rem" src="img/logos/logo_300x225.png" />
                   </v-sheet>
                   <div class="subtitle text-center">Lorem ipsum dolor</div>
                 </v-col>

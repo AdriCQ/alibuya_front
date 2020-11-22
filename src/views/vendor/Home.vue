@@ -25,13 +25,34 @@
         <!-- / Require login -->
 
         <v-row justify="space-around" v-else>
-          <v-col
-            cols="auto"
-            v-for="(option, vKey) in vendorPages"
-            :key="`${vKey}`"
-          >
-            <option-card :option="option" />
+          <!-- Vendor link shop -->
+          <v-col cols="auto">
+            <v-card
+              class="cursor-pointer"
+              width="12rem"
+              :to="{ name: 'vendor.business' }"
+            >
+              <div class="text-center">
+                <v-sheet color="secondaryBetha" class="pa-8">
+                  <v-icon x-large color="primary">mdi-shopping</v-icon>
+                </v-sheet>
+              </div>
+              <v-card-text class="text-center title"
+                >Mi Tienda
+                <v-icon color="success" v-if="myVendors">mdi-check</v-icon>
+              </v-card-text>
+            </v-card>
           </v-col>
+          <!-- / Vendor link shop -->
+          <template v-if="myVendors">
+            <v-col
+              cols="auto"
+              v-for="(option, vKey) in vendorPages"
+              :key="`${vKey}`"
+            >
+              <option-card :option="option" />
+            </v-col>
+          </template>
         </v-row>
       </v-card>
     </v-section>
@@ -39,8 +60,7 @@
 </template>
 
 <script lang='ts'>
-import { UserStore } from "@/store";
-import { VENDOR_PAGES } from "@/utils";
+import { PopupStore, UserStore, VendorStore } from "@/store";
 import { Vue, Component } from "vue-property-decorator";
 
 @Component({
@@ -50,9 +70,39 @@ import { Vue, Component } from "vue-property-decorator";
   },
 })
 export default class VendorHomeView extends Vue {
+  mounted() {
+    this.loadVendors();
+  }
+
+  get myVendors() {
+    return VendorStore.vendor;
+  }
+
   // Config icon and Routes
   get vendorPages() {
-    return VENDOR_PAGES;
+    return [
+      {
+        icon: "mdi-cart-outline",
+        label: "Productos",
+        to: { name: "vendor.products" },
+      },
+      {
+        icon: "mdi-chart-bar",
+        label: "Estadísticas",
+      },
+      {
+        icon: "mdi-account-multiple",
+        label: "Colaboladores",
+      },
+      {
+        icon: "mdi-database",
+        label: "Ajustes",
+      },
+      {
+        icon: "mdi-help-circle",
+        label: "Ayuda",
+      },
+    ];
   }
 
   get isLogged() {
@@ -63,6 +113,14 @@ export default class VendorHomeView extends Vue {
     this.$router.push({
       name: "vendor.new",
     });
+  }
+
+  async loadVendors() {
+    try {
+      await VendorStore.getByAuth();
+    } catch (err) {
+      PopupStore.addNotification(err);
+    }
   }
 }
 </script>

@@ -43,3 +43,22 @@ export interface IVSelectItem {
 }
 
 export type TStatusColor = 'error' | 'info' | 'warning' | 'success' | 'primary' | 'secondary';
+
+
+/**
+ * -----------------------------------------
+ * All
+ * -----------------------------------------
+ */
+
+export interface IEventTarget extends globalThis.EventTarget {
+  files: FileList;
+}
+export interface IImage {
+  id?: number;
+  title?: string;
+  paths?: IDictionary<string>;
+  tags?: string[];
+}
+
+export type TImage = File | IImage | string | File[] | IImage[] | string[];

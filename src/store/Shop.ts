@@ -112,7 +112,7 @@ class ShopModule extends VuexModule {
   addShoppingCartProduct(prod: IProduct, _cant = 1) {
     this.shoppingCartProducts.push({
       cant: _cant,
-      img: prod.img,
+      images: prod.images,
       price: prod.price,
       title: prod.title,
       weight: prod.weight,

@@ -1,4 +1,5 @@
-import { ILinkIconLabel } from '@/types';
+import { ILinkIconLabel, TImage } from '@/types';
+
 /**
  * -----------------------------------------
  * Products
@@ -12,7 +13,7 @@ export interface IProduct {
   tax?: number;
   description?: string;
   price: number;
-  img: string | File[];
+  images: TImage;
   weight?: number;
   options?: IProductOptions;
   brand?: string;

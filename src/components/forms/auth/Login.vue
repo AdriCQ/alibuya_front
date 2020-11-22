@@ -9,10 +9,16 @@
       <v-container class="py-0 my-0">
         <v-row>
           <v-col cols="12" sm="6">
-            <v-text-field label="Email*" v-model="form.email" required />
+            <v-text-field
+              outlined
+              label="Email*"
+              v-model="form.email"
+              required
+            />
           </v-col>
           <v-col cols="12" sm="6">
             <v-text-field
+              outlined
               v-model="form.password"
               label="Contraseña*"
               :type="passwordType"

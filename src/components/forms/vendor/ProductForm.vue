@@ -81,7 +81,7 @@ export default class ProductForm extends Vue {
     cant: 0,
     title: "",
     price: 0,
-    img: "",
+    images: "",
     weight: 0,
     description: "",
   };

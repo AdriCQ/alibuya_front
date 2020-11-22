@@ -15,18 +15,15 @@
         <v-card-actions>
           <v-container class="pt-0 text-sm-center">
             <v-btn
-              color="primary"
-              class="mb-2 mb-sm-0 mr-sm-2"
+              color="primaryAlpha"
               :block="!smAndUp"
-              small
               @click="updateCookieStatus(true)"
               >Aceptar</v-btn
             >
             <v-btn
-              color="primary"
-              outlined
+              color="primaryBetha"
+              class="ml-2"
               :block="!smAndUp"
-              small
               @click="close"
               >Cancelar</v-btn
             >
@@ -35,25 +32,6 @@
       </v-container>
     </v-card>
   </v-bottom-sheet>
-
-  <!--
-  <v-snackbar
-    app
-    :value="snackbarActive"
-    color="primary"
-    light
-    bottom
-    width="100%"
-    timeout="-1"
-  >
-    <p>Éste sitio utiliza cookies para mejorar su experiencia de usuario.</p>
-    <template v-slot:action="{ attrs }">
-      <v-btn icon v-bind="attrs" @click="updateCookieStatus(true)">
-        <v-icon>mdi-checkbox-marked</v-icon>
-      </v-btn>
-    </template>
-  </v-snackbar>
-  -->
 </template>
 
 <script lang='ts'>

@@ -5,12 +5,10 @@
         <v-col cols="12" md="4" lg="4" xl="4">
           <product-gallery
             :imgs-src="[
-              product.img,
-              product.img,
-              product.img,
-              product.img,
-              product.img,
-              product.img,
+              'img/logos/logo_300x225.png',
+              'img/logos/logo_300x225.png',
+              'img/logos/logo_300x225.png',
+              'img/logos/logo_300x225.png',
             ]"
           />
         </v-col>
@@ -28,31 +26,29 @@
               <!-- Option Colors -->
               <template v-if="product.options.colors">
                 <v-select
-                  label="Color"
+                  label="Colores disponibles"
                   outlined
+                  dense
                   class="w-20"
                   :items="product.options.colors"
                 />
               </template>
               <!-- / Option Colors -->
-            </v-card-text>
-            <!-- / Product Options -->
-            <v-card-title>Sobre éste artículo</v-card-title>
-            <!-- Production Description -->
-            <v-card-text v-html="product.description" />
-            <!-- / Production Description -->
-            <!-- Delivery method -->
-            <v-card-text>
+              <!-- / Product Options -->
+              <v-card-title>Sobre éste artículo</v-card-title>
+              <!-- Production Description -->
+              <v-card-text v-html="product.description" />
+              <!-- / Production Description -->
+              <!-- Delivery method -->
               <v-select
                 class="w-20"
                 label="Método de Recogida"
                 :items="deliveryMethods"
+                dense
                 outlined
               />
-            </v-card-text>
-            <!-- / Delivery method -->
-            <!-- Cant Input -->
-            <v-card-text>
+              <!-- / Delivery method -->
+              <!-- Cant Input -->
               <div class="d-flex d-flex-row align-center">
                 <span>
                   <cant-input :cant.sync="cant" :can-minus="canMinus" />
@@ -61,18 +57,25 @@
                   Subtotal: ${{ Number(product.price * cant).toFixed(2) }}
                 </span>
               </div>
-            </v-card-text>
-            <!-- / Cant Input -->
-
-            <v-card-text>
+              <!-- / Cant Input -->
               <v-checkbox
-                label="Entiendo que este producto tiene un cargo en destino de 5,00 CUC"
+                dense
+                :label="`Entiendo que este producto tiene un cargo en destino de ${Number(
+                  product.tax
+                ).toFixed(2)} CUC`"
               />
+            </v-card-text>
+
+            <v-card-actions>
               <v-btn color="primaryAlpha" class="mt-4" @click="addToCart">
                 <v-icon class="mr-2">mdi-cart-plus</v-icon>
-                Listo para añadir
+                Añadir al carrito
               </v-btn>
-            </v-card-text>
+              <v-btn color="primaryBetha" class="mt-4" @click="addToCart">
+                <v-icon class="mr-2">mdi-cart</v-icon>
+                Compra Rápida
+              </v-btn>
+            </v-card-actions>
           </v-form>
         </v-col>
       </v-row>

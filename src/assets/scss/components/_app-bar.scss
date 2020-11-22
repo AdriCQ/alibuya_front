@@ -25,4 +25,12 @@ $font-size: 0.8rem;
     font-size: $font-size;
     text-transform: none !important;
   }
+
+  #app-bar-tabs {
+    .v-tab {
+      * {
+        color: white !important;
+      }
+    }
+  }
 }

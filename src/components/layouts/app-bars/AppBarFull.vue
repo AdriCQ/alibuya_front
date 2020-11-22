@@ -16,7 +16,7 @@
         </v-app-bar-nav-icon>
 
         <v-btn text @click="goToRoute('main.home')">
-          <v-img src="img/logos/logo_text_white.png" width="5rem" />
+          <v-img src="img/logos/logo_white_550x178.png" width="5rem" />
         </v-btn>
 
         <v-spacer />
@@ -34,11 +34,10 @@
 
         <v-menu transition="scale-transition" offset-y v-else>
           <template v-slot:activator="{ on }">
-            <v-btn text v-on="on">
-              <span>
+            <v-btn text v-on="on" class="body-2">
+              <b>
                 {{ userName }}
-              </span>
-              <v-icon v-if="smAndUp"> mdi-account-circle </v-icon>
+              </b>
             </v-btn>
           </template>
 
@@ -65,11 +64,11 @@
             color="primary"
             :content="shopingCartCounter"
           >
-            <span v-if="smAndUp"> Mi Carrito </span>
+            <b v-if="smAndUp"> Mi Carrito </b>
             <v-icon>mdi-cart-outline</v-icon>
           </v-badge>
           <template v-else>
-            <span v-if="smAndUp"> Mi Carrito </span>
+            <b v-if="smAndUp"> Mi Carrito </b>
             <v-icon>mdi-cart-outline</v-icon>
           </template>
         </v-btn>
@@ -81,7 +80,7 @@
     </div>
 
     <template v-slot:extension>
-      <v-tabs :height="tabsHeight" optional centered>
+      <v-tabs :height="tabsHeight" optional centered id="app-bar-tabs">
         <!-- CATEGORIES_PLUS -->
         <template v-if="typeTabs === 'CATEGORIES_PLUS'">
           <v-tab
@@ -91,9 +90,9 @@
             link
             :to="dep.to"
           >
-            <span class="text-transform-none">
+            <b class="text-transform-none">
               {{ dep.labelLang[appLang] }}
-            </span>
+            </b>
           </v-tab>
         </template>
         <!-- / CATEGORIES_PLUS -->
@@ -127,8 +126,6 @@ import { AppStore, UserStore, PopupStore, ShopStore } from "@/store";
 export default class AppBarFull extends Vue {
   tabsHeight = 40;
   get CATEGORIES_PLUS() {
-    console.log(CATEGORIES_PLUS);
-
     return CATEGORIES_PLUS;
   }
 

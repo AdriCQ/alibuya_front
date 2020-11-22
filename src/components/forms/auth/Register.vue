@@ -12,19 +12,30 @@
           <v-row>
             <v-col cols="12" sm="6" class="py-0">
               <v-text-field
+                outlined
                 v-model="form.first_name"
                 label="Nombre"
                 required
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" class="py-0">
-              <v-text-field v-model="form.last_name" label="Apellidos" />
+              <v-text-field
+                outlined
+                v-model="form.last_name"
+                label="Apellidos"
+              />
             </v-col>
             <v-col cols="12">
-              <v-text-field v-model="form.email" label="Email*" required />
+              <v-text-field
+                outlined
+                v-model="form.email"
+                label="Email*"
+                required
+              />
             </v-col>
             <v-col cols="12" sm="6" class="py-0">
               <v-text-field
+                outlined
                 v-model="form.password"
                 label="Contraseña*"
                 :type="passwordType"
@@ -45,6 +56,7 @@
             </v-col>
             <v-col cols="12" sm="6" class="py-0">
               <v-text-field
+                outlined
                 label="Confirmar Contraseña*"
                 v-model="form.password_confirmation"
                 :type="passwordConfirmatiionType"
