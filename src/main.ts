@@ -16,6 +16,9 @@ import "vue-slick-carousel/dist/vue-slick-carousel.css";
 import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 Vue.component('slick-carousel', VueSlickCarousel)
 
+// Vue Swatches
+import 'vue-swatches/dist/vue-swatches.css';
+
 // App Section
 Vue.component('v-section', () => import('@/components/layouts/Section.vue'))
 
