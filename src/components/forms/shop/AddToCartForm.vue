@@ -3,52 +3,67 @@
     <v-card flat>
       <v-row>
         <v-col cols="12" md="4" lg="4" xl="4">
-          <product-gallery
-            :imgs-src="[
-              'img/logos/logo_300x225.png',
-              'img/logos/logo_300x225.png',
-              'img/logos/logo_300x225.png',
-              'img/logos/logo_300x225.png',
-            ]"
-          />
+          <product-gallery :imgs-src="testImages" />
         </v-col>
         <v-col cols="12" md="8" lg="8" xl="8">
-          <v-card-title class="font-weight-bold">
-            {{ product.title }}
-          </v-card-title>
-          <v-card-title>
-            Disponible desde US${{ Number(product.price).toFixed(2) }}
-          </v-card-title>
+          <v-row no-gutters justify-md="space-between">
+            <v-col cols="12" md="auto">
+              <v-card-title class="font-weight-bold">
+                {{ product.title }}
+              </v-card-title>
+            </v-col>
+
+            <v-col cols="12" md="auto">
+              <v-card-title class="text-subtitle-1">
+                Disponible desde US${{ Number(product.price).toFixed(2) }}
+              </v-card-title>
+            </v-col>
+          </v-row>
 
           <v-form>
-            <!-- Product Options -->
-            <v-card-text v-if="product.options">
-              <!-- Option Colors -->
-              <template v-if="product.options.colors">
-                <v-select
-                  label="Colores disponibles"
-                  outlined
-                  dense
-                  class="w-20"
-                  :items="product.options.colors"
-                />
-              </template>
-              <!-- / Option Colors -->
-              <!-- / Product Options -->
-              <v-card-title>Sobre éste artículo</v-card-title>
-              <!-- Production Description -->
-              <v-card-text v-html="product.description" />
-              <!-- / Production Description -->
-              <!-- Delivery method -->
+            <v-card-title class="text-subtitle-1" v-if="product.options">
+              <v-row align="center">
+                <!-- Option Colors -->
+                <template v-if="product.options.colors">
+                  <v-col cols="auto" lg="12">Colores Disponibles: </v-col>
+                  <v-col cols="auto" lg="12">
+                    <v-swatches
+                      v-model="selectColor"
+                      :swatches="colors"
+                      shapes="circles"
+                      swatch-size="38"
+                      show-labels
+                      show-border
+                      inline
+                    />
+                  </v-col>
+                </template>
+                <!-- / Option Colors -->
+              </v-row>
+            </v-card-title>
+
+            <v-card-title class="text-subtitle-1"
+              >Sobre éste artículo</v-card-title
+            >
+
+            <!-- Production Description -->
+            <v-card-text v-html="product.description" />
+            <!-- / Production Description -->
+
+            <!-- Delivery method -->
+            <v-card-text>
               <v-select
-                class="w-20"
+                class="w-22"
                 label="Método de Recogida"
                 :items="deliveryMethods"
                 dense
                 outlined
               />
-              <!-- / Delivery method -->
-              <!-- Cant Input -->
+            </v-card-text>
+            <!-- / Delivery method -->
+
+            <!-- Cant Input -->
+            <v-card-text>
               <div class="d-flex d-flex-row align-center">
                 <span>
                   <cant-input :cant.sync="cant" :can-minus="canMinus" />
@@ -57,15 +72,18 @@
                   Subtotal: ${{ Number(product.price * cant).toFixed(2) }}
                 </span>
               </div>
-              <!-- / Cant Input -->
-              <v-checkbox
-                dense
-                :label="`Entiendo que este producto tiene un cargo en destino de ${Number(
-                  product.tax
-                ).toFixed(2)} CUC`"
-              />
             </v-card-text>
+            <!-- / Cant Input -->
 
+            <v-card-text>
+              <div class="d-flex align-center">
+                <v-checkbox />
+                <span>
+                  Entiendo que este producto tiene un cargo en destino de 5,00
+                  CUC
+                </span>
+              </div>
+            </v-card-text>
             <v-card-actions>
               <v-btn color="primaryAlpha" class="mt-4" @click="addToCart">
                 <v-icon class="mr-2">mdi-cart-plus</v-icon>
@@ -86,22 +104,23 @@
 <script lang='ts'>
 import { PopupStore, ShopStore, UserStore } from "@/store";
 import { IProduct } from "@/types";
-import { PropType } from "vue";
 import { Vue, Component, Prop } from "vue-property-decorator";
+import VSwatches from "vue-swatches";
 
 @Component({
   components: {
     "cant-input": () => import("@/components/forms/shop/ProductCantInput.vue"),
     "product-gallery": () => import("@/components/sliders/ProductGallery.vue"),
+    VSwatches,
     // "destinatary-input": () =>
     //   import("@/components/forms/shop/SelectDestinatary.vue"),
   },
 })
 export default class AddToCartForm extends Vue {
-  @Prop({ type: Object as PropType<IProduct> }) readonly product!: IProduct;
+  @Prop({ type: Object }) readonly product!: IProduct;
 
   // personsInfo: TPackDestinationPerson[] = [];
-
+  selectColor = "";
   cant = 1;
   // TODO: Work with limits
   // productLimit = 2;
@@ -116,6 +135,10 @@ export default class AddToCartForm extends Vue {
     "Santiago de Cuba – Aerovaradero",
   ];
 
+  created() {
+    this.selectColor = this.colors[0].color;
+  }
+
   get canMinus() {
     return this.cant > 1 ? true : false;
   }
@@ -126,6 +149,23 @@ export default class AddToCartForm extends Vue {
 
   get isValid() {
     return true;
+  }
+
+  // test - array of images
+  get testImages() {
+    const src = "img/logos/logo_300x225.png";
+    return [src, src, src, src, src];
+  }
+
+  // test - product colors
+  get colors() {
+    return [
+      { color: "#ff0000", label: "Red" },
+      { color: "#ff6600", label: "Orange" },
+      { color: "#0066ff", label: "Blue" },
+      { color: "#ffffff", label: "White" },
+      { color: "#009900", label: "Green" },
+    ];
   }
 
   addToCart() {

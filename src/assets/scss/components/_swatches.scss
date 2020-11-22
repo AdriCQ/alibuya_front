@@ -1,0 +1,12 @@
+.vue-swatches .vue-swatches__wrapper {
+  .vue-swatches__swatch {
+    .vue-swatches__swatch__label {
+      bottom: -25px !important;
+    }
+    &.vue-swatches__swatch--selected {
+      .vue-swatches__swatch__label {
+        color: $primary-color;
+      }
+    }
+  }
+}
