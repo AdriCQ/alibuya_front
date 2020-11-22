@@ -26,8 +26,8 @@
           :style="`width: ${inputWidth}rem`"
         ></v-text-field>
         <div class="input-group-append ml-2">
-          <v-btn type="submit" color="primary">
-            <v-icon>mdi-magnify</v-icon>Buscar
+          <v-btn type="submit" color="primaryAlpha">
+            <v-icon>mdi-magnify</v-icon> <span class="black--text">Buscar</span>
           </v-btn>
         </div>
       </div>
