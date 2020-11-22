@@ -1,5 +1,5 @@
 // variables
-$positions: (relative, absolute, fixed);
+$positions: (relative, absolute, fixed, initial, sticky);
 
 // positions
 @each $position in $positions {
