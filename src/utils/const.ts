@@ -52,13 +52,13 @@ export const CATEGORIES: IDictionary<IProductCategory> = {
     }
   },
 
-  ferreo: {
+  tools: {
     id: 4,
     types: [],
     icon: 'mdi-medical-bag',
     labelLang: { es: 'Ferretería' }, to: {
       name: 'shop.tags',
-      params: { tag: 'ferreo' }
+      params: { tag: 'tools' }
     }
   },
   automotriz: {

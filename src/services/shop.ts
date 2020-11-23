@@ -1,6 +1,5 @@
-import { IProduct, ISuggesedParams, ApiResponsePaginated, ApiResponse, TCategory } from '@/types';
-import Axios from 'axios';
-
+import axios from 'axios';
+import { IProduct, ApiResponsePaginated, ApiResponse, TCategory, ISuggestedParams, ISuggestedCategoryProductParams } from '@/types';
 export class ShopService {
   private static baseUrl = '/shop';
 
@@ -8,8 +7,8 @@ export class ShopService {
    * Get Sugegsted products
    * @param _params ISuggesedParams
    */
-  static suggested(_params?: ISuggesedParams): ApiResponsePaginated<IProduct[]> {
-    return Axios.get(this.baseUrl + '/product/suggested', {
+  static suggested(_params?: ISuggestedParams): ApiResponsePaginated<IProduct[]> {
+    return axios.get(this.baseUrl + '/product/suggested', {
       params: _params
     })
   }
@@ -18,29 +17,47 @@ export class ShopService {
    * Get all products paginated
    */
   static allPaginated(): ApiResponsePaginated<IProduct[]> {
-    return Axios.get(this.baseUrl + '/product/all-paginated');
+    return axios.get(this.baseUrl + '/product/all-paginated');
   }
 
   /**
    * Get product by id
    */
   static getById(_id: number): ApiResponse<IProduct> {
-    return Axios.get(this.baseUrl + '/product/by-id', {
+    return axios.get(this.baseUrl + '/product/by-id', {
       params: {
         "product_id": _id
       }
     })
   }
 
-
   /**
    * Get products by Category
    */
   static getProductsByCategory(_params: TCategory): ApiResponsePaginated<IProduct[]> {
-    return Axios.get(this.baseUrl + '/category', {
+    return axios.get(this.baseUrl + '/category/products', {
       params: {
         "category": _params
       }
     })
+  }
+
+  /**
+   * Gets categories
+   * @returns  
+   */
+  static getCategories() {
+    return axios.get(this.baseUrl + '/category');
+  }
+
+  /**
+   * Gets suggested category products
+   * @param _params ISuggestedCategoryProductParams
+   * @returns  
+   */
+  static getSuggestedCategoryProducts(_params: ISuggestedCategoryProductParams): ApiResponse<IProduct[]> {
+    return axios.get(this.baseUrl + 'category/suggested-products', {
+      params: _params
+    });
   }
 }

@@ -2,7 +2,7 @@
   <div>
     <v-card light>
       <v-card-text class="pb-0">
-        <p class="title text-center">
+        <p class="text-center title black--text">
           Inicia sesión para vivir tu mejor experiencia
         </p>
       </v-card-text>
@@ -15,7 +15,7 @@
           Iniciar Sesión
         </v-btn>
         <p
-          class="anchor--text pt-2 cursor-pointer"
+          class="black--text pt-2 cursor-pointer"
           @click="openAuthPopup('register')"
         >
           Registrar Cuenta
