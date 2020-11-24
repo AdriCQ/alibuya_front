@@ -27,7 +27,7 @@
         </template>
 
         <!-- Auth buttons -->
-        <v-btn text @click="openAuthPopup" v-if="!isLogged">
+        <v-btn text @click="goToRoute('auth')" v-if="!isLogged">
           <b> Identifícate </b>
         </v-btn>
 
