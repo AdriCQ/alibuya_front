@@ -2,94 +2,73 @@
   <v-form @submit.prevent="register">
     <v-card>
       <v-card-title>
-        <span class="headline"
-          ><v-icon class="mr-2">mdi-account-plus</v-icon>Registro de
-          usuarios</span
-        >
+        <span class="headline">Registro de usuarios</span>
       </v-card-title>
       <v-card-text>
         <v-container class="py-0">
-          <v-row>
-            <v-col cols="12" sm="6" class="py-0">
+          <v-row :no-gutters="vertical">
+            <v-col cols="12" :sm="vertical ? 12 : 6">
               <v-text-field
-                outlined
                 v-model="form.first_name"
+                color="black"
                 label="Nombre"
+                outlined
+                dense
                 required
               ></v-text-field>
             </v-col>
-            <v-col cols="12" sm="6" class="py-0">
+            <v-col cols="12" :sm="vertical ? 12 : 6">
               <v-text-field
-                outlined
                 v-model="form.last_name"
+                color="black"
                 label="Apellidos"
+                outlined
+                dense
               />
             </v-col>
             <v-col cols="12">
               <v-text-field
-                outlined
                 v-model="form.email"
+                color="black"
                 label="Email*"
+                outlined
+                dense
                 required
               />
             </v-col>
-            <v-col cols="12" sm="6" class="py-0">
+            <v-col cols="12" :sm="vertical ? 12 : 6">
               <v-text-field
-                outlined
                 v-model="form.password"
+                color="black"
                 label="Contraseña*"
                 :type="passwordType"
-                required
-              >
-                <template v-slot:append>
-                  <v-icon
-                    v-if="!showPassword"
-                    @click="showPassword = !showPassword"
-                  >
-                    mdi-eye-outline
-                  </v-icon>
-                  <v-icon v-else @click="showPassword = !showPassword">
-                    mdi-eye-off-outline
-                  </v-icon>
-                </template>
-              </v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" class="py-0">
-              <v-text-field
                 outlined
-                label="Confirmar Contraseña*"
-                v-model="form.password_confirmation"
-                :type="passwordConfirmatiionType"
+                dense
                 required
-              >
-                <template v-slot:append>
-                  <v-icon
-                    v-if="!showPasswordConfirmation"
-                    @click="
-                      showPasswordConfirmation = !showPasswordConfirmation
-                    "
-                  >
-                    mdi-eye-outline
-                  </v-icon>
-                  <v-icon
-                    v-else
-                    @click="
-                      showPasswordConfirmation = !showPasswordConfirmation
-                    "
-                  >
-                    mdi-eye-off-outline
-                  </v-icon>
+              />
+            </v-col>
+            <v-col cols="12" :sm="vertical ? 12 : 6">
+              <v-text-field
+                v-model="form.password_confirmation"
+                color="black"
+                label="Confirmar Contraseña*"
+                :type="passwordType"
+                outlined
+                dense
+                required
+              />
+
+              <v-switch class="mt-0" v-model="showPasswords">
+                <template v-slot:label>
+                  <span style="font-size: 15px">Mostrar contraseña. </span>
                 </template>
-              </v-text-field>
+              </v-switch>
             </v-col>
           </v-row>
           <div class="d-flex align-center">
-            <v-checkbox v-model="licenceAgree">
-              <template v-slot:label>
-                <span>Acepto los </span>
-              </template>
-            </v-checkbox>
+            <v-checkbox v-model="licenceAgree" dense />
             <!-- TODO: Terms and conditions -->
+            <span class="black--text">Acepto los </span>
             <router-link
               class="ml-1 cursor-pointer"
               style="font-size: 1rem"
@@ -97,30 +76,48 @@
               >Términos y Condiciones</router-link
             >
           </div>
-          <v-card-text
-            class="info--text cursor-pointer"
-            @click="$emit('toggle')"
-          >
-            Ya tengo usuario
-          </v-card-text>
+
+          <!-- Actions -->
+          <v-card-actions class="px-0">
+            <v-row>
+              <v-col>
+                <v-btn
+                  text
+                  block
+                  class="btn-border-black"
+                  @click="$emit('toggle')"
+                >
+                  Ya tengo usuario</v-btn
+                >
+              </v-col>
+              <v-col>
+                <v-btn
+                  color="primaryAlpha"
+                  class="btn-primary-alpha-gradient"
+                  type="submit"
+                  block
+                >
+                  Registrar
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-card-actions>
+          <!-- / Actions -->
         </v-container>
       </v-card-text>
-      <v-card-actions class="mt-0">
-        <v-spacer></v-spacer>
-        <v-btn color="primaryBetha" @click="closePopup"> Cancelar </v-btn>
-        <v-btn color="primaryAlpha" type="submit"> Registrar </v-btn>
-      </v-card-actions>
     </v-card>
   </v-form>
 </template>
 
 <script lang='ts'>
-import { Vue, Component } from "vue-property-decorator";
+import { Vue, Component, Prop } from "vue-property-decorator";
 import { IRegisterParams } from "@/types";
 import { UserStore, PopupStore } from "@/store";
 
 @Component
 export default class RegisterForm extends Vue {
+  @Prop({ type: Boolean, default: false }) vertical!: boolean;
+
   form: IRegisterParams = {
     first_name: "",
     email: "",
@@ -128,27 +125,15 @@ export default class RegisterForm extends Vue {
     password: "",
     password_confirmation: "",
   };
-  showPassword = false;
-  showPasswordConfirmation = false;
+  showPasswords = false;
   licenceAgree = false;
 
   /**
    *
    */
   get passwordType() {
-    return this.showPassword ? "text" : "password";
+    return this.showPasswords ? "text" : "password";
   }
-  /**
-   *
-   */
-  get passwordConfirmatiionType() {
-    return this.showPasswordConfirmation ? "text" : "password";
-  }
-
-  closePopup() {
-    PopupStore.auth = false;
-  }
-
   /**
    *
    */
@@ -171,7 +156,7 @@ export default class RegisterForm extends Vue {
 
           "info"
         );
-        this.closePopup();
+
         UserStore.storeOnLocalStorage();
       } catch (err) {
         PopupStore.addNotification(err);

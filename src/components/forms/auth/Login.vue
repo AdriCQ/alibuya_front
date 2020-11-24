@@ -1,75 +1,89 @@
 <template>
   <v-form>
     <v-card-title>
-      <span class="headline"
-        ><v-icon class="mr-2">mdi-account-arrow-right</v-icon>Login</span
-      >
+      <span class="headline">Login</span>
     </v-card-title>
+
     <v-card-text>
       <v-container class="py-0 my-0">
-        <v-row>
-          <v-col cols="12" sm="6">
+        <v-row :no-gutters="vertical">
+          <v-col cols="12" :sm="vertical ? 12 : 6">
             <v-text-field
               outlined
+              color="black"
               label="Email*"
+              width="10"
               v-model="form.email"
+              dense
               required
             />
           </v-col>
-          <v-col cols="12" sm="6">
+
+          <v-col cols="12" :sm="vertical ? 12 : 6">
             <v-text-field
               outlined
+              color="black"
               v-model="form.password"
               label="Contraseña*"
               :type="passwordType"
+              dense
               required
-            >
-              <template v-slot:append>
-                <v-icon
-                  v-if="!showPassword"
-                  @click="showPassword = !showPassword"
-                >
-                  mdi-eye-outline
-                </v-icon>
-                <v-icon v-else @click="showPassword = !showPassword">
-                  mdi-eye-off-outline
-                </v-icon>
+            />
+            <v-switch class="mt-0" v-model="showPassword">
+              <template v-slot:label>
+                <span style="font-size: 15px">Mostrar contraseña. </span>
               </template>
-            </v-text-field>
+            </v-switch>
           </v-col>
         </v-row>
-        <v-row>
-          <v-col cols="12" sm="6">
-            <span class="info--text cursor-pointer" @click="$emit('toggle')">
-              No tengo Usuario
-            </span>
-          </v-col>
-        </v-row>
+
+        <!-- Actions -->
+        <v-card-actions class="px-0">
+          <v-row>
+            <v-col>
+              <v-btn
+                text
+                block
+                class="btn-border-black"
+                @click="$emit('toggle')"
+              >
+                No tengo Usuario
+              </v-btn>
+            </v-col>
+            <v-col>
+              <v-btn
+                class="btn-primary-alpha-gradient"
+                color="primaryAlpha"
+                type="submit"
+                block
+                @click.prevent="login"
+              >
+                Login
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-card-actions>
+        <!-- / Actions -->
       </v-container>
     </v-card-text>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn color="primaryBeta" @click="closePopup"> Cancelar </v-btn>
-      <v-btn color="primaryAlpha" type="submit" @click.prevent="login">
-        Login
-      </v-btn>
-    </v-card-actions>
   </v-form>
 </template>
 
 <script lang='ts'>
-import { Vue, Component } from "vue-property-decorator";
+import { Vue, Component, Prop } from "vue-property-decorator";
 import { ILoginParams } from "@/types";
 import { UserStore, PopupStore } from "@/store";
 
 @Component
 export default class LoginForm extends Vue {
+  @Prop({ type: Boolean, default: false }) vertical!: boolean;
   showPassword = false;
 
   form: ILoginParams = {
     email: "",
     password: "",
   };
+
   /**
    *
    */
@@ -87,13 +101,6 @@ export default class LoginForm extends Vue {
   /**
    *
    */
-  closePopup() {
-    PopupStore.auth = false;
-  }
-
-  /**
-   *
-   */
   async login() {
     if (this.isValid) {
       this.$emit("loading:update", true);
@@ -105,8 +112,8 @@ export default class LoginForm extends Vue {
           ],
           "success"
         );
-        this.closePopup();
         UserStore.storeOnLocalStorage();
+        this.$router.back();
       } catch (error) {
         PopupStore.addNotification(error);
       }
