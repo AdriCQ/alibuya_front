@@ -18,7 +18,7 @@
         <v-row justify="space-around">
           <v-col cols="auto" v-for="(img, key) in images" :key="key">
             <div class="img-container-qwer">
-              <v-img :src="img.url" width="100%" height="100%" />
+              <v-img :src="img.paths.sm" width="100%" height="100%" />
             </div>
           </v-col>
           <v-col cols="auto">
