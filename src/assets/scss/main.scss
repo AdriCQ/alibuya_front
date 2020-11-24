@@ -7,7 +7,7 @@
 
 // Vuetify
 @import "vuetify/v-application";
-@import "vuetify/v-btn";
+// @import "vuetify/v-btn";
 @import "vuetify/v-input";
 
 // Utils
@@ -22,6 +22,7 @@
 @import "components/cant-input";
 @import "components/product-widget";
 @import "components/production-description";
+@import "components/vuetify/btn";
 
 // Includes
 @import "components/slick-carousel";
