@@ -14,6 +14,7 @@
 @import "utils/mixins";
 @import "utils/utils";
 @import "utils/positions";
+@import "utils/gradients";
 
 // Components
 @import "components/app-bar";
@@ -21,6 +22,7 @@
 @import "components/cant-input";
 @import "components/product-widget";
 @import "components/production-description";
+@import "components/vuetify/btn";
 
 // Includes
 @import "components/slick-carousel";
@@ -29,6 +31,7 @@
 // Forms
 @import "components/forms/quill-editor";
 @import "components/forms/search-product";
+
 // Views
 // Widgets
 @import "components/widgets/contact";

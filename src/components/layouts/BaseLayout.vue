@@ -2,7 +2,7 @@
   <div>
     <!-- Popups -->
     <popup-auth />
-    <popup-notification />
+
     <!-- <popup-product-details /> -->
     <popup-cookie />
     <!--/  Popups -->
@@ -34,8 +34,6 @@ import AppSidebarLeft from "./SidebarLeft.vue";
     AppSidebarLeft,
     "popup-auth": () => import("@/components/popups/AuthPopup.vue"),
     "popup-cookie": () => import("@/components/popups/CookiePopup.vue"),
-    "popup-notification": () =>
-      import("@/components/popups/NotificationPopup.vue"),
     // "popup-product-details": () =>
     //   import("@/components/popups/ProductDetails.vue"),
   },

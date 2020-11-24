@@ -27,9 +27,9 @@
         </template>
 
         <!-- Auth buttons -->
-        <v-btn text @click="openAuthPopup" v-if="!isLogged">
+        <v-btn text @click="goToRoute('auth')" v-if="!isLogged">
           <span> Identifícate </span>
-          <v-icon v-if="smAndUp" class="ml-2"> mdi-account-circle </v-icon>
+          <!-- <v-icon v-if="smAndUp" class="ml-2"> mdi-account-circle </v-icon> -->
         </v-btn>
 
         <v-menu transition="scale-transition" offset-y v-else>
@@ -115,7 +115,7 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { CATEGORIES_PLUS, VENDOR_PAGES } from "@/utils/const";
-import { AppStore, UserStore, PopupStore, ShopStore } from "@/store";
+import { AppStore, UserStore, ShopStore } from "@/store";
 
 @Component({
   components: {
@@ -174,13 +174,6 @@ export default class AppBarFull extends Vue {
    */
   toggleSidebarLeft() {
     AppStore.sidebarLeft = !AppStore.sidebarLeft;
-  }
-
-  /**
-   *
-   */
-  openAuthPopup() {
-    PopupStore.openAuth("login");
   }
 
   /**

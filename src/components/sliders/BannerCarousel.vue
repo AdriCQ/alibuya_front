@@ -50,7 +50,7 @@
               :style="`font-size: ${subtitleSize}rem`"
               ><v-btn
                 :to="{ name: 'vendor.home' }"
-                class="black--text"
+                class="black--text btn-primary-alpha-gradient"
                 color="primary"
                 >Empezar a vender</v-btn
               >

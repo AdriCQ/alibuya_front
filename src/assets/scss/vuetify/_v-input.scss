@@ -3,4 +3,7 @@
 }
 .v-input--is-focused {
   border-color: $primary-color !important;
+  fieldset {
+    border-width: 1px !important;
+  }
 }
