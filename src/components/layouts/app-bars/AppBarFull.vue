@@ -27,14 +27,8 @@
         </template>
 
         <!-- Auth buttons -->
-<<<<<<< HEAD
-        <v-btn text @click="goToRoute('auth')" v-if="!isLogged">
-          <span> Identifícate </span>
-          <!-- <v-icon v-if="smAndUp" class="ml-2"> mdi-account-circle </v-icon> -->
-=======
         <v-btn text @click="openAuthPopup" v-if="!isLogged">
           <b> Identifícate </b>
->>>>>>> f4a577305bd4759577103064b682f4fce323c332
         </v-btn>
 
         <v-menu transition="scale-transition" offset-y v-else>
