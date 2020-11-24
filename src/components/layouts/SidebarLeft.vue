@@ -57,7 +57,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 
 import { Vue, Component } from "vue-property-decorator";
-import { AppStore, UserStore, PopupStore } from "@/store";
+import { AppStore, UserStore } from "@/store";
 import { ILinkIconLabel } from "@/types";
 import { CATEGORIES_PLUS, LANG, WEB_PAGES } from "@/utils";
 
@@ -116,13 +116,6 @@ export default class AppSidebarLeft extends Vue {
     AppStore.sidebarLeft = input;
   }
 
-  /**
-   *
-   */
-  openAuthPopup() {
-    PopupStore.openAuth("login");
-  }
-
   openProfile() {
     if (this.isLogged) {
       if (this.$route.name !== "settings.account") {
@@ -131,7 +124,7 @@ export default class AppSidebarLeft extends Vue {
         });
       }
     } else {
-      this.openAuthPopup();
+      this.$router.push({ name: "auth" });
     }
   }
 }

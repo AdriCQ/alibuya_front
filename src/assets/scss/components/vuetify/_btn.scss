@@ -1,0 +1,7 @@
+.btn-border-black {
+  border: solid 1px lighten(black, 70%);
+}
+.btn-primary-alpha-gradient {
+  @include gradient-y(lighten($primary-alpha-color, 30%), $primary-alpha-color);
+  @extend .btn-border-black;
+}

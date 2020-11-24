@@ -1,5 +1,9 @@
 <template>
   <v-app style="min-width: 256px">
+    <!-- Global Popups -->
+    <popup-notification />
+    <!-- / Global Popups -->
+
     <router-view />
   </v-app>
 </template>
@@ -8,7 +12,12 @@
 import { Vue, Component } from "vue-property-decorator";
 import { UserStore, AppStore, ShopStore } from "@/store";
 
-@Component
+@Component({
+  components: {
+    "popup-notification": () =>
+      import("@/components/popups/NotificationPopup.vue"),
+  },
+})
 export default class App extends Vue {
   created() {
     this.getAsyncData();

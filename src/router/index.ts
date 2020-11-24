@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import { mainRoutes, settingsRoutes, shopRoutes, vendorRoutes } from './routes';
+import { mainRoutes, settingsRoutes, shopRoutes, vendorRoutes,authRoutes } from './routes';
 
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
-  mainRoutes, shopRoutes, settingsRoutes, vendorRoutes,
+  mainRoutes, shopRoutes, settingsRoutes, vendorRoutes, authRoutes,
   {
     path: '*',
     redirect: {
