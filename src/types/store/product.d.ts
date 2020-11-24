@@ -48,6 +48,7 @@ export interface IProductCategory extends ILinkIconLabel {
     en?: string;
   };
   types?: IProductType[];
+  image: string;
 }
 /**
  * 

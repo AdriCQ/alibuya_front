@@ -95,6 +95,17 @@
       </v-card>
     </v-section>
     <!-- Suggested -->
+
+    <!-- Categories -->
+    <v-section class="mt-2">
+      <v-card flat>
+        <v-card-title>Categorias</v-card-title>
+        <v-card-text>
+          <category-slider />
+        </v-card-text>
+      </v-card>
+    </v-section>
+    <!-- / Categories -->
   </div>
 </template>
 
@@ -105,6 +116,8 @@ import { ShopStore, UserStore } from "@/store";
 @Component({
   components: {
     "banner-carousel": () => import("@/components/sliders/BannerCarousel.vue"),
+    "category-slider": () =>
+      import("@/components/sliders/CategoriesSlider.vue"),
     "login-card": () => import("@/components/widgets/LoginCard.vue"),
     "products-slider": () =>
       import("@/components/sliders/ProductSliderMultiple.vue"),

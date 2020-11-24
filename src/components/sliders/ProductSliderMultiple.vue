@@ -4,7 +4,7 @@
     <slick-carousel
       class="slick"
       ref="icons-carousel"
-      :arrows="false"
+      :arrows="true"
       :dots="true"
       :centerMode="false"
       :infinite="true"

@@ -2,8 +2,7 @@
   <div class="categories-slider">
     <slick-carousel
       class="slick"
-      ref="icons-carousel"
-      :arrows="true"
+      :arrows="displayArrows"
       :dots="true"
       :centerMode="true"
       :infinite="true"
@@ -17,19 +16,20 @@
     >
       <div
         class="categories-slider-item"
-        v-for="(department, label) in categories"
-        :key="label"
+        v-for="(category, key) in categories"
+        :key="key"
       >
-        <v-card :to="department.to">
-          <v-card-text class="text-center">
-            <v-avatar color="secondary" size="6rem">
-              <v-icon color="primary" size="5rem">{{ department.icon }}</v-icon>
-            </v-avatar>
-          </v-card-text>
-          <!-- TODO: Fix Electrodomesticos text -->
-          <v-card-text class="subtitle">{{
-            department.labelLang[lang]
-          }}</v-card-text>
+        <v-card :to="category.to">
+          <div class="w-100 text-center">
+            <v-img
+              :src="category.image"
+              :alt="`Category-${key}`"
+              width="100%"
+            />
+          </div>
+          <v-card-title justify-center>{{
+            category.labelLang.es
+          }}</v-card-title>
         </v-card>
       </div>
     </slick-carousel>
@@ -66,6 +66,10 @@ export default class CategoriesSlider extends Vue {
       default:
         return 1;
     }
+  }
+
+  get displayArrows() {
+    return this.$vuetify.breakpoint.mdAndUp;
   }
 }
 </script>

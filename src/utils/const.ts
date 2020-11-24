@@ -11,7 +11,7 @@ export const LANG = [
 
 export const CATEGORIES: IDictionary<IProductCategory> = {
   clothes: {
-    id: 1,
+    image: 'img/categories/clothes.png',
     types: [],
     icon: 'mdi-hanger',
     labelLang: { es: 'Ropas' },
@@ -22,7 +22,7 @@ export const CATEGORIES: IDictionary<IProductCategory> = {
   },
 
   home: {
-    id: 2,
+    image: 'img/categories/home.png',
     types: [],
     icon: 'mdi-home',
     labelLang: { es: 'Hogar' },
@@ -33,7 +33,7 @@ export const CATEGORIES: IDictionary<IProductCategory> = {
   },
 
   pets: {
-    id: 3,
+    image: 'img/categories/pets.png',
     types: [],
     icon: 'mdi-medical-bag',
     labelLang: { es: 'Mascotas' }, to: {
@@ -43,7 +43,7 @@ export const CATEGORIES: IDictionary<IProductCategory> = {
   },
 
   health: {
-    id: 4,
+    image: 'img/categories/health.png',
     types: [],
     icon: 'mdi-medical-bag',
     labelLang: { es: 'Salud' }, to: {
@@ -53,7 +53,7 @@ export const CATEGORIES: IDictionary<IProductCategory> = {
   },
 
   tools: {
-    id: 4,
+    image: 'img/categories/tools.png',
     types: [],
     icon: 'mdi-medical-bag',
     labelLang: { es: 'Ferretería' }, to: {
@@ -62,7 +62,7 @@ export const CATEGORIES: IDictionary<IProductCategory> = {
     }
   },
   automotriz: {
-    id: 5,
+    image: 'img/categories/auto.png',
     types: [],
     icon: 'mdi-car',
     labelLang: { es: 'Automotriz' },
@@ -72,7 +72,7 @@ export const CATEGORIES: IDictionary<IProductCategory> = {
     }
   },
   cell: {
-    id: 6,
+    image: 'img/categories/phone.png',
     types: [],
     icon: 'mdi-cellphone-android',
     labelLang: { es: 'Celulares' },
@@ -82,7 +82,7 @@ export const CATEGORIES: IDictionary<IProductCategory> = {
     }
   },
   kids: {
-    id: 7,
+    image: 'img/categories/kid.png',
     types: [],
     icon: 'mdi-human-child',
     labelLang: { es: 'Niños' },
