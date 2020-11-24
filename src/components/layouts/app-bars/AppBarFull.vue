@@ -16,7 +16,7 @@
         </v-app-bar-nav-icon>
 
         <v-btn text @click="goToRoute('main.home')">
-          <v-img src="img/logos/logo_white_550x178.png" width="5rem" />
+          <v-img src="img/logos/logo_white_550x178.png" width="8rem" />
         </v-btn>
 
         <v-spacer />
@@ -27,9 +27,14 @@
         </template>
 
         <!-- Auth buttons -->
+<<<<<<< HEAD
         <v-btn text @click="goToRoute('auth')" v-if="!isLogged">
           <span> Identifícate </span>
           <!-- <v-icon v-if="smAndUp" class="ml-2"> mdi-account-circle </v-icon> -->
+=======
+        <v-btn text @click="openAuthPopup" v-if="!isLogged">
+          <b> Identifícate </b>
+>>>>>>> f4a577305bd4759577103064b682f4fce323c332
         </v-btn>
 
         <v-menu transition="scale-transition" offset-y v-else>

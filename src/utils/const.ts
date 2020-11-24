@@ -10,28 +10,8 @@ export const LANG = [
 ];
 
 export const CATEGORIES: IDictionary<IProductCategory> = {
-  automotriz: {
-    id: 1,
-    types: [],
-    icon: 'mdi-car',
-    labelLang: { es: 'Automotriz' },
-    to: {
-      name: 'shop.tags',
-      params: { tag: 'automotriz' }
-    }
-  },
-  cell: {
-    id: 2,
-    types: [],
-    icon: 'mdi-cellphone-android',
-    labelLang: { es: 'Celulares' },
-    to: {
-      name: 'shop.tags',
-      params: { tag: 'cell' }
-    }
-  },
   clothes: {
-    id: 3,
+    id: 1,
     types: [],
     icon: 'mdi-hanger',
     labelLang: { es: 'Ropas' },
@@ -40,6 +20,28 @@ export const CATEGORIES: IDictionary<IProductCategory> = {
       params: { tag: 'clothes' }
     }
   },
+
+  home: {
+    id: 2,
+    types: [],
+    icon: 'mdi-home',
+    labelLang: { es: 'Hogar' },
+    to: {
+      name: 'shop.tags',
+      params: { tag: 'home' }
+    }
+  },
+
+  pets: {
+    id: 3,
+    types: [],
+    icon: 'mdi-medical-bag',
+    labelLang: { es: 'Mascotas' }, to: {
+      name: 'shop.tags',
+      params: { tag: 'pets' }
+    }
+  },
+
   health: {
     id: 4,
     types: [],
@@ -49,18 +51,38 @@ export const CATEGORIES: IDictionary<IProductCategory> = {
       params: { tag: 'health' }
     }
   },
-  home: {
+
+  ferreo: {
+    id: 4,
+    types: [],
+    icon: 'mdi-medical-bag',
+    labelLang: { es: 'Ferretería' }, to: {
+      name: 'shop.tags',
+      params: { tag: 'ferreo' }
+    }
+  },
+  automotriz: {
     id: 5,
     types: [],
-    icon: 'mdi-home',
-    labelLang: { es: 'Hogar' },
+    icon: 'mdi-car',
+    labelLang: { es: 'Automotriz' },
     to: {
       name: 'shop.tags',
-      params: { tag: 'home' }
+      params: { tag: 'automotriz' }
+    }
+  },
+  cell: {
+    id: 6,
+    types: [],
+    icon: 'mdi-cellphone-android',
+    labelLang: { es: 'Celulares' },
+    to: {
+      name: 'shop.tags',
+      params: { tag: 'cell' }
     }
   },
   kids: {
-    id: 6,
+    id: 7,
     types: [],
     icon: 'mdi-human-child',
     labelLang: { es: 'Niños' },
@@ -69,15 +91,6 @@ export const CATEGORIES: IDictionary<IProductCategory> = {
       params: { tag: 'kids' }
     }
   },
-  pets: {
-    id: 7,
-    types: [],
-    icon: 'mdi-medical-bag',
-    labelLang: { es: 'Mascotas' }, to: {
-      name: 'shop.tags',
-      params: { tag: 'pets' }
-    }
-  }
 }
 
 const _dep = {

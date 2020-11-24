@@ -12,7 +12,7 @@
     >
       <template v-slot:append>
         <v-btn color="primary" :height="38" dark class="rounded-lg">
-          <v-icon>mdi-magnify</v-icon>
+          <v-icon color="black">mdi-magnify</v-icon>
         </v-btn>
       </template>
     </v-text-field>
