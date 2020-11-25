@@ -9,13 +9,18 @@
         <v-card-subtitle>
           Tienes {{ packCant }} paquetes pendientes
         </v-card-subtitle>
+        <v-container v-if="!packCant" class="text-center">
+          <div class="w-30">
+            <v-img src="img/png/empty-cart.png" />
+          </div>
+        </v-container>
         <product-display />
         <pack-display />
       </v-card>
     </v-section>
 
     <!-- Total Price -->
-    <v-section class="mt-0">
+    <v-section class="mt-0" v-if="packCant">
       <v-row justify="center">
         <v-col cols="12" sm="6" md="4" lg="4" xl="4">
           <v-card>

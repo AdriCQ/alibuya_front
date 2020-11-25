@@ -2,9 +2,10 @@
   <v-card flat>
     <v-card-title v-if="title">{{ title }}</v-card-title>
     <slick-carousel
+      v-if="products.lenght"
       class="slick"
       ref="icons-carousel"
-      :arrows="displayArrows"
+      :arrows="$vuetify.breakpoint.mdAndUp"
       :dots="true"
       :centerMode="false"
       :infinite="true"

@@ -10,22 +10,28 @@
         <!-- / Section title -->
 
         <!-- Section Content -->
-        <template>
-          <v-card>
-            <v-card-subtitle>
-              <v-btn icon @click="activeComponent = 'product-grid'">
-                <v-icon>mdi-view-grid</v-icon>
-              </v-btn>
-              <v-btn icon @click="activeComponent = 'product-list'">
-                <v-icon>mdi-view-list</v-icon>
-              </v-btn>
-            </v-card-subtitle>
+        <v-card>
+          <v-card-text v-if="emptyInventary">
+            <!-- Empty Inventary -->
+            <div class="w-30">
+              <v-img src="img/png/empty-cart.png" />
+            </div>
+            <!-- Empty Inventary -->
+          </v-card-text>
+          <v-card-subtitle v-if="products.lenght">
+            <v-btn icon @click="activeComponent = 'product-grid'">
+              <v-icon>mdi-view-grid</v-icon>
+            </v-btn>
+            <v-btn icon @click="activeComponent = 'product-list'">
+              <v-icon>mdi-view-list</v-icon>
+            </v-btn>
+          </v-card-subtitle>
 
-            <keep-alive>
-              <component :is="activeComponent" :products="products" />
-            </keep-alive>
-          </v-card>
-        </template>
+          <keep-alive v-if="products.lenght">
+            <component :is="activeComponent" :products="products" />
+          </keep-alive>
+        </v-card>
+
         <!-- / Section Content -->
       </v-card>
     </v-section>
@@ -49,11 +55,13 @@ import { IProduct, TCategory } from "@/types";
 export default class ShopTag extends Vue {
   activeComponent: "product-grid" | "product-list" = "product-grid";
   products: IProduct[] = [];
+  emptyInventary = false;
 
   get tag() {
     this.laodProducts(this.$route.params.tag as TCategory);
     return this.$route.params.tag;
   }
+
   get departmentName(): string {
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
@@ -70,14 +78,17 @@ export default class ShopTag extends Vue {
 
   async laodProducts(_category: TCategory) {
     try {
+      this.emptyInventary = false;
       await ShopStore.getProductsByCategory(_category);
       if (ShopStore.allProducts[this.tag].length) {
         this.products = ShopStore.allProducts[this.tag];
       } else {
         this.products = [];
+        this.emptyInventary = true;
       }
     } catch (error) {
       PopupStore.addNotification(error);
+      this.emptyInventary = true;
     }
   }
 }
