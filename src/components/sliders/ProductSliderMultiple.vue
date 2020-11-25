@@ -4,7 +4,7 @@
     <slick-carousel
       class="slick"
       ref="icons-carousel"
-      :arrows="true"
+      :arrows="displayArrows"
       :dots="true"
       :centerMode="false"
       :infinite="true"
@@ -41,16 +41,20 @@ export default class ProductMultipleSlider extends Vue {
       case "xl":
         return 6;
       case "lg":
-        return 4;
+        return 5;
       case "md":
-        return 3;
+        return 4;
       case "sm":
-        return 2;
+        return 3;
       case "xs":
         return 1;
       default:
         return 1;
     }
+  }
+
+  get displayArrows() {
+    return this.$vuetify.breakpoint.mdAndUp;
   }
 }
 </script>

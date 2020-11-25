@@ -1,0 +1,12 @@
+.rating-stars {
+  display: flex;
+  .star-container {
+    width: 3rem;
+  }
+  .star-container-sm {
+    width: 2rem;
+  }
+  .star-container-xs {
+    width: 1rem;
+  }
+}

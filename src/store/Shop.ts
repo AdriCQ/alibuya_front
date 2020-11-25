@@ -1,6 +1,6 @@
 import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store/store';
-import { IProduct, IProductsPack, TCategory, IDictionary } from '@/types';
+import { IProduct, IProductsPack, TCategory, IDictionary, IProductPromotion } from '@/types';
 import { ShopService } from '@/services';
 
 @Module({ generateMutationSetters: true })
@@ -8,6 +8,7 @@ class ShopModule extends VuexModule {
   _suggestedProducts: IProduct[] = [];
   _products: IDictionary<IProduct[]> = {};
   _productTypes: string[] = [];
+  _productsPromotion: IProductPromotion[] | null = null;
 
   shoppingCartProducts: IProduct[] = [];
   tempShoppingCartPacks: IProductsPack[] = [];
@@ -15,22 +16,87 @@ class ShopModule extends VuexModule {
 
   productDetails: IProduct | null = null;
 
+  /**
+   * Gets all products
+   */
   get allProducts() {
     return this._products;
   }
 
+  /**
+   * Gets suggested products
+   */
   get suggestedProducts() {
     return this._suggestedProducts;
   }
 
+  /**
+   * Gets shopping cart counter
+   */
   get shoppingCartCounter() {
     return this.shoppingCartProducts.length;
   }
 
+  /**
+   * Gets product types
+   */
   get productTypes() {
     return this._productTypes;
   }
 
+  /**
+   * Gets user packs
+   */
+  get userPacks() { return [] }
+
+  /**
+   * Gets total price
+   * @returns number
+   */
+  get totalPrice() {
+    let productsPrice = 0;
+    let packsPrice = 0;
+    this.shoppingCartProducts.forEach(p => {
+      productsPrice += p.price * (p.cant as number);
+    })
+
+    this.shoppingCartPacks.forEach(pack => {
+      packsPrice += pack.price * (pack.cant ? pack.cant : 1);
+    });
+    return productsPrice + packsPrice;
+  }
+
+  /**
+   * Gets packs counter
+   */
+  get packsCounter() {
+    return this.shoppingCartPacks.length;
+  }
+
+  /**
+   * Gets products counter
+   */
+  get productsCounter() {
+    return this.shoppingCartProducts.length;
+  }
+
+  /**
+   * Gets count all
+   */
+  get countAll() {
+    return this.productsCounter + this.packsCounter;
+  }
+
+  /**
+   * Gets products promotion
+   */
+  get productsPromotion() {
+    return this._productsPromotion;
+  }
+
+  /**
+   * Gets suggested products
+   */
   async getSuggestedProducts() {
     try {
       const _resp = (await ShopService.suggested()).data;
@@ -140,36 +206,6 @@ class ShopModule extends VuexModule {
    */
   removeShoppingCartPack(key: number) {
     this.shoppingCartPacks.splice(key, 1);
-  }
-
-  get userPacks() { return [] }
-
-  /**
-   * Extra
-   */
-  get totalPrice() {
-    let productsPrice = 0;
-    let packsPrice = 0;
-    this.shoppingCartProducts.forEach(p => {
-      productsPrice += p.price * (p.cant as number);
-    })
-
-    this.shoppingCartPacks.forEach(pack => {
-      packsPrice += pack.price * (pack.cant ? pack.cant : 1);
-    });
-    return productsPrice + packsPrice;
-  }
-
-  get packsCounter() {
-    return this.shoppingCartPacks.length;
-  }
-
-  get productsCounter() {
-    return this.shoppingCartProducts.length;
-  }
-
-  get countAll() {
-    return this.productsCounter + this.packsCounter;
   }
 
 }

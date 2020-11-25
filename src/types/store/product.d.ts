@@ -62,4 +62,9 @@ export interface IProductsPack {
   destinataries?: TPackDestinationPerson[];
 }
 
-export type TCategory = 'clothes' | 'automotriz' | 'cell' | 'home' | 'child' | 'health' | 'market'
+export type TCategory = 'clothes' | 'automotriz' | 'cell' | 'home' | 'child' | 'health' | 'market';
+
+export interface IProductPromotion {
+  title: string;
+  products: IProduct[];
+}
