@@ -16,12 +16,11 @@ export interface IProduct {
   images: TImage;
   weight?: number;
   options?: IProductOptions;
-  brand?: string;
   tags?: TCategory[] | string[];
   rating?: number;
   suggested?: boolean;
   cant?: number;
-  type_id?: number;
+  type?: number;
 }
 /**
  * 
@@ -29,7 +28,6 @@ export interface IProduct {
 export interface IProductOptions {
   colors?: string[];
   sizes?: string[];
-  // sizes?: number[];
 }
 /**
  * 

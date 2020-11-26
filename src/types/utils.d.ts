@@ -62,3 +62,18 @@ export interface IImage {
 }
 
 export type TImage = File | IImage | string | File[] | IImage[] | string[];
+
+/**
+ * -----------------------------------------
+ * Colors
+ * -----------------------------------------
+ */
+
+export interface IColor {
+  value: string;
+  label: string;
+  shape?: TShape;
+  border?: boolean;
+}
+ 
+export type TShape = 'circle' | 'square';

@@ -16,7 +16,7 @@
     <v-select
       @change="update"
       label="Cantidad"
-      class="w-20"
+      class="w-10"
       outlined
       dense
       :items="items"
