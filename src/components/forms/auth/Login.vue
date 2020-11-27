@@ -29,11 +29,10 @@
             required
           />
           <!-- Toggle show password -->
-          <v-switch class="mt-0" v-model="showPassword">
-            <template v-slot:label>
-              <span style="font-size: 15px">Mostrar contraseña. </span>
-            </template>
-          </v-switch>
+          <div class="d-flex align-center">
+            <v-switch v-model="showPassword" dense />
+            <span style="font-size: 15px">Mostrar contraseña. </span>
+          </div>
           <!-- / Toggle show password -->
         </v-col>
       </v-row>
@@ -101,6 +100,18 @@ export default class LoginForm extends Vue {
   /**
    *
    */
+  redirect() {
+    const fullPath = this.$route.query.redirect;
+    if (fullPath != null) {
+      this.$router.push({ path: String(fullPath) });
+    } else {
+      this.$router.back();
+    }
+  }
+
+  /**
+   *
+   */
   async login() {
     if (this.isValid) {
       this.$emit("loading:update", true);
@@ -113,7 +124,7 @@ export default class LoginForm extends Vue {
           "success"
         );
         UserStore.storeOnLocalStorage();
-        this.$router.back();
+        this.redirect();
       } catch (error) {
         PopupStore.addNotification(error);
       }

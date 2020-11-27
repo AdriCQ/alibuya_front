@@ -1,109 +1,106 @@
 <template>
   <v-form @submit.prevent="register">
-    <v-card>
-      <v-card-title>
-        <span class="headline">Registro de usuarios</span>
-      </v-card-title>
-      <v-card-text class="pb-0">
-        <v-row :no-gutters="vertical">
-          <v-col cols="12" :sm="vertical ? 12 : 6">
-            <v-text-field
-              v-model="form.first_name"
-              color="black"
-              label="Nombre"
-              outlined
-              dense
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" :sm="vertical ? 12 : 6">
-            <v-text-field
-              v-model="form.last_name"
-              color="black"
-              label="Apellidos"
-              outlined
-              dense
-            />
-          </v-col>
-          <v-col cols="12">
-            <v-text-field
-              v-model="form.email"
-              color="black"
-              label="Email*"
-              outlined
-              dense
-              required
-            />
-          </v-col>
-          <v-col cols="12" :sm="vertical ? 12 : 6">
-            <v-text-field
-              v-model="form.password"
-              color="black"
-              label="Contraseña*"
-              :type="passwordType"
-              outlined
-              dense
-              required
-            />
-          </v-col>
-          <v-col cols="12" :sm="vertical ? 12 : 6">
-            <v-text-field
-              v-model="form.password_confirmation"
-              color="black"
-              label="Confirmar Contraseña*"
-              :type="passwordType"
-              outlined
-              dense
-              required
-            />
+    <v-card-title>
+      <span class="headline">Registro de usuarios</span>
+    </v-card-title>
+    <v-card-text class="pb-0">
+      <v-row :no-gutters="vertical">
+        <v-col cols="12" :sm="vertical ? 12 : 6">
+          <v-text-field
+            v-model="form.first_name"
+            color="black"
+            label="Nombre"
+            outlined
+            dense
+            required
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" :sm="vertical ? 12 : 6">
+          <v-text-field
+            v-model="form.last_name"
+            color="black"
+            label="Apellidos"
+            outlined
+            dense
+          />
+        </v-col>
+        <v-col cols="12">
+          <v-text-field
+            v-model="form.email"
+            color="black"
+            label="Email*"
+            outlined
+            dense
+            required
+          />
+        </v-col>
+        <v-col cols="12" :sm="vertical ? 12 : 6">
+          <v-text-field
+            v-model="form.password"
+            color="black"
+            label="Contraseña*"
+            :type="passwordType"
+            outlined
+            dense
+            required
+          />
+        </v-col>
+        <v-col cols="12" :sm="vertical ? 12 : 6">
+          <v-text-field
+            v-model="form.password_confirmation"
+            color="black"
+            label="Confirmar Contraseña*"
+            :type="passwordType"
+            outlined
+            dense
+            required
+          />
 
-            <v-switch class="mt-0" v-model="showPasswords">
-              <template v-slot:label>
-                <span style="font-size: 15px">Mostrar contraseña. </span>
-              </template>
-            </v-switch>
+          <div class="d-flex align-center">
+            <v-switch v-model="showPasswords" dense />
+            <span style="font-size: 15px">Mostrar contraseña. </span>
+          </div>
+        </v-col>
+      </v-row>
+      <div class="d-flex align-center">
+        <v-checkbox v-model="licenceAgree" dense />
+        <!-- TODO: Terms and conditions -->
+        <span class="black--text">Acepto los </span>
+        <router-link
+          class="ml-1 cursor-pointer"
+          style="font-size: 1rem"
+          :to="{ name: 'main.home' }"
+          >Términos y Condiciones</router-link
+        >
+      </div>
+
+      <!-- Actions -->
+      <v-card-actions class="px-0">
+        <v-row>
+          <v-col>
+            <v-btn
+              text
+              block
+              class="btn-primary-betha-gradient"
+              @click="$emit('toggle')"
+            >
+              Ya tengo usuario</v-btn
+            >
+          </v-col>
+          <v-col>
+            <v-btn
+              color="primaryAlpha"
+              class="btn-primary-alpha-gradient"
+              type="submit"
+              block
+            >
+              Registrar
+            </v-btn>
           </v-col>
         </v-row>
-        <div class="d-flex align-center">
-          <v-checkbox v-model="licenceAgree" dense />
-          <!-- TODO: Terms and conditions -->
-          <span class="black--text">Acepto los </span>
-          <router-link
-            class="ml-1 cursor-pointer"
-            style="font-size: 1rem"
-            :to="{ name: 'main.home' }"
-            >Términos y Condiciones</router-link
-          >
-        </div>
-
-        <!-- Actions -->
-        <v-card-actions class="px-0">
-          <v-row>
-            <v-col>
-              <v-btn
-                text
-                block
-                class="btn-primary-betha-gradient"
-                @click="$emit('toggle')"
-              >
-                Ya tengo usuario</v-btn
-              >
-            </v-col>
-            <v-col>
-              <v-btn
-                color="primaryAlpha"
-                class="btn-primary-alpha-gradient"
-                type="submit"
-                block
-              >
-                Registrar
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-card-actions>
-        <!-- / Actions -->
-      </v-card-text>
-    </v-card>
+      </v-card-actions>
+      <!-- / Actions -->
+    </v-card-text>
   </v-form>
 </template>
 
@@ -138,6 +135,19 @@ export default class RegisterForm extends Vue {
   get isValid() {
     return true;
   }
+
+  /**
+   *
+   */
+  redirect() {
+    const fullPath = this.$route.query.redirect;
+    if (fullPath != null) {
+      this.$router.push({ path: String(fullPath) });
+    } else {
+      this.$router.back();
+    }
+  }
+
   /**
    *
    */
@@ -156,6 +166,7 @@ export default class RegisterForm extends Vue {
         );
 
         UserStore.storeOnLocalStorage();
+        this.redirect();
       } catch (err) {
         PopupStore.addNotification(err);
       }
