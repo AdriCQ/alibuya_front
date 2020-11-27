@@ -1,98 +1,131 @@
 <template>
   <div>
     <v-card flat>
-      <v-row>
-        <v-col cols="12" md="4" lg="4" xl="4">
+      <v-row no-gutters>
+        <v-col v-if="!mdAndUp" cols="12">
+          <product-heading
+            :title="product.title"
+            :price="Number(product.price)"
+            :brand="product.brand"
+          />
+        </v-col>
+
+        <v-col cols="12" md="5" lg="5" xl="5" class="mb-6 mb-md-0">
           <product-gallery :imgs-src="testImages" />
         </v-col>
-        <v-col cols="12" md="8" lg="8" xl="8">
-          <v-row no-gutters justify-md="space-between">
-            <v-col cols="12" md="auto">
-              <v-card-title class="font-weight-bold">
-                {{ product.title }}
-              </v-card-title>
-            </v-col>
 
-            <v-col cols="12" md="auto">
-              <v-card-title class="text-subtitle-1">
-                Disponible desde US${{ Number(product.price).toFixed(2) }}
-              </v-card-title>
-            </v-col>
-          </v-row>
+        <v-col cols="12" md>
+          <product-heading
+            v-if="mdAndUp"
+            :title="product.title"
+            :price="Number(product.price)"
+            :brand="product.brand"
+          />
 
           <v-form>
-            <v-card-title class="text-subtitle-1" v-if="product.options">
-              <v-row align="center">
-                <!-- Option Colors -->
-                <template v-if="product.options.colors">
-                  <v-col cols="auto" lg="12">Colores Disponibles: </v-col>
-                  <v-col cols="auto" lg="12">
-                    <v-swatches
-                      v-model="selectColor"
-                      :swatches="colors"
-                      shapes="circles"
-                      swatch-size="38"
-                      show-labels
-                      show-border
-                      inline
-                    />
-                  </v-col>
-                </template>
-                <!-- / Option Colors -->
+            <v-card-text v-if="product.options" class="py-0">
+              <!-- Production Description -->
+              <v-row v-if="product.description">
+                <v-col cols="12">
+                  <div v-html="product.description" class="text-justify" />
+                </v-col>
               </v-row>
-            </v-card-title>
+              <!-- / Production Description -->
 
-            <v-card-title class="text-subtitle-1"
-              >Sobre éste artículo</v-card-title
-            >
+              <!-- Option Colors -->
+              <v-row v-if="product.options.colors" align="center" class="mb-4">
+                <v-col cols="12" md="auto">
+                  <span class="title">Color</span>
+                </v-col>
+                <v-col cols="12" md="auto">
+                  <color-picker :color.sync="form.color" :colors="colors" />
+                </v-col>
+              </v-row>
+              <!-- / Option Colors -->
 
-            <!-- Production Description -->
-            <v-card-text v-html="product.description" />
-            <!-- / Production Description -->
+              <!-- Option Sizes -->
+              <v-row v-if="product.options.sizes" align="center">
+                <v-col cols="12" md="auto">
+                  <span class="title">Tamaño</span>
+                </v-col>
+                <v-col cols="12" md="auto">
+                  <v-chip-group v-model="form.size" mandatory>
+                    <v-chip
+                      v-for="size in product.options.sizes"
+                      :key="size"
+                      :value="size"
+                      color="light"
+                      filter
+                      class="my-0"
+                      style="font-size: 1rem"
+                    >
+                      {{ size }}
+                    </v-chip>
+                  </v-chip-group>
+                </v-col>
+              </v-row>
+              <!-- / Option Sizes -->
 
-            <!-- Delivery method -->
-            <v-card-text>
-              <v-select
-                class="w-22"
-                label="Método de Recogida"
-                :items="deliveryMethods"
-                dense
-                outlined
-              />
+              <v-row>
+                <!-- Delivery method -->
+                <v-col cols="12">
+                  <v-select
+                    class="w-22"
+                    label="Método de Recogida"
+                    v-model="form.deliveryMethod"
+                    :items="deliveryMethods"
+                    dense
+                    outlined
+                  />
+                </v-col>
+                <!-- / Delivery method -->
+
+                <!-- Cant -->
+                <v-col cols="12">
+                  <div class="d-flex">
+                    <cant-input :cant.sync="form.cant" :can-minus="canMinus" />
+                    <span class="ml-3 mt-2 text-subtitle-1">
+                      Subtotal: ${{
+                        Number(product.price * form.cant).toFixed(2)
+                      }}
+                    </span>
+                  </div>
+                </v-col>
+                <!-- / Cant -->
+
+                <v-col cols="12">
+                  <div class="d-flex align-center">
+                    <v-checkbox v-model="form.check" />
+                    <span>
+                      Entiendo que este producto tiene un cargo en destino de
+                      5,00 CUC
+                    </span>
+                  </div>
+                </v-col>
+              </v-row>
             </v-card-text>
-            <!-- / Delivery method -->
 
-            <!-- Cant Input -->
-            <v-card-text>
-              <div class="d-flex d-flex-row align-center">
-                <span>
-                  <cant-input :cant.sync="cant" :can-minus="canMinus" />
-                </span>
-                <span class="ml-3">
-                  Subtotal: ${{ Number(product.price * cant).toFixed(2) }}
-                </span>
-              </div>
-            </v-card-text>
-            <!-- / Cant Input -->
-
-            <v-card-text>
-              <div class="d-flex align-center">
-                <v-checkbox />
-                <span>
-                  Entiendo que este producto tiene un cargo en destino de 5,00
-                  CUC
-                </span>
-              </div>
-            </v-card-text>
             <v-card-actions>
-              <v-btn color="primaryAlpha" class="mt-4" @click="addToCart">
-                <v-icon class="mr-2">mdi-cart-plus</v-icon>
-                Añadir al carrito
-              </v-btn>
-              <v-btn color="primaryBetha" class="mt-4" @click="addToCart">
-                <v-icon class="mr-2">mdi-cart</v-icon>
-                Compra Rápida
-              </v-btn>
+              <v-row justify="center" :no-gutters="!smAndUp">
+                <v-col cols="12" sm="auto">
+                  <v-btn
+                    block
+                    class="btn-primary-betha-gradient mb-2"
+                    @click="addToCart"
+                  >
+                    Añadir al carrito
+                  </v-btn>
+                </v-col>
+                <v-col cols="12" sm="auto">
+                  <v-btn
+                    block
+                    class="btn-primary-alpha-gradient mb-2"
+                    @click="addToCart"
+                  >
+                    Compra Rápida
+                  </v-btn>
+                </v-col>
+              </v-row>
             </v-card-actions>
           </v-form>
         </v-col>
@@ -103,25 +136,37 @@
 
 <script lang='ts'>
 import { PopupStore, ShopStore, UserStore } from "@/store";
-import { IProduct } from "@/types";
+import { IColor, IProduct } from "@/types";
 import { Vue, Component, Prop } from "vue-property-decorator";
-import VSwatches from "vue-swatches";
 
 @Component({
   components: {
+    "product-heading": () =>
+      import("@/components/parts/shop/ProductHeading.vue"),
     "cant-input": () => import("@/components/forms/shop/ProductCantInput.vue"),
     "product-gallery": () => import("@/components/sliders/ProductGallery.vue"),
-    VSwatches,
+    "color-picker": () => import("@/components/forms/ColorPicker.vue"),
     // "destinatary-input": () =>
     //   import("@/components/forms/shop/SelectDestinatary.vue"),
   },
 })
 export default class AddToCartForm extends Vue {
+  created() {
+    this.form.color = this.colors[0].value;
+  }
+
   @Prop({ type: Object }) readonly product!: IProduct;
 
   // personsInfo: TPackDestinationPerson[] = [];
-  selectColor = "";
-  cant = 1;
+
+  form = {
+    color: "",
+    size: 0,
+    deliveryMethod: "",
+    cant: 1,
+    check: false,
+  };
+
   // TODO: Work with limits
   // productLimit = 2;
 
@@ -135,12 +180,8 @@ export default class AddToCartForm extends Vue {
     "Santiago de Cuba – Aerovaradero",
   ];
 
-  created() {
-    this.selectColor = this.colors[0].color;
-  }
-
   get canMinus() {
-    return this.cant > 1 ? true : false;
+    return this.form.cant > 1 ? true : false;
   }
 
   get isLogged() {
@@ -153,25 +194,45 @@ export default class AddToCartForm extends Vue {
 
   // test - array of images
   get testImages() {
-    const src = "img/logos/logo_300x225.png";
-    return [src, src, src, src, src];
+    return [
+      "img/test/1.jpg",
+      "img/test/1.jpg",
+      "img/test/1.jpg",
+      "img/test/1.jpg",
+    ];
   }
 
   // test - product colors
-  get colors() {
+  get colors(): IColor[] {
     return [
-      { color: "#ff0000", label: "Red" },
-      { color: "#ff6600", label: "Orange" },
-      { color: "#0066ff", label: "Blue" },
-      { color: "#ffffff", label: "White" },
-      { color: "#009900", label: "Green" },
+      { value: "#ff0000", label: "Red" },
+      { value: "#ff6600", label: "Orange" },
+      { value: "#0066ff", label: "Blue" },
+      { value: "#ffffff", label: "White" },
+      { value: "#009900", label: "Green" },
     ];
+  }
+
+  // breakpoints
+  get xs() {
+    return this.$vuetify.breakpoint.xs;
+  }
+
+  get smAndUp() {
+    return this.$vuetify.breakpoint.smAndUp;
+  }
+
+  get mdAndUp() {
+    return this.$vuetify.breakpoint.mdAndUp;
   }
 
   addToCart() {
     if (this.isValid) {
-      ShopStore.addShoppingCartProduct(this.product as IProduct, this.cant);
-      this.cant = 1;
+      ShopStore.addShoppingCartProduct(
+        this.product as IProduct,
+        this.form.cant
+      );
+      this.form.cant = 1;
       PopupStore.addNotification(
         [
           "Producto añadido al carrito correctamente",

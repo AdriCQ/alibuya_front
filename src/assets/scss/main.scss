@@ -1,20 +1,32 @@
 // Settings
+@import "~vuetify/src/styles/settings/_variables";
 @import "settings/variables";
+@import "settings/bootstrap-variables";
 
 /* Import Vuetify style definition */
 @import "~vuetify/src/styles/main.sass";
 @import "~vuetify/src/styles/styles.sass";
 
+// Utils
+// Functions
+@import "utils/functions";
+
+// Mixins
+@import "utils/mixins/bg-variant";
+@import "utils/mixins/border";
+@import "utils/mixins/gradients";
+@import "utils/mixins/hover";
+
+// Class
+@import "utils/class/background";
+@import "utils/class/positions";
+@import "utils/class/border";
+@import "utils/utils";
+
 // Vuetify
 @import "vuetify/v-application";
-// @import "vuetify/v-btn";
+@import "vuetify/v-btn";
 @import "vuetify/v-input";
-
-// Utils
-@import "utils/mixins";
-@import "utils/utils";
-@import "utils/positions";
-@import "utils/gradients";
 
 // Components
 @import "components/app-bar";
@@ -23,7 +35,7 @@
 @import "components/product-widget";
 @import "components/production-description";
 @import "components/widgets/rating-star";
-@import "components/vuetify/btn";
+// @import "components/vuetify/btn";
 
 // Includes
 @import "components/slick-carousel";

@@ -1,6 +1,3 @@
-// variables
-$positions: (relative, absolute, fixed, initial, sticky);
-
 // positions
 @each $position in $positions {
   .position-#{$position} {

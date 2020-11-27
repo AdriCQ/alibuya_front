@@ -1,6 +1,6 @@
 // Gradients
 
-@mixin gradient-bg($color, $body-bg: white) {
+@mixin gradient-bg($color, $body-bg: $white) {
   background: $color linear-gradient(180deg, mix($body-bg, $color, 15%), $color)
     repeat-x;
 }
@@ -78,7 +78,7 @@
   background-image: radial-gradient(circle, $inner-color, $outer-color);
   background-repeat: no-repeat;
 }
-@mixin gradient-striped($color: rgba(white, 0.15), $angle: 45deg) {
+@mixin gradient-striped($color: rgba($white, 0.15), $angle: 45deg) {
   background-image: linear-gradient(
     $angle,
     $color 25%,
