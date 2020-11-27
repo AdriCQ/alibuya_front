@@ -13,12 +13,12 @@
         <v-card>
           <v-card-text v-if="emptyInventary">
             <!-- Empty Inventary -->
-            <div class="w-30">
+            <div class="w-100 max-w-30">
               <v-img src="img/png/empty-cart.png" />
             </div>
             <!-- Empty Inventary -->
           </v-card-text>
-          <v-card-subtitle v-if="products.lenght">
+          <v-card-subtitle v-if="!emptyInventary">
             <v-btn icon @click="activeComponent = 'product-grid'">
               <v-icon>mdi-view-grid</v-icon>
             </v-btn>
@@ -27,7 +27,7 @@
             </v-btn>
           </v-card-subtitle>
 
-          <keep-alive v-if="products.lenght">
+          <keep-alive v-if="!emptyInventary">
             <component :is="activeComponent" :products="products" />
           </keep-alive>
         </v-card>

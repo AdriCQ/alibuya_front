@@ -28,6 +28,17 @@ import { UserStore } from "@/store";
   },
 })
 export default class Login extends Vue {
+  beforeMount() {
+    if (this.$route.query.type) {
+      switch (this.$route.query.type) {
+        case "register":
+          this.component = "form-register";
+          break;
+        default:
+          this.component = "form-login";
+      }
+    }
+  }
   loading = false;
   component: "form-register" | "form-login" = "form-login";
 
