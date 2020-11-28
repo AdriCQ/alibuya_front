@@ -1,6 +1,7 @@
 .v-text-field--outlined fieldset {
   border-color: black !important;
 }
+
 .v-input--is-focused {
   border-color: $primary-color !important;
   fieldset {
@@ -8,6 +9,14 @@
   }
   border-width: 1px !important;
 }
+
 .v-label--active {
   color: black !important;
+}
+
+.no-hint {
+  margin: 0;
+  .v-messages {
+    display: none;
+  }
 }

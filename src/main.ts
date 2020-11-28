@@ -6,7 +6,7 @@ import store from '@/store/store';
 import vuetify from './plugins/vuetify';
 import axios from 'axios'
 import { UserStore } from './store/User';
-
+import Vuelidate from 'vuelidate'
 // SCSS
 require('@/assets/scss/main.scss');
 
@@ -19,8 +19,11 @@ Vue.component('slick-carousel', VueSlickCarousel)
 // App Section
 Vue.component('v-section', () => import('@/components/layouts/Section.vue'))
 
-// Setup axios
+// Vuelidate
+Vue.use(Vuelidate);
 
+
+// Setup axios
 axios.defaults.timeout = 600000;
 
 /**

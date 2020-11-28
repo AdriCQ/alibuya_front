@@ -10,9 +10,9 @@ import { NavigationGuard } from 'vue-router';
 export const BaseAuthGuard: NavigationGuard = (to, from, next) => {
   if (!UserStore.isLogged) {
     next({
-      name: 'auth',
+      name: 'auth.login',
       query: {
-        redirect: to.fullPath
+        redirect: to.name
       }
     })
   } else {
@@ -27,7 +27,15 @@ export const BaseAuthGuard: NavigationGuard = (to, from, next) => {
  * @param next 
  */
 export const NoAuthGuard: NavigationGuard = (to, from, next) => {
-  if (!UserStore.isLogged) {
+  if (UserStore.isLogged && from.meta.auth && to.meta.auth) {
+    if (window.history.length > 2) {
+      window.history.go(-2);
+      next(false);
+    }
+    else next({ name: 'main.home' });
+  }
+
+  else if (!UserStore.isLogged) {
     next();
   }
   else {
