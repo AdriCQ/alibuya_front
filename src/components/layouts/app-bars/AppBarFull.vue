@@ -16,7 +16,7 @@
         </v-app-bar-nav-icon>
 
         <v-btn text @click="goToRoute('main.home')">
-          <v-img src="img/logos/logo_white_550x178.png" width="8rem" />
+          <v-img src="img/logos/logo_white_550x178.png" width="6rem" />
         </v-btn>
 
         <v-spacer />
@@ -114,7 +114,7 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { CATEGORIES_PLUS, VENDOR_PAGES } from "@/utils/const";
-import { AppStore, UserStore, ShopStore } from "@/store";
+import { AppStore, UserStore, PackStore } from "@/store";
 
 @Component({
   components: {
@@ -145,7 +145,7 @@ export default class AppBarFull extends Vue {
   }
 
   get shopingCartCounter() {
-    return ShopStore.countAll;
+    return PackStore.packsCounter;
   }
 
   /**
