@@ -3,15 +3,15 @@ import { ILinkIconLabel, IDictionary, IProductCategory } from '@/types';
 export const LANG = [
   { label: 'Español', flag: 'images/flags/es.png', tag: 'es' },
   { label: 'English', flag: 'images/flags/en.png', tag: 'en' },
-  // { label: 'Detush', flag: 'images/flags/de.png', tag: 'de' },
-  // { label: 'Detush', flag: 'images/flags/cn.png', tag: 'cn' },
-  // { label: 'Fran', flag: 'images/flags/fr.png', tag: 'fr' },
-  // { label: 'Fran', flag: 'images/flags/hu.png', tag: 'hu' },
+  // { label: 'Detush', flag: 'images/flags/de_x128.png', tag: 'de' },
+  // { label: 'Detush', flag: 'images/flags/cn_x128.png', tag: 'cn' },
+  // { label: 'Fran', flag: 'images/flags/fr_x128.png', tag: 'fr' },
+  // { label: 'Fran', flag: 'images/flags/hu_x128.png', tag: 'hu' },
 ];
 
 export const CATEGORIES: IDictionary<IProductCategory> = {
   clothes: {
-    image: 'img/categories/clothes.png',
+    image: 'img/categories/clothes_x128.png',
     types: [],
     icon: 'mdi-hanger',
     labelLang: { es: 'Ropas' },
@@ -22,7 +22,7 @@ export const CATEGORIES: IDictionary<IProductCategory> = {
   },
 
   home: {
-    image: 'img/categories/home.png',
+    image: 'img/categories/home_x128.png',
     types: [],
     icon: 'mdi-home',
     labelLang: { es: 'Hogar' },
@@ -33,7 +33,7 @@ export const CATEGORIES: IDictionary<IProductCategory> = {
   },
 
   pets: {
-    image: 'img/categories/pets.png',
+    image: 'img/categories/pets_x128.png',
     types: [],
     icon: 'mdi-medical-bag',
     labelLang: { es: 'Mascotas' }, to: {
@@ -43,7 +43,7 @@ export const CATEGORIES: IDictionary<IProductCategory> = {
   },
 
   health: {
-    image: 'img/categories/health.png',
+    image: 'img/categories/health_x128.png',
     types: [],
     icon: 'mdi-medical-bag',
     labelLang: { es: 'Salud' }, to: {
@@ -53,7 +53,7 @@ export const CATEGORIES: IDictionary<IProductCategory> = {
   },
 
   tools: {
-    image: 'img/categories/tools.png',
+    image: 'img/categories/tools_x128.png',
     types: [],
     icon: 'mdi-medical-bag',
     labelLang: { es: 'Ferretería' }, to: {
@@ -62,7 +62,7 @@ export const CATEGORIES: IDictionary<IProductCategory> = {
     }
   },
   automotriz: {
-    image: 'img/categories/auto.png',
+    image: 'img/categories/auto_x128.png',
     types: [],
     icon: 'mdi-car',
     labelLang: { es: 'Automotriz' },
@@ -72,7 +72,7 @@ export const CATEGORIES: IDictionary<IProductCategory> = {
     }
   },
   cell: {
-    image: 'img/categories/phone.png',
+    image: 'img/categories/phone_x128.png',
     types: [],
     icon: 'mdi-cellphone-android',
     labelLang: { es: 'Celulares' },
@@ -82,7 +82,7 @@ export const CATEGORIES: IDictionary<IProductCategory> = {
     }
   },
   kids: {
-    image: 'img/categories/kid.png',
+    image: 'img/categories/kid_x128.png',
     types: [],
     icon: 'mdi-human-child',
     labelLang: { es: 'Niños' },

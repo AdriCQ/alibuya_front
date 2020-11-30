@@ -2,7 +2,7 @@
   <div class="categories-slider">
     <slick-carousel
       class="slick"
-      :arrows="displayArrows"
+      :arrows="$vuetify.breakpoint.mdAndUp"
       :dots="true"
       :centerMode="true"
       :infinite="true"

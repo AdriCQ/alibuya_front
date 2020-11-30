@@ -20,7 +20,7 @@ export interface IProduct {
   rating?: number;
   suggested?: boolean;
   cant?: number;
-  type?: number;
+  type?: string;
 }
 /**
  * 
@@ -60,4 +60,9 @@ export interface IProductsPack {
   destinataries?: TPackDestinationPerson[];
 }
 
-export type TCategory = 'clothes' | 'automotriz' | 'cell' | 'home' | 'child' | 'health' | 'market'
+export type TCategory = 'clothes' | 'automotriz' | 'cell' | 'home' | 'child' | 'health' | 'market';
+
+export interface IProductPromotion {
+  title: string;
+  products: IProduct[];
+}

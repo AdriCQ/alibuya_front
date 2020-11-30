@@ -1,5 +1,6 @@
 <template>
-  <v-bottom-sheet :value="show" persistent hide-overlay>
+  <v-bottom-sheet :value="show" persistent hide-overlay fixed>
+    <!-- TODO: Fix Cookies bar moves on mobile -->
     <v-card>
       <v-container>
         <v-card-title class="font-weight-bold subtitle-1">
@@ -15,14 +16,13 @@
         <v-card-actions>
           <v-container class="pt-0 text-sm-center">
             <v-btn
-              color="primaryAlpha"
               :block="!smAndUp"
+              class="btn-primary-alpha-gradient"
               @click="updateCookieStatus(true)"
               >Aceptar</v-btn
             >
             <v-btn
-              color="primaryBetha"
-              class="ml-2"
+              class="btn-primary-betha-gradient"
               :block="!smAndUp"
               @click="close"
               >Cancelar</v-btn

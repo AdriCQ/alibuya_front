@@ -11,7 +11,7 @@
           <login-card />
         </v-col>
         <v-col cols="12" xs="12" sm="12" md="6" lg="8" xl="9">
-          <v-sheet color="primary" width="100%" height="100%" />
+          <v-sheet color="primaryBetha" width="100%" height="100%" />
         </v-col>
       </v-row>
       <products-slider
@@ -22,84 +22,27 @@
     </v-section>
     <!-- / Suggested Products -->
 
-    <!-- Suggested -->
-    <v-section>
-      <v-card flat class="px-4">
-        <v-row justify="space-between">
-          <!-- Col 1 -->
-          <v-col cols="12" xs="12" sm="6" md="4" lg="4" xl="4">
-            <v-card flat>
-              <v-card-subtitle class="black--text text-center"
-                >Producto más comprado
-              </v-card-subtitle>
-              <v-sheet
-                height="17.7rem"
-                color="secondaryBetha"
-                class="mt-1"
-                light
-              />
-            </v-card>
-          </v-col>
-          <!-- / Col 1 -->
-
-          <!-- Col 2 -->
-          <v-col cols="12" xs="12" sm="6" md="4" lg="4" xl="4">
-            <v-card flat>
-              <v-card-title class="black--text text-center"
-                >Departamentos sobresalientes</v-card-title
-              >
-              <v-row dense class="mt-1">
-                <v-col cols="6" v-for="j in 2" :key="j">
-                  <v-sheet width="100%" height="8rem" color="secondaryBetha">
-                    <v-img height="8rem" src="img/logos/logo_300x225.png" />
-                  </v-sheet>
-                </v-col>
-              </v-row>
-
-              <v-row dense class="mt-1">
-                <v-col cols="6" v-for="j in 2" :key="j">
-                  <v-sheet width="100%" height="8rem" color="secondaryBetha">
-                    <v-img height="8rem" src="img/logos/logo_300x225.png" />
-                  </v-sheet>
-                </v-col>
-              </v-row>
-              <v-card-actions>
-                <v-card-subtitle class="body">Ver más</v-card-subtitle>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-          <!-- / Col 2 -->
-
-          <!-- Col 3 -->
-          <v-col cols="12" xs="12" sm="6" md="4" lg="4" xl="4">
-            <v-card flat>
-              <v-card-subtitle class="black--text text-center">
-                Ofertas por menos de $25
-              </v-card-subtitle>
-              <v-row v-for="i in 2" :key="i" dense>
-                <v-col cols="6" v-for="j in 2" :key="j">
-                  <v-sheet
-                    width="100%"
-                    height="8rem"
-                    color="secondaryBetha"
-                    light
-                  >
-                    <v-img src="img/logos/logo_300x225.png" height="8rem" />
-                  </v-sheet>
-                </v-col>
-              </v-row>
-            </v-card>
-          </v-col>
-          <!-- / Col 3 -->
-        </v-row>
+    <!-- Promotions -->
+    <v-section class="mt-1">
+      <v-card flat>
+        <products-slider
+          :products="suggestedProducts"
+          title="Lo mejor en celulares y accesorios"
+        />
+      </v-card>
+      <v-card flat>
+        <products-slider
+          :products="suggestedProducts"
+          title="Lo mejor en celulares y accesorios"
+        />
       </v-card>
     </v-section>
-    <!-- Suggested -->
+    <!-- / Promotions -->
 
     <!-- Categories -->
-    <v-section class="mt-2">
+    <v-section class="mt-1">
       <v-card flat>
-        <v-card-title>Categorias</v-card-title>
+        <v-card-title>Categorías</v-card-title>
         <v-card-text>
           <category-slider />
         </v-card-text>
@@ -121,6 +64,7 @@ import { ShopStore, UserStore } from "@/store";
     "login-card": () => import("@/components/widgets/LoginCard.vue"),
     "products-slider": () =>
       import("@/components/sliders/ProductSliderMultiple.vue"),
+    "rating-stars": () => import("@/components/widgets/RatingStar.vue"),
   },
 })
 export default class HomeMainView extends Vue {

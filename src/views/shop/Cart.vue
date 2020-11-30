@@ -9,13 +9,18 @@
         <v-card-subtitle>
           Tienes {{ packCant }} paquetes pendientes
         </v-card-subtitle>
+        <!-- Empty Inventary -->
+        <div class="w-100 max-w-30" v-if="!packCant">
+          <v-img src="img/png/empty-cart.png" />
+        </div>
+        <!-- Empty Inventary -->
         <product-display />
         <pack-display />
       </v-card>
     </v-section>
 
     <!-- Total Price -->
-    <v-section class="mt-0">
+    <v-section class="mt-0" v-if="packCant">
       <v-row justify="center">
         <v-col cols="12" sm="6" md="4" lg="4" xl="4">
           <v-card>
@@ -28,7 +33,7 @@
             </v-card-actions>
           </v-card>
         </v-col>
-        <v-col>
+        <v-col v-if="suggestedProducts.lenght">
           <v-card>
             <v-card-title>Sugerencias</v-card-title>
             <products-slider :products="suggestedProducts" />
@@ -60,7 +65,7 @@ export default class ShoppingCartView extends Vue {
   }
 
   get suggestedProducts() {
-    return ShopStore.allProducts;
+    return ShopStore.suggestedProducts;
   }
 
   /**

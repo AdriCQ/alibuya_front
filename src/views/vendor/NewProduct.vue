@@ -91,7 +91,7 @@ export default class NewProductView extends Vue {
       sizes: [],
     },
     tags: [],
-    type_id: 0,
+    type: "",
   };
   imagePreviewSrc: string | ArrayBuffer | null | undefined = null;
   images: IImage[] = [];

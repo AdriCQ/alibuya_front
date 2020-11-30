@@ -25,19 +25,32 @@ $table-border-color: #dee2e6;
   }
 }
 
-@for $value from 1rem through 100rem {
+@for $value from 1rem through 50rem {
   .w-#{$value} {
+    width: #{$value}rem;
+  }
+}
+
+@for $value from 1rem through 50rem {
+  .min-w-#{$value} {
+    min-width: #{$value}rem;
+  }
+}
+
+@for $value from 1rem through 50rem {
+  .max-w-#{$value} {
     max-width: #{$value}rem;
   }
 }
 
-@for $value from 1rem through 100rem {
+@for $value from 1rem through 50rem {
   .h-#{$value} {
     height: #{$value}rem;
   }
 }
 
-.full-width {
+.full-width,
+.w-100 {
   width: 100%;
 }
 
