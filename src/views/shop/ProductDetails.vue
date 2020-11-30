@@ -41,11 +41,7 @@ import { ShopStore } from "@/store";
 })
 export default class ProductDetailsView extends Vue {
   created() {
-    if (this.product === null) {
-      this.$router.push({
-        name: "main.home",
-      });
-    }
+    this.loadProduct();
   }
 
   tab = 0;
@@ -62,6 +58,23 @@ export default class ProductDetailsView extends Vue {
 
   get suggestProducts() {
     return ShopStore.suggestedProducts;
+  }
+
+  get productId() {
+    if (this.$route.query.productId) return Number(this.$route.query.productId);
+    else return null;
+  }
+
+  async loadProduct() {
+    if (this.productId) {
+      await ShopStore.getProductById(this.productId);
+    } else {
+      if (this.product === null) {
+        this.$router.push({
+          name: "main.home",
+        });
+      }
+    }
   }
 }
 </script>

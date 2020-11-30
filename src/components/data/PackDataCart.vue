@@ -33,6 +33,7 @@
             :pack="pack"
             v-for="(pack, key) in shopPacks"
             @delete="deletePopupConfirm(key)"
+            @edit="editPack(key)"
             :key="key"
           />
         </template>
@@ -43,7 +44,7 @@
             <thead>
               <tr>
                 <th style="width: 5rem"></th>
-                <th>Nombre</th>
+                <!-- <th>Nombre</th> -->
                 <th>Precio</th>
                 <th>Cantidad</th>
                 <th>Subtotal</th>
@@ -51,21 +52,23 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(pack, key) in shopPacks" :key="key">
+              <tr
+                v-for="(pack, key) in shopPacks"
+                :key="key"
+                @click="editPack(key)"
+                class="cursor-pointer"
+              >
                 <td class="pa-1">
                   <div style="width: 5rem">
                     <v-sheet color="secondary" width="100%" height="5rem" />
                   </div>
                 </td>
-                <td>
+                <!-- <td>
                   {{ pack.title }}
-                </td>
+                </td> -->
                 <td>${{ Number(pack.price).toFixed(2) }}</td>
-                <td class="text-center">
-                  <cant-input
-                    :cant.sync="pack.cant"
-                    :can-minus="pack.cant > 1"
-                  />
+                <td>
+                  {{ pack.cant }}
                 </td>
                 <td>${{ Number(pack.price * pack.cant).toFixed(2) }}</td>
                 <td>
@@ -83,12 +86,12 @@
 </template>
 
 <script lang='ts'>
-import { ShopStore } from "@/store";
+import { PackStore } from "@/store";
 import { Vue, Component } from "vue-property-decorator";
 
 @Component({
   components: {
-    "cant-input": () => import("@/components/forms/shop/ProductCantInput.vue"),
+    // "cant-input": () => import("@/components/forms/shop/ProductCantInput.vue"),
     "pack-cart": () => import("@/components/widgets/PackWidget.vue"),
   },
 })
@@ -96,8 +99,12 @@ export default class ProductPackDataCart extends Vue {
   deleteKey: number | null = null;
   deleteDialog = false;
 
+  mounted() {
+    console.log("Cart Packs", this.shopPacks);
+  }
+
   get shopPacks() {
-    return ShopStore.shoppingCartPacks;
+    return PackStore.packs;
   }
 
   /**
@@ -124,8 +131,17 @@ export default class ProductPackDataCart extends Vue {
    *
    */
   deletePack(key: number) {
-    ShopStore.removeShoppingCartPack(key);
+    PackStore.removeShoppingCartPack(key);
     this.deleteDialog = false;
+  }
+
+  editPack(_key: number) {
+    this.$router.push({
+      name: "shop.pack-details",
+      query: {
+        packKey: _key.toString(),
+      },
+    });
   }
 }
 </script>

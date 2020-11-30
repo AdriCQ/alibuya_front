@@ -53,7 +53,7 @@ export interface IProductCategory extends ILinkIconLabel {
  */
 export interface IProductsPack {
   title: string;
-  products: IProductCart[];
+  products: IProduct[];
   weight: number;
   price: number;
   cant?: number;

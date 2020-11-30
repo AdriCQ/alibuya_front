@@ -15,10 +15,18 @@ export const shopRoutes: RouteConfig = {
     },
     {
       name: 'shop.pack',
-      path: 'pack/:tag',
-      component: () => import('@/views/shop/PackShop.vue'),
+      path: 'pack',
+      component: () => import('@/views/shop/Packs.vue'),
       meta: {
-        title: 'Tienda'
+        title: 'Paquetes'
+      }
+    },
+    {
+      name: 'shop.pack-details',
+      path: 'pack-details',
+      component: () => import('@/views/shop/PackDetails.vue'),
+      meta: {
+        title: 'Paquetes'
       }
     },
     {

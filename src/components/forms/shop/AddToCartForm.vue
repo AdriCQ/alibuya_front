@@ -83,7 +83,15 @@
                 <!-- Cant -->
                 <v-col cols="12">
                   <div class="d-flex">
-                    <cant-input :cant.sync="form.cant" :can-minus="canMinus" />
+                    <v-select
+                      label="Cantidad"
+                      class="w-10"
+                      outlined
+                      color="black"
+                      dense
+                      v-model="product.cant"
+                      :items="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+                    />
                     <span class="ml-3 mt-2 text-subtitle-1">
                       Subtotal: ${{
                         Number(product.price * form.cant).toFixed(2)
@@ -111,16 +119,16 @@
                   <v-btn
                     block
                     class="btn-primary-betha-gradient mb-2"
-                    @click="addToCart"
+                    @click="addToPack"
                   >
-                    Añadir al carrito
+                    Empaquetar
                   </v-btn>
                 </v-col>
                 <v-col cols="12" sm="auto">
                   <v-btn
                     block
                     class="btn-primary-alpha-gradient mb-2"
-                    @click="addToCart"
+                    @click="addToPack"
                   >
                     Compra Rápida
                   </v-btn>
@@ -135,7 +143,7 @@
 </template>
 
 <script lang='ts'>
-import { PopupStore, ShopStore, UserStore } from "@/store";
+import { PackStore, PopupStore, ShopStore, UserStore } from "@/store";
 import { IColor, IProduct } from "@/types";
 import { Vue, Component, Prop } from "vue-property-decorator";
 
@@ -143,7 +151,6 @@ import { Vue, Component, Prop } from "vue-property-decorator";
   components: {
     "product-heading": () =>
       import("@/components/parts/shop/ProductHeading.vue"),
-    "cant-input": () => import("@/components/forms/shop/ProductCantInput.vue"),
     "product-gallery": () => import("@/components/sliders/ProductGallery.vue"),
     "color-picker": () => import("@/components/forms/ColorPicker.vue"),
     // "destinatary-input": () =>
@@ -245,6 +252,13 @@ export default class AddToCartForm extends Vue {
         }
       );
     }
+  }
+
+  addToPack() {
+    // TODO: Validate
+    this.product.cant = this.form.cant;
+    PackStore.addProduct(this.product);
+    this.form.cant = 1;
   }
 }
 </script>

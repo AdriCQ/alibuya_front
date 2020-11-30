@@ -18,6 +18,7 @@
       label="Cantidad"
       class="w-10"
       outlined
+      color="black"
       dense
       :items="items"
     />

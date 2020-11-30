@@ -137,7 +137,7 @@
 import { Vue, Component } from "vue-property-decorator";
 import { IProductsPack } from "@/types";
 import { CATEGORIES } from "@/utils/const";
-import { AppStore, PopupStore, ShopStore, UserStore } from "@/store";
+import { AppStore, PackStore, PopupStore, UserStore } from "@/store";
 
 @Component({
   components: {
@@ -228,7 +228,7 @@ export default class ShopView extends Vue {
    *
    */
   addToCart() {
-    ShopStore.addShoppingCartPacks(this.packs);
+    PackStore.addShoppingCartPacks(this.packs);
     PopupStore.addNotification(
       [
         "Producto añadido al carrito correctamente",

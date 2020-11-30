@@ -223,7 +223,7 @@ export default class PackMakerPopup extends Vue {
     this.pack.products.push({
       title: product.title,
       price: product.price,
-      img: product.images,
+      images: product.images,
       weight: product.weight,
       description: product.description,
       cant: 1,

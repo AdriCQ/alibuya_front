@@ -58,7 +58,7 @@ export default class ShopTag extends Vue {
   emptyInventary = false;
 
   get tag() {
-    this.laodProducts(this.$route.params.tag as TCategory);
+    this.loadProducts(this.$route.params.tag as TCategory);
     return this.$route.params.tag;
   }
 
@@ -76,7 +76,7 @@ export default class ShopTag extends Vue {
     return AppStore.lang;
   }
 
-  async laodProducts(_category: TCategory) {
+  async loadProducts(_category: TCategory) {
     try {
       this.emptyInventary = false;
       await ShopStore.getProductsByCategory(_category);

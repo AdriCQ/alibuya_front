@@ -99,13 +99,15 @@ export default class DEfaultProductWidget extends Vue {
       : "img/logos/logo_300x225.png";
   }
 
-  async showProductDetails(product: IProduct) {
+  showProductDetails(product: IProduct) {
     if (!this.editable && !this.noLink) {
       if (product.id) {
-        await ShopStore.getProductById(product.id);
         if (this.$route.name !== "shop.details")
           this.$router.push({
             name: "shop.details",
+            query: {
+              productId: product.id.toString(),
+            },
           });
       }
       // TODO: handle if productID

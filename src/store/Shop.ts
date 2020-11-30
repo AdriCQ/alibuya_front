@@ -1,6 +1,6 @@
 import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store/store';
-import { IProduct, IProductsPack, TCategory, IDictionary, IProductPromotion } from '@/types';
+import { IProduct, TCategory, IDictionary, IProductPromotion } from '@/types';
 import { ShopService } from '@/services';
 
 @Module({ generateMutationSetters: true })
@@ -11,8 +11,6 @@ class ShopModule extends VuexModule {
   _productsPromotion: IProductPromotion[] | null = null;
 
   shoppingCartProducts: IProduct[] = [];
-  tempShoppingCartPacks: IProductsPack[] = [];
-  shoppingCartPacks: IProductsPack[] = [];
 
   productDetails: IProduct | null = null;
 
@@ -44,34 +42,6 @@ class ShopModule extends VuexModule {
     return this._productTypes;
   }
 
-  /**
-   * Gets user packs
-   */
-  get userPacks() { return [] }
-
-  /**
-   * Gets total price
-   * @returns number
-   */
-  get totalPrice() {
-    let productsPrice = 0;
-    let packsPrice = 0;
-    this.shoppingCartProducts.forEach(p => {
-      productsPrice += p.price * (p.cant as number);
-    })
-
-    this.shoppingCartPacks.forEach(pack => {
-      packsPrice += pack.price * (pack.cant ? pack.cant : 1);
-    });
-    return productsPrice + packsPrice;
-  }
-
-  /**
-   * Gets packs counter
-   */
-  get packsCounter() {
-    return this.shoppingCartPacks.length;
-  }
 
   /**
    * Gets products counter
@@ -84,7 +54,7 @@ class ShopModule extends VuexModule {
    * Gets count all
    */
   get countAll() {
-    return this.productsCounter + this.packsCounter;
+    return this.productsCounter;
   }
 
   /**
@@ -191,21 +161,6 @@ class ShopModule extends VuexModule {
    */
   removeShoppingCartProduct(key: number) {
     this.shoppingCartProducts.splice(key, 1);
-  }
-
-  /**
-   * Add ShopingCartPack
-   * @param _pack IProductsPack[]
-   */
-  addShoppingCartPacks(_pack: IProductsPack[]) {
-    this.shoppingCartPacks.push(..._pack);
-  }
-
-  /**
-   * Remove pack from shoppingCartPacks
-   */
-  removeShoppingCartPack(key: number) {
-    this.shoppingCartPacks.splice(key, 1);
   }
 
 }

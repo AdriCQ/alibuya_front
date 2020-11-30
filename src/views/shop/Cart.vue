@@ -14,7 +14,7 @@
           <v-img src="img/png/empty-cart.png" />
         </div>
         <!-- Empty Inventary -->
-        <product-display />
+        <!-- <product-display /> -->
         <pack-display />
       </v-card>
     </v-section>
@@ -47,7 +47,7 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { ShopStore } from "@/store";
+import { PackStore, ShopStore } from "@/store";
 
 @Component({
   components: {
@@ -59,9 +59,7 @@ import { ShopStore } from "@/store";
 })
 export default class ShoppingCartView extends Vue {
   get packCant() {
-    return (
-      ShopStore.shoppingCartProducts.length + ShopStore.shoppingCartPacks.length
-    );
+    return ShopStore.shoppingCartProducts.length + PackStore.packs.length;
   }
 
   get suggestedProducts() {
@@ -72,7 +70,7 @@ export default class ShoppingCartView extends Vue {
    *
    */
   get totalPrice() {
-    return ShopStore.totalPrice;
+    return PackStore.totalPrice;
   }
 }
 </script>
