@@ -107,7 +107,7 @@
               text
               block
               class="btn-primary-betha-gradient"
-              @click="$router.push({ name: 'auth.login' })"
+              @click="$router.push({ name: 'auth.login', query: $route.query })"
             >
               Ya tengo usuario</v-btn
             >

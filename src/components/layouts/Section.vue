@@ -1,7 +1,7 @@
 <template>
   <section :style="sStyle">
     <v-container class="py-0 my-0">
-      <slot></slot>
+      <slot />
     </v-container>
   </section>
 </template>

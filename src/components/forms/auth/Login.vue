@@ -50,7 +50,9 @@
               text
               block
               class="btn-primary-betha-gradient"
-              @click="$router.push({ name: 'auth.register' })"
+              @click="
+                $router.push({ name: 'auth.register', query: $route.query })
+              "
             >
               No tengo Usuario
             </v-btn>
@@ -99,6 +101,7 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 })
 export default class LoginForm extends Vue {
   @Prop({ type: Boolean, default: false }) vertical!: boolean;
+
   showPassword = false;
 
   form: ILoginParams = {
