@@ -10,9 +10,8 @@
       <product-basic
         :title="product.title"
         :image-src="product.images"
-        :max-width="productsMaxWidth"
         :card-props="cardsProps"
-        :image-props="imageProps"
+        :image-props="imagesProps"
       >
         <template #actions>
           <v-btn color="primary" text class="text-transform-none">
@@ -36,16 +35,13 @@ import { IProduct } from "@/types";
 })
 export default class ProductsGroup extends Vue {
   @Prop({ type: Array, required: true }) readonly products!: IProduct[];
-  @Prop({ type: Boolean, default: false }) readonly cardsProps!: boolean;
+  @Prop(Object) readonly cardsProps!: object;
   @Prop({
     type: Object,
     default: () => {
       return { maxWidth: "400" };
     },
   })
-  readonly imageProps!: object;
-  @Prop({ type: [Number, String], default: 300 }) readonly productsMaxWidth!:
-    | number
-    | string;
+  readonly imagesProps!: object;
 }
 </script>
