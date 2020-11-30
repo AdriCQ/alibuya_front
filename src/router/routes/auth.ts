@@ -6,12 +6,38 @@ export const authRoutes: RouteConfig = {
   path: '/auth',
   component: AuthLayout,
   children: [
+   
     {
-      path: '',
-      name: 'auth',
-      component: ()=> import('@/views/auth/Auth.vue')
+      path: 'login',
+      name: 'auth.login',
+      component: () => import("@/views/auth/Login.vue"),
+       meta: {
+         title: 'Entrar',
+         auth: true
+      },
+      beforeEnter: NoAuthGuard
+    },
+    {
+      path: 'register',
+      name: 'auth.register',
+      component: () => import("@/views/auth/Register.vue"),
+       meta: {
+         title: 'Registro',
+         auth: true
+      },
+       beforeEnter: NoAuthGuard
+    },
+    // redirect from child
+     {
+      path: '' ,
+      redirect: {name: 'auth.login'}
+    },
+    {
+      path: '/auth/*',
+      redirect: {name:'auth.login'}
     }
   ],
-  beforeEnter: NoAuthGuard,
+ 
+  
 
 };

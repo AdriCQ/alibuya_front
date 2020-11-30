@@ -75,5 +75,3 @@ export interface IColor {
   shape?: TShape;
   border?: boolean;
 }
- 
-export type TShape = 'circle' | 'square';

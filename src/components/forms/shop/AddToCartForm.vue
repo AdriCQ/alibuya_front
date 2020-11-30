@@ -202,10 +202,10 @@ export default class AddToCartForm extends Vue {
   // test - array of images
   get testImages() {
     return [
-      "img/test/1.jpg",
-      "img/test/1.jpg",
-      "img/test/1.jpg",
-      "img/test/1.jpg",
+      "img/test/comidas/1.jpg",
+      "img/test/comidas/2.jpg",
+      "img/test/comidas/1.jpg",
+      "img/test/comidas/2.jpg",
     ];
   }
 

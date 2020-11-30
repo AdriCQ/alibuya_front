@@ -8,7 +8,9 @@
             class="mx-auto"
             max-width="300"
           />
-          <router-view />
+          <keep-alive>
+            <router-view />
+          </keep-alive>
         </v-col>
       </v-row>
     </v-container>

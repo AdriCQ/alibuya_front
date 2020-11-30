@@ -8,32 +8,36 @@
       <v-row :no-gutters="vertical">
         <v-col cols="12" :sm="vertical ? 12 : 6">
           <v-text-field
-            outlined
-            color="black"
-            label="Email*"
-            width="10"
             v-model="form.email"
+            :error-messages="emailErrors"
+            label="Email*"
+            color="black"
+            width="10"
             dense
-            required
+            outlined
+            @change="$v.form.email.$touch()"
           />
         </v-col>
 
         <v-col cols="12" :sm="vertical ? 12 : 6">
           <v-text-field
-            outlined
-            color="black"
             v-model="form.password"
-            label="Contraseña*"
+            :error-messages="passwordErrors"
             :type="passwordType"
+            label="Contraseña*"
+            color="black"
             dense
-            required
+            outlined
+            @change="$v.form.password.$touch()"
           />
           <!-- Toggle show password -->
-          <v-switch class="mt-0" v-model="showPassword">
+
+          <v-switch v-model="showPassword" class="no-hint">
             <template v-slot:label>
-              <span style="font-size: 15px">Mostrar contraseña. </span>
+              <span class="black--text">Mostrar contraseña. </span>
             </template>
           </v-switch>
+
           <!-- / Toggle show password -->
         </v-col>
       </v-row>
@@ -46,7 +50,9 @@
               text
               block
               class="btn-primary-betha-gradient"
-              @click="$emit('toggle')"
+              @click="
+                $router.push({ name: 'auth.register', query: $route.query })
+              "
             >
               No tengo Usuario
             </v-btn>
@@ -71,18 +77,60 @@
 
 <script lang='ts'>
 import { Vue, Component, Prop } from "vue-property-decorator";
+// types
 import { ILoginParams } from "@/types";
+// store
 import { UserStore, PopupStore } from "@/store";
+// vuelidate
+import { required, email, minLength } from "vuelidate/lib/validators";
 
-@Component
+@Component({
+  validations: {
+    form: {
+      email: {
+        required,
+        email,
+      },
+      password: {
+        required,
+        minLength: minLength(6),
+        noWhiteSpaces: (_value) => _value.indexOf(" ") == -1,
+      },
+    },
+  },
+})
 export default class LoginForm extends Vue {
   @Prop({ type: Boolean, default: false }) vertical!: boolean;
+
   showPassword = false;
 
   form: ILoginParams = {
     email: "",
     password: "",
   };
+
+  // error messages in inputs validations
+  get emailErrors() {
+    const errors: string[] = [];
+    if (!this.$v.form.email?.$dirty) return errors;
+    if (!this.$v.form.email?.required) errors.push("Email es requerido.");
+    if (!this.$v.form.email?.email) errors.push("Email inválido.");
+    return errors;
+  }
+
+  get passwordErrors() {
+    const errors: string[] = [];
+    if (!this.$v.form.password?.$dirty) return errors;
+    if (!this.$v.form.password.required)
+      errors.push("Contraseña es requerido.");
+    if (!this.$v.form.password.minLength)
+      errors.push(
+        `Contraseña debe tener al menos ${this.$v.form.password.$params.minLength.min} caracteres.`
+      );
+    if (!this.$v.form.password.noWhiteSpaces)
+      errors.push("Contraseña no debe contener espacios en blanco.");
+    return errors;
+  }
 
   /**
    *
@@ -94,15 +142,21 @@ export default class LoginForm extends Vue {
   /**
    *
    */
-  get isValid() {
-    return true;
+  redirect() {
+    const name = this.$route.query.redirect;
+    if (name != null) {
+      this.$router.push({ name: name as string });
+    } else {
+      this.$router.back();
+    }
   }
 
   /**
    *
    */
   async login() {
-    if (this.isValid) {
+    this.$v.form.$touch();
+    if (!this.$v.form.$invalid) {
       this.$emit("loading:update", true);
       try {
         await UserStore.login(this.form);
@@ -113,7 +167,7 @@ export default class LoginForm extends Vue {
           "success"
         );
         UserStore.storeOnLocalStorage();
-        this.$router.back();
+        this.redirect();
       } catch (error) {
         PopupStore.addNotification(error);
       }

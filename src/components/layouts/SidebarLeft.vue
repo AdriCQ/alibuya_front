@@ -124,7 +124,7 @@ export default class AppSidebarLeft extends Vue {
         });
       }
     } else {
-      this.$router.push({ name: "auth" });
+      this.$router.push({ name: "auth.login" });
     }
   }
 }
