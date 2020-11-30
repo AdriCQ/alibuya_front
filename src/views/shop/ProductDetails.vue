@@ -6,27 +6,7 @@
     </v-section>
     <!-- / Add to Cart -->
 
-    <!-- Products Group -->
-    <v-section class="mt-2">
-      <products-group
-        :products="someProducts"
-        :cards-props="{ maxWidth: 280, flat: true }"
-        :images-props="{ maxWidth: 200 }"
-      />
-    </v-section>
-    <!-- / Products Group -->
-
-    <!-- Products Collection Slider -->
-    <v-section class="mt-2">
-      <products-collection-slider
-        :products="otherProducts"
-        :cards-props="{ maxWidth: '100%', flat: true, tile: true }"
-        :images-props="{ width: '100%', height: '100%' }"
-      />
-    </v-section>
-    <!-- / Products Collection Slider -->
-
-    <v-section class="mt-2">
+    <v-section class="mt-2" v-if="product">
       <v-card tile>
         <v-tabs v-model="tab" color="primary" style="margin-right: -15px">
           <v-tabs-slider color="primary" />
@@ -50,7 +30,6 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { ShopStore } from "@/store";
-import { IProduct } from "@/types";
 
 @Component({
   components: {
@@ -58,14 +37,13 @@ import { IProduct } from "@/types";
       import("@/components/forms/shop/AddToCartForm.vue"),
     "product-description": () =>
       import("@/components/data/ProductDescription.vue"),
-    "products-group": () => import("@/components/data/ProductsGroup.vue"),
-    "products-collection-slider": () =>
-      import("@/components/sliders/ProductsCollectionSlider.vue"),
   },
 })
 export default class ProductDetailsView extends Vue {
-  created() {
-    // this.loadProduct();
+  beforeMount() {
+    if (this.$route.query.productId)
+      this.loadProduct(Number(this.$route.query.productId));
+    else this.$router.back();
   }
 
   tab = 0;
@@ -84,26 +62,12 @@ export default class ProductDetailsView extends Vue {
     return ShopStore.suggestedProducts;
   }
 
-  // test
-  get someProducts(): IProduct[] {
-    return [
-      { title: "Pant One", price: 25, images: "img/test/ropas/1.jpg" },
-      { title: "Shirt One", price: 12, images: "img/test/ropas/2.jpg" },
-      { title: "Purse One", price: 80, images: "img/test/ropas/3.jpg" },
-      { title: "Pant One", price: 25, images: "img/test/ropas/1.jpg" },
-    ];
-  }
-
-  get otherProducts(): IProduct[] {
-    return [
-      { title: "Pant One", price: 25, images: "img/test/ropas/1.jpg" },
-      { title: "Shirt One", price: 12, images: "img/test/ropas/2.jpg" },
-      { title: "Purse One", price: 80, images: "img/test/ropas/3.jpg" },
-      { title: "Pant One", price: 25, images: "img/test/ropas/1.jpg" },
-      { title: "Purse One", price: 80, images: "img/test/ropas/3.jpg" },
-      { title: "Pant One", price: 25, images: "img/test/ropas/1.jpg" },
-      { title: "Shirt One", price: 12, images: "img/test/ropas/2.jpg" },
-    ];
+  async loadProduct(_productId: number) {
+    try {
+      await ShopStore.getProductById(_productId);
+    } catch (err) {
+      this.$router.back();
+    }
   }
 }
 </script>

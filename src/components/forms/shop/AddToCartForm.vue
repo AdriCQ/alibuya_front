@@ -153,12 +153,10 @@ import { Vue, Component, Prop } from "vue-property-decorator";
       import("@/components/parts/shop/ProductHeading.vue"),
     "product-gallery": () => import("@/components/sliders/ProductGallery.vue"),
     "color-picker": () => import("@/components/forms/ColorPicker.vue"),
-    // "destinatary-input": () =>
-    //   import("@/components/forms/shop/SelectDestinatary.vue"),
   },
 })
 export default class AddToCartForm extends Vue {
-  created() {
+  beforeMount() {
     this.form.color = this.colors[0].value;
   }
 

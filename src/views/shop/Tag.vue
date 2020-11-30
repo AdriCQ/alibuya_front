@@ -1,7 +1,7 @@
 <template>
   <div id="shop-tag-view" class="view-container">
     <v-section>
-      <v-card flat>
+      <v-card flat :loading="loadingCard">
         <!-- Section title -->
         <v-card-title>
           <!-- <v-icon class="mr-2">{{ departmentIcon }}</v-icon> -->
@@ -18,14 +18,14 @@
             </div>
             <!-- Empty Inventary -->
           </v-card-text>
-          <v-card-subtitle v-if="!emptyInventary">
+          <!-- <v-card-subtitle v-if="!emptyInventary">
             <v-btn icon @click="activeComponent = 'product-grid'">
               <v-icon>mdi-view-grid</v-icon>
             </v-btn>
             <v-btn icon @click="activeComponent = 'product-list'">
               <v-icon>mdi-view-list</v-icon>
             </v-btn>
-          </v-card-subtitle>
+          </v-card-subtitle> -->
 
           <keep-alive v-if="!emptyInventary">
             <component :is="activeComponent" :products="products" />
@@ -49,13 +49,14 @@ import { IProduct, TCategory } from "@/types";
     "search-inline": () =>
       import("@/components/forms/shop/SearchInlineFormDepartments.vue"),
     "product-grid": () => import("@/components/data/ProductGrid.vue"),
-    "product-list": () => import("@/components/data/ProductList.vue"),
+    // "product-list": () => import("@/components/data/ProductList.vue"),
   },
 })
 export default class ShopTag extends Vue {
   activeComponent: "product-grid" | "product-list" = "product-grid";
   products: IProduct[] = [];
   emptyInventary = false;
+  loadingCard = false;
 
   get tag() {
     this.loadProducts(this.$route.params.tag as TCategory);
@@ -79,6 +80,7 @@ export default class ShopTag extends Vue {
   async loadProducts(_category: TCategory) {
     try {
       this.emptyInventary = false;
+      this.loadingCard = true;
       await ShopStore.getProductsByCategory(_category);
       if (ShopStore.allProducts[this.tag].length) {
         this.products = ShopStore.allProducts[this.tag];
@@ -87,9 +89,10 @@ export default class ShopTag extends Vue {
         this.emptyInventary = true;
       }
     } catch (error) {
-      PopupStore.addNotification(error);
+      // PopupStore.addNotification(error);
       this.emptyInventary = true;
     }
+    this.loadingCard = false;
   }
 }
 </script>

@@ -27,15 +27,16 @@
       <template v-if="shopPacks.length">
         <!-- Small View Grid Mode -->
         <template v-if="$vuetify.breakpoint.xs">
-          <pack-cart
-            cart
-            class="mt-4"
-            :pack="pack"
-            v-for="(pack, key) in shopPacks"
-            @delete="deletePopupConfirm(key)"
-            @edit="editPack(key)"
-            :key="key"
-          />
+          <v-row no-gutters justify="center">
+            <v-col
+              cols="auto"
+              v-for="(pack, pKey) in shopPacks"
+              :key="pKey"
+              class="ma-1"
+            >
+              <pack-card :pack="pack" @details="goToDetails(pKey)" with-price />
+            </v-col>
+          </v-row>
         </template>
         <!-- / Small View Grid Mode -->
 
@@ -49,19 +50,21 @@
                 <th>Cantidad</th>
                 <th>Subtotal</th>
                 <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               <tr
                 v-for="(pack, key) in shopPacks"
                 :key="key"
-                @click="editPack(key)"
                 class="cursor-pointer"
               >
                 <td class="pa-1">
-                  <div style="width: 5rem">
-                    <v-sheet color="secondary" width="100%" height="5rem" />
-                  </div>
+                  <pack-card
+                    :pack="pack"
+                    :size="5"
+                    @details="goToDetails(key)"
+                  />
                 </td>
                 <!-- <td>
                   {{ pack.title }}
@@ -72,8 +75,17 @@
                 </td>
                 <td>${{ Number(pack.price * pack.cant).toFixed(2) }}</td>
                 <td>
-                  <v-btn icon color="error" @click="deletePopupConfirm(key)"
-                    ><v-icon>mdi-delete</v-icon></v-btn
+                  <v-btn small text color="success" @click="goToDetails(key)"
+                    >Editar</v-btn
+                  >
+                </td>
+                <td>
+                  <v-btn
+                    small
+                    text
+                    color="error"
+                    @click="deletePopupConfirm(key)"
+                    >Eliminar</v-btn
                   >
                 </td>
               </tr>
@@ -91,8 +103,7 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component({
   components: {
-    // "cant-input": () => import("@/components/forms/shop/ProductCantInput.vue"),
-    "pack-cart": () => import("@/components/widgets/PackWidget.vue"),
+    "pack-card": () => import("@/components/widgets/packs/PackCard.vue"),
   },
 })
 export default class ProductPackDataCart extends Vue {
@@ -135,7 +146,7 @@ export default class ProductPackDataCart extends Vue {
     this.deleteDialog = false;
   }
 
-  editPack(_key: number) {
+  goToDetails(_key: number) {
     this.$router.push({
       name: "shop.pack-details",
       query: {

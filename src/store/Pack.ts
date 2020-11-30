@@ -18,16 +18,11 @@ class PackModule extends VuexModule {
    * @returns number
    */
   get totalPrice() {
-    let productsPrice = 0;
     let packsPrice = 0;
-    this._packs.forEach(p => {
-      productsPrice += p.price * (p.cant as number);
-    })
-
     this._packs.forEach(pack => {
       packsPrice += pack.price * (pack.cant ? pack.cant : 1);
     });
-    return productsPrice + packsPrice;
+    return packsPrice;
   }
 
   /**
@@ -60,7 +55,7 @@ class PackModule extends VuexModule {
           const availableWeight = 1500 - this._packs[_key].weight;
           if (availableWeight >= _product.weight) {
             this._packs[_key].weight += _product.weight;
-            this._packs[_key].price += Number(_product.price);
+            this._packs[_key].price = Number(this._packs[_key].price) + Number(_product.price);
             this._packs[_key].products.push(_product);
             added = true;
             break;

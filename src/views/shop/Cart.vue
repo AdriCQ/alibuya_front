@@ -2,10 +2,7 @@
   <div id="shop-cart-view" class="view-container">
     <v-section>
       <v-card>
-        <v-card-title>
-          <v-icon class="mr-2">mdi-cart</v-icon>
-          Mis Paquetes
-        </v-card-title>
+        <v-card-title> Mis Paquetes </v-card-title>
         <v-card-subtitle>
           Tienes {{ packCant }} paquetes pendientes
         </v-card-subtitle>
@@ -14,7 +11,6 @@
           <v-img src="img/png/empty-cart.png" />
         </div>
         <!-- Empty Inventary -->
-        <!-- <product-display /> -->
         <pack-display />
       </v-card>
     </v-section>
@@ -54,7 +50,6 @@ import { PackStore, ShopStore } from "@/store";
     "products-slider": () =>
       import("@/components/sliders/ProductSliderMultiple.vue"),
     "pack-display": () => import("@/components/data/PackDataCart.vue"),
-    "product-display": () => import("@/components/data/ProductDataCart.vue"),
   },
 })
 export default class ShoppingCartView extends Vue {

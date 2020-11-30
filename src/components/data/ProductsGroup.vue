@@ -1,17 +1,17 @@
 <template>
-  <v-row class="products-group" justify="center" justify-md="start">
+  <v-row class="products-group" no-gutters justify="space-between">
     <v-col
       v-for="(product, key) in products"
-      cols="auto"
-      md="4"
-      lg="3"
+      xs="4"
+      md="3"
+      lg="2"
       :key="`product-group-item-${key}`"
     >
       <product-basic
-        :title="product.title"
-        :image-src="product.images"
+        :product="product"
         :card-props="cardsProps"
         :image-props="imagesProps"
+        class="ma-1"
       >
         <template #actions>
           <v-btn color="primary" text class="text-transform-none">

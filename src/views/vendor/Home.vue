@@ -50,7 +50,7 @@
               v-for="(option, vKey) in vendorPages"
               :key="`${vKey}`"
             >
-              <option-card :option="option" />
+              <!-- <option-card :option="option" /> -->
             </v-col>
           </template>
         </v-row>
@@ -66,7 +66,7 @@ import { Vue, Component } from "vue-property-decorator";
 @Component({
   components: {
     "login-card": () => import("@/components/widgets/LoginCard.vue"),
-    "option-card": () => import("@/components/widgets/VendorOption.vue"),
+    // "option-card": () => import("@/components/widgets/VendorOption.vue"),
   },
 })
 export default class VendorHomeView extends Vue {

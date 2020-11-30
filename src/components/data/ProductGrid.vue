@@ -1,9 +1,10 @@
 <template>
-  <v-row justify="center">
+  <v-row justify="center" no-gutters>
     <v-col
       cols="auto"
       v-for="(prod, prodKey) in products"
       :key="`product-${prodKey}`"
+      class="ma-1"
     >
       <product :product="prod" />
     </v-col>
@@ -16,7 +17,7 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component({
   components: {
-    product: () => import("@/components/widgets/Product.vue"),
+    product: () => import("@/components/widgets/products/Default.vue"),
   },
 })
 export default class ProductListGrid extends Vue {

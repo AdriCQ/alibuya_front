@@ -41,7 +41,6 @@
 <script lang='ts'>
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { IProduct } from "@/types";
-import { ShopStore } from "@/store";
 
 @Component
 export default class DEfaultProductWidget extends Vue {

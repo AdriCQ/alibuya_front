@@ -7,7 +7,7 @@
         <v-card-text>
           <v-row>
             <v-col v-for="(pack, pKey) in packs" :key="pKey">
-              <pack-card :pack="pack" @details="goToDetails(pKey)" />
+              <pack-card :pack="pack" :size="12" @details="goToDetails(pKey)" />
             </v-col>
           </v-row>
         </v-card-text>
@@ -23,7 +23,7 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component({
   components: {
-    "pack-card": () => import("@/components/widgets/PackCard.vue"),
+    "pack-card": () => import("@/components/widgets/packs/PackCard.vue"),
   },
 })
 export default class ShopPacksView extends Vue {

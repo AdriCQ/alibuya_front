@@ -9,15 +9,14 @@
       </slot>
     </v-card-title>
 
-    <v-card-text v-if="imageSrc">
-      <v-img
-        v-if="imageSrc"
-        :src="imageSrc"
-        :alt="imageAlt"
-        v-bind="imageProps"
-        class="mx-auto"
-      />
-    </v-card-text>
+    <v-img
+      v-if="product.images"
+      :src="product.images"
+      :alt="product.title"
+      v-bind="imageProps"
+      class="mx-auto"
+      width="100%"
+    />
     <slot />
 
     <v-card-actions>
@@ -27,19 +26,28 @@
 </template>
 
 <script lang='ts'>
+import { IProduct } from "@/types";
 import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class BasicProductWidget extends Vue {
   @Prop({ type: String, default: "" }) readonly title!: string;
   @Prop(Object) readonly cardProps!: boolean;
-
-  @Prop({ type: String }) readonly imageSrc!: string;
-  @Prop({ type: String, default: "Image" }) readonly imageAlt!: string;
   @Prop({
     type: Object,
     default: () => {
-      return { maxWidth: "400" };
+      return {
+        title: "",
+        images: "",
+      };
+    },
+  })
+  readonly product!: IProduct;
+
+  @Prop({
+    type: Object,
+    default: () => {
+      return {};
     },
   })
   readonly imageProps!: object;

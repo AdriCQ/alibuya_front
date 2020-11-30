@@ -5,13 +5,11 @@
         <v-card-title
           >Productos {{ pack.weight }} ${{ pack.price }}</v-card-title
         >
-        <v-card-text>
-          <v-row>
-            <v-col v-for="(product, key) in pack.products" :key="key">
-              <product-card :product="product" />
-            </v-col>
-          </v-row>
-        </v-card-text>
+        <v-row>
+          <v-col v-for="(product, key) in pack.products" :key="key">
+            <product-card :product="product" />
+          </v-col>
+        </v-row>
       </v-card>
     </v-section>
     <!-- Ajustes -->
