@@ -54,14 +54,8 @@ export type TStatusColor = 'error' | 'info' | 'warning' | 'success' | 'primary' 
 export interface IEventTarget extends globalThis.EventTarget {
   files: FileList;
 }
-export interface IImage {
-  id?: number;
-  title?: string;
-  paths?: IDictionary<string>;
-  tags?: string[];
-}
 
-export type TImage = File | IImage | string | File[] | IImage[] | string[];
+export type TImage = File | string | File[] | string[];
 
 /**
  * -----------------------------------------

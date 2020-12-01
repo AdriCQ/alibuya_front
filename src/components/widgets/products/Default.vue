@@ -16,7 +16,7 @@
     <template v-if="!(horizontal && $vuetify.breakpoint.smAndUp)">
       <!-- <v-sheet :width="`${width}px`" :height="`${width * 0.75}px`"> -->
       <div :style="`width:${width}px`" class="mt-1">
-        <v-img width="100%" :src="image" />
+        <v-img width="100%" :src="image.sm" />
       </div>
       <!-- </v-sheet> -->
       <v-card-title>${{ Number(product.price).toFixed(2) }}</v-card-title>
@@ -41,9 +41,10 @@
 <script lang='ts'>
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { IProduct } from "@/types";
+import { ProductImage } from "@/utils";
 
 @Component
-export default class DEfaultProductWidget extends Vue {
+export default class DefaultProductWidget extends Vue {
   @Prop({
     type: Object,
     default: {
@@ -93,9 +94,7 @@ export default class DEfaultProductWidget extends Vue {
   }
 
   get image() {
-    return this.product.images
-      ? this.product.images
-      : "img/logos/logo_300x225.png";
+    return new ProductImage(this.product.images);
   }
 
   showProductDetails(product: IProduct) {

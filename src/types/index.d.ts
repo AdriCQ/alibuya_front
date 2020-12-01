@@ -29,4 +29,5 @@ export * from './services/vendor';
  * -----------------------------------------
  */
 
+export * from './extra';
 export * from './utils';

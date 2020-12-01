@@ -138,7 +138,7 @@
 import { CATEGORIES } from "@/utils";
 import { Vue, Component } from "vue-property-decorator";
 import { AppStore } from "@/store";
-import { IProduct, IVSelectItem, TCategory } from "@/types";
+import { IProduct, IVSelectItem, TCategory, TImage } from "@/types";
 
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
@@ -147,6 +147,7 @@ import "quill/dist/quill.bubble.css";
 import { quillEditor } from "vue-quill-editor";
 interface INewProductForm extends IProduct {
   department: TCategory;
+  imagesForm: TImage;
 }
 
 @Component({
@@ -196,7 +197,7 @@ export default class NewProductForm extends Vue {
     department: "automotriz",
     title: "",
     price: 0,
-    images: [],
+    imagesForm: [],
     brand: "",
     tax: 0,
     description: "",

@@ -1,4 +1,4 @@
-import { ILinkIconLabel, TImage } from '@/types';
+import { ILinkIconLabel } from '@/types';
 
 /**
  * -----------------------------------------
@@ -7,13 +7,13 @@ import { ILinkIconLabel, TImage } from '@/types';
  */
 
 export interface IProduct {
-  id?: number;
+  id: number;
   title: string;
   brand?: string;
   tax?: number;
   description?: string;
   price: number;
-  images: TImage;
+  images: IProductImage;
   weight?: number;
   options?: IProductOptions;
   tags?: TCategory[] | string[];
@@ -65,4 +65,16 @@ export type TCategory = 'clothes' | 'automotriz' | 'cell' | 'home' | 'child' | '
 export interface IProductPromotion {
   title: string;
   products: IProduct[];
+}
+
+export interface IProductImage {
+  id: number;
+  tags?: string[];
+  paths: {
+    xs?: string;
+    sm?: string;
+    md?: string;
+    lg?: string;
+    xl?: string;
+  };
 }
