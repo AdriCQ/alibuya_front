@@ -4,9 +4,7 @@
     <v-row class="products-group" no-gutters>
       <v-col
         v-for="key in max"
-        xs="4"
-        md="3"
-        lg="2"
+        v-bind="colsProps"
         :key="`product-group-item-${key}`"
       >
         <product-basic
@@ -14,14 +12,8 @@
           :card-props="cardsProps"
           :image-props="imagesProps"
           :link="link"
-          class="ma-1"
-        >
-          <!-- <template #actions>
-          <v-btn color="primary" text class="text-transform-none">
-            <strong> Ver más</strong>
-          </v-btn>
-        </template> -->
-        </product-basic>
+          class="mx-auto"
+        />
       </v-col>
     </v-row>
   </v-card>
@@ -29,7 +21,6 @@
 
 <script lang='ts'>
 import { Vue, Component, Prop } from "vue-property-decorator";
-// types
 import { IProduct } from "@/types";
 
 @Component({
@@ -39,17 +30,21 @@ import { IProduct } from "@/types";
 })
 export default class ProductsGroup extends Vue {
   @Prop({ type: Array, required: true }) readonly products!: IProduct[];
-  @Prop(Object) readonly cardsProps!: object;
+  // props to children
   @Prop({
     type: Object,
     default: () => {
-      return { maxWidth: "400" };
+      return { maxWidth: "200" };
     },
   })
-  readonly imagesProps!: object;
+  readonly cardsProps!: object;
+  @Prop(Object) readonly imagesProps!: object;
+
+  //
+  @Prop(Object) readonly colsProps!: object;
 
   @Prop(String) readonly title!: string;
-  @Prop(Boolean) readonly link!: boolean;
+  @Prop({ type: Boolean, default: false }) readonly link!: boolean;
 
   @Prop({ type: Number, default: 8 }) readonly max!: number;
 }

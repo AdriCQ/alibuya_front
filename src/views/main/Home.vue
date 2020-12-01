@@ -7,18 +7,19 @@
     <!-- Suggested Products -->
     <v-section>
       <v-row>
-        <v-col cols="12" xs="12" sm="12" md="6" lg="4" xl="3" v-if="!isLogged">
+        <v-col cols="12" sm="12" md="6" lg="4" xl="3" v-if="!isLogged">
           <login-card />
         </v-col>
-        <v-col cols="12" xs="12" sm="12" md="6" lg="8" xl="9">
+        <v-col cols="12" sm="12" md="6" lg="8" xl="9">
           <v-sheet color="primaryBetha" width="100%" height="100%" />
         </v-col>
       </v-row>
+
       <products-collection-slider
-        title="Productos Sugeridos"
-        link
         v-if="suggestedProducts.length"
+        title="Productos Sugeridos"
         :products="suggestedProducts"
+        link
       />
     </v-section>
     <!-- / Suggested Products -->
@@ -26,9 +27,13 @@
     <!-- Products Group -->
     <v-section class="mt-2">
       <products-group
-        link
+        v-if="suggestedProducts.length"
+        :max="4"
         title="Lo mejor de Celulares"
         :products="suggestedProducts"
+        :cardsProps="{ maxWidth: 200 }"
+        :colsProps="{ cols: 6, md: 4, lg: true }"
+        link
       />
     </v-section>
     <!-- / Products Group -->
