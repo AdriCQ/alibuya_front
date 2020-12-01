@@ -1,60 +1,59 @@
 <template>
   <div id="shop-pack-details-view" class="view-container">
-    <v-section>
-      <v-card flat>
-        <v-card-title
-          >Productos {{ pack.weight }} ${{ pack.price }}</v-card-title
-        >
-        <v-row>
-          <v-col v-for="(product, key) in pack.products" :key="key">
-            <product-card :product="product" />
-          </v-col>
-        </v-row>
-      </v-card>
-    </v-section>
     <!-- Ajustes -->
     <v-section class="mt-1">
       <v-card flat>
         <v-card-title>Detalles</v-card-title>
-        <v-card-text>
-          <v-row>
-            <v-col xs="12" sm="6">
-              <v-select
-                label="Cantidad"
-                class="w-20"
-                outlined
-                color="black"
-                dense
-                :items="cant"
-                v-model="pack.cant"
-              />
+        <v-row>
+          <v-col xs="12" sm="6">
+            <v-card-text><b>Peso Total</b> {{ totalWeight }}</v-card-text>
+            <v-card-text>
+              <b>Precio Total</b> ${{
+                Number(pack.price * pack.cant).toFixed(2)
+              }}</v-card-text
+            >
+          </v-col>
+          <v-col xs="12" sm="6">
+            <v-select
+              label="Cantidad"
+              class="w-20"
+              outlined
+              color="black"
+              dense
+              :items="cant"
+              v-model="pack.cant"
+            />
 
-              <v-select
-                label="Destinatario"
-                :items="['a']"
-                outlined
-                dense
-                color="black"
-                class="w-20"
-              />
+            <v-select
+              label="Destinatario"
+              :items="['a']"
+              outlined
+              dense
+              color="black"
+              class="w-20"
+            />
 
-              <!-- Delivery method -->
-              <v-select
-                class="w-20"
-                label="Método de Recogida"
-                :items="deliveryMethods"
-                dense
-                outlined
-              />
-              <!-- / Delivery method -->
-            </v-col>
-
-            <v-col xs="12" sm="6"> </v-col>
-          </v-row>
-        </v-card-text>
+            <!-- Delivery method -->
+            <v-select
+              class="w-20"
+              label="Método de Recogida"
+              :items="deliveryMethods"
+              dense
+              outlined
+            />
+            <!-- / Delivery method -->
+          </v-col>
+        </v-row>
       </v-card>
     </v-section>
     <!-- / Ajustes -->
+
+    <v-section>
+      <v-card flat>
+        <v-card-title>Productos </v-card-title>
+        <products-group :max="pack.products.length" :products="pack.products" />
+      </v-card>
+    </v-section>
   </div>
 </template>
 
@@ -65,7 +64,7 @@ import { Vue, Component } from "vue-property-decorator";
 @Component({
   components: {
     "cant-input": () => import("@/components/forms/shop/ProductCantInput.vue"),
-    "product-card": () => import("@/components/widgets/Product.vue"),
+    "products-group": () => import("@/components/data/ProductsGroup.vue"),
   },
 })
 export default class PackDetailsView extends Vue {
@@ -88,6 +87,24 @@ export default class PackDetailsView extends Vue {
       p.push(i);
     }
     return p;
+  }
+
+  get totalWeight() {
+    if (this.pack && this.pack.cant) {
+      const weight = Number(this.pack.price * this.pack.cant);
+      console.log(weight, "Peso");
+      if (weight > 1500) {
+        return (
+          Number(weight / 1000)
+            .toFixed(2)
+            .toString() + " Kg"
+        );
+      } else {
+        return weight.toString() + " g";
+      }
+    } else {
+      return "0g";
+    }
   }
 
   get deliveryMethods() {

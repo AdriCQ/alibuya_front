@@ -27,7 +27,6 @@ export default class App extends Vue {
   }
 
   async getAsyncData() {
-    await ShopStore.getAllProducts();
     try {
       await ShopStore.getSuggestedProducts({
         tags: ["clothes"],

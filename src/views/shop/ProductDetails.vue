@@ -1,29 +1,23 @@
 <template>
   <div id="product-details-view" class="view-container">
-    <!-- Add to Cart -->
-    <v-section v-if="product">
-      <add-to-cart-form :product="product" />
-    </v-section>
-    <!-- / Add to Cart -->
+    <template v-if="product">
+      <!-- Add to Cart -->
+      <v-section>
+        <add-to-cart-form :product="product" />
+      </v-section>
+      <!-- / Add to Cart -->
 
-    <v-section class="mt-2" v-if="product">
-      <v-card tile>
-        <v-tabs v-model="tab" color="primary" style="margin-right: -15px">
-          <v-tabs-slider color="primary" />
-
-          <v-tab v-for="item in tabItems" :key="item">
-            {{ item }}
-          </v-tab>
-        </v-tabs>
-        <v-card-text>
-          <v-tabs-items v-model="tab" class="py-1 px-2">
-            <v-tab-item v-for="item in tabItems" :key="item">
-              <product-description />
-            </v-tab-item>
-          </v-tabs-items>
-        </v-card-text>
-      </v-card>
-    </v-section>
+      <v-section class="mt-2">
+        <product-slider
+          v-if="suggestedProducts.length"
+          title="Sugerencias"
+          link
+          :products="suggestedProducts"
+          :cards-props="{ maxWidth: '100%', flat: true, tile: true }"
+          :images-props="{ width: '100%', height: '100%' }"
+        />
+      </v-section>
+    </template>
   </div>
 </template>
 
@@ -35,8 +29,8 @@ import { ShopStore } from "@/store";
   components: {
     "add-to-cart-form": () =>
       import("@/components/forms/shop/AddToCartForm.vue"),
-    "product-description": () =>
-      import("@/components/data/ProductDescription.vue"),
+    "product-slider": () =>
+      import("@/components/sliders/ProductsCollectionSlider.vue"),
   },
 })
 export default class ProductDetailsView extends Vue {
@@ -58,7 +52,7 @@ export default class ProductDetailsView extends Vue {
     return ShopStore.productDetails;
   }
 
-  get suggestProducts() {
+  get suggestedProducts() {
     return ShopStore.suggestedProducts;
   }
 

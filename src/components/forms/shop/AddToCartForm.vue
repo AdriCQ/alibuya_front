@@ -11,7 +11,7 @@
         </v-col>
 
         <v-col cols="12" md="5" lg="5" xl="5" class="mb-6 mb-md-0">
-          <product-gallery :imgs-src="testImages" />
+          <product-gallery :imgs-src="imagesSrc" />
         </v-col>
 
         <v-col cols="12" md>
@@ -23,94 +23,74 @@
           />
 
           <v-form>
-            <v-card-text v-if="product.options" class="py-0">
-              <!-- Production Description -->
-              <v-row v-if="product.description">
-                <v-col cols="12">
-                  <div v-html="product.description" class="text-justify" />
-                </v-col>
-              </v-row>
-              <!-- / Production Description -->
+            <!-- Production Description -->
+            <template v-if="product.description">
+              <v-col cols="12">
+                <div v-html="product.description" class="text-justify" />
+              </v-col>
+            </template>
+            <!-- / Production Description -->
 
+            <v-card-text>
               <!-- Option Colors -->
-              <v-row v-if="product.options.colors" align="center" class="mb-4">
-                <v-col cols="12" md="auto">
-                  <span class="title">Color</span>
-                </v-col>
-                <v-col cols="12" md="auto">
-                  <color-picker :color.sync="form.color" :colors="colors" />
-                </v-col>
-              </v-row>
+              <div v-if="product.options.colors">
+                <span class="title">Color</span>
+                <color-picker :color.sync="form.color" :colors="colors" />
+              </div>
               <!-- / Option Colors -->
-
               <!-- Option Sizes -->
-              <v-row v-if="product.options.sizes" align="center">
-                <v-col cols="12" md="auto">
-                  <span class="title">Tamaño</span>
-                </v-col>
-                <v-col cols="12" md="auto">
-                  <v-chip-group v-model="form.size" mandatory>
-                    <v-chip
-                      v-for="size in product.options.sizes"
-                      :key="size"
-                      :value="size"
-                      color="light"
-                      filter
-                      class="my-0"
-                      style="font-size: 1rem"
-                    >
-                      {{ size }}
-                    </v-chip>
-                  </v-chip-group>
-                </v-col>
-              </v-row>
+
+              <div v-if="product.options.sizes">
+                <span class="title">Tamaño</span>
+                <v-chip-group v-model="form.size" mandatory>
+                  <v-chip
+                    v-for="size in product.options.sizes"
+                    :key="size"
+                    :value="size"
+                    color="light"
+                    filter
+                    class="my-0"
+                    style="font-size: 1rem"
+                  >
+                    {{ size }}
+                  </v-chip>
+                </v-chip-group>
+              </div>
               <!-- / Option Sizes -->
 
-              <v-row>
-                <!-- Delivery method -->
-                <v-col cols="12">
-                  <v-select
-                    class="w-22"
-                    label="Método de Recogida"
-                    v-model="form.deliveryMethod"
-                    :items="deliveryMethods"
-                    dense
-                    outlined
-                  />
-                </v-col>
-                <!-- / Delivery method -->
+              <!-- Delivery method -->
+              <v-select
+                class="w-22"
+                label="Método de Recogida"
+                v-model="form.deliveryMethod"
+                :items="deliveryMethods"
+                dense
+                outlined
+              />
+              <!-- / Delivery method -->
 
-                <!-- Cant -->
-                <v-col cols="12">
-                  <div class="d-flex">
-                    <v-select
-                      label="Cantidad"
-                      class="w-10"
-                      outlined
-                      color="black"
-                      dense
-                      v-model="product.cant"
-                      :items="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
-                    />
-                    <span class="ml-3 mt-2 text-subtitle-1">
-                      Subtotal: ${{
-                        Number(product.price * form.cant).toFixed(2)
-                      }}
-                    </span>
-                  </div>
-                </v-col>
-                <!-- / Cant -->
+              <!-- Cant -->
+              <v-select
+                label="Cantidad"
+                class="w-22"
+                outlined
+                color="black"
+                dense
+                v-model="product.cant"
+                :items="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+              />
+              <span class="ml-3 mt-2 text-subtitle-1">
+                Subtotal: ${{ Number(product.price * product.cant).toFixed(2) }}
+              </span>
+              <!-- / Cant -->
 
-                <v-col cols="12">
-                  <div class="d-flex align-center">
-                    <v-checkbox v-model="form.check" />
-                    <span>
-                      Entiendo que este producto tiene un cargo en destino de
-                      5,00 CUC
-                    </span>
-                  </div>
-                </v-col>
-              </v-row>
+              <div class="d-flex align-center">
+                <v-checkbox v-model="form.check" />
+                <span>
+                  Entiendo que este producto tiene un cargo en destino de 5,00
+                  CUC
+                </span>
+              </div>
             </v-card-text>
 
             <v-card-actions>
@@ -145,6 +125,7 @@
 <script lang='ts'>
 import { PackStore, PopupStore, ShopStore, UserStore } from "@/store";
 import { IColor, IProduct } from "@/types";
+import { ProductImage } from "@/utils";
 import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component({
@@ -198,13 +179,17 @@ export default class AddToCartForm extends Vue {
   }
 
   // test - array of images
-  get testImages() {
-    return [
-      "img/test/comidas/1.jpg",
-      "img/test/comidas/2.jpg",
-      "img/test/comidas/1.jpg",
-      "img/test/comidas/2.jpg",
-    ];
+  get imagesSrc() {
+    const images: string[] = [];
+    console.log(this.product.images);
+    if (this.product.images?.length) {
+      this.product.images.forEach((image) => {
+        images.push(new ProductImage(image).sm);
+      });
+    } else {
+      images.push(new ProductImage(this.product.image).sm);
+    }
+    return images;
   }
 
   // test - product colors
