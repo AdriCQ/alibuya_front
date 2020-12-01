@@ -1,22 +1,20 @@
-<!-- TODO:
-    props flat in v-card is fixed until I learn to pass props from parent in high level 
- -->
 <template>
-  <v-card class="basic-product-widget cursor-pointer" v-bind="cardProps">
+  <v-card class="basic-product-widget" :class="cardClass" v-bind="cardProps">
     <v-card-title v-if="title || !!$slots['title']" class="py-2">
       <slot name="title">
         {{ title }}
       </slot>
     </v-card-title>
-    <v-sheet>
-      <v-img
-        :src="productImage"
-        :alt="product.title"
-        v-bind="imageProps"
-        class="mx-auto"
-        @click="imgClick"
-      />
-    </v-sheet>
+
+    <v-img
+      :src="productImage"
+      :alt="product.title"
+      :max-width="cardProps ? cardProps.maxWidth : '100%'"
+      v-bind="imageProps"
+      class="mx-auto"
+      @click="imgClick"
+    />
+
     <slot />
 
     <v-card-actions v-if="!!$slots['actions']">
@@ -26,13 +24,19 @@
 </template>
 
 <script lang='ts'>
-import { IProduct } from "@/types";
 import { Vue, Component, Prop } from "vue-property-decorator";
+import { IProduct } from "@/types";
 
 @Component
 export default class BasicProductWidget extends Vue {
   @Prop({ type: String, default: "" }) readonly title!: string;
-  @Prop(Object) readonly cardProps!: object;
+  @Prop({
+    type: Object,
+    default: () => {
+      return { maxWidth: "200" };
+    },
+  })
+  readonly cardProps!: object;
   @Prop({
     type: Object,
     default: () => {
@@ -52,7 +56,11 @@ export default class BasicProductWidget extends Vue {
   })
   readonly imageProps!: object;
 
-  @Prop(Boolean) readonly link!: boolean;
+  @Prop({ type: Boolean, default: false }) readonly link!: boolean;
+
+  get cardClass() {
+    return [{ "cursor-pointer": this.link }];
+  }
 
   get productImage() {
     // handle image

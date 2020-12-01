@@ -16,9 +16,9 @@
       <div v-for="(product, key) in products" :key="`slider-item-${key}`">
         <product-basic
           :card-props="cardsProps"
-          class="mx-auto"
           :product="product"
           :link="link"
+          class="mx-auto"
         />
       </div>
     </slick-carousel>
@@ -38,17 +38,17 @@ import { IProduct } from "@/types";
 export default class ProductsCollectionSlider extends Vue {
   @Prop({ type: Array, required: true }) readonly products!: IProduct[];
   // props to children
-  @Prop(Object) readonly cardsProps!: object;
   @Prop({
     type: Object,
     default: () => {
-      return { maxWidth: "400" };
+      return { maxWidth: "200" };
     },
   })
-  readonly imagesProps!: object;
+  readonly cardsProps!: object;
+  @Prop(Object) readonly imagesProps!: object;
 
   @Prop(String) readonly title!: string;
-  @Prop(Boolean) readonly link!: boolean;
+  @Prop({ type: Boolean, default: false }) readonly link!: boolean;
 
   get slidesToShow() {
     switch (this.$vuetify.breakpoint.name) {
