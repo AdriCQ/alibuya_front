@@ -34,6 +34,7 @@
         :cardsProps="{ maxWidth: 200 }"
         :colsProps="{ cols: 6, md: 4, lg: true }"
         link
+        advanced
       />
     </v-section>
     <!-- / Products Group -->

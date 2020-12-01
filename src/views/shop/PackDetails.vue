@@ -51,7 +51,11 @@
     <v-section>
       <v-card flat>
         <v-card-title>Productos </v-card-title>
-        <products-group :max="pack.products.length" :products="pack.products" />
+        <products-group
+          advanced
+          :max="pack.products.length"
+          :products="pack.products"
+        />
       </v-card>
     </v-section>
   </div>

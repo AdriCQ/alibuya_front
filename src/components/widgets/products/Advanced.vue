@@ -4,7 +4,13 @@
       :product="product"
       :image-props="imageProps"
       :card-props="cardProps"
-    ></product-basic>
+      :link="link"
+    >
+      <v-card-text>
+        <rating-star :rating="product.rating" sm />
+        <span class="mt-2">{{ product.title }}</span>
+      </v-card-text>
+    </product-basic>
   </div>
 </template>
 
@@ -15,6 +21,7 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 @Component({
   components: {
     "product-basic": () => import("@/components/widgets/products/Basic.vue"),
+    "rating-star": () => import("@/components/widgets/RatingStar.vue"),
   },
 })
 export default class AdvancedProductWidget extends Vue {
@@ -38,5 +45,6 @@ export default class AdvancedProductWidget extends Vue {
     },
   })
   readonly imageProps!: object;
+  @Prop({ type: Boolean, default: false }) readonly link!: boolean;
 }
 </script>
