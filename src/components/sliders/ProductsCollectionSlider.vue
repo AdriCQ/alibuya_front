@@ -1,5 +1,6 @@
 <template>
   <v-card flat class="products-collection-slider">
+    <v-card-title v-if="title">{{ title }}</v-card-title>
     <slick-carousel
       class="slick pa-0"
       ref="icons-carousel"
@@ -13,9 +14,12 @@
       :autoplay="false"
     >
       <div v-for="(product, key) in products" :key="`slider-item-${key}`">
-        <product-basic :card-props="cardsProps" class="mx-auto">
-          <v-img :src="product.images" v-bind="imagesProps" />
-        </product-basic>
+        <product-basic
+          :card-props="cardsProps"
+          class="mx-auto"
+          :product="product"
+          :link="link"
+        />
       </div>
     </slick-carousel>
   </v-card>
@@ -42,6 +46,9 @@ export default class ProductsCollectionSlider extends Vue {
     },
   })
   readonly imagesProps!: object;
+
+  @Prop(String) readonly title!: string;
+  @Prop(Boolean) readonly link!: boolean;
 
   get slidesToShow() {
     switch (this.$vuetify.breakpoint.name) {

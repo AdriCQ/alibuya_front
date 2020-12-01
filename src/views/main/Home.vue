@@ -14,10 +14,11 @@
           <v-sheet color="primaryBetha" width="100%" height="100%" />
         </v-col>
       </v-row>
-      <products-slider
+      <products-collection-slider
+        title="Productos Sugeridos"
+        link
         v-if="suggestedProducts.length"
         :products="suggestedProducts"
-        title="Productos sugeridos"
       />
     </v-section>
     <!-- / Suggested Products -->
@@ -25,8 +26,9 @@
     <!-- Products Group -->
     <v-section class="mt-2">
       <products-group
-        :products="someProducts"
-        :images-props="{ maxWidth: 200 }"
+        link
+        title="Lo mejor de Celulares"
+        :products="suggestedProducts"
       />
     </v-section>
     <!-- / Products Group -->
@@ -34,7 +36,10 @@
     <!-- Products Collection Slider -->
     <v-section class="mt-2">
       <products-collection-slider
-        :products="otherProducts"
+        v-if="suggestedProducts.length"
+        title="Herramientas"
+        link
+        :products="suggestedProducts"
         :cards-props="{ maxWidth: '100%', flat: true, tile: true }"
         :images-props="{ width: '100%', height: '100%' }"
       />
@@ -57,7 +62,6 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { ShopStore, UserStore } from "@/store";
-import { IProduct } from "@/types";
 
 @Component({
   components: {
@@ -65,9 +69,6 @@ import { IProduct } from "@/types";
     "category-slider": () =>
       import("@/components/sliders/CategoriesSlider.vue"),
     "login-card": () => import("@/components/widgets/LoginCard.vue"),
-    "products-slider": () =>
-      import("@/components/sliders/ProductSliderMultiple.vue"),
-    // "rating-stars": () => import("@/components/widgets/RatingStar.vue"),
     "products-group": () => import("@/components/data/ProductsGroup.vue"),
     "products-collection-slider": () =>
       import("@/components/sliders/ProductsCollectionSlider.vue"),
@@ -80,30 +81,6 @@ export default class HomeMainView extends Vue {
 
   get isLogged() {
     return UserStore.isLogged;
-  }
-
-  // test
-  get someProducts(): IProduct[] {
-    return [
-      { title: "Pant One", price: 25, images: "img/test/ropas/1.jpg" },
-      { title: "Shirt One", price: 12, images: "img/test/ropas/2.jpg" },
-      { title: "Purse One", price: 80, images: "img/test/ropas/3.jpg" },
-      { title: "Pant One", price: 25, images: "img/test/ropas/1.jpg" },
-      { title: "Pant One", price: 25, images: "img/test/ropas/1.jpg" },
-      { title: "Shirt One", price: 12, images: "img/test/ropas/2.jpg" },
-    ];
-  }
-
-  get otherProducts(): IProduct[] {
-    return [
-      { title: "Pant One", price: 25, images: "img/test/ropas/1.jpg" },
-      { title: "Shirt One", price: 12, images: "img/test/ropas/2.jpg" },
-      { title: "Purse One", price: 80, images: "img/test/ropas/3.jpg" },
-      { title: "Pant One", price: 25, images: "img/test/ropas/1.jpg" },
-      { title: "Purse One", price: 80, images: "img/test/ropas/3.jpg" },
-      { title: "Pant One", price: 25, images: "img/test/ropas/1.jpg" },
-      { title: "Shirt One", price: 12, images: "img/test/ropas/2.jpg" },
-    ];
   }
 }
 </script>

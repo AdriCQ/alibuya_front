@@ -1,26 +1,30 @@
 <template>
-  <v-row class="products-group" no-gutters justify="space-between">
-    <v-col
-      v-for="(product, key) in products"
-      xs="4"
-      md="3"
-      lg="2"
-      :key="`product-group-item-${key}`"
-    >
-      <product-basic
-        :product="product"
-        :card-props="cardsProps"
-        :image-props="imagesProps"
-        class="ma-1"
+  <v-card flat>
+    <v-card-title v-if="title">{{ title }}</v-card-title>
+    <v-row class="products-group" no-gutters>
+      <v-col
+        v-for="key in max"
+        xs="4"
+        md="3"
+        lg="2"
+        :key="`product-group-item-${key}`"
       >
-        <template #actions>
+        <product-basic
+          :product="products[key]"
+          :card-props="cardsProps"
+          :image-props="imagesProps"
+          :link="link"
+          class="ma-1"
+        >
+          <!-- <template #actions>
           <v-btn color="primary" text class="text-transform-none">
             <strong> Ver más</strong>
           </v-btn>
-        </template>
-      </product-basic>
-    </v-col>
-  </v-row>
+        </template> -->
+        </product-basic>
+      </v-col>
+    </v-row>
+  </v-card>
 </template>
 
 <script lang='ts'>
@@ -43,5 +47,10 @@ export default class ProductsGroup extends Vue {
     },
   })
   readonly imagesProps!: object;
+
+  @Prop(String) readonly title!: string;
+  @Prop(Boolean) readonly link!: boolean;
+
+  @Prop({ type: Number, default: 8 }) readonly max!: number;
 }
 </script>

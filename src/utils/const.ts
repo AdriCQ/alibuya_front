@@ -16,7 +16,7 @@ export const CATEGORIES: IDictionary<IProductCategory> = {
     icon: 'mdi-hanger',
     labelLang: { es: 'Ropas' },
     to: {
-      name: 'shop.pack',
+      name: 'shop.tags',
       params: { tag: 'clothes' }
     }
   },

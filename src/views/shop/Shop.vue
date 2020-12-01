@@ -3,30 +3,23 @@
     <v-section>
       <v-container>
         <v-card flat>
-          <v-card-title>Todos los departamentos</v-card-title>
-          <v-card-text>
-            <v-row justify="space-around">
-              <v-col
-                cols="auto"
-                v-for="(category, key) in categories"
-                :key="key"
-              >
-                <v-card
-                  :to="category.to"
-                  :width="$vuetify.breakpoint.mdAndUp ? '10rem' : '15rem'"
-                >
-                  <v-img
-                    :src="category.image"
-                    :alt="`Category-${key}`"
-                    width="100%"
-                  />
-                  <v-card-subtitle class="black--text">{{
-                    category.labelLang.es
-                  }}</v-card-subtitle>
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-card-text>
+          <v-card-title>Todos los Productos</v-card-title>
+          <v-row
+            no-gutters
+            v-for="(productGroup, pgKey) in products"
+            :key="pgKey"
+          >
+            <v-col class="ma-1">
+              <v-card flat>
+                <products-group
+                  :title="categories[pgKey].labelLang.es"
+                  :products="productGroup"
+                  :images-props="{ maxWidth: 200, maxHeight: 200 }"
+                  link
+                />
+              </v-card>
+            </v-col>
+          </v-row>
         </v-card>
       </v-container>
     </v-section>
@@ -36,11 +29,20 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { CATEGORIES } from "@/utils";
+import { ShopStore } from "@/store";
 
-@Component
+@Component({
+  components: {
+    "products-group": () => import("@/components/data/ProductsGroup.vue"),
+  },
+})
 export default class ShopHome extends Vue {
   get categories() {
     return CATEGORIES;
+  }
+
+  get products() {
+    return ShopStore.allProducts;
   }
 }
 </script>

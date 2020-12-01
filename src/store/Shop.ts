@@ -1,8 +1,8 @@
 import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store/store';
-import { IProduct, TCategory, IDictionary, IProductPromotion } from '@/types';
+import { IProduct, TCategory, IDictionary, IProductPromotion, ISuggestedParams } from '@/types';
 import { ShopService } from '@/services';
-
+import { CATEGORIES } from '@/utils';
 @Module({ generateMutationSetters: true })
 class ShopModule extends VuexModule {
   _suggestedProducts: IProduct[] = [];
@@ -67,9 +67,9 @@ class ShopModule extends VuexModule {
   /**
    * Gets suggested products
    */
-  async getSuggestedProducts() {
+  async getSuggestedProducts(_params: ISuggestedParams) {
     try {
-      const _resp = (await ShopService.suggested()).data;
+      const _resp = (await ShopService.suggested(_params)).data;
       if (_resp.STATUS) {
         this._suggestedProducts = _resp.DATA.data;
       } else {
@@ -138,6 +138,12 @@ class ShopModule extends VuexModule {
         throw error;
       else
         throw [error]
+    }
+  }
+
+  getAllProducts() {
+    for (const cat in CATEGORIES) {
+      this.getProductsByCategory(cat as TCategory);
     }
   }
 
