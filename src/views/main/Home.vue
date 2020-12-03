@@ -24,6 +24,17 @@
     </v-section>
     <!-- / Suggested Products -->
 
+    <!-- (Test) Product Editable -->
+    <v-section class="mt-2">
+      <product-edit
+        :counter.sync="productCounter"
+        title="Product Edit"
+        btn-close
+      >
+      </product-edit>
+    </v-section>
+    <!-- / (Test) Product Editable -->
+
     <!-- Products Group -->
     <v-section class="mt-2">
       <products-group
@@ -31,8 +42,8 @@
         :max="4"
         title="Lo mejor de Celulares"
         :products="suggestedProducts"
-        :cardsProps="{ maxWidth: 200 }"
-        :colsProps="{ cols: 6, md: 4, lg: true }"
+        :cardsProps="{ maxWidth: 200, class: 'mb-2 mx-2 mx-sm-auto' }"
+        :colsProps="{ cols: 6, sm: 6, md: 3 }"
         link
       />
     </v-section>
@@ -77,9 +88,13 @@ import { ShopStore, UserStore } from "@/store";
     "products-group": () => import("@/components/data/ProductsGroup.vue"),
     "products-collection-slider": () =>
       import("@/components/sliders/ProductsCollectionSlider.vue"),
+    // test
+    "product-edit": () => import("@/components/widgets/products/Edit.vue"),
   },
 })
 export default class HomeMainView extends Vue {
+  // test
+  productCounter = "0";
   get suggestedProducts() {
     return ShopStore.suggestedProducts;
   }
