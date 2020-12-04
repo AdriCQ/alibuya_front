@@ -1,5 +1,5 @@
 <template>
-  <v-card max-width="450" elevation="10" :loading="loading">
+  <v-card max-width="400" elevation="5" class="mx-2" :loading="loading">
     <form-login @loading:update="changeLoading" vertical />
   </v-card>
 </template>

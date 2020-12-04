@@ -6,17 +6,19 @@ $button-size: 1.5rem;
   .slick-prev {
     left: 15px !important;
     z-index: 3;
-    &:before{
+    &:before {
+      content: "";
       font-size: $button-size;
-      color: $secondary-color !important;
+      color: transparent !important;
     }
   }
   .slick-next {
     right: 15px !important;
     z-index: 3;
-    &:before{
+    &:before {
+      content: "";
       font-size: $button-size;
-      color: $secondary-color !important;
+      color: transparent !important;
     }
   }
 }
@@ -26,12 +28,12 @@ $button-size: 1.5rem;
   z-index: 3;
 }
 
-.categories-slider-item{
+.categories-slider-item {
   text-align: center;
   align-content: center;
   padding: 0.5rem;
   cursor: pointer;
-  &:hover{
-    background-color:$body-color-border;
+  &:hover {
+    background-color: $body-color-border;
   }
 }

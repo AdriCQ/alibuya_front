@@ -1,22 +1,23 @@
-.v-text-field--outlined fieldset {
-  border-color: black !important;
-}
-
-.v-input--is-focused {
-  border-color: $primary-color !important;
+.v-input {
   fieldset {
     border-width: 1px !important;
   }
-  border-width: 1px !important;
+  .v-input--is-focused {
+    border-color: $primary-color !important;
+  }
 }
 
-.v-label--active {
-  color: black !important;
+// utils class
+.input-small.v-input {
+  .v-input__control {
+    min-height: 35px !important;
+  }
 }
 
 .no-hint {
   margin: 0;
-  .v-messages {
+  .v-messages,
+  .v-text-field__details {
     display: none;
   }
 }

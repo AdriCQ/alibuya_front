@@ -1,5 +1,5 @@
 <template>
-  <v-card flat>
+  <v-card class="products-group" flat>
     <v-card-title v-if="title">{{ title }}</v-card-title>
     <v-row class="products-group" no-gutters>
       <v-col
@@ -56,7 +56,13 @@ export default class ProductsGroup extends Vue {
   @Prop(Object) readonly imagesProps!: object;
 
   //
-  @Prop(Object) readonly colsProps!: object;
+  @Prop({
+    type: Object,
+    default: () => {
+      return {};
+    },
+  })
+  readonly colsProps!: object;
 
   @Prop(String) readonly title!: string;
   @Prop({ type: Boolean, default: false }) readonly link!: boolean;

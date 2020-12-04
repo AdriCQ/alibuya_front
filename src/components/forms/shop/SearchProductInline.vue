@@ -9,9 +9,10 @@
       solo
       hide-details
       class="input-padding rounded-lg"
+      :class="{ 'input-small': small }"
     >
       <template v-slot:append>
-        <v-btn color="primary" :height="38" dark class="rounded-lg">
+        <v-btn color="primary" :height="btnHeight" dark class="rounded-lg">
           <v-icon color="black">mdi-magnify</v-icon>
         </v-btn>
       </template>
@@ -20,8 +21,14 @@
 </template>
 
 <script lang='ts'>
-import { Vue, Component } from "vue-property-decorator";
+import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component
-export default class SearchInlineProduct extends Vue {}
+export default class SearchInlineProduct extends Vue {
+  @Prop({ type: Boolean, default: false }) readonly small!: boolean;
+
+  get btnHeight() {
+    return this.small ? 35 : 38;
+  }
+}
 </script>

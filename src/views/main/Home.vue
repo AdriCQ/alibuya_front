@@ -24,6 +24,10 @@
     </v-section>
     <!-- / Suggested Products -->
 
+    <!-- (Test) Product Editable -->
+
+    <!-- / (Test) Product Editable -->
+
     <!-- Products Group -->
     <v-section class="mt-2">
       <products-group
@@ -31,8 +35,8 @@
         :max="4"
         title="Lo mejor de Celulares"
         :products="suggestedProducts"
-        :cardsProps="{ maxWidth: 200 }"
-        :colsProps="{ cols: 6, md: 4, lg: true }"
+        :cardsProps="{ maxWidth: 200, class: 'mb-2 mx-2 mx-sm-auto' }"
+        :colsProps="{ cols: 6, sm: 6, md: 3 }"
         link
         advanced
         with-price
@@ -53,17 +57,6 @@
       />
     </v-section>
     <!-- / Products Collection Slider -->
-
-    <!-- Categories -->
-    <!-- <v-section class="mt-1">
-      <v-card flat>
-        <v-card-title>Categorías</v-card-title>
-        <v-card-text>
-          <category-slider />
-        </v-card-text>
-      </v-card>
-    </v-section> -->
-    <!-- / Categories -->
   </div>
 </template>
 
@@ -80,9 +73,13 @@ import { ShopStore, UserStore } from "@/store";
     "products-group": () => import("@/components/data/ProductsGroup.vue"),
     "products-collection-slider": () =>
       import("@/components/sliders/ProductsCollectionSlider.vue"),
+    // test
+    "product-edit": () => import("@/components/widgets/products/Edit.vue"),
   },
 })
 export default class HomeMainView extends Vue {
+  // test
+  productCounter = "0";
   get suggestedProducts() {
     return ShopStore.suggestedProducts;
   }
