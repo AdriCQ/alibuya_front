@@ -11,32 +11,37 @@ export const vendorRoutes: RouteConfig = {
       name: 'vendor.home',
       path: 'home',
       // component: () => import('@/views/vendor/NewProduct.vue'),
-      component: () => import('@/views/vendor/Home.vue'),
+      component: () => import('@/views/main/Home.vue'),
     },
     {
       name: 'vendor.business',
       path: 'business',
-      component: () => import('@/views/vendor/Business.vue')
+            component: () => import('@/views/main/Home.vue'),
+
     },
     {
       name: 'vendor.vendors',
       path: 'vendors',
-      component: () => import('@/views/vendor/Vendors.vue')
+            component: () => import('@/views/main/Home.vue'),
+
     },
     {
       name: 'vendor.products',
       path: 'products',
-      component: () => import('@/views/vendor/Products.vue')
+            component: () => import('@/views/main/Home.vue'),
+
     },
     {
       name: 'vendor.product.add',
       path: 'product/new',
-      component: () => import('@/views/vendor/NewProduct.vue')
+           component: () => import('@/views/main/Home.vue'),
+
     },
     {
       name: 'vendor.product.edit',
       path: 'product/edit',
-      component: () => import('@/views/vendor/EditProduct.vue')
+            component: () => import('@/views/main/Home.vue'),
+
     },
   ],
 };

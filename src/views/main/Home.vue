@@ -25,14 +25,7 @@
     <!-- / Suggested Products -->
 
     <!-- (Test) Product Editable -->
-    <v-section class="mt-2">
-      <product-edit
-        :counter.sync="productCounter"
-        title="Product Edit"
-        btn-close
-      >
-      </product-edit>
-    </v-section>
+
     <!-- / (Test) Product Editable -->
 
     <!-- Products Group -->
@@ -61,17 +54,6 @@
       />
     </v-section>
     <!-- / Products Collection Slider -->
-
-    <!-- Categories -->
-    <v-section class="mt-1">
-      <v-card flat>
-        <v-card-title>Categorías</v-card-title>
-        <v-card-text>
-          <category-slider />
-        </v-card-text>
-      </v-card>
-    </v-section>
-    <!-- / Categories -->
   </div>
 </template>
 
