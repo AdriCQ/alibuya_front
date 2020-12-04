@@ -1,7 +1,7 @@
 <template>
   <v-form>
     <v-card-title>
-      <span class="headline">Login</span>
+      <span class="headline">Inicio de Seción</span>
     </v-card-title>
 
     <v-card-text class="pb-0">
@@ -11,8 +11,6 @@
             v-model="form.email"
             :error-messages="emailErrors"
             label="Email*"
-            color="black"
-            width="10"
             dense
             outlined
             @change="$v.form.email.$touch()"
@@ -25,18 +23,22 @@
             :error-messages="passwordErrors"
             :type="passwordType"
             label="Contraseña*"
-            color="black"
             dense
             outlined
             @change="$v.form.password.$touch()"
           />
-          <!-- Toggle show password -->
 
-          <v-switch v-model="showPassword" class="no-hint">
+          <!-- Toggle show password -->
+          <v-checkbox
+            on-icon="mdi-check-circle"
+            off-icon="mdi-circle-outline"
+            v-model="showPassword"
+            class="no-hint"
+          >
             <template v-slot:label>
               <span class="black--text">Mostrar contraseña. </span>
             </template>
-          </v-switch>
+          </v-checkbox>
 
           <!-- / Toggle show password -->
         </v-col>
@@ -44,29 +46,28 @@
 
       <!-- Actions -->
       <v-card-actions class="px-0">
-        <v-row>
-          <v-col>
+        <v-row no-gutters>
+          <v-col cols="12">
             <v-btn
-              text
-              block
-              class="btn-primary-betha-gradient"
-              @click="
-                $router.push({ name: 'auth.register', query: $route.query })
-              "
-            >
-              No tengo Usuario
-            </v-btn>
-          </v-col>
-          <v-col>
-            <v-btn
-              class="btn-primary-alpha-gradient"
               color="primaryAlpha"
               type="submit"
               block
+              class="text-transform-none btn-primary-alpha-gradient"
               @click.prevent="login"
             >
               Entrar
             </v-btn>
+          </v-col>
+
+          <v-col cols="auto" class="mt-3">
+            <span
+              class="blue--text text--darken-2 cursor-pointer text-body-1"
+              @click="
+                $router.push({ name: 'auth.register', query: $route.query })
+              "
+            >
+              No tengo Usuario</span
+            >
           </v-col>
         </v-row>
       </v-card-actions>

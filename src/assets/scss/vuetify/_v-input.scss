@@ -1,17 +1,10 @@
-.v-text-field--outlined fieldset {
-  border-color: black !important;
-}
-
-.v-input--is-focused {
-  border-color: $primary-color !important;
+.v-input {
   fieldset {
     border-width: 1px !important;
   }
-  border-width: 1px !important;
-}
-
-.v-label--active {
-  color: black !important;
+  .v-input--is-focused {
+    border-color: $primary-color !important;
+  }
 }
 
 .no-hint {
