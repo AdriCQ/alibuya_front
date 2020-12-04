@@ -13,7 +13,8 @@ export interface IProduct {
   tax?: number;
   description?: string;
   price: number;
-  images: IProductImage;
+  images?: IProductImage[];
+  image?: IProductImage;
   weight?: number;
   options?: IProductOptions;
   tags?: TCategory[] | string[];

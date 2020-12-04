@@ -20,12 +20,13 @@
       <v-row justify="center">
         <v-col cols="12" sm="6" md="4" lg="4" xl="4">
           <v-card>
-            <v-card-title>Pago</v-card-title>
-            <v-card-text
-              >Total: ${{ Number(totalPrice).toFixed(2) }}</v-card-text
+            <v-card-title
+              >Total: ${{ Number(totalPrice).toFixed(2) }}</v-card-title
             >
             <v-card-actions class="d-block text-center">
-              <v-btn color="primary"> Proceder a Pagar </v-btn>
+              <v-btn class="btn-primary-alpha-gradient" color="primaryAlpha"
+                >Pagar
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-col>

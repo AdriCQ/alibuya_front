@@ -38,6 +38,7 @@
         :cardsProps="{ maxWidth: 200, class: 'mb-2 mx-2 mx-sm-auto' }"
         :colsProps="{ cols: 6, sm: 6, md: 3 }"
         link
+        advanced
       />
     </v-section>
     <!-- / Products Group -->
