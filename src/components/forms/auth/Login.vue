@@ -1,7 +1,7 @@
 <template>
   <v-form>
     <v-card-title>
-      <span class="headline">Inicio de Seción</span>
+      <span class="headline">Inicio de sesión</span>
     </v-card-title>
 
     <v-card-text class="pb-0">
@@ -66,7 +66,7 @@
                 $router.push({ name: 'auth.register', query: $route.query })
               "
             >
-              No tengo Usuario</span
+              No tengo usuario</span
             >
           </v-col>
         </v-row>

@@ -109,7 +109,7 @@
               class="blue--text text--darken-2 cursor-pointer"
               @click="showTerms"
             >
-              Términos y Condiciones</span
+              términos y condiciones</span
             >.
           </v-col>
 
@@ -119,7 +119,7 @@
               class="blue--text text--darken-2 cursor-pointer"
               @click="$router.push({ name: 'auth.login', query: $route.query })"
             >
-              Inicia Sesión →
+              Inicia sesión →
             </span>
           </v-col>
         </v-row>

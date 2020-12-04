@@ -7,6 +7,13 @@
   }
 }
 
+// utils class
+.input-small.v-input {
+  .v-input__control {
+    min-height: 35px !important;
+  }
+}
+
 .no-hint {
   margin: 0;
   .v-messages,

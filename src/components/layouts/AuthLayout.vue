@@ -1,5 +1,5 @@
 <template>
-  <v-sheet color="white" width="100%" height="100%" class="py-2">
+  <v-sheet color="white" width="100%" height="100%" class="pb-2 pt-5">
     <v-container class="mx-auto">
       <v-row justify="center">
         <v-col cols="auto">

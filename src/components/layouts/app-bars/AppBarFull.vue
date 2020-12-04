@@ -10,13 +10,16 @@
     shrink-on-scroll
   >
     <div class="full-width">
-      <div class="d-flex align-center mb-1">
-        <v-app-bar-nav-icon @click="toggleSidebarLeft">
-          <v-icon> mdi-menu </v-icon>
+      <div class="d-flex align-center mb-2">
+        <v-app-bar-nav-icon v-bind="buttonSize" @click="toggleSidebarLeft">
+          <v-icon :size="iconSize"> mdi-menu </v-icon>
         </v-app-bar-nav-icon>
 
-        <v-btn text @click="goToRoute('main.home')">
-          <v-img src="img/logos/logo_white_550x178.png" width="6rem" />
+        <v-btn :small="!smAndUp" text @click="goToRoute('main.home')">
+          <v-img
+            src="img/logos/logo_white_550x178.png"
+            :width="smAndUp ? '8rem' : '6.5rem'"
+          />
         </v-btn>
 
         <v-spacer />
@@ -27,7 +30,12 @@
         </template>
 
         <!-- Auth buttons -->
-        <v-btn text @click="goToRoute('auth.login')" v-if="!isLogged">
+        <v-btn
+          :small="!smAndUp"
+          text
+          @click="goToRoute('auth.login')"
+          v-if="!isLogged"
+        >
           <b> Identifícate </b>
         </v-btn>
 
@@ -52,8 +60,8 @@
         <!-- / Auth buttons -->
 
         <v-btn
-          :fab="!smAndUp"
-          :small="!smAndUp"
+          :icon="!smAndUp"
+          v-bind="buttonSize"
           text
           @click="goToRoute('shop.cart')"
           class="ml-2 mr-2"
@@ -64,17 +72,21 @@
             :content="shopingCartCounter"
           >
             <b v-if="smAndUp"> Mi Carrito </b>
-            <v-icon>mdi-cart-outline</v-icon>
+            <v-icon :size="iconSize">mdi-cart-outline</v-icon>
           </v-badge>
           <template v-else>
             <b v-if="smAndUp"> Mi Carrito </b>
-            <v-icon>mdi-cart-outline</v-icon>
+            <v-icon :size="iconSize">mdi-cart-outline</v-icon>
           </template>
         </v-btn>
       </div>
 
       <div class="d-flex align-center mb-2" v-if="!mdAndUp">
-        <search-product-form class="mx-auto" style="max-width: 50rem" />
+        <search-product-form
+          class="mx-auto input-small"
+          style="max-width: 50rem"
+          :small="!smAndUp"
+        />
       </div>
     </div>
 
@@ -123,7 +135,26 @@ import { AppStore, UserStore, PackStore } from "@/store";
   },
 })
 export default class AppBarFull extends Vue {
-  tabsHeight = 40;
+  // states in breakpoints
+  get tabsHeight() {
+    return this.smAndUp ? 38 : 33;
+  }
+
+  get buttonSize() {
+    return {
+      width: this.smAndUp ? undefined : 33,
+      height: this.smAndUp ? undefined : 33,
+    };
+  }
+
+  get iconSize() {
+    return this.smAndUp ? 25 : 22;
+  }
+
+  /**
+   *
+   */
+
   get CATEGORIES_PLUS() {
     return CATEGORIES_PLUS;
   }
