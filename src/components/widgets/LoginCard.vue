@@ -9,7 +9,8 @@
       <v-card-text class="mt-0">
         <v-btn
           block
-          class="btn-primary-alpha-gradient"
+          color="primary"
+          class="black--text"
           @click="openAuthPopup('login')"
         >
           Iniciar Sesión

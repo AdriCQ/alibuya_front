@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IProduct, ApiResponsePaginated, ApiResponse, TCategory, ISuggestedParams, ISuggestedCategoryProductParams } from '@/types';
+import { IProduct, ApiResponsePaginated, ApiResponse, ISuggestedParams, ISuggestedCategoryProductParams } from '@/types';
 export class ShopService {
   private static baseUrl = '/shop';
 
@@ -34,7 +34,7 @@ export class ShopService {
   /**
    * Get products by Category
    */
-  static getProductsByCategory(_params: TCategory): ApiResponsePaginated<IProduct[]> {
+  static getProductsByCategory(_params: string): ApiResponsePaginated<IProduct[]> {
     return axios.get(this.baseUrl + '/category/products', {
       params: {
         "category": _params

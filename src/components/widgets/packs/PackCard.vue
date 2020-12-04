@@ -174,7 +174,8 @@
 </template>
 
 <script lang='ts'>
-import { IImage, IProductsPack } from "@/types";
+import { IProductsPack, IShopImage } from "@/types";
+import { ProductImage } from "@/utils";
 import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component
@@ -207,9 +208,9 @@ export default class PackWidget extends Vue {
     this.$emit("delete");
   }
 
-  getImage(_images: IImage) {
+  getImage(_image: IShopImage) {
     // TODO: handle getImage
-    return "img/png/empty-cart.png";
+    return new ProductImage(_image);
   }
 }
 </script>

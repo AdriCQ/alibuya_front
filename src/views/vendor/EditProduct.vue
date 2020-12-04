@@ -18,7 +18,7 @@
 
 <script lang='ts'>
 import { VendorStore } from "@/store";
-import { IProduct } from "@/types";
+import { IProduct, IProductForm } from "@/types";
 import { Vue, Component } from "vue-property-decorator";
 
 @Component({
@@ -36,14 +36,20 @@ export default class EditVendorProductView extends Vue {
         VendorStore.myProducts[Number(this.$route.params.productKey)];
   }
 
-  product: IProduct = {
-    cant: 0,
+  product: IProductForm = {
+    type: "",
+    department: "",
+    id: 0,
     title: "",
     price: 0,
-    images: "",
-    id: 0,
-    weight: 0,
+    brand: "",
+    tax: 0,
     description: "",
+    upload_images: [],
+    upload_image: "",
+    weight: 0,
+    options: {},
+    available_cant: 0,
   };
 
   saveProduct(_product: IProduct) {

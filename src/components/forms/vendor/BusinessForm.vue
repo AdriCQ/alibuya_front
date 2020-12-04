@@ -74,7 +74,13 @@
 </template>
 
 <script lang='ts'>
-import { IEventTarget, IImage, IVendor, IVSelectItem } from "@/types";
+import {
+  IEventTarget,
+  TImage,
+  IVendorForm,
+  IVSelectItem,
+  IShopImage,
+} from "@/types";
 import { CATEGORIES } from "@/utils";
 import { Vue, Component, Prop } from "vue-property-decorator";
 
@@ -94,7 +100,7 @@ export default class BusinessForm extends Vue {
   mounted() {
     if (this.edit && this.vendor.id) {
       this.form = this.vendor;
-      if ((this.form.image as IImage).paths) {
+      if ((this.form.image as IShopImage).paths) {
         // TODO: Remove TS ignore
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore1
@@ -105,14 +111,14 @@ export default class BusinessForm extends Vue {
   }
   @Prop(Boolean) readonly edit!: boolean;
 
-  form: IVendor = {
+  form: IVendorForm = {
     id: undefined,
-    image: {},
+    upload_image: "",
     title: "",
     description: "",
     tags: [],
   };
-  imgPreview: IImage | null = null;
+  imgPreview: TImage | null = null;
 
   editorOption = {
     modules: {
@@ -152,7 +158,7 @@ export default class BusinessForm extends Vue {
 
   submit() {
     const formData = new FormData();
-    formData.append("image", this.form.image as File);
+    formData.append("image", this.form.upload_image as File);
     formData.append("title", this.form.title);
     formData.append("description", this.form.description);
     this.form.tags.forEach((tag, index) => {
@@ -169,10 +175,10 @@ export default class BusinessForm extends Vue {
   imageInputChange(e: Event) {
     if (!this.edit) {
       const files = (e.target as IEventTarget)?.files;
-      this.form.image = files[0];
+      this.form.upload_image = files[0];
       for (let i = 0; i < files.length; i++) {
         let _name = "";
-        let _url: IImage;
+        let _url: TImage;
         if (files[i] !== undefined) {
           _name = files[i].name;
           if (_name.lastIndexOf(".") <= 0) {
@@ -180,7 +186,7 @@ export default class BusinessForm extends Vue {
           }
           const fr = new FileReader();
           fr.onload = (e) => {
-            _url = e.target?.result as IImage;
+            _url = e.target?.result as TImage;
             this.imgPreview = _url;
           };
           fr.readAsDataURL(files[i]);

@@ -1,4 +1,4 @@
-import { IUserProfile, TImage } from '@/types';
+import { IUserProfile, IShopImage } from '@/types';
 
 export type TVendorTags = 'clothes' | 'cell';
 /**
@@ -6,7 +6,7 @@ export type TVendorTags = 'clothes' | 'cell';
  */
 export interface IVendor {
   id?: number;
-  image?: TImage;
+  image?: IShopImage;
   title: string;
   description: string;
   tags: TVendorTags[];

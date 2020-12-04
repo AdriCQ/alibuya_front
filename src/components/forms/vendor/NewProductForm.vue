@@ -138,17 +138,13 @@
 import { CATEGORIES } from "@/utils";
 import { Vue, Component } from "vue-property-decorator";
 import { AppStore } from "@/store";
-import { IProduct, IVSelectItem, TCategory, TImage } from "@/types";
+import { IProductForm, IVSelectItem } from "@/types";
 
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
 
 import { quillEditor } from "vue-quill-editor";
-interface INewProductForm extends IProduct {
-  department: TCategory;
-  imagesForm: TImage;
-}
 
 @Component({
   components: {
@@ -193,11 +189,14 @@ export default class NewProductForm extends Vue {
     },
   };
 
-  form: INewProductForm = {
+  form: IProductForm = {
+    type: "",
+    id: 0,
     department: "automotriz",
     title: "",
     price: 0,
-    imagesForm: [],
+    upload_images: [],
+    upload_image: "",
     brand: "",
     tax: 0,
     description: "",
@@ -207,15 +206,11 @@ export default class NewProductForm extends Vue {
       sizes: [],
     },
     tags: [],
-    cant: 0,
+    available_cant: 0,
   };
 
   departments: IVSelectItem[] = [];
   quillEditor = "";
-
-  get editor() {
-    return (this.$refs.myTextEditor as any).quill;
-  }
 
   get inventaryPlaceholder() {
     return this.infinity ? "Infinito" : "";
@@ -223,9 +218,9 @@ export default class NewProductForm extends Vue {
 
   toggleInfinity() {
     if (this.infinity) {
-      this.form.cant = 999999;
+      this.form.available_cant = 999999;
     } else {
-      this.form.cant = 0;
+      this.form.available_cant = 0;
     }
   }
 

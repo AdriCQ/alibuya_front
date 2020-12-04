@@ -35,6 +35,8 @@
         :colsProps="{ cols: 6, md: 4, lg: true }"
         link
         advanced
+        with-price
+        with-rating
       />
     </v-section>
     <!-- / Products Group -->
@@ -53,14 +55,14 @@
     <!-- / Products Collection Slider -->
 
     <!-- Categories -->
-    <v-section class="mt-1">
+    <!-- <v-section class="mt-1">
       <v-card flat>
         <v-card-title>Categorías</v-card-title>
         <v-card-text>
           <category-slider />
         </v-card-text>
       </v-card>
-    </v-section>
+    </v-section> -->
     <!-- / Categories -->
   </div>
 </template>

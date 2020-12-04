@@ -21,6 +21,10 @@
           :card-props="cardsProps"
           :image-props="imagesProps"
           :link="link"
+          :withRating="withRating"
+          :withTitle="withTitle"
+          :withPrice="withPrice"
+          :withCant="withCant"
           class="mx-auto"
         />
       </v-col>
@@ -59,6 +63,11 @@ export default class ProductsGroup extends Vue {
   @Prop({ type: Boolean, default: false }) readonly advanced!: boolean;
 
   @Prop({ type: Number, default: 8 }) readonly max!: number;
+
+  @Prop({ type: Boolean, default: false }) readonly withRating!: boolean;
+  @Prop({ type: Boolean, default: false }) readonly withTitle!: boolean;
+  @Prop({ type: Boolean, default: false }) readonly withPrice!: boolean;
+  @Prop({ type: Boolean, default: false }) readonly withCant!: boolean;
 
   get counter() {
     return this.max < this.products.length ? this.max : this.products.length;

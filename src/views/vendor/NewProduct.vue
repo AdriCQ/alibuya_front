@@ -18,7 +18,7 @@
         <v-row justify="space-around">
           <v-col cols="auto" v-for="(img, key) in images" :key="key">
             <div class="img-container-qwer">
-              <v-img :src="img.paths.sm" width="100%" height="100%" />
+              <v-img :src="img" width="100%" height="100%" />
             </div>
           </v-col>
           <v-col cols="auto">
@@ -47,7 +47,7 @@
 
 <script lang='ts'>
 import { AppStore } from "@/store";
-import { IImage, IProduct, IVSelectItem, TCategory } from "@/types";
+import { IProduct, IVSelectItem, IProductForm, TImage } from "@/types";
 import { CATEGORIES } from "@/utils";
 import { Vue, Component } from "vue-property-decorator";
 
@@ -77,8 +77,8 @@ export default class NewProductView extends Vue {
     }
   }
 
-  product: IProduct = {
-    cant: 1,
+  product: IProductForm = {
+    available_cant: 1,
     title: "",
     price: 0,
     images: [],
@@ -92,22 +92,30 @@ export default class NewProductView extends Vue {
     },
     tags: [],
     type: "",
+    department: "",
+    id: 0,
   };
   imagePreviewSrc: string | ArrayBuffer | null | undefined = null;
-  images: IImage[] = [];
+  images: TImage[] = [];
 
   stepper = 1;
 
-  category: TCategory = "automotriz";
+  category = "automotriz";
   CATEGORIES: IVSelectItem[] = [];
 
   get productPreview(): IProduct {
     return {
       title: this.product.title,
       price: this.product.price,
-      images: this.images,
+      image: {
+        id: 0,
+        paths: {
+          sm: this.imagePreviewSrc as string,
+        },
+      },
       weight: this.product.weight,
       description: this.product.description,
+      id: 0,
     };
   }
 
@@ -139,12 +147,7 @@ export default class NewProductView extends Vue {
         const fr = new FileReader();
         fr.onload = (e) => {
           _url = e.target?.result;
-          this.images.push({
-            title: name,
-            paths: {
-              sm: _url as string,
-            },
-          });
+          this.images.push(_url as TImage);
         };
         fr.readAsDataURL(files[i]);
       }

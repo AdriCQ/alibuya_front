@@ -8,13 +8,16 @@
       <!-- / Add to Cart -->
 
       <v-section class="mt-2">
-        <product-slider
+        <products-group
           v-if="suggestedProducts.length"
           title="Sugerencias"
           link
           :products="suggestedProducts"
-          :cards-props="{ maxWidth: '100%', flat: true, tile: true }"
-          :images-props="{ width: '100%', height: '100%' }"
+          advanced
+          with-rating
+          with-price
+          with-title
+          :max="8"
         />
       </v-section>
     </template>
@@ -29,8 +32,7 @@ import { ShopStore } from "@/store";
   components: {
     "add-to-cart-form": () =>
       import("@/components/forms/shop/AddToCartForm.vue"),
-    "product-slider": () =>
-      import("@/components/sliders/ProductsCollectionSlider.vue"),
+    "products-group": () => import("@/components/data/ProductsGroup.vue"),
   },
 })
 export default class ProductDetailsView extends Vue {

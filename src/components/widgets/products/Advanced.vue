@@ -6,10 +6,19 @@
       :card-props="cardProps"
       :link="link"
     >
-      <v-card-text>
+      <v-card-text v-if="withRating">
         <rating-star :rating="product.rating" sm />
-        <span class="mt-2">{{ product.title }}</span>
       </v-card-text>
+      <v-card-subtitle class="my-0 py-0" v-if="withPrice"
+        >${{ Number(product.price).toFixed(2) }}</v-card-subtitle
+      >
+
+      <v-card-subtitle class="my-0 py-0" v-if="withTitle">{{
+        product.title
+      }}</v-card-subtitle>
+      <v-card-subtitle class="my-0 py-0" v-if="withCant"
+        >{{ product.cant }} Piezas</v-card-subtitle
+      >
     </product-basic>
   </div>
 </template>
@@ -46,5 +55,10 @@ export default class AdvancedProductWidget extends Vue {
   })
   readonly imageProps!: object;
   @Prop({ type: Boolean, default: false }) readonly link!: boolean;
+  // Advanced
+  @Prop({ type: Boolean, default: true }) readonly withRating!: boolean;
+  @Prop({ type: Boolean, default: true }) readonly withTitle!: boolean;
+  @Prop({ type: Boolean, default: true }) readonly withPrice!: boolean;
+  @Prop({ type: Boolean, default: true }) readonly withCant!: boolean;
 }
 </script>

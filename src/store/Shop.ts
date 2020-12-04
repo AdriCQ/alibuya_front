@@ -1,6 +1,6 @@
 import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store/store';
-import { IProduct, TCategory, IDictionary, IProductPromotion, ISuggestedParams } from '@/types';
+import { IProduct, IDictionary, IProductPromotion, ISuggestedParams } from '@/types';
 import { ShopService } from '@/services';
 import { CATEGORIES } from '@/utils';
 @Module({ generateMutationSetters: true })
@@ -117,7 +117,7 @@ class ShopModule extends VuexModule {
    * Get Product by Id
    * @param _productId number
    */
-  async getProductsByCategory(_category: TCategory) {
+  async getProductsByCategory(_category: string) {
     try {
       const _resp = (await ShopService.getProductsByCategory(_category)).data;
       if (_resp.STATUS) {
@@ -143,30 +143,8 @@ class ShopModule extends VuexModule {
 
   getAllProducts() {
     for (const cat in CATEGORIES) {
-      this.getProductsByCategory(cat as TCategory);
+      this.getProductsByCategory(cat as string);
     }
-  }
-
-  /**
-   * Push product to shopgingCartProducts
-   * @param prod IProduct
-   */
-  addShoppingCartProduct(prod: IProduct, _cant = 1) {
-    this.shoppingCartProducts.push({
-      cant: _cant,
-      images: prod.images,
-      price: prod.price,
-      title: prod.title,
-      weight: prod.weight,
-      description: prod.description
-    })
-  }
-
-  /**
-   * Remove product from shopgingCartProducts
-   */
-  removeShoppingCartProduct(key: number) {
-    this.shoppingCartProducts.splice(key, 1);
   }
 
 }
