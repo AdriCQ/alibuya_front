@@ -28,6 +28,18 @@ export interface ICountry {
   name: string;
 }
 
+export interface IShopImage {
+  id: number;
+  tags?: string[];
+  paths: {
+    xs?: string;
+    sm?: string;
+    md?: string;
+    lg?: string;
+    xl?: string;
+  };
+}
+
 /**
  * -----------------------------------------
  * Vuetify

@@ -1,10 +1,12 @@
-import { IProductImage } from "@/types";
-
+import { IShopImage } from '@/types';
+/**
+ * Product image
+ */
 export class ProductImage {
-  private _images: IProductImage;
+  private _images: IShopImage;
   private _default = 'img/png/empty-cart.png';
 
-  constructor(images?: IProductImage) {
+  constructor(images?: IShopImage) {
     if (images) {
       this._images = images;
     }

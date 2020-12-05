@@ -8,7 +8,16 @@ class VendorModule extends VuexModule {
   vendor: IVendor = {
     id: 0,
     description: '',
-    image: {},
+    image: {
+      id: 0,
+      paths: {
+        xs: '',
+        sm: '',
+        md: '',
+        lg: '',
+        xl: ''
+      }
+    },
     title: '',
     tags: []
   }

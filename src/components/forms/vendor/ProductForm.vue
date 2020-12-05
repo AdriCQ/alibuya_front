@@ -63,27 +63,27 @@
 </template>
 
 <script lang='ts'>
-import { IProduct } from "@/types";
+import { IProduct, IProductForm } from "@/types";
 import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class ProductForm extends Vue {
-  beforeMount() {
-    if (this.product) {
-      this.form = this.product;
-    }
-  }
+  // TODO: Fix automount product
   @Prop(Boolean) readonly edit?: boolean;
   @Prop(Object) readonly product?: IProduct;
 
-  form: IProduct = {
+  form: IProductForm = {
     id: 0,
-    cant: 0,
+    type: "",
+    department: "",
     title: "",
     price: 0,
-    images: "",
-    weight: 0,
+    brand: "",
+    tax: 0,
     description: "",
+    available_cant: 0,
+    weight: 0,
+    options: {},
   };
 
   submit() {

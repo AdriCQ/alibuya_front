@@ -18,7 +18,6 @@
 
 <script lang='ts'>
 import { PackStore } from "@/store";
-import { IProduct } from "@/types";
 import { Vue, Component } from "vue-property-decorator";
 
 @Component({
@@ -30,18 +29,6 @@ export default class ShopPacksView extends Vue {
   iterator = 1;
   get packs() {
     return PackStore.packs;
-  }
-
-  addProduct() {
-    const product: IProduct = {
-      title: "Producto " + this.iterator,
-      price: this.iterator * 10,
-      images: "img/logos/logo_300x225.png",
-      weight: 250,
-      cant: 1,
-    };
-    PackStore.addProduct(product);
-    this.iterator++;
   }
 
   goToDetails(_key: number) {

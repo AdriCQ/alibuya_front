@@ -41,8 +41,8 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { CATEGORIES } from "@/utils/const";
-import { AppStore, PopupStore, ShopStore } from "@/store";
-import { IProduct, TCategory } from "@/types";
+import { AppStore, ShopStore } from "@/store";
+import { IProduct } from "@/types";
 
 @Component({
   components: {
@@ -59,7 +59,7 @@ export default class ShopTag extends Vue {
   loadingCard = false;
 
   get tag() {
-    this.loadProducts(this.$route.params.tag as TCategory);
+    this.loadProducts(this.$route.params.tag as string);
     return this.$route.params.tag;
   }
 
@@ -77,7 +77,7 @@ export default class ShopTag extends Vue {
     return AppStore.lang;
   }
 
-  async loadProducts(_category: TCategory) {
+  async loadProducts(_category: string) {
     try {
       this.emptyInventary = false;
       this.loadingCard = true;

@@ -94,7 +94,7 @@ export default class DefaultProductWidget extends Vue {
   }
 
   get image() {
-    return new ProductImage(this.product.images);
+    return new ProductImage(this.product.image);
   }
 
   showProductDetails(product: IProduct) {

@@ -53,6 +53,9 @@
         <v-card-title>Productos </v-card-title>
         <products-group
           advanced
+          withTitle
+          withCant
+          withPrice
           :max="pack.products.length"
           :products="pack.products"
         />
@@ -67,7 +70,6 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component({
   components: {
-    "cant-input": () => import("@/components/forms/shop/ProductCantInput.vue"),
     "products-group": () => import("@/components/data/ProductsGroup.vue"),
   },
 })

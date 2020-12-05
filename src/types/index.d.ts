@@ -19,7 +19,7 @@ export * from './store/vendor';
 
 export * from './services';
 export * from './services/user';
-export * from './services/shop';
+export * from './services/product';
 export * from './services/vendor';
 
 

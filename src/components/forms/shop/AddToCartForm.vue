@@ -76,11 +76,11 @@
                 outlined
                 color="black"
                 dense
-                v-model="product.cant"
+                v-model="form.cant"
                 :items="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
               />
               <span class="ml-3 mt-2 text-subtitle-1">
-                Subtotal: ${{ Number(product.price * product.cant).toFixed(2) }}
+                Subtotal: ${{ Number(product.price * form.cant).toFixed(2) }}
               </span>
               <!-- / Cant -->
 
@@ -101,7 +101,7 @@
                     class="btn-primary-betha-gradient mb-2"
                     @click="addToPack"
                   >
-                    Empaquetar
+                    Añadir al Carrito
                   </v-btn>
                 </v-col>
                 <v-col cols="12" sm="auto">
@@ -123,8 +123,8 @@
 </template>
 
 <script lang='ts'>
-import { PackStore, PopupStore, ShopStore, UserStore } from "@/store";
-import { IColor, IProduct } from "@/types";
+import { PackStore, UserStore } from "@/store";
+import { IColor, IProductCart } from "@/types";
 import { ProductImage } from "@/utils";
 import { Vue, Component, Prop } from "vue-property-decorator";
 
@@ -141,7 +141,7 @@ export default class AddToCartForm extends Vue {
     this.form.color = this.colors[0].value;
   }
 
-  @Prop({ type: Object }) readonly product!: IProduct;
+  @Prop({ type: Object }) readonly product!: IProductCart;
 
   // personsInfo: TPackDestinationPerson[] = [];
 
@@ -216,30 +216,9 @@ export default class AddToCartForm extends Vue {
     return this.$vuetify.breakpoint.mdAndUp;
   }
 
-  addToCart() {
-    if (this.isValid) {
-      ShopStore.addShoppingCartProduct(
-        this.product as IProduct,
-        this.form.cant
-      );
-      this.form.cant = 1;
-      PopupStore.addNotification(
-        [
-          "Producto añadido al carrito correctamente",
-          "Presione aquí para ver más detalles",
-        ],
-        "success",
-        5000,
-        {
-          name: "shop.cart",
-        }
-      );
-    }
-  }
-
   addToPack() {
     // TODO: Validate
-    this.product.cant = this.form.cant;
+    this.product.cart_cant = this.form.cant;
     PackStore.addProduct(this.product);
     this.form.cant = 1;
   }

@@ -1,11 +1,13 @@
-import { ILinkIconLabel } from '@/types';
+import { ILinkIconLabel, IShopImage } from '@/types';
 
 /**
  * -----------------------------------------
  * Products
  * -----------------------------------------
  */
-
+/**
+ * Iproduct
+ */
 export interface IProduct {
   id: number;
   title: string;
@@ -13,32 +15,34 @@ export interface IProduct {
   tax?: number;
   description?: string;
   price: number;
-  images?: IProductImage[];
-  image?: IProductImage;
+  images?: IShopImage[];
+  image?: IShopImage;
   weight?: number;
   options?: IProductOptions;
   tags?: TCategory[] | string[];
   rating?: number;
   suggested?: boolean;
-  cant?: number;
+  available_cant?: number;
   type?: string;
 }
+
 /**
- * 
+ * Iproduct options
  */
 export interface IProductOptions {
   colors?: string[];
   sizes?: string[];
 }
 /**
- * 
+ * Iproduct type
  */
 export interface IProductType {
   id?: number;
-  name: string;
+  title: string;
+  tag: string;
 }
 /**
- * 
+ * Iproduct category
  */
 export interface IProductCategory extends ILinkIconLabel {
   id?: number;
@@ -50,32 +54,28 @@ export interface IProductCategory extends ILinkIconLabel {
   image: string;
 }
 /**
- * 
+ * Iproduct cart
+ */
+export interface IProductCart extends IProduct {
+  cart_cant: number;
+}
+
+/**
+ * Iproducts pack
  */
 export interface IProductsPack {
   title: string;
   products: IProduct[];
   weight: number;
   price: number;
-  cant?: number;
+  cant: number;
   destinataries?: TPackDestinationPerson[];
 }
 
-export type TCategory = 'clothes' | 'automotriz' | 'cell' | 'home' | 'child' | 'health' | 'market';
-
+/**
+ * Iproduct promotion
+ */
 export interface IProductPromotion {
   title: string;
   products: IProduct[];
-}
-
-export interface IProductImage {
-  id: number;
-  tags?: string[];
-  paths: {
-    xs?: string;
-    sm?: string;
-    md?: string;
-    lg?: string;
-    xl?: string;
-  };
 }

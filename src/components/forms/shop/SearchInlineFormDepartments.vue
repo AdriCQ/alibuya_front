@@ -57,7 +57,7 @@
 <script lang='ts'>
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 
-import { IVSelectItem, TCategory } from "@/types";
+import { IVSelectItem } from "@/types";
 import { CATEGORIES } from "@/utils";
 import { AppStore } from "@/store";
 
@@ -78,14 +78,14 @@ export default class SearchInlineFormDepartments extends Vue {
     }
   }
 
-  @Prop(String) readonly activeDepartment!: TCategory;
+  @Prop(String) readonly activeDepartment!: string;
 
   search = "";
-  department: TCategory = "automotriz";
+  department = "automotriz";
   departments: IVSelectItem[] = [];
 
   @Watch("activeDepartment")
-  onActiveDepartmentChange(_to: TCategory) {
+  onActiveDepartmentChange(_to: string) {
     this.department = _to;
   }
 
