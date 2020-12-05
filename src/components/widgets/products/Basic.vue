@@ -1,97 +1,63 @@
 <template>
-  <v-card class="basic-product-widget" :class="[cardClass]" v-bind="cardProps">
-    <v-card-title v-if="title || !!$slots['title']" class="pa-2">
+  <v-card :ripple="false" v-bind="cardProps" :class="cardClass">
+    <v-card-title v-if="product.title || !!$slots['title']" class="py-2">
       <slot name="title">
         <span>
-          {{ title }}
+          {{ product.title }}
         </span>
       </slot>
 
       <slot name="title-right" />
     </v-card-title>
 
-    <v-img
-      :src="productImage"
-      :alt="product.title"
-      max-width="100%"
-      v-bind="imageProps"
-      class="mx-auto"
-      @click="imgClick"
-    />
+    <v-card-text>
+      <v-img
+        :src="image"
+        :alt="product.title"
+        v-bind="imageProps"
+        :class="imgClass"
+        @click="imageClick"
+      />
+    </v-card-text>
 
-    <slot />
-
-    <v-card-actions v-if="!!$slots['actions']">
+    <v-card-actions v-if="!!$slots['actions']" class="px-4 py-4">
       <slot name="actions" />
     </v-card-actions>
   </v-card>
 </template>
 
 <script lang='ts'>
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
+import ProductBaseClass from "@/services/mixins";
 import { IProduct } from "@/types";
 
+/**
+ * TODO:
+ * En caso de que el title del producto sea muy largo los productos varian la altura en la que se muestan
+ */
+
 @Component
-export default class BasicProductWidget extends Vue {
-  @Prop({ type: String, default: "" }) readonly title!: string;
-  @Prop({ type: Boolean, default: false }) readonly link!: boolean;
+export default class BasicProductWidget extends ProductBaseClass {
   @Prop({
     type: Object,
-    default: () => {
-      return {
-        title: "",
-        images: "",
-      };
-    },
+    required: true,
   })
   readonly product!: IProduct;
+  get image() {
+    return this.product.image?.paths.xs;
+  }
 
-  // props to children
-  @Prop({
-    type: Object,
-  })
-  readonly imageProps!: object;
-
-  @Prop({
-    type: Object,
-    default: () => {
-      return { maxWidth: "200" };
-    },
-  })
-  readonly cardProps!: object;
+  get imgClass() {
+    return ["mx-auto", { "cursor-pointer": this.link }];
+  }
 
   get cardClass() {
-    const res = [];
-    // TODO: some typescript error
-    if (this.cardProps && this.cardProps.class) res.push(this.cardProps.class);
-    if (this.link) res.push("cursor-pointer");
-
-    return res;
+    return ["basic-product-widget"];
   }
 
-  get productImage() {
-    // handle image
-    return "img/png/empty-cart.png";
-  }
-
-  private showProductDetails(product: IProduct) {
-    if (product.id) {
-      if (this.$route.name !== "shop.details")
-        this.$router.push({
-          name: "shop.details",
-          query: {
-            productId: product.id.toString(),
-          },
-        });
-    }
-  }
-
-  /**
-   *
-   */
-  imgClick() {
+  imageClick() {
     if (this.link) {
-      this.showProductDetails(this.product);
+      this.showProductDetails(this.product.id);
     }
   }
 }

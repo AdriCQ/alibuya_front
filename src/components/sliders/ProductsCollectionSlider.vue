@@ -12,21 +12,21 @@
       :slidesToScroll="1"
     >
       <template #prevArrow>
-        <v-btn color="white" class="black--text" fab x-small>
+        <v-btn color="secondary lighten-2" dark fab x-small>
           <v-icon> mdi-arrow-left</v-icon>
         </v-btn>
       </template>
 
       <template #nextArrow>
-        <v-btn color="white" class="black--text" fab x-small>
+        <v-btn color="secondary lighten-2" dark fab x-small>
           <v-icon> mdi-arrow-right</v-icon>
         </v-btn>
       </template>
 
       <div v-for="(product, key) in products" :key="`slider-item-${key}`">
         <product-basic
-          :card-props="cardsProps"
-          :image-props="imagesProps"
+          :card-props="cardProps"
+          :image-props="imageProps"
           :product="product"
           :link="link"
           class="mx-auto"
@@ -37,29 +37,19 @@
 </template>
 
 <script lang='ts'>
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
 // types
 import { IProduct } from "@/types";
+import ProductBaseClass from "@/services/mixins";
 
 @Component({
   components: {
     "product-basic": () => import("@/components/widgets/products/Basic.vue"),
   },
 })
-export default class ProductsCollectionSlider extends Vue {
+export default class ProductsCollectionSlider extends ProductBaseClass {
   @Prop({ type: Array, required: true }) readonly products!: IProduct[];
-  // props to children
-  @Prop({
-    type: Object,
-    default: () => {
-      return { maxWidth: "200" };
-    },
-  })
-  readonly cardsProps!: object;
-  @Prop(Object) readonly imagesProps!: object;
-
   @Prop(String) readonly title!: string;
-  @Prop({ type: Boolean, default: false }) readonly link!: boolean;
 
   // breakpoints
   get xs() {
