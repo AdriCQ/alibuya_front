@@ -33,10 +33,11 @@
             on-icon="mdi-check-circle"
             off-icon="mdi-circle-outline"
             v-model="showPassword"
+            dense
             class="no-hint"
           >
             <template v-slot:label>
-              <span class="black--text">Mostrar contraseña. </span>
+              <span class="black--text text-body-2">Mostrar contraseña </span>
             </template>
           </v-checkbox>
 

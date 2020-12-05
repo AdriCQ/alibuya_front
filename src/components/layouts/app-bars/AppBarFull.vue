@@ -61,7 +61,7 @@
 
         <v-btn
           :icon="!smAndUp"
-          v-bind="buttonSize"
+          v-bind="!smAndUp ? buttonSize : undefined"
           text
           @click="goToRoute('shop.cart')"
           class="ml-2 mr-2"
@@ -101,9 +101,9 @@
             link
             :to="dep.to"
           >
-            <b class="text-transform-none">
+            <span class="text-transform-none">
               {{ dep.labelLang[appLang] }}
-            </b>
+            </span>
           </v-tab>
         </template>
         <!-- / CATEGORIES_PLUS -->
@@ -137,18 +137,18 @@ import { AppStore, UserStore, PackStore } from "@/store";
 export default class AppBarFull extends Vue {
   // states in breakpoints
   get tabsHeight() {
-    return this.smAndUp ? 38 : 33;
+    return this.smAndUp ? 34 : 28;
   }
 
   get buttonSize() {
     return {
-      width: this.smAndUp ? undefined : 33,
-      height: this.smAndUp ? undefined : 33,
+      width: this.smAndUp ? 40 : 33,
+      height: this.smAndUp ? 40 : 33,
     };
   }
 
   get iconSize() {
-    return this.smAndUp ? 25 : 22;
+    return this.smAndUp ? 24 : 22;
   }
 
   /**

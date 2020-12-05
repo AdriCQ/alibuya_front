@@ -28,7 +28,7 @@ export default class SearchInlineProduct extends Vue {
   @Prop({ type: Boolean, default: false }) readonly small!: boolean;
 
   get btnHeight() {
-    return this.small ? 35 : 38;
+    return this.small ? 32 : 38;
   }
 }
 </script>

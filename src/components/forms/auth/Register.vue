@@ -67,11 +67,7 @@
             dense
             @change="$v.form.password_confirmation.$touch()"
           />
-        </v-col>
-      </v-row>
 
-      <v-row no-gutters>
-        <v-col cols="12" class="mb-2">
           <!-- Toggle show password -->
           <v-checkbox
             on-icon="mdi-check-circle"
@@ -81,7 +77,7 @@
             class="no-hint"
           >
             <template v-slot:label>
-              <span class="black--text">Mostrar contraseñas. </span>
+              <span class="black--text text-body-2">Mostrar contraseñas </span>
             </template>
           </v-checkbox>
           <!-- / Toggle show password -->
@@ -104,7 +100,7 @@
           </v-col>
 
           <v-col cols="auto" class="mt-3 text-body-1">
-            Si registra un usuario, usted acepta los
+            Si registra usuario, usted acepta los
             <span
               class="blue--text text--darken-2 cursor-pointer"
               @click="showTerms"

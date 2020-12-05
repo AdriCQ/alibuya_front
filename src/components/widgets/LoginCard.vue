@@ -1,25 +1,23 @@
 <template>
   <div>
-    <v-card light>
-      <v-card-text class="pb-0">
-        <p class="text-center title black--text">
-          Inicia sesión para vivir tu mejor experiencia
-        </p>
-      </v-card-text>
-      <v-card-text class="mt-0">
+    <v-card>
+      <v-card-title>
+        Inicia sesión para vivir tu mejor experiencia
+      </v-card-title>
+      <v-card-text>
         <v-btn
+          color="primaryAlpha"
           block
-          class="btn-primary-alpha-gradient"
-          @click="openAuthPopup('login')"
+          class="btn-primary-alpha-gradient text-transform-none mb-2"
+          @click="$router.push({ name: 'auth.login' })"
         >
           Iniciar Sesión
         </v-btn>
-        <p
-          class="black--text pt-2 cursor-pointer"
-          @click="openAuthPopup('register')"
+        <span
+          class="blue--text text--darken-2 cursor-pointer text-body-1"
+          @click="$router.push({ name: 'auth.register' })"
+          >Registrar cuenta</span
         >
-          Registrar Cuenta
-        </p>
       </v-card-text>
     </v-card>
   </div>
