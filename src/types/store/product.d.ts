@@ -38,20 +38,37 @@ export interface IProductOptions {
  */
 export interface IProductType {
   id?: number;
-  title: string;
+  title: {
+    en?: string;
+    es?: string;
+  };
   tag: string;
+  rating?: number;
 }
-/**
- * Iproduct category
- */
-export interface IProductCategory extends ILinkIconLabel {
-  id?: number;
+
+export interface IProductTypeLink extends ILinkIconLabel {
+  tag: string;
   labelLang: {
     es?: string;
     en?: string;
   };
+}
+
+/**
+ * Iproduct category
+ */
+export interface IProductCategory { 
+  id?: number;
+  title: {
+    en?: string;
+    es?: string;
+  };
+  tag: string;
+  rating?: number;
   types?: IProductType[];
-  image: string;
+}
+export interface IProductCategoryLink extends IProductTypeLink {
+  types?: IProductTypeLink[];  
 }
 /**
  * Iproduct cart
@@ -70,12 +87,4 @@ export interface IProductsPack {
   price: number;
   cant: number;
   destinataries?: TPackDestinationPerson[];
-}
-
-/**
- * Iproduct promotion
- */
-export interface IProductPromotion {
-  title: string;
-  products: IProduct[];
 }

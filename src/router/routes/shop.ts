@@ -58,9 +58,17 @@ export const shopRoutes: RouteConfig = {
     },
 
     {
-      name: 'shop.tags',
-      path: 'tag/:tag',
-      component: () => import('@/views/shop/Tag.vue'),
+      name: 'shop.category',
+      path: 'category',
+      component: () => import('@/views/shop/Category.vue'),
+      meta: {
+        title: 'Tienda'
+      }
+    },
+    {
+      name: 'shop.type',
+      path: 'type',
+      component: () => import('@/views/shop/Type.vue'),
       meta: {
         title: 'Tienda'
       }
