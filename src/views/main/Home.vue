@@ -1,5 +1,5 @@
 <template>
-  <div id="main-home" class="view-container">
+  <div id="main-home">
     <!-- banner Carousel -->
     <banner-carousel />
     <!-- / banner Carousel -->
