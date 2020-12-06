@@ -5,7 +5,7 @@
     <!-- / banner Carousel -->
 
     <!-- Suggested Products -->
-    <v-section class="mt-3">
+    <v-section>
       <v-row>
         <v-col cols="12" sm="6" lg="4" xl="3" v-if="!isLogged">
           <login-card />

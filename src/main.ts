@@ -7,6 +7,8 @@ import vuetify from "./plugins/vuetify";
 import axios from "axios";
 import { UserStore } from "./store/User";
 import Vuelidate from "vuelidate";
+import { SERVER_URL } from '@/utils';
+
 // SCSS
 require("@/assets/scss/main.scss");
 
@@ -29,8 +31,7 @@ axios.defaults.timeout = 600000;
  * AXIOS interceptor to inject authentication into requests
  */
 axios.interceptors.request.use((request) => {
-  // request.baseURL = "http://alibuya.net/api/public";
-  request.baseURL = 'http://localhost:8000';
+  request.baseURL = SERVER_URL;
   /* Append content type header if its not present */
   if (!request.headers["Content-Type"]) {
     request.headers["Content-Type"] = "application/json";

@@ -1,0 +1,13 @@
+#main-home {
+  @media #{map-get($display-breakpoints, 'sm-and-down')} {
+    margin-top: 8rem;
+  }
+
+  @media #{map-get($display-breakpoints, 'md-and-up')} {
+    margin-top: 6rem;
+  }
+
+  .suggested-title {
+    color: black !important;
+  }
+}

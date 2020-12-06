@@ -59,9 +59,8 @@ import { LANG, WEB_PAGES } from "@/utils";
 
 @Component
 export default class AppSidebarLeft extends Vue {
-
-  get categories(){
-    return ShopStore.categoriesLink
+  get categories() {
+    return ShopStore.categoriesLink;
   }
 
   get pages() {
@@ -114,8 +113,10 @@ export default class AppSidebarLeft extends Vue {
     }
   }
 
-  goto(_r: any){
-    this.$router.push(_r);
+  goto(_r: any) {
+    if (_r.name !== this.$route.name && _r.query !== this.$route.query) {
+      this.$router.push(_r);
+    }
   }
 }
 </script>

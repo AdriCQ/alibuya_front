@@ -1,1 +1,1 @@
-export type TLang = 'es' | 'en' | 'de' | 'cn' | 'fr' | 'hu';
+export type TLang = 'es' | 'en';

@@ -19,8 +19,19 @@ class ShopModule extends VuexModule {
   /**
    * Gets categories link
    */
-  get categoriesLink(): IProductCategoryLink[]{
-    const links: IProductCategoryLink[] = [];
+  get categoriesLink(): IProductCategoryLink[] {
+    const links: IProductCategoryLink[] = [
+      {
+        labelLang: {
+          es: "Todos",
+          en: "All",
+        },
+        tag: 'all',
+        to: {
+          name: 'shop.home'
+        }
+      }
+    ];
     this.categories.forEach((cat, key) => {
       // Types
       const types: IProductTypeLink[] = [];
@@ -31,7 +42,8 @@ class ShopModule extends VuexModule {
           to: {
             name: 'shop.type',
             query: {
-              type: tKey.toString()
+              type: tKey.toString(),
+              category: key
             }
           }
         });
@@ -146,6 +158,34 @@ class ShopModule extends VuexModule {
           this.products[_category] = [];
         }
         this.products[_category] = _resp.DATA.data;
+      } else {
+        const errors: string[] = [];
+        for (const _key in _resp.ERRORS as unknown[]) {
+          errors.push(_resp.ERRORS[_key]);
+        }
+        throw errors;
+      }
+    }
+    catch (error) {
+      if (Array.isArray(error))
+        throw error;
+      else
+        throw [error]
+    }
+  }
+
+  /**
+   * Get Product by Type
+   * @param _productId number
+   */
+  async getProductsByType(_type: string) {
+    try {
+      const _resp = (await ShopService.getProductsByType(_type)).data;
+      if (_resp.STATUS) {
+        if (!this.products[_type]) {
+          this.products[_type] = [];
+        }
+        this.products[_type] = _resp.DATA.data;
       } else {
         const errors: string[] = [];
         for (const _key in _resp.ERRORS as unknown[]) {

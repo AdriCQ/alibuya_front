@@ -16,7 +16,10 @@ $font-size: 0.8rem;
       margin-right: 8px !important;
     }
     .v-tabs:first-child {
-      margin-left: -48px !important;
+      margin-left: -8px !important;
+      @media #{map-get($display-breakpoints, 'xs-only')} {
+        margin-left: -48px !important;
+      }
     }
   }
 

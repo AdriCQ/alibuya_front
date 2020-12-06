@@ -30,6 +30,7 @@
 import { Component, Prop } from "vue-property-decorator";
 import ProductBaseClass from "@/services/mixins";
 import { IProduct } from "@/types";
+import { ProductImage } from "@/utils";
 
 /**
  * TODO:
@@ -44,7 +45,7 @@ export default class BasicProductWidget extends ProductBaseClass {
   })
   readonly product!: IProduct;
   get image() {
-    return this.product.image?.paths.xs;
+    return new ProductImage(this.product.image);
   }
 
   get imgClass() {

@@ -91,24 +91,30 @@
     </div>
 
     <template v-slot:extension>
-      <v-tabs :height="tabsHeight" optional centered id="app-bar-tabs">
+      <v-tabs
+        :height="tabsHeight"
+        :show-arrows="$vuetify.breakpoint.smAndUp"
+        optional
+        centered
+        id="app-bar-tabs"
+      >
         <!-- CATEGORIES_PLUS -->
-        <!-- <template v-if="typeTabs === 'CATEGORIES_PLUS'">
+        <template v-if="typeTabs === 'CATEGORIES_PLUS'">
           <v-tab
-            v-for="(dep, key) in categories"
+            v-for="(cat, key) in categories"
             :key="key"
             exact
             link
-            :to="dep.to"
+            :to="cat.to"
           >
             <span class="text-transform-none">
-              {{ dep.labelLang[appLang] }}
+              {{ cat.labelLang[appLang] }}
             </span>
           </v-tab>
-        </template> -->
+        </template>
         <!-- / CATEGORIES_PLUS -->
 
-        <!-- <template v-else>
+        <template v-else>
           <v-tab
             v-for="(link, key) in vendorPages"
             :key="key"
@@ -118,7 +124,7 @@
           >
             {{ link.label }}
           </v-tab>
-        </template> -->
+        </template>
       </v-tabs>
     </template>
   </v-app-bar>
@@ -126,7 +132,8 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { VENDOR_PAGES } from "@/utils/const";
-import { AppStore, UserStore, PackStore, ShopStore } from '@/store';
+import { AppStore, UserStore, PackStore, ShopStore } from "@/store";
+import { Dictionary } from "vue-router/types/router";
 
 @Component({
   components: {
@@ -151,8 +158,8 @@ export default class AppBarFull extends Vue {
     return this.smAndUp ? 24 : 22;
   }
 
-  get categories(){
-    return ShopStore.categories;
+  get categories() {
+    return ShopStore.categoriesLink;
   }
 
   get vendorPages() {
@@ -205,9 +212,12 @@ export default class AppBarFull extends Vue {
   /**
    *
    */
-  goToRoute(_name: string) {
-    if (this.$route.name !== _name) {
-      this.$router.push({ name: _name });
+  goToRoute(_name: string, _query: Dictionary<string> = {}) {
+    if (this.$route.name !== _name && _query !== this.$route.query) {
+      this.$router.push({
+        name: _name,
+        query: _query,
+      });
     }
   }
 

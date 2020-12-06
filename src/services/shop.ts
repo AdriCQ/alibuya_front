@@ -60,4 +60,15 @@ export class ShopService {
       params: _params
     });
   }
+
+  /**
+   * Get products by Type
+   */
+  static getProductsByType(_params: string): ApiResponsePaginated<IProduct[]> {
+    return axios.get(this.baseUrl + '/category/type/products', {
+      params: {
+        "type": _params
+      }
+    })
+  }
 }

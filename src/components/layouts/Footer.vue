@@ -3,7 +3,10 @@
     <v-container>
       <v-row justify="space-around">
         <v-col
-          cols="auto"
+          xs="12"
+          sm="6"
+          md="4"
+          lg="3"
           v-for="(group, gKey) in footerLinks"
           :key="`group-${gKey}`"
         >
@@ -22,34 +25,6 @@
                   dense
                   :to="link.to"
                 >
-                  <v-list-item-content>
-                    <v-list-item-title> {{ link.label }} </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-            </div>
-          </div>
-        </v-col>
-
-        <v-col cols="auto">
-          <div class="contact-banners mx-auto">
-            <div class="links">
-              <h4 class="title text-center">Contáctenos</h4>
-              <v-list
-                color="secondary"
-                class="mx-auto mx-md-0"
-                subheader
-                dense
-                dark
-              >
-                <v-list-item
-                  v-for="(link, key) in contactLinks"
-                  :key="key"
-                  dense
-                >
-                  <v-list-item-icon>
-                    <v-icon color="light" size="22">{{ link.icon }}</v-icon>
-                  </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title> {{ link.label }} </v-list-item-title>
                   </v-list-item-content>
@@ -87,33 +62,54 @@
 import { Vue, Component } from "vue-property-decorator";
 import { ILinkIconLabel } from "@/types";
 import { WEB_PAGES } from "@/utils";
+import { AppStore, ShopStore } from "@/store";
 
 @Component
 export default class AppFooter extends Vue {
   icons = ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"];
 
   get footerLinks(): Array<ILinkIconLabel[]> {
-    return [
-      WEB_PAGES,
-      // Row 2
-      [
-        {
-          label: "Empieza a Vender",
-          to: { name: "vendor.home" },
-        },
-        {
-          label: "Afiliados",
-          to: { name: "vendor.home" },
-        },
-      ],
-    ];
+    const allLinks: Array<ILinkIconLabel[]> = [];
+    allLinks.push(WEB_PAGES);
+    ShopStore.categoriesLink.forEach((cat, cKey) => {
+      const tempLink: ILinkIconLabel[] = [];
+      if (cKey > 0) {
+        tempLink.push({
+          label: cat.labelLang[this.appLang],
+          to: {
+            name: "shop.category",
+            query: {
+              category: cat.tag,
+            },
+          },
+        });
+        cat.types?.forEach((type) => {
+          tempLink.push({
+            label: type.labelLang[this.appLang],
+            to: {
+              name: "shop.type",
+              query: {
+                type: type.tag,
+              },
+            },
+          });
+        });
+        allLinks.push(tempLink);
+      }
+    });
+    return allLinks;
   }
+
   get contactLinks() {
     return [
       { icon: "mdi-chat", label: "chat.alibuya" },
       { icon: "mdi-mail", label: "correo.alibuya.com" },
       { icon: "mdi-phone", label: "+1 (844) 777 0122" },
     ];
+  }
+
+  get appLang() {
+    return AppStore.lang;
   }
 }
 </script>

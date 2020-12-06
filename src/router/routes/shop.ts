@@ -8,7 +8,7 @@ export const shopRoutes: RouteConfig = {
     {
       name: 'shop.home',
       path: '',
-      component: () => import('@/views/shop/Shop.vue'),
+      component: () => import('@/views/shop/All.vue'),
       meta: {
         title: 'Tienda'
       }
