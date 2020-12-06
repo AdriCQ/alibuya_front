@@ -1,67 +1,88 @@
 import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store/store';
-import { IProduct, IDictionary, IProductPromotion, ISuggestedParams } from '@/types';
+import { IProduct, IDictionary, ISuggestedParams, IProductCategoryLink, IProductCategory, IProductTypeLink } from '@/types';
 import { ShopService } from '@/services';
-import { CATEGORIES } from '@/utils';
+import Storage from '@/utils/Storage';
+
+const storage = new Storage("shopStorage");
+
+/**
+ * Module Shop
+ */
 @Module({ generateMutationSetters: true })
 class ShopModule extends VuexModule {
-  _suggestedProducts: IProduct[] = [];
-  _products: IDictionary<IProduct[]> = {};
-  _productTypes: string[] = [];
-  _productsPromotion: IProductPromotion[] | null = null;
-
-  shoppingCartProducts: IProduct[] = [];
-
+  categories: IProductCategory[] = [];
+  suggestedProducts: IProduct[] = [];
+  products: IDictionary<IProduct[]> = {};
   productDetails: IProduct | null = null;
 
   /**
-   * Gets all products
+   * Gets categories link
    */
-  get allProducts() {
-    return this._products;
+  get categoriesLink(): IProductCategoryLink[]{
+    const links: IProductCategoryLink[] = [];
+    this.categories.forEach((cat, key) => {
+      // Types
+      const types: IProductTypeLink[] = [];
+      cat.types?.forEach((type, tKey) => {
+        types.push({
+          labelLang: type.title,
+          tag: type.tag,
+          to: {
+            name: 'shop.type',
+            query: {
+              type: tKey.toString()
+            }
+          }
+        });
+      });
+      // Links
+      links.push({
+        labelLang: cat.title,
+        tag: cat.tag,
+        types: types,
+        to: {
+          name: 'shop.category',
+          query: {
+            category: key.toString()
+          }
+        }
+      })
+    })
+    return links;
   }
 
   /**
-   * Gets suggested products
+   * Startups shop module
    */
-  get suggestedProducts() {
-    return this._suggestedProducts;
+  async startup() {
+    this.loadFromLocalStorage();
+    await this.loadCategories();
   }
 
   /**
-   * Gets shopping cart counter
+   * Loads categories
    */
-  get shoppingCartCounter() {
-    return this.shoppingCartProducts.length;
-  }
-
-  /**
-   * Gets product types
-   */
-  get productTypes() {
-    return this._productTypes;
-  }
-
-
-  /**
-   * Gets products counter
-   */
-  get productsCounter() {
-    return this.shoppingCartProducts.length;
-  }
-
-  /**
-   * Gets count all
-   */
-  get countAll() {
-    return this.productsCounter;
-  }
-
-  /**
-   * Gets products promotion
-   */
-  get productsPromotion() {
-    return this._productsPromotion;
+  async loadCategories() {
+    try {
+      const _resp = (await ShopService.getCategories()).data;
+      if (_resp.STATUS) {
+        this.categories = _resp.DATA;
+        this.storeOnLocalStorage();
+      } else {
+        const errors: string[] = [];
+        for (const _key in _resp.ERRORS as unknown[]) {
+          errors.push(_resp.ERRORS[_key]);
+        }
+        throw errors;
+      }
+    }
+    catch (error) {
+      if (Array.isArray(error))
+        throw error;
+      else
+        throw [error]
+    }
   }
 
   /**
@@ -71,7 +92,7 @@ class ShopModule extends VuexModule {
     try {
       const _resp = (await ShopService.suggested(_params)).data;
       if (_resp.STATUS) {
-        this._suggestedProducts = _resp.DATA.data;
+        this.suggestedProducts = _resp.DATA.data;
       } else {
         const errors: string[] = [];
         for (const _key in _resp.ERRORS as unknown[]) {
@@ -121,10 +142,10 @@ class ShopModule extends VuexModule {
     try {
       const _resp = (await ShopService.getProductsByCategory(_category)).data;
       if (_resp.STATUS) {
-        if (!this._products[_category]) {
-          this._products[_category] = [];
+        if (!this.products[_category]) {
+          this.products[_category] = [];
         }
-        this._products[_category] = _resp.DATA.data;
+        this.products[_category] = _resp.DATA.data;
       } else {
         const errors: string[] = [];
         for (const _key in _resp.ERRORS as unknown[]) {
@@ -141,9 +162,18 @@ class ShopModule extends VuexModule {
     }
   }
 
-  getAllProducts() {
-    for (const cat in CATEGORIES) {
-      this.getProductsByCategory(cat as string);
+  storeOnLocalStorage() {
+    storage.store({
+      categories: this.categories
+    })
+  }
+
+  loadFromLocalStorage() {
+    const _storage = storage.get();
+    if (_storage) {
+      if (_storage.categories) {
+        this.categories = _storage.categories;
+      }
     }
   }
 

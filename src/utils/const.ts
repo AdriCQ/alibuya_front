@@ -1,4 +1,4 @@
-import { ILinkIconLabel, IDictionary, IProductCategory } from '@/types';
+import { ILinkIconLabel } from '@/types';
 
 export const LANG = [
   { label: 'Español', flag: 'images/flags/es.png', tag: 'es' },
@@ -8,102 +8,6 @@ export const LANG = [
   // { label: 'Fran', flag: 'images/flags/fr_x128.png', tag: 'fr' },
   // { label: 'Fran', flag: 'images/flags/hu_x128.png', tag: 'hu' },
 ];
-
-export const CATEGORIES: IDictionary<IProductCategory> = {
-  clothes: {
-    image: 'img/categories/clothes_x128.png',
-    types: [],
-    icon: 'mdi-hanger',
-    labelLang: { es: 'Ropas' },
-    to: {
-      name: 'shop.tags',
-      params: { tag: 'clothes' }
-    }
-  },
-
-  home: {
-    image: 'img/categories/home_x128.png',
-    types: [],
-    icon: 'mdi-home',
-    labelLang: { es: 'Hogar' },
-    to: {
-      name: 'shop.tags',
-      params: { tag: 'home' }
-    }
-  },
-
-  pets: {
-    image: 'img/categories/pets_x128.png',
-    types: [],
-    icon: 'mdi-medical-bag',
-    labelLang: { es: 'Mascotas' }, to: {
-      name: 'shop.tags',
-      params: { tag: 'pets' }
-    }
-  },
-
-  health: {
-    image: 'img/categories/health_x128.png',
-    types: [],
-    icon: 'mdi-medical-bag',
-    labelLang: { es: 'Salud' }, to: {
-      name: 'shop.tags',
-      params: { tag: 'health' }
-    }
-  },
-
-  tools: {
-    image: 'img/categories/tools_x128.png',
-    types: [],
-    icon: 'mdi-medical-bag',
-    labelLang: { es: 'Ferretería' }, to: {
-      name: 'shop.tags',
-      params: { tag: 'tools' }
-    }
-  },
-  automotriz: {
-    image: 'img/categories/auto_x128.png',
-    types: [],
-    icon: 'mdi-car',
-    labelLang: { es: 'Automotriz' },
-    to: {
-      name: 'shop.tags',
-      params: { tag: 'automotriz' }
-    }
-  },
-  cell: {
-    image: 'img/categories/phone_x128.png',
-    types: [],
-    icon: 'mdi-cellphone-android',
-    labelLang: { es: 'Celulares' },
-    to: {
-      name: 'shop.tags',
-      params: { tag: 'cell' }
-    }
-  },
-  kids: {
-    image: 'img/categories/kid_x128.png',
-    types: [],
-    icon: 'mdi-human-child',
-    labelLang: { es: 'Niños' },
-    to: {
-      name: 'shop.tags',
-      params: { tag: 'kids' }
-    }
-  },
-}
-
-const _dep = {
-  all: {
-    icon: 'mdi-hanger',
-    labelLang: { es: 'Todos' },
-    to: {
-      name: 'shop.home',
-    }
-  },
-  ...CATEGORIES,
-};
-export const CATEGORIES_PLUS = _dep;
 
 export const WEB_PAGES: ILinkIconLabel[] = [
   {

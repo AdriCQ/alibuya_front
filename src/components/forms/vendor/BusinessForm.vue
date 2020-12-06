@@ -81,7 +81,6 @@ import {
   IVSelectItem,
   IShopImage,
 } from "@/types";
-import { CATEGORIES } from "@/utils";
 import { Vue, Component, Prop } from "vue-property-decorator";
 
 import "quill/dist/quill.core.css";
@@ -143,12 +142,7 @@ export default class BusinessForm extends Vue {
 
   get allTypes() {
     const types: IVSelectItem[] = [];
-    for (const key in CATEGORIES) {
-      types.push({
-        text: CATEGORIES[key].labelLang.es ? CATEGORIES[key].labelLang.es : "",
-        value: key,
-      });
-    }
+    
     return types;
   }
 

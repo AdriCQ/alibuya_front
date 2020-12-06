@@ -71,8 +71,6 @@ import { IProduct } from "@/types";
 @Component({
   components: {
     "banner-carousel": () => import("@/components/sliders/BannerCarousel.vue"),
-    "category-slider": () =>
-      import("@/components/sliders/CategoriesSlider.vue"),
     "login-card": () => import("@/components/widgets/LoginCard.vue"),
     "products-group": () => import("@/components/data/ProductsGroup.vue"),
     "products-collection-slider": () =>

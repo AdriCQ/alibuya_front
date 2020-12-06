@@ -38,15 +38,12 @@
         </v-list-item-title>
       </v-list-item>
       <v-list-item
-        v-for="(link, dKey) in CATEGORIES_PLUS"
-        :key="`dep-${dKey}`"
+        v-for="(cat, catKey) in categories"
+        :key="`cat-${catKey}`"
         link
-        :to="link.to"
+        @click="goto(cat.to)"
       >
-        <!-- <v-list-item-icon>
-          <v-icon>{{ link.icon }}</v-icon>
-        </v-list-item-icon> -->
-        <v-list-item-title>{{ link.label }} </v-list-item-title>
+        <v-list-item-title>{{ cat.labelLang[appLang] }} </v-list-item-title>
       </v-list-item>
       <!-- / CATEGORIES_PLUS -->
     </v-list>
@@ -57,26 +54,15 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 
 import { Vue, Component } from "vue-property-decorator";
-import { AppStore, UserStore } from "@/store";
-import { ILinkIconLabel } from "@/types";
-import { CATEGORIES_PLUS, LANG, WEB_PAGES } from "@/utils";
+import { AppStore, ShopStore, UserStore } from "@/store";
+import { LANG, WEB_PAGES } from "@/utils";
 
 @Component
 export default class AppSidebarLeft extends Vue {
-  created() {
-    for (const key in CATEGORIES_PLUS) {
-      this.CATEGORIES_PLUS.push({
-        // @ts-ignore
-        icon: CATEGORIES_PLUS[key].icon,
-        // @ts-ignore
-        label: CATEGORIES_PLUS[key].labelLang[this.appLang],
-        // @ts-ignore
-        to: CATEGORIES_PLUS[key as keyof typeof CATEGORIES_PLUS].to,
-      });
-    }
-  }
 
-  CATEGORIES_PLUS: ILinkIconLabel[] = [];
+  get categories(){
+    return ShopStore.categoriesLink
+  }
 
   get pages() {
     return WEB_PAGES;
@@ -126,6 +112,10 @@ export default class AppSidebarLeft extends Vue {
     } else {
       this.$router.push({ name: "auth.login" });
     }
+  }
+
+  goto(_r: any){
+    this.$router.push(_r);
   }
 }
 </script>

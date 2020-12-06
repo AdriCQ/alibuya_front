@@ -93,9 +93,9 @@
     <template v-slot:extension>
       <v-tabs :height="tabsHeight" optional centered id="app-bar-tabs">
         <!-- CATEGORIES_PLUS -->
-        <template v-if="typeTabs === 'CATEGORIES_PLUS'">
+        <!-- <template v-if="typeTabs === 'CATEGORIES_PLUS'">
           <v-tab
-            v-for="(dep, key) in CATEGORIES_PLUS"
+            v-for="(dep, key) in categories"
             :key="key"
             exact
             link
@@ -105,10 +105,10 @@
               {{ dep.labelLang[appLang] }}
             </span>
           </v-tab>
-        </template>
+        </template> -->
         <!-- / CATEGORIES_PLUS -->
 
-        <template v-else>
+        <!-- <template v-else>
           <v-tab
             v-for="(link, key) in vendorPages"
             :key="key"
@@ -118,15 +118,15 @@
           >
             {{ link.label }}
           </v-tab>
-        </template>
+        </template> -->
       </v-tabs>
     </template>
   </v-app-bar>
 </template>
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { CATEGORIES_PLUS, VENDOR_PAGES } from "@/utils/const";
-import { AppStore, UserStore, PackStore } from "@/store";
+import { VENDOR_PAGES } from "@/utils/const";
+import { AppStore, UserStore, PackStore, ShopStore } from '@/store';
 
 @Component({
   components: {
@@ -151,12 +151,8 @@ export default class AppBarFull extends Vue {
     return this.smAndUp ? 24 : 22;
   }
 
-  /**
-   *
-   */
-
-  get CATEGORIES_PLUS() {
-    return CATEGORIES_PLUS;
+  get categories(){
+    return ShopStore.categories;
   }
 
   get vendorPages() {

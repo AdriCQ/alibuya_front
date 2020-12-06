@@ -5,10 +5,6 @@
         <!-- All Packs -->
         <v-col cols="12">
           <v-card>
-            <v-card-title>
-              <v-icon class="mr-1">{{ catIcon }}</v-icon>
-              Paquetes de {{ catName }}
-            </v-card-title>
             <!-- Brand Select -->
             <v-card-text>
               <v-select
@@ -136,7 +132,6 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { IProductsPack } from "@/types";
-import { CATEGORIES } from "@/utils/const";
 import { AppStore, PackStore, PopupStore, UserStore } from "@/store";
 
 @Component({
@@ -166,15 +161,7 @@ export default class ShopView extends Vue {
   get tag() {
     return this.$route.params.tag;
   }
-  get catName(): string {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    return CATEGORIES[this.tag].labelLang[this.appLang];
-  }
 
-  get catIcon() {
-    return CATEGORIES[this.tag].icon;
-  }
   /**
    *
    */

@@ -3,13 +3,13 @@
     min-height: 600px;
   }
 
-  margin-top: 6.5rem;
+  margin-top: 8.5rem;
 
-  @media #{map-get($display-breakpoints, 'sm-and-up')} {
-    margin-top: 7.5rem;
+  @media #{map-get($display-breakpoints, 'sm-and-down')} {
+    margin-top: 8.5rem;
   }
 
   @media #{map-get($display-breakpoints, 'md-and-up')} {
-    margin-top: 4.5rem;
+    margin-top: 5.5rem;
   }
 }

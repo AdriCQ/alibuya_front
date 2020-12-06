@@ -55,7 +55,7 @@ import { PackStore, ShopStore } from "@/store";
 })
 export default class ShoppingCartView extends Vue {
   get packCant() {
-    return ShopStore.shoppingCartProducts.length + PackStore.packs.length;
+    return PackStore.packs.length;
   }
 
   get suggestedProducts() {

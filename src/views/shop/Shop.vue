@@ -12,7 +12,6 @@
             <v-col class="ma-1">
               <v-card flat>
                 <products-group
-                  :title="categories[pgKey].labelLang.es"
                   :products="productGroup"
                   :images-props="{ maxWidth: 200, maxHeight: 200 }"
                   link
@@ -28,7 +27,6 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { CATEGORIES } from "@/utils";
 import { ShopStore } from "@/store";
 
 @Component({
@@ -37,12 +35,9 @@ import { ShopStore } from "@/store";
   },
 })
 export default class ShopHome extends Vue {
-  get categories() {
-    return CATEGORIES;
-  }
 
   get products() {
-    return ShopStore.allProducts;
+    return ShopStore.products;
   }
 }
 </script>

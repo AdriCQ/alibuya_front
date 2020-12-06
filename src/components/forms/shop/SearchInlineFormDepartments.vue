@@ -58,24 +58,12 @@
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 
 import { IVSelectItem } from "@/types";
-import { CATEGORIES } from "@/utils";
-import { AppStore } from "@/store";
 
 @Component
 export default class SearchInlineFormDepartments extends Vue {
   created() {
     this.department = this.activeDepartment;
-    for (const key in CATEGORIES) {
-      this.departments.push({
-        // TODO: Remove TS IGNORE
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        // @ts-ignore
-        text: CATEGORIES[key as keyof typeof CATEGORIES].labelLang[
-          AppStore.lang
-        ].toLocaleUpperCase(),
-        value: key,
-      });
-    }
+    
   }
 
   @Prop(String) readonly activeDepartment!: string;

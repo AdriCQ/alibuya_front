@@ -135,9 +135,8 @@
 </template>
 
 <script lang='ts'>
-import { CATEGORIES } from "@/utils";
 import { Vue, Component } from "vue-property-decorator";
-import { AppStore } from "@/store";
+import { ShopStore } from "@/store";
 import { IProductForm, IVSelectItem } from "@/types";
 
 import "quill/dist/quill.core.css";
@@ -152,21 +151,13 @@ import { quillEditor } from "vue-quill-editor";
   },
 })
 export default class NewProductForm extends Vue {
-  created() {
-    for (const key in CATEGORIES) {
-      this.departments.push({
-        // TODO: Remove TS IGNORE
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        // @ts-ignore
-        text: CATEGORIES[key as keyof typeof CATEGORIES].labelLang[
-          AppStore.lang
-        ].toLocaleUpperCase(),
-        value: key,
-      });
-    }
-  }
+  
   infinity = false;
   available = true;
+
+  get categories() {
+    return ShopStore.categories;
+  }
 
   editorOption = {
     modules: {
