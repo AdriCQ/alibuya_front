@@ -10,17 +10,25 @@
       <v-sheet color="#FFE082" light height="400px" class="pb-5">
         <v-row class="fill-height" align="center" justify="center">
           <v-col cols="12" xs="12" sm="6" md="6" lg="6" xl="6">
-            <v-card-text
-              class="text-center"
-              :style="`font-size: ${titleSize}rem`"
-              >ALIBUYA</v-card-text
-            >
-            <v-card-text
-              class="text-center"
-              :style="`font-size: ${subtitleSize}rem`"
-              >Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
-              nam ea quam unde.
-            </v-card-text>
+            <template v-if="logged">
+              <v-card-text
+                class="text-center"
+                :style="`font-size: ${titleSize}rem`"
+                >ALIBUYA</v-card-text
+              >
+              <v-card-text
+                class="text-center"
+                :style="`font-size: ${subtitleSize}rem`"
+                >Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Dolores nam ea quam unde.
+              </v-card-text>
+            </template>
+
+            <login-card
+              v-else
+              :props="{ maxWidth: 350 }"
+              class="mx-2 mx-sm-auto"
+            />
           </v-col>
           <v-col cols="12" xs="12" sm="6" md="6" lg="6" xl="6">
             <v-img src="img/png/1.png" width="100%" />
@@ -49,9 +57,9 @@
               class="text-center"
               :style="`font-size: ${subtitleSize}rem`"
               ><v-btn
+                color="primaryAlpha"
                 :to="{ name: 'vendor.home' }"
                 class="black--text btn-primary-alpha-gradient text-transform-none"
-                color="primary"
                 >Empezar a vender</v-btn
               >
             </v-card-text>
@@ -69,9 +77,13 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { PopupStore } from "@/store";
+import { PopupStore, UserStore } from "@/store";
 
-@Component
+@Component({
+  components: {
+    "login-card": () => import("@/components/widgets/LoginCard.vue"),
+  },
+})
 export default class BannerCarousel extends Vue {
   colors = [
     "indigo",
@@ -109,6 +121,10 @@ export default class BannerCarousel extends Vue {
       default:
         return 1.2;
     }
+  }
+
+  get logged() {
+    return UserStore.isLogged;
   }
 
   openRegisterPopup() {

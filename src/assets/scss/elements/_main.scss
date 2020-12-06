@@ -4,6 +4,8 @@
   }
 
   .view-container {
+    padding-bottom: 0.5rem;
+
     margin-top: 8.5rem;
 
     @media #{map-get($display-breakpoints, 'sm-and-down')} {

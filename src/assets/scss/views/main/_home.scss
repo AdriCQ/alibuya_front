@@ -1,4 +1,6 @@
 #main-home {
+  padding-bottom: 0.5rem;
+
   @media #{map-get($display-breakpoints, 'sm-and-down')} {
     margin-top: 8rem;
   }
