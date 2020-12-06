@@ -5,48 +5,28 @@
     <!-- / banner Carousel -->
 
     <!-- Suggested Products -->
-    <v-section class="mt-3">
-      <v-row>
-        <v-col cols="12" sm="6" lg="4" xl="3" v-if="!isLogged">
-          <login-card />
-        </v-col>
-        <v-col cols="12" sm="6" md="6" lg="8" xl="9">
-          <v-sheet color="primaryBetha" width="100%" height="100%" />
-        </v-col>
-      </v-row>
-
+    <v-section class="mt-2">
       <products-collection-slider
         v-if="productsTest.length"
         title="Productos Sugeridos"
         :products="productsTest"
         :card-props="{ flat: true, tile: true }"
+        :show-title="false"
+        :show-price="false"
         link
       />
     </v-section>
     <!-- / Suggested Products -->
 
-    <!-- TODO: Create component like this test -->
-    <!-- (Test) Product Basic -->
+    <!-- Products Group -->
     <v-section class="mt-2">
-      <v-row justify="center" justify-sm="start" no-gutters>
-        <v-col
-          v-for="(product, key) in productsOffersTest"
-          :key="`product-first-offer-${key}`"
-          cols="auto"
-          sm="6"
-          md="4"
-        >
-          <product-offer
-            :product="product"
-            :card-props="{ maxWidth: 450, flat: true }"
-            class="mx-1 mb-2"
-          >
-            <template #actions> Leer más </template>
-          </product-offer>
-        </v-col>
-      </v-row>
+      <products-group
+        :show-price="false"
+        :products="productsTest.slice(0, 7)"
+        :props="{ color: 'transparent' }"
+      />
     </v-section>
-    <!-- / (Test) Product Basic -->
+    <!-- / Products Group  -->
 
     <!-- Products Collection Slider -->
     <v-section class="mt-2">
@@ -78,6 +58,7 @@ import { IProduct } from "@/types";
     "products-collection-slider": () =>
       import("@/components/sliders/ProductsCollectionSlider.vue"),
     // test
+    "product-basic": () => import("@/components/widgets/products/Basic.vue"),
     "product-offer": () => import("@/components/widgets/products/Offer.vue"),
   },
 })
@@ -165,11 +146,18 @@ export default class HomeMainView extends Vue {
         },
         price: 75,
       },
+      {
+        id: 7,
+        title: "Xiaomi R1",
+        image: {
+          id: 1,
+          paths: {
+            xs: "img/test/offers/3.png",
+          },
+        },
+        price: 128,
+      },
     ];
-  }
-
-  get productsOffersTest() {
-    return this.productsTest.slice(0, 3);
   }
 }
 </script>

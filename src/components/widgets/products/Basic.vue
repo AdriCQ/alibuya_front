@@ -1,34 +1,59 @@
 <template>
-  <v-card :ripple="false" v-bind="cardProps" :class="cardClass">
-    <v-card-title v-if="product.title || !!$slots['title']" class="py-2">
-      <slot name="title">
-        <span>
-          {{ product.title }}
-        </span>
-      </slot>
+  <v-card :ripple="false" v-bind="cardProps" class="basic-product-widget">
+    <!-- Header -->
+    <v-card-title
+      v-if="
+        !!$slots['title'] || showTitle || !!$slots['title-right'] || showPrice
+      "
+      :class="['py-2', headerClass]"
+    >
+      <template v-if="!!$slots['title'] || showTitle">
+        <slot name="title">
+          <span>
+            {{ product.title }}
+          </span>
+        </slot>
+      </template>
 
-      <slot name="title-right" />
+      <template v-if="!!$slots['title-right'] || showPrice">
+        <v-spacer />
+        <slot name="title-right">
+          <span>
+            <b> $ {{ Number(product.price).toFixed(2) }}</b>
+          </span>
+        </slot>
+      </template>
     </v-card-title>
+    <!-- / Header -->
 
-    <v-card-text>
-      <v-img
-        :src="image"
-        :alt="product.title"
-        v-bind="imageProps"
-        :class="imgClass"
-        @click="imageClick"
-      />
+    <!-- Body -->
+    <v-card-text :class="bodyClass">
+      <slot>
+        <v-img
+          :src="image"
+          :alt="product.title"
+          v-bind="imageProps"
+          :class="imgClass"
+          @click="imageClick"
+        />
+      </slot>
     </v-card-text>
+    <!-- / Body -->
 
-    <v-card-actions v-if="!!$slots['actions']" class="px-4 py-4">
-      <slot name="actions" />
+    <!-- Footer -->
+    <v-card-actions
+      v-if="!!$slots['actions']"
+      :class="['px-4 py-4', footerClass]"
+    >
+      <slot name="footer" />
     </v-card-actions>
+    <!-- / Footer -->
   </v-card>
 </template>
 
 <script lang='ts'>
 import { Component, Prop } from "vue-property-decorator";
-import ProductBaseClass from "@/services/mixins";
+import ProductBaseClass from "@/utils/mixins";
 import { IProduct } from "@/types";
 
 /**
@@ -43,6 +68,10 @@ export default class BasicProductWidget extends ProductBaseClass {
     required: true,
   })
   readonly product!: IProduct;
+
+  /**
+   *
+   */
   get image() {
     return this.product.image?.paths.xs;
   }
@@ -50,11 +79,9 @@ export default class BasicProductWidget extends ProductBaseClass {
   get imgClass() {
     return ["mx-auto", { "cursor-pointer": this.link }];
   }
-
-  get cardClass() {
-    return ["basic-product-widget"];
-  }
-
+  /**
+   *
+   */
   imageClick() {
     if (this.link) {
       this.showProductDetails(this.product.id);

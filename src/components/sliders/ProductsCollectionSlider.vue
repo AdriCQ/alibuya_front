@@ -1,6 +1,7 @@
 <template>
   <v-card flat class="products-collection-slider">
     <v-card-title v-if="title">{{ title }} </v-card-title>
+
     <slick-carousel
       class="slick pa-0"
       :arrows="!xs"
@@ -11,17 +12,19 @@
       :swipeToSlide="true"
       :slidesToScroll="1"
     >
+      <!-- Arrows -->
       <template #prevArrow>
-        <v-btn color="secondary lighten-2" dark fab x-small>
-          <v-icon> mdi-arrow-left</v-icon>
+        <v-btn color="primary" fab x-small>
+          <v-icon color="black"> mdi-arrow-left</v-icon>
         </v-btn>
       </template>
 
       <template #nextArrow>
-        <v-btn color="secondary lighten-2" dark fab x-small>
-          <v-icon> mdi-arrow-right</v-icon>
+        <v-btn color="primary" dark fab x-small>
+          <v-icon color="black"> mdi-arrow-right</v-icon>
         </v-btn>
       </template>
+      <!-- / Arrows -->
 
       <div v-for="(product, key) in products" :key="`slider-item-${key}`">
         <product-basic
@@ -29,6 +32,8 @@
           :image-props="imageProps"
           :product="product"
           :link="link"
+          :show-title="showTitle"
+          :show-price="showPrice"
           class="mx-auto"
         />
       </div>
@@ -40,7 +45,7 @@
 import { Component, Prop } from "vue-property-decorator";
 // types
 import { IProduct } from "@/types";
-import ProductBaseClass from "@/services/mixins";
+import ProductBaseClass from "@/utils/mixins";
 
 @Component({
   components: {

@@ -3,6 +3,9 @@
     :product="product"
     :card-props="cardProps"
     :image-props="imageProps"
+    :link="link"
+    :show-title="showTitle"
+    :show-price="showPrice"
   >
     <template #actions>
       <span
@@ -17,7 +20,7 @@
 
 <script lang='ts'>
 import { Component, Prop } from "vue-property-decorator";
-import ProductBaseClass from "@/services/mixins";
+import ProductBaseClass from "@/utils/mixins";
 import { IProduct } from "@/types";
 
 @Component({
