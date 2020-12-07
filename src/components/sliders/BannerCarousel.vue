@@ -3,7 +3,7 @@
     hide-delimiter-background
     height="auto"
     cycle
-    show-arrows-on-hover
+    :show-arrows="false"
   >
     <!-- Carousel 1 -->
     <v-carousel-item>

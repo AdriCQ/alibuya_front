@@ -18,7 +18,7 @@
         <v-btn :small="!smAndUp" text @click="goToRoute('main.home')">
           <v-img
             src="img/logos/logo_white_550x178.png"
-            :width="smAndUp ? '8rem' : '6.5rem'"
+            :width="smAndUp ? '7rem' : '6.5rem'"
           />
         </v-btn>
 
@@ -93,7 +93,7 @@
     <template v-slot:extension>
       <v-tabs
         :height="tabsHeight"
-        :show-arrows="$vuetify.breakpoint.smAndUp"
+        :show-arrows="$vuetify.breakpoint.lgAndUp"
         optional
         centered
         id="app-bar-tabs"
