@@ -79,17 +79,18 @@ export default class AppFooter extends Vue {
           to: {
             name: "shop.category",
             query: {
-              category: cat.tag,
+              category: cKey - 1,
             },
           },
         });
-        cat.types?.forEach((type) => {
+        cat.types?.forEach((type, tKey) => {
           tempLink.push({
             label: type.labelLang[this.appLang],
             to: {
               name: "shop.type",
               query: {
-                type: type.tag,
+                type: tKey,
+                category: cKey - 1,
               },
             },
           });

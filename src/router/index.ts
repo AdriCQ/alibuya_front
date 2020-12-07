@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import { mainRoutes, settingsRoutes, shopRoutes, vendorRoutes,authRoutes } from './routes';
+import { mainRoutes, settingsRoutes, shopRoutes, vendorRoutes, authRoutes } from './routes';
 
 Vue.use(VueRouter)
 
@@ -24,11 +24,11 @@ router.beforeEach((_to, _from, _next) => {
   _next();
 })
 
-router.afterEach(() => {
-  document.scrollingElement?.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  })
-})
+// router.afterEach(() => {
+//   document.scrollingElement?.scrollTo({
+//     top: 0,
+//     behavior: "smooth"
+//   })
+// })
 
 export default router

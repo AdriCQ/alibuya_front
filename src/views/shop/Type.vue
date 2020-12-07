@@ -30,6 +30,7 @@
 <script lang='ts'>
 import { ShopStore, AppStore } from "@/store";
 import { IProductType, IProduct } from "@/types";
+import { ScrollTop } from "@/utils";
 import { Vue, Component } from "vue-property-decorator";
 
 @Component({
@@ -50,6 +51,14 @@ export default class ShopType extends Vue {
         .tag;
       this.loadProducts(tag);
     }
+  }
+
+  mounted() {
+    ScrollTop();
+  }
+
+  updated() {
+    ScrollTop();
   }
 
   products: IProduct[] = [];
@@ -93,6 +102,7 @@ export default class ShopType extends Vue {
       this.emptyInventary = true;
     }
     this.loadingCard = false;
+    console.log("LoadingCard", this.loadingCard, "Empty", this.emptyInventary);
   }
 }
 </script>

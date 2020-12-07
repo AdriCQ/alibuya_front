@@ -1,11 +1,29 @@
 <template>
   <v-card :ripple="false" v-bind="cardProps" class="basic-product-widget">
     <!-- Header -->
+    <slot name="header" />
+    <!-- / Header -->
+
+    <!-- Body -->
+    <v-card-text :class="bodyClass">
+      <v-img
+        :src="image.xs"
+        :alt="product.title"
+        v-bind="imageProps"
+        :class="imgClass"
+        @click="imageClick"
+      />
+
+      <slot />
+    </v-card-text>
+    <!-- / Body -->
+
+    <!-- Title -->
     <v-card-title
       v-if="
         !!$slots['title'] || showTitle || !!$slots['title-right'] || showPrice
       "
-      :class="['py-2', headerClass]"
+      :class="['py-2', titleClass]"
     >
       <template v-if="!!$slots['title'] || showTitle">
         <slot name="title">
@@ -18,31 +36,15 @@
       <template v-if="!!$slots['title-right'] || showPrice">
         <v-spacer />
         <slot name="title-right">
-          <span>
-            <b> $ {{ Number(product.price).toFixed(2) }}</b>
-          </span>
+          <span> $ {{ Number(product.price).toFixed(2) }} </span>
         </slot>
       </template>
     </v-card-title>
-    <!-- / Header -->
-
-    <!-- Body -->
-    <v-card-text :class="bodyClass">
-      <slot>
-        <v-img
-          :src="image.xs"
-          :alt="product.title"
-          v-bind="imageProps"
-          :class="imgClass"
-          @click="imageClick"
-        />
-      </slot>
-    </v-card-text>
-    <!-- / Body -->
+    <!-- / Title -->
 
     <!-- Footer -->
     <v-card-actions
-      v-if="!!$slots['actions']"
+      v-if="!!$slots['footer']"
       :class="['px-4 py-4', footerClass]"
     >
       <slot name="footer" />

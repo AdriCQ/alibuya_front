@@ -8,8 +8,12 @@
 
     margin-top: 8.5rem;
 
-    @media #{map-get($display-breakpoints, 'sm-and-down')} {
+    @media #{map-get($display-breakpoints, 'xs-only')} {
       margin-top: 8.5rem;
+    }
+
+    @media #{map-get($display-breakpoints, 'sm-only')} {
+      margin-top: 9.5rem;
     }
 
     @media #{map-get($display-breakpoints, 'md-and-up')} {

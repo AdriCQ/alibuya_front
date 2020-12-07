@@ -17,7 +17,6 @@
             </div>
             <!-- Empty Inventary -->
           </v-card-text>
-          
 
           <product-grid v-if="!emptyInventary" :products="products" />
         </v-card>
@@ -31,7 +30,8 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import { AppStore, ShopStore } from "@/store";
-import { IProduct, IProductCategory } from '@/types';
+import { IProduct, IProductCategory } from "@/types";
+import { ScrollTop } from "@/utils";
 
 @Component({
   components: {
@@ -39,13 +39,22 @@ import { IProduct, IProductCategory } from '@/types';
   },
 })
 export default class ShopCategory extends Vue {
+  mounted() {
+    ScrollTop();
+  }
+  updated() {
+    ScrollTop();
+  }
   products: IProduct[] = [];
   emptyInventary = false;
   loadingCard = false;
 
   get category(): IProductCategory | null {
     let cat: IProductCategory | null = null;
-    if(this.$route.query.category && ShopStore.categories[Number(this.$route.query.category)]){
+    if (
+      this.$route.query.category &&
+      ShopStore.categories[Number(this.$route.query.category)]
+    ) {
       cat = ShopStore.categories[Number(this.$route.query.category)];
       this.loadProducts(cat.tag);
     }

@@ -93,7 +93,7 @@
     <template v-slot:extension>
       <v-tabs
         :height="tabsHeight"
-        :show-arrows="$vuetify.breakpoint.lgAndUp"
+        :show-arrows="$vuetify.breakpoint.mdAndUp"
         optional
         centered
         id="app-bar-tabs"
