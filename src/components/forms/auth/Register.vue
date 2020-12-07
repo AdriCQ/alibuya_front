@@ -1,7 +1,7 @@
 <template>
   <v-form>
     <v-card-title>
-      <span class="headline">Registro de usuario</span>
+      <span class="title">Registro de usuario</span>
     </v-card-title>
 
     <v-card-text class="pb-0">
@@ -99,8 +99,8 @@
             </v-btn>
           </v-col>
 
-          <v-col cols="auto" class="mt-3 text-body-1">
-            Si registra usuario, usted acepta los
+          <v-col cols="auto" class="mt-3 text-body-2">
+            Al registrarse usted acepta nuestros
             <span
               class="blue--text text--darken-2 cursor-pointer"
               @click="showTerms"
@@ -109,7 +109,7 @@
             >.
           </v-col>
 
-          <v-col cols="auto" class="mt-3 text-body-1">
+          <v-col cols="auto" class="mt-3 text-body-2">
             Ya tienes usuario? &nbsp;
             <span
               class="blue--text text--darken-2 cursor-pointer"
