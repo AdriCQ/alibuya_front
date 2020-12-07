@@ -1,7 +1,7 @@
 <template>
   <v-form>
     <v-card-title>
-      <span class="headline">Inicio de sesión</span>
+      <span class="title">Inicio de sesión</span>
     </v-card-title>
 
     <v-card-text class="pb-0">
@@ -62,7 +62,7 @@
 
           <v-col cols="auto" class="mt-3">
             <span
-              class="blue--text text--darken-2 cursor-pointer text-body-1"
+              class="blue--text text--darken-2 cursor-pointer text-body-2"
               @click="
                 $router.push({ name: 'auth.register', query: $route.query })
               "

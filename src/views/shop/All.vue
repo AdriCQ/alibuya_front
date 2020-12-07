@@ -1,64 +1,116 @@
 <template>
-  <div id="shop-view" class="view-container">
+  <div id="shop-all-view" class="view-container">
     <v-section>
-      <v-card flat>
-        <v-row>
-          <v-col
-            xs="12"
-            sm="6"
-            md="4"
-            lg="3"
-            v-for="(category, cKey) in categories"
-            :key="cKey"
-          >
-            <v-list>
-              <v-list-item
+      <v-card
+        v-for="(pGroup, pgKey) in products"
+        :key="pgKey"
+        :loading="loading"
+      >
+        <v-card-title>{{ category(pgKey) }}</v-card-title>
+        <v-card-text>
+          <v-row>
+            <v-col
+              cols="6"
+              sm="4"
+              md="3"
+              lg="2"
+              xl="2"
+              v-for="(product, pKey) in pGroup"
+              :key="pKey"
+            >
+              <product-basic
+                :product="product"
                 link
-                :to="category.to"
-                style="font-size: 1rem; min-height: 1.8rem"
-              >
-                <v-list-item-title>
-                  <b>{{ category.labelLang[appLang] }}</b>
-                </v-list-item-title>
-              </v-list-item>
-              <v-list-item
-                v-for="(type, cType) in category.types"
-                :key="cType"
-                link
-                :to="type.to"
-                style="font-size: 1rem; min-height: 1.5rem"
-              >
-                <v-list-item-title>
-                  {{ type.labelLang[appLang] }}
-                </v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-col>
-        </v-row>
+                bodyClass="pa-0"
+                titleClass="pa-1"
+                show-price
+              />
+            </v-col>
+          </v-row>
+          <v-card-actions>
+            <v-spacer /><v-btn link @click="gotoCategory(pgKey)" x-small text
+              >Ver Más</v-btn
+            >
+          </v-card-actions>
+        </v-card-text>
       </v-card>
     </v-section>
   </div>
 </template>
 
 <script lang='ts'>
+import { ShopStore, AppStore } from "@/store";
 import { Vue, Component } from "vue-property-decorator";
-import { AppStore, ShopStore } from "@/store";
-import { IProductCategoryLink } from "@/types";
+import { IProductCategory } from "@/types";
+import { ScrollTop } from "@/utils";
 
-@Component
-export default class ShopHome extends Vue {
+@Component({
+  components: {
+    "product-basic": () => import("@/components/widgets/products/Basic.vue"),
+  },
+})
+export default class ShopAllView extends Vue {
+  created() {
+    this.loadAllProducts();
+  }
+  mounted() {
+    ScrollTop();
+  }
+  updated() {
+    ScrollTop();
+  }
+  loading = false;
+
   get categories() {
-    const categories: IProductCategoryLink[] = [];
-    ShopStore.categoriesLink.forEach((cat, key) => {
-      if (key > 0) {
-        categories.push(cat);
-      }
-    });
-    return categories;
+    return ShopStore.categories;
+  }
+
+  get products() {
+    return ShopStore.products;
   }
 
   get appLang() {
     return AppStore.lang;
+  }
+
+  /**
+   * Load all products
+   */
+  async loadAllProducts() {
+    this.loading = true;
+
+    try {
+      await this.categories.forEach((cat) => {
+        ShopStore.getProductsByCategory(cat.tag);
+      });
+    } catch (error) {
+      // TODO: HAndle error
+      console.log("All View", error);
+    }
+    this.loading = false;
+  }
+
+  category(_cTag: string, _key = false) {
+    let resp!: string;
+    let key!: number;
+    this.categories.forEach((cat, ckey) => {
+      if (cat.tag === _cTag) {
+        resp = cat.title[this.appLang] as string;
+        key = ckey;
+        return;
+      }
+    });
+    return _key ? key : resp;
+  }
+
+  gotoCategory(_category: string) {
+    const key = this.category(_category, true);
+    this.$router.push({
+      name: "shop.category",
+      query: {
+        category: key.toString(),
+      },
+    });
   }
 }
 </script>

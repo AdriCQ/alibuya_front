@@ -19,7 +19,9 @@
         <v-img width="100%" :src="image.sm" />
       </div>
       <!-- </v-sheet> -->
-      <v-card-title>${{ Number(product.price).toFixed(2) }}</v-card-title>
+      <v-card-title class="body-1"
+        >${{ Number(product.price).toFixed(2) }}</v-card-title
+      >
       <v-card-subtitle class="pb-0">{{ product.title }}</v-card-subtitle>
     </template>
     <!-- Horizontal -->
