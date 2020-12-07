@@ -1,11 +1,29 @@
 <template>
-  <v-card :ripple="false" v-bind="cardProps" class="basic-product-widget">
+  <v-card
+    :ripple="false"
+    v-bind="{ maxWidth: 400, ...cardProps }"
+    class="basic-product-widget mx-auto"
+  >
     <!-- Header -->
+    <slot name="header" />
+    <!-- / Header -->
+
+    <!-- Image -->
+    <v-card-text :class="bodyClass">
+      <v-img
+        :src="image.xs"
+        :alt="product.title"
+        v-bind="{ maxWidth: 300, ...imageProps }"
+        :class="imgClass"
+        @click="imageClick"
+      />
+    </v-card-text>
+    <!-- / Image -->
+
+    <!-- Title -->
     <v-card-title
-      v-if="
-        !!$slots['title'] || showTitle || !!$slots['title-right'] || showPrice
-      "
-      :class="['py-2', headerClass]"
+      v-if="!!$slots['title'] || showTitle"
+      :class="['py-2', titleClass]"
     >
       <template v-if="!!$slots['title'] || showTitle">
         <slot name="title">
@@ -14,36 +32,26 @@
           </span>
         </slot>
       </template>
-
-      <template v-if="!!$slots['title-right'] || showPrice">
-        <v-spacer />
-        <slot name="title-right">
-          <span>
-            <b> $ {{ Number(product.price).toFixed(2) }}</b>
-          </span>
-        </slot>
-      </template>
     </v-card-title>
-    <!-- / Header -->
+    <!-- / Title -->
 
-    <!-- Body -->
-    <v-card-text :class="bodyClass">
-      <slot>
-        <v-img
-          :src="image.xs"
-          :alt="product.title"
-          v-bind="imageProps"
-          :class="imgClass"
-          @click="imageClick"
-        />
-      </slot>
+    <slot />
+
+    <!-- Description -->
+    <v-card-text v-if="showDescription" class="py-0">
+      {{ product.description }}
     </v-card-text>
-    <!-- / Body -->
+    <!-- / Description -->
 
-    <!-- Footer -->
+    <!-- Price -->
+    <v-card-title v-if="showPrice" class="mt-auto ml-auto py-2">
+      <b> $ {{ Number(product.price).toFixed(2) }}</b>
+    </v-card-title>
+    <!-- / Price -->
+
     <v-card-actions
-      v-if="!!$slots['actions']"
-      :class="['px-4 py-4', footerClass]"
+      v-if="!!$slots['footer']"
+      :class="['px-4 py-3 mt-auto', footerClass]"
     >
       <slot name="footer" />
     </v-card-actions>
