@@ -9,6 +9,8 @@ export default class ProductBaseClass extends Vue {
   @Prop({ type: Boolean, default: false }) readonly link!: boolean;
   @Prop({ type: Boolean, default: false }) readonly showTitle!: boolean; 
   @Prop({ type: Boolean, default: false }) readonly showPrice!: boolean;
+  @Prop({ type: Boolean, default: false }) readonly showDescription!: boolean;
+  
 
   // props to children
   @Prop(Object) readonly imageProps!: object;

@@ -1,8 +1,52 @@
 <template>
   <div id="main-home">
-    <!-- banner Carousel -->
+    <!-- Banner Carousel -->
     <banner-carousel />
-    <!-- / banner Carousel -->
+    <!-- / Banner Carousel -->
+
+    <!-- Product Basic Widget (Test) -->
+    <v-section class="mt-2">
+      <v-row>
+        <v-col
+          cols="12"
+          sm="6"
+          md="4"
+          v-for="(product, key) in productsTest.slice(0, 6)"
+          :key="`product-basic-widget-${key}`"
+        >
+          <product-basic
+            :product="product"
+            :card-props="{ height: 450 }"
+            show-title
+            show-price
+            show-description
+          />
+        </v-col>
+      </v-row>
+    </v-section>
+    <!-- / Product Basic Widget (Test) -->
+
+    <!-- Product Offer Widget (Test) -->
+    <v-section class="mt-2">
+      <v-row>
+        <v-col
+          cols="12"
+          sm="6"
+          md="4"
+          v-for="(product, key) in productsTest.slice(0, 6)"
+          :key="`product-basic-widget-${key}`"
+        >
+          <product-offer
+            title="Mejor Oferta"
+            :product="product"
+            :card-props="{ height: 500 }"
+          >
+            <template #actions> Visita todos los {{ product.title }} </template>
+          </product-offer>
+        </v-col>
+      </v-row>
+    </v-section>
+    <!-- / Product Offer Widget (Test) -->
 
     <!-- Suggested Products -->
     <v-section class="mt-2">
@@ -101,7 +145,9 @@ export default class HomeMainView extends Vue {
     return [
       {
         id: 1,
-        title: "Suzuki RM 1800",
+        title: "Suzuki A1800",
+        description:
+          "Lorem ipsum dolor sit ame.Lorem ipsum dolor sit ame.Lorem ipsum dolor sit ame.Lorem ipsum dolor sit ame.",
         image: {
           id: 1,
           paths: {
@@ -114,6 +160,8 @@ export default class HomeMainView extends Vue {
       {
         id: 2,
         title: "Sandwichera Milexus",
+        description:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.",
         image: {
           id: 1,
           paths: {
@@ -126,6 +174,8 @@ export default class HomeMainView extends Vue {
       {
         id: 3,
         title: "Samsung Galaxy A3",
+        description:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.",
         image: {
           id: 1,
           paths: {
@@ -137,6 +187,8 @@ export default class HomeMainView extends Vue {
       {
         id: 4,
         title: "Combo x4 Colgate",
+        description:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.",
         image: {
           id: 1,
           paths: {
@@ -149,6 +201,8 @@ export default class HomeMainView extends Vue {
       {
         id: 5,
         title: "Motorina SAM Batería de Litio",
+        description:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.",
         image: {
           id: 1,
           paths: {
@@ -161,6 +215,8 @@ export default class HomeMainView extends Vue {
       {
         id: 6,
         title: "Sartén eléctrico Soyea",
+        description:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.",
         image: {
           id: 1,
           paths: {
@@ -172,6 +228,8 @@ export default class HomeMainView extends Vue {
       {
         id: 7,
         title: "Xiaomi Redmi R1",
+        description:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.",
         image: {
           id: 1,
           paths: {

@@ -1,4 +1,8 @@
 .basic-product-widget {
+  @extend .d-flex;
+  @extend .flex-column;
+  @extend .flex-wrap;
+
   .v-card__title {
     font-size: 0.9rem;
   }
