@@ -81,3 +81,8 @@ export interface IColor {
   shape?: TShape;
   border?: boolean;
 }
+
+export interface ITransletable {
+  es?: string;
+  en?: string;
+}

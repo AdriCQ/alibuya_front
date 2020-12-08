@@ -57,7 +57,7 @@ export interface IProductTypeLink extends ILinkIconLabel {
 /**
  * Iproduct category
  */
-export interface IProductCategory { 
+export interface IProductCategory {
   id?: number;
   title: {
     en?: string;
@@ -68,7 +68,7 @@ export interface IProductCategory {
   types?: IProductType[];
 }
 export interface IProductCategoryLink extends IProductTypeLink {
-  types?: IProductTypeLink[];  
+  types?: IProductTypeLink[];
 }
 /**
  * Iproduct cart

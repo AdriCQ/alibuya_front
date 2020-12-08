@@ -217,6 +217,27 @@ class ShopModule extends VuexModule {
     }
   }
 
+  getCategoryByTag(_tag: string, _link = false): IProductCategoryLink | IProductCategory | undefined {
+    let category!: IProductCategoryLink | IProductCategory;
+    if (_link) {
+      this.categoriesLink.forEach((cat) => {
+        if (cat.tag === _tag) {
+          category = cat;
+          return cat;
+        }
+      })
+    }
+    else {
+      this.categories.forEach(cat => {
+        if (cat.tag === _tag) {
+          category = cat;
+          return cat;
+        }
+      })
+    }
+    return category;
+  }
+
 }
 
 // register module (could be in any file) 

@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { IProduct, ApiResponsePaginated, ApiResponse, ISuggestedParams, ISuggestedCategoryProductParams, IProductCategory } from '@/types';
+import { IProduct, ApiResponsePaginated, ApiResponse, ISuggestedParams, ISuggestedCategoryProductParams, IProductCategory, IGetAnnouncementParams, IAnnouncement, IAnnouncementsParams } from '@/types';
+
 export class ShopService {
   private static baseUrl = '/shop';
 
@@ -62,7 +63,9 @@ export class ShopService {
   }
 
   /**
-   * Get products by Type
+   * Gets products by type
+   * @param _params 
+   * @returns products by type 
    */
   static getProductsByType(_params: string): ApiResponsePaginated<IProduct[]> {
     return axios.get(this.baseUrl + '/category/type/products', {
@@ -70,5 +73,27 @@ export class ShopService {
         "type": _params
       }
     })
+  }
+
+  /**
+   * Gets announcements
+   * @param _param IGetAnnouncementParams
+   * @returns announcements 
+   */
+  static getAnnouncements(_param: IAnnouncementsParams): ApiResponsePaginated<IAnnouncement[]> {
+    return axios.get(this.baseUrl + '/ann', {
+      params: _param
+    });
+  }
+
+  /**
+   * Gets announcement by id
+   * @param _param 
+   * @returns announcement by id 
+   */
+  static getAnnouncementById(_param: IGetAnnouncementParams): ApiResponsePaginated<IAnnouncement> {
+    return axios.get(this.baseUrl + '/ann/by-id', {
+      params: _param
+    });
   }
 }
