@@ -10,7 +10,7 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { UserStore, AppStore, ShopStore } from "@/store";
+import { UserStore, AppStore, ShopStore, AnnouncementStore } from "@/store";
 
 @Component({
   components: {
@@ -21,7 +21,6 @@ import { UserStore, AppStore, ShopStore } from "@/store";
 export default class App extends Vue {
   created() {
     this.getAsyncData();
-
     AppStore.getFromLocalStorage();
     UserStore.getFromLocalStorage();
   }
@@ -29,6 +28,7 @@ export default class App extends Vue {
   async getAsyncData() {
     try {
       await ShopStore.startup();
+      await AnnouncementStore.startup();
     } catch (error) {
       console.log(error);
     }
