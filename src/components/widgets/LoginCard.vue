@@ -11,7 +11,7 @@
         Iniciar Sesión
       </v-btn>
       <span
-        class="blue--text text--darken-2 cursor-pointer text-body-1"
+        class="text-link text-body-1"
         @click="$router.push({ name: 'auth.register' })"
         >Registrar cuenta</span
       >

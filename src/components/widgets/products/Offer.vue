@@ -1,43 +1,42 @@
 <template>
   <product-basic
     :product="product"
-    :card-props="{ ...cardProps, maxWidth: 320 }"
-    :image-props="{ ...imageProps, maxWidth: 280 }"
+    :card-props="cardProps"
+    :image-props="imageProps"
+    :show-description="showDescription"
     :link="link"
-    :body-class="`${bodyClass} black--text`"
     class="offer-product-widget"
   >
-    <template #header>
-      <v-card-title :class="['font-weight-bold', 'py-2', 'title', titleClass]">
-        <slot name="title">{{ title }}</slot>
+    <!-- Header -->
+    <template v-if="title || showTitle || showPrice" #header>
+      <v-card-title
+        class="py-2 text-single-line text-subtitle-2 text-sm-body-2"
+      >
+        <template v-if="title">{{ title }}</template>
+        <template v-else-if="showTitle">{{ product.title }}</template>
+
+        <span v-if="showPrice">
+          <br v-if="title || showTitle" />
+          $ {{ Number(product.price).toFixed(2) }}</span
+        >
       </v-card-title>
     </template>
+    <!-- / Header -->
 
-    <v-card-text class="py-2">
-      <span class="title black--text mb-2">
-        $ {{ Number(product.price).toFixed(2) }}
-      </span>
-
-      <p class="mb-0">
-        {{ product.description }}
-      </p>
-    </v-card-text>
-
-    <template #footer>
-      <span
-        class="blue--text text--darken-2 text-body-1 cursor-pointer"
-        @click="showProductDetails(product.id)"
-      >
-        <slot name="actions" />
+    <!-- Actions -->
+    <template v-if="to" #footer>
+      <span class="text-link text-body-2 mt-auto" @click="goToRoute">
+        {{ textLink }}
       </span>
     </template>
+    <!-- / Actions -->
   </product-basic>
 </template>
 
 <script lang='ts'>
 import { Component, Prop } from "vue-property-decorator";
-import ProductBaseClass from "@/utils/mixins";
-import { IProduct } from "@/types";
+import ProductBaseClass from "@/mixins/product";
+import { IProduct, TRouteLink } from "@/types";
 
 @Component({
   components: {
@@ -51,6 +50,15 @@ export default class OfferProductWidget extends ProductBaseClass {
   })
   readonly product!: IProduct;
 
-  @Prop(String) readonly title!: string;
+  @Prop({ type: String, default: "" }) readonly title!: string;
+  @Prop([Object, String]) readonly to!: TRouteLink;
+  @Prop({ type: String, default: "Ver más" }) readonly textLink!: string;
+
+  /**
+   *
+   */
+  goToRoute() {
+    this.$router.push(this.to);
+  }
 }
 </script>

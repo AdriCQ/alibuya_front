@@ -82,3 +82,18 @@ $table-border-color: #dee2e6;
 .text-transform-none {
   text-transform: none;
 }
+
+.text-single-line {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+}
+
+.text-link {
+  @extend .blue--text;
+  @extend .text--darken-2;
+  @extend .cursor-pointer;
+  @include hover {
+  }
+}

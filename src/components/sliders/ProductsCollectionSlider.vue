@@ -14,7 +14,7 @@
     >
       <!-- Arrows -->
       <template #prevArrow>
-        <v-btn color="primary" fab x-small>
+        <v-btn color="primary" dark fab x-small>
           <v-icon color="black"> mdi-arrow-left</v-icon>
         </v-btn>
       </template>
@@ -26,26 +26,40 @@
       </template>
       <!-- / Arrows -->
 
-      <div v-for="(product, key) in products" :key="`slider-item-${key}`">
+      <!-- Products -->
+      <div
+        v-for="(product, key) in products"
+        :key="`products-slider-item-${key}`"
+      >
         <product-basic
-          :card-props="cardProps"
+          :card-props="{ flat: true, ...cardProps }"
           :image-props="imageProps"
           :product="product"
           :link="link"
           :show-title="showTitle"
           :show-price="showPrice"
+          body-class="pa-0"
           class="mx-auto"
         />
       </div>
+      <!-- Products -->
     </slick-carousel>
+
+    <!-- Actions -->
+    <v-card-actions v-if="to" class="px-4 py-3 mt-auto">
+      <span class="text-link text-body-2" @click="goToRoute">
+        {{ textLink }}
+      </span>
+    </v-card-actions>
+    <!-- / Actions -->
   </v-card>
 </template>
 
 <script lang='ts'>
 import { Component, Prop } from "vue-property-decorator";
 // types
-import { IProduct } from "@/types";
-import ProductBaseClass from "@/utils/mixins";
+import { IProduct, TRouteLink } from "@/types";
+import ProductBaseClass from "@/mixins/product";
 
 @Component({
   components: {
@@ -55,6 +69,8 @@ import ProductBaseClass from "@/utils/mixins";
 export default class ProductsCollectionSlider extends ProductBaseClass {
   @Prop({ type: Array, required: true }) readonly products!: IProduct[];
   @Prop(String) readonly title!: string;
+  @Prop([Object, String]) readonly to!: TRouteLink;
+  @Prop({ type: String, default: "Ver más" }) readonly textLink!: string;
 
   // breakpoints
   get xs() {
@@ -76,6 +92,13 @@ export default class ProductsCollectionSlider extends ProductBaseClass {
       default:
         return 2;
     }
+  }
+
+  /**
+   *
+   */
+  goToRoute() {
+    this.$router.push(this.to);
   }
 }
 </script>

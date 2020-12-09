@@ -1,9 +1,19 @@
+.basic-product-widget,
+.offer-product-widget,
+.product-grid-widget {
+  .v-card__title {
+    @extend .black--text;
+    @extend .text-subtitle-2;
+    @extend .text-md-body-1;
+    display: block;
+    font-size: 1rem;
+  }
+}
+.product-grid-widget .basic-product-widget .v-card__title.text-subtitle-2 {
+  font-size: 0.75rem !important;
+}
+
 .basic-product-widget {
   @extend .d-flex;
   @extend .flex-column;
-  @extend .flex-wrap;
-
-  .v-card__title {
-    font-size: 0.9rem;
-  }
 }

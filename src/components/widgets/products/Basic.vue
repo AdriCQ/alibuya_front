@@ -1,7 +1,7 @@
 <template>
   <v-card
     :ripple="false"
-    v-bind="{ maxWidth: 400, ...cardProps }"
+    v-bind="cardAllProps"
     class="basic-product-widget mx-auto"
   >
     <!-- Header -->
@@ -13,7 +13,7 @@
       <v-img
         :src="image.xs"
         :alt="product.title"
-        v-bind="{ maxWidth: 300, ...imageProps }"
+        v-bind="imageAllProps"
         :class="imgClass"
         @click="imageClick"
       />
@@ -22,37 +22,35 @@
 
     <!-- Title -->
     <v-card-title
-      v-if="!!$slots['title'] || showTitle"
-      :class="['py-2', titleClass]"
+      v-if="showTitle"
+      :class="[
+        'py-2',
+        { 'py-0': showDescription || showPrice || !!$slots['footer'] },
+        'text-single-line',
+        titleClass,
+      ]"
     >
-      <template v-if="!!$slots['title'] || showTitle">
-        <slot name="title">
-          <span>
-            {{ product.title }}
-          </span>
-        </slot>
-      </template>
+      {{ product.title }}
     </v-card-title>
     <!-- / Title -->
 
-    <slot />
-
     <!-- Description -->
-    <v-card-text v-if="showDescription" class="py-0">
+    <v-card-text
+      v-if="showDescription"
+      class="grey--text text--darken-1 text-single-line py-1"
+    >
       {{ product.description }}
     </v-card-text>
     <!-- / Description -->
 
     <!-- Price -->
-    <v-card-title v-if="showPrice" class="mt-auto ml-auto py-2">
-      <b> $ {{ Number(product.price).toFixed(2) }}</b>
+    <v-card-title v-if="showPrice" class="text-right py-1">
+      $ {{ Number(product.price).toFixed(2) }}
     </v-card-title>
     <!-- / Price -->
 
-    <v-card-actions
-      v-if="!!$slots['footer']"
-      :class="['px-4 py-3 mt-auto', footerClass]"
-    >
+    <!-- Footer -->
+    <v-card-actions v-if="!!$slots['footer']" class="px-4 py-3 mt-auto">
       <slot name="footer" />
     </v-card-actions>
     <!-- / Footer -->
@@ -61,14 +59,9 @@
 
 <script lang='ts'>
 import { Component, Prop } from "vue-property-decorator";
-import ProductBaseClass from "@/utils/mixins";
 import { IProduct } from "@/types";
 import { ProductImage } from "@/utils";
-
-/**
- * TODO:
- * En caso de que el title del producto sea muy largo los productos varian la altura en la que se muestan
- */
+import ProductBaseClass from "@/mixins/product";
 
 @Component
 export default class BasicProductWidget extends ProductBaseClass {
@@ -78,9 +71,9 @@ export default class BasicProductWidget extends ProductBaseClass {
   })
   readonly product!: IProduct;
 
-  /**
-   *
-   */
+  @Prop({ type: String, default: "" }) readonly titleClass!: string;
+  @Prop({ type: String, default: "" }) readonly bodyClass!: string;
+
   get image() {
     return new ProductImage(this.product.image, true);
   }
@@ -88,9 +81,44 @@ export default class BasicProductWidget extends ProductBaseClass {
   get imgClass() {
     return ["mx-auto", { "cursor-pointer": this.link }];
   }
+
+  /**
+   * All props to children components
+   */
+  get cardAllProps() {
+    return {
+      // defaults
+      maxWidth: 400,
+      // from parent
+      ...this.cardProps,
+    };
+  }
+
+  get imageAllProps() {
+    return {
+      // defaults
+      maxWidth: 280,
+      // from parent
+      ...this.imageProps,
+    };
+  }
+
   /**
    *
    */
+
+  showProductDetails(id: number) {
+    if (id) {
+      if (this.$route.name !== "shop.details")
+        this.$router.push({
+          name: "shop.details",
+          query: {
+            productId: id.toString(),
+          },
+        });
+    }
+  }
+
   imageClick() {
     if (this.link) {
       this.showProductDetails(this.product.id);

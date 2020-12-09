@@ -4,106 +4,70 @@
     <banner-carousel />
     <!-- / Banner Carousel -->
 
-    <!-- Product Basic Widget (Test) -->
-    <v-section class="mt-2">
-      <v-row>
+    <v-section fluid class="mt-3">
+      <v-card color="transparent" flat>
+        <products-group
+          :products="productsTest.slice(0, 5)"
+          separated
+          show-title
+        />
+      </v-card>
+    </v-section>
+
+    <v-section fluid class="mt-2">
+      <v-row no-gutters>
+        <v-col cols="12" sm="6" md="4" class="px-1">
+          <product-offer
+            title="Oferta especial"
+            :product="productsTest[4]"
+            :card-props="{ maxWidth: '100%', height: '100%' }"
+            :image-props="{ maxHeight: '100%', maxWidth: '100%' }"
+            :to="{ name: 'main.home' }"
+          />
+        </v-col>
+        <v-col cols="12" sm="6" md="4" class="px-1 mt-2 mt-sm-0">
+          <product-grid
+            :products="productsTest.slice(0, 4)"
+            title="Últimos modelos"
+            :to="{ name: 'main.home' }"
+            width="100%"
+          />
+        </v-col>
         <v-col
+          v-if="!$vuetify.breakpoint.smOnly"
           cols="12"
-          sm="6"
           md="4"
-          v-for="(product, key) in productsTest.slice(0, 6)"
-          :key="`product-basic-widget-${key}`"
+          class="px-1 mt-2 mt-sm-0"
         >
-          <product-basic
-            :product="product"
-            :card-props="{ height: 450 }"
-            show-title
-            show-price
-            show-description
+          <product-grid
+            :products="productsTest.slice(2, 6)"
+            title="Super oferta"
+            :to="{ name: 'main.home' }"
+            width="100%"
           />
         </v-col>
       </v-row>
     </v-section>
-    <!-- / Product Basic Widget (Test) -->
 
-    <!-- Product Offer Widget (Test) -->
-    <v-section class="mt-2">
-      <v-row>
-        <v-col
-          cols="12"
-          sm="6"
-          md="4"
-          v-for="(product, key) in productsTest.slice(0, 6)"
-          :key="`product-basic-widget-${key}`"
-        >
-          <product-offer
-            title="Mejor Oferta"
-            :product="product"
-            :card-props="{ height: 500 }"
-          >
-            <template #actions> Visita todos los {{ product.title }} </template>
-          </product-offer>
-        </v-col>
-      </v-row>
-    </v-section>
-    <!-- / Product Offer Widget (Test) -->
-
-    <!-- Suggested Products -->
-    <v-section class="mt-2">
-      <products-collection-slider
-        v-if="productsTest.length"
-        title="Productos Sugeridos"
-        :products="productsTest"
-        :card-props="{ flat: true, tile: true }"
-        :show-title="false"
-        :show-price="false"
-        link
-      />
-    </v-section>
-    <!-- / Suggested Products -->
-
-    <!-- Products Group -->
-    <v-section class="mt-2">
-      <v-card flat>
-        <products-group
-          title="Oferta Especial"
-          :show-price="false"
-          :products="productsTest.slice(0, 7)"
-          :props="{ color: 'transparent' }"
+    <v-section fluid class="mt-2">
+      <v-card>
+        <products-collection-slider
+          title="Lo Más Comprado"
+          :products="productsTest"
+          :to="{ name: 'main.home' }"
+          link
         />
       </v-card>
     </v-section>
-    <!-- / Products Group  -->
 
-    <!-- Products Collection Slider -->
-    <v-section class="mt-2">
-      <products-collection-slider
-        v-if="productsTest.length"
-        title="Lo Más Comprado"
-        link
-        :show-title="false"
-        :show-price="false"
-        :products="productsTest"
-        :card-props="{ maxWidth: '100%', flat: true, tile: true }"
-        :image-props="{ width: '100%', height: '100%' }"
-      />
+    <v-section fluid class="mt-2 mb-3">
+      <v-card>
+        <products-group
+          :products="productsTest.slice(1, 6)"
+          title="Últimos modelos"
+        />
+      </v-card>
     </v-section>
-    <!-- / Products Collection Slider -->
-
-    <!-- Products Collection Slider -->
-    <v-section class="mt-2">
-      <products-collection-slider
-        v-if="suggestedProducts.length"
-        title="Salud y Bienestar"
-        link
-        :show-title="false"
-        :show-price="false"
-        :products="suggestedProducts"
-        :card-props="{ maxWidth: '100%', flat: true, tile: true }"
-        :image-props="{ width: '100%', height: '100%' }"
-      />
-    </v-section>
-    <!-- / Products Collection Slider -->
   </div>
 </template>
 
@@ -122,6 +86,8 @@ import { IProduct } from "@/types";
     // test
     "product-basic": () => import("@/components/widgets/products/Basic.vue"),
     "product-offer": () => import("@/components/widgets/products/Offer.vue"),
+    "product-grid": () =>
+      import("@/components/widgets/products/ProductGrid.vue"),
   },
 })
 export default class HomeMainView extends Vue {
@@ -146,8 +112,7 @@ export default class HomeMainView extends Vue {
       {
         id: 1,
         title: "Suzuki A1800",
-        description:
-          "Lorem ipsum dolor sit ame.Lorem ipsum dolor sit ame.Lorem ipsum dolor sit ame.Lorem ipsum dolor sit ame.",
+        description: "Lorem ipsum dolor sit ame.",
         image: {
           id: 1,
           paths: {
@@ -224,19 +189,6 @@ export default class HomeMainView extends Vue {
           },
         },
         price: 75,
-      },
-      {
-        id: 7,
-        title: "Xiaomi Redmi R1",
-        description:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.",
-        image: {
-          id: 1,
-          paths: {
-            xs: "img/test/offers/3.png",
-          },
-        },
-        price: 128,
       },
     ];
   }
