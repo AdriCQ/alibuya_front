@@ -96,4 +96,8 @@ export class ShopService {
       params: _param
     });
   }
+
+  static getHomeAnnouncements() {
+    return axios.get(this.baseUrl + '/ann/home');
+  }
 }
