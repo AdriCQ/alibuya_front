@@ -7,6 +7,7 @@
     <v-section fluid class="mt-3">
       <v-card color="transparent" flat>
         <products-group
+          title="Productos en Rebaja"
           :products="productsTest.slice(0, 5)"
           separated
           show-title
@@ -15,10 +16,33 @@
     </v-section>
 
     <v-section fluid class="mt-2">
+      <v-card flat>
+        <v-card-title v-if="$vuetify.breakpoint.smAndUp"
+          >Ofertas de Navidad</v-card-title
+        >
+        <banner img="img/bg/compra-navidad-movil-810x541.jpg">
+          <products-group
+            :products="productsTest.slice(0, 4)"
+            separated
+            show-title
+            v-if="$vuetify.breakpoint.smAndUp"
+          />
+          <product-grid
+            v-else
+            :products="productsTest.slice(0, 4)"
+            title="Ofertas de Navidad"
+            :to="{ name: 'shop.category', query: { category: 1 } }"
+            width="100%"
+          />
+        </banner>
+      </v-card>
+    </v-section>
+
+    <v-section fluid class="mt-2">
       <v-row no-gutters>
         <v-col cols="12" sm="6" md="4" class="px-1">
           <product-offer
-            title="Oferta especial"
+            title="Ahorra hasta el 25%!!!"
             :product="productsTest[4]"
             :card-props="{ maxWidth: '100%', height: '100%' }"
             :image-props="{ maxHeight: '100%', maxWidth: '100%' }"
@@ -28,8 +52,8 @@
         <v-col cols="12" sm="6" md="4" class="px-1 mt-2 mt-sm-0">
           <product-grid
             :products="productsTest.slice(0, 4)"
-            title="Últimos modelos"
-            :to="{ name: 'main.home' }"
+            title="Productos 100% Nuevos"
+            :to="{ name: 'shop.category', query: { category: 1 } }"
             width="100%"
           />
         </v-col>
@@ -41,8 +65,8 @@
         >
           <product-grid
             :products="productsTest.slice(2, 6)"
-            title="Super oferta"
-            :to="{ name: 'main.home' }"
+            title="Super oferta de Navidad"
+            :to="{ name: 'shop.category', query: { category: 1 } }"
             width="100%"
           />
         </v-col>
@@ -54,7 +78,6 @@
         <products-collection-slider
           title="Lo Más Comprado"
           :products="productsTest"
-          :to="{ name: 'main.home' }"
           link
         />
       </v-card>
@@ -64,7 +87,8 @@
       <v-card>
         <products-group
           :products="productsTest.slice(1, 6)"
-          title="Últimos modelos"
+          title="Electrodomésticos"
+          :to="{ name: 'shop.type', query: { category: 2, type: 6 } }"
         />
       </v-card>
     </v-section>
@@ -78,6 +102,7 @@ import { IProduct } from "@/types";
 
 @Component({
   components: {
+    banner: () => import("@/components/widgets/Banner.vue"),
     "banner-carousel": () => import("@/components/sliders/BannerCarousel.vue"),
     "login-card": () => import("@/components/widgets/LoginCard.vue"),
     "products-group": () => import("@/components/data/ProductsGroup.vue"),
