@@ -1,7 +1,7 @@
 <template>
-  <v-card :width="width" class="product-grid-widget">
+  <v-card :width="width" height="100%" class="product-grid-widget">
     <!-- Title -->
-    <v-card-title v-if="title" class="py-2 text-single-line">
+    <v-card-title v-if="title" class="text-single-line">
       {{ title }}
     </v-card-title>
     <!-- Title -->
@@ -27,7 +27,7 @@
     </v-card-text>
     <!-- / Content -->
 
-    <v-card-actions v-if="to" class="px-4 py-3 mt-auto">
+    <v-card-actions v-if="to" class="mt-auto">
       <span class="text-link text-body-2" @click="goToRoute">
         {{ textLink }}
       </span>
@@ -48,7 +48,7 @@ import { IProduct, TRouteLink } from "@/types";
 export default class GridProductWidget extends ProductBaseClass {
   @Prop({ type: String, required: true }) readonly title!: string;
   @Prop({ type: Array, required: true }) readonly products!: IProduct[];
-  @Prop({ type: [String, Number], default: 350 }) readonly width!:
+  @Prop({ type: [String, Number], default: "100%" }) readonly width!:
     | string
     | number;
   @Prop({ type: String, default: "Ver más" }) readonly textLink!: string;

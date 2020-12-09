@@ -5,51 +5,33 @@
     <!-- / Banner Carousel -->
 
     <v-section fluid class="mt-3">
-      <v-card color="transparent" flat>
-        <products-group
-          :products="productsTest.slice(0, 5)"
-          separated
-          show-title
-        />
-      </v-card>
-    </v-section>
-
-    <v-section fluid class="mt-2">
-      <v-row no-gutters>
-        <v-col cols="12" sm="6" md="4" class="px-1">
+      <products-group :products="productsTest.slice(0, 6)" single show-title />
+      <v-row>
+        <v-col cols="12" sm="6" md="4">
           <product-offer
             title="Oferta especial"
             :product="productsTest[4]"
-            :card-props="{ maxWidth: '100%', height: '100%' }"
-            :image-props="{ maxHeight: '100%', maxWidth: '100%' }"
             :to="{ name: 'main.home' }"
+            show-price
           />
         </v-col>
-        <v-col cols="12" sm="6" md="4" class="px-1 mt-2 mt-sm-0">
+        <v-col cols="12" sm="6" md="4">
           <product-grid
             :products="productsTest.slice(0, 4)"
             title="Últimos modelos"
             :to="{ name: 'main.home' }"
-            width="100%"
           />
         </v-col>
-        <v-col
-          v-if="!$vuetify.breakpoint.smOnly"
-          cols="12"
-          md="4"
-          class="px-1 mt-2 mt-sm-0"
-        >
+        <v-col v-if="!$vuetify.breakpoint.smOnly" cols="12" md="4">
           <product-grid
             :products="productsTest.slice(2, 6)"
             title="Super oferta"
             :to="{ name: 'main.home' }"
-            width="100%"
           />
-        </v-col>
-      </v-row>
-    </v-section>
+        </v-col> </v-row
+    ></v-section>
 
-    <v-section fluid class="mt-2">
+    <v-section fluid>
       <v-card>
         <products-collection-slider
           title="Lo Más Comprado"
@@ -60,12 +42,9 @@
       </v-card>
     </v-section>
 
-    <v-section fluid class="mt-2 mb-3">
+    <v-section fluid>
       <v-card>
-        <products-group
-          :products="productsTest.slice(1, 6)"
-          title="Últimos modelos"
-        />
+        <products-group :products="productsTest.slice(2, 6)" show-price />
       </v-card>
     </v-section>
   </div>
@@ -75,6 +54,7 @@
 import { Vue, Component } from "vue-property-decorator";
 import { ShopStore, UserStore } from "@/store";
 import { IProduct } from "@/types";
+import { productsTest } from "@/utils";
 
 @Component({
   components: {
@@ -108,89 +88,7 @@ export default class HomeMainView extends Vue {
    * Test
    */
   get productsTest(): IProduct[] {
-    return [
-      {
-        id: 1,
-        title: "Suzuki A1800",
-        description: "Lorem ipsum dolor sit ame.",
-        image: {
-          id: 1,
-          paths: {
-            xs: "img/test/offers/1.png",
-          },
-        },
-        price: 420,
-      },
-
-      {
-        id: 2,
-        title: "Sandwichera Milexus",
-        description:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.",
-        image: {
-          id: 1,
-          paths: {
-            xs: "img/test/offers/2.png",
-          },
-        },
-        price: 80,
-      },
-
-      {
-        id: 3,
-        title: "Samsung Galaxy A3",
-        description:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.",
-        image: {
-          id: 1,
-          paths: {
-            xs: "img/test/offers/3.png",
-          },
-        },
-        price: 180,
-      },
-      {
-        id: 4,
-        title: "Combo x4 Colgate",
-        description:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.",
-        image: {
-          id: 1,
-          paths: {
-            xs: "img/test/offers/4.jpg",
-          },
-        },
-        price: 3,
-      },
-
-      {
-        id: 5,
-        title: "Motorina SAM Batería de Litio",
-        description:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.",
-        image: {
-          id: 1,
-          paths: {
-            xs: "img/test/offers/5.png",
-          },
-        },
-        price: 340,
-      },
-
-      {
-        id: 6,
-        title: "Sartén eléctrico Soyea",
-        description:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.",
-        image: {
-          id: 1,
-          paths: {
-            xs: "img/test/offers/6.png",
-          },
-        },
-        price: 75,
-      },
-    ];
+    return productsTest;
   }
 }
 </script>

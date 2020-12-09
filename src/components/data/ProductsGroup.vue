@@ -2,37 +2,31 @@
   <v-card
     class="products-group"
     flat
-    :color="separated ? 'transparent' : undefined"
+    :color="single ? 'transparent' : undefined"
   >
     <!-- Title -->
     <v-card-title v-if="title">{{ title }}</v-card-title>
     <!-- Title -->
 
-    <v-row no-gutters>
+    <v-row align="start">
       <v-col
         v-for="(product, key) in productsFilter"
         :key="`products-group-${key}`"
         cols="6"
         sm="4"
         md="3"
-        lg
-        :class="{ 'px-1': separated }"
+        xl="2"
       >
         <product-basic
           :product="product"
-          :card-props="{
-            maxWidth: '100%',
-            flat: !separated,
-            ...cardProps,
-          }"
-          :image-props="{
-            maxWidth: 190,
-            ...imageProps,
-          }"
+          :card-props="cardAllProps"
+          :image-props="imageProps"
           :link="link"
           :show-title="showTitle"
           :show-price="showPrice"
-          :body-class="separated ? '' : 'pa-0 pb-2'"
+          :show-description="showDescription"
+          class="my-1"
+          :body-class="!single ? 'px-0' : ''"
         >
         </product-basic>
       </v-col>
@@ -57,22 +51,7 @@ export default class ProductsGroup extends ProductBaseClass {
   /**
    *
    */
-  @Prop({ type: Boolean, default: false }) readonly separated!: boolean;
-
-  /**
-   *
-   */
-  get xs() {
-    return this.$vuetify.breakpoint.xs;
-  }
-
-  get sm() {
-    return this.$vuetify.breakpoint.sm;
-  }
-
-  get md() {
-    return this.$vuetify.breakpoint.md;
-  }
+  @Prop({ type: Boolean, default: false }) readonly single!: boolean;
 
   /**
    *
@@ -84,7 +63,7 @@ export default class ProductsGroup extends ProductBaseClass {
       case "md":
         return this.products.slice(0, 4);
       case "lg":
-        return this.products.slice(0, 5);
+        return this.products.slice(0, 4);
       case "xl":
         return this.products.slice(0, 6);
       default:
@@ -92,20 +71,11 @@ export default class ProductsGroup extends ProductBaseClass {
     }
   }
 
-  get slidesToShow() {
-    switch (this.$vuetify.breakpoint.name) {
-      case "sm":
-        return 2;
-      case "md":
-        return 3;
-      case "lg":
-        return 4;
-      case "xl":
-        return 5;
-
-      default:
-        return 1;
-    }
+  get cardAllProps() {
+    return {
+      flat: !this.single,
+      ...this.cardProps,
+    };
   }
 }
 </script>

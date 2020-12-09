@@ -21,15 +21,7 @@
     <!-- / Image -->
 
     <!-- Title -->
-    <v-card-title
-      v-if="showTitle"
-      :class="[
-        'py-2',
-        { 'py-0': showDescription || showPrice || !!$slots['footer'] },
-        'text-single-line',
-        titleClass,
-      ]"
-    >
+    <v-card-title v-if="showTitle" :class="['text-single-line', titleClass]">
       {{ product.title }}
     </v-card-title>
     <!-- / Title -->
@@ -37,20 +29,20 @@
     <!-- Description -->
     <v-card-text
       v-if="showDescription"
-      class="grey--text text--darken-1 text-single-line py-1"
+      class="grey--text text--darken-2 text-single-line py-1"
     >
       {{ product.description }}
     </v-card-text>
     <!-- / Description -->
 
     <!-- Price -->
-    <v-card-title v-if="showPrice" class="text-right py-1">
+    <v-card-title v-if="showPrice" class="text-right">
       $ {{ Number(product.price).toFixed(2) }}
     </v-card-title>
     <!-- / Price -->
 
     <!-- Footer -->
-    <v-card-actions v-if="!!$slots['footer']" class="px-4 py-3 mt-auto">
+    <v-card-actions v-if="!!$slots['footer']" class="mt-auto">
       <slot name="footer" />
     </v-card-actions>
     <!-- / Footer -->
@@ -88,7 +80,8 @@ export default class BasicProductWidget extends ProductBaseClass {
   get cardAllProps() {
     return {
       // defaults
-      maxWidth: 400,
+      width: "100%",
+      height: "100%",
       // from parent
       ...this.cardProps,
     };
@@ -97,7 +90,8 @@ export default class BasicProductWidget extends ProductBaseClass {
   get imageAllProps() {
     return {
       // defaults
-      maxWidth: 280,
+      width: "100%",
+      height: "100%",
       // from parent
       ...this.imageProps,
     };

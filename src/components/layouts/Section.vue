@@ -1,6 +1,6 @@
 <template>
   <section :style="sStyle">
-    <v-container :fluid="fluid" class="py-0 my-0 px-2 px-md-4 px-lg-6">
+    <v-container :fluid="fluid">
       <slot />
     </v-container>
   </section>
