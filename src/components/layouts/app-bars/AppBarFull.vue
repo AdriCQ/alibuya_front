@@ -4,7 +4,7 @@
     :absolute="!lgAndUp"
     :app="lgAndUp"
     color="secondary"
-    :extension-height="tabsHeight"
+    extension-height="auto"
     height="auto"
     dark
     shrink-on-scroll
@@ -93,9 +93,9 @@
     <template v-slot:extension>
       <v-tabs
         :height="tabsHeight"
-        :show-arrows="$vuetify.breakpoint.mdAndUp"
+        :show-arrows="$vuetify.breakpoint.smAndUp"
         optional
-        centered
+        :centered="$vuetify.breakpoint.mdAndUp"
         id="app-bar-tabs"
       >
         <!-- CATEGORIES_PLUS -->

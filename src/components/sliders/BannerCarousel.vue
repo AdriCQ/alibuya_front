@@ -37,41 +37,6 @@
       </v-sheet>
     </v-carousel-item>
     <!-- / Carousel 1 -->
-
-    <!-- Carousel 2 -->
-    <v-carousel-item>
-      <v-sheet color="accent" light height="400px" class="pb-5">
-        <v-row class="fill-height" align="center" justify="center">
-          <v-col cols="12" xs="12" sm="6" md="6" lg="6" xl="6">
-            <v-card-text
-              class="text-center"
-              :style="`font-size: ${titleSize}rem`"
-              >¿Eres vendedor?</v-card-text
-            >
-            <v-card-text
-              class="text-center"
-              :style="`font-size: ${subtitleSize}rem`"
-              >Comienza a vender tus productos en Alibuya!!!</v-card-text
-            >
-            <v-card-text
-              class="text-center"
-              :style="`font-size: ${subtitleSize}rem`"
-              ><v-btn
-                color="primaryAlpha"
-                :to="{ name: 'vendor.home' }"
-                class="black--text btn-primary-alpha-gradient text-transform-none"
-                >Empezar a vender</v-btn
-              >
-            </v-card-text>
-          </v-col>
-
-          <v-col cols="12" xs="12" sm="4" md="4" lg="4" xl="4">
-            <v-img src="img/png/4.png" width="100%" />
-          </v-col>
-        </v-row>
-      </v-sheet>
-    </v-carousel-item>
-    <!-- / Carousel 3 -->
   </v-carousel>
 </template>
 

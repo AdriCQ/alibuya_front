@@ -62,7 +62,7 @@
 
           <v-col cols="auto" class="mt-3">
             <span
-              class="blue--text text--darken-2 cursor-pointer text-body-2"
+              class="text-link text-body-2"
               @click="
                 $router.push({ name: 'auth.register', query: $route.query })
               "

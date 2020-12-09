@@ -101,10 +101,7 @@
 
           <v-col cols="auto" class="mt-3 text-body-2">
             Al registrarse usted acepta nuestros
-            <span
-              class="blue--text text--darken-2 cursor-pointer"
-              @click="showTerms"
-            >
+            <span class="text-link" @click="showTerms">
               términos y condiciones</span
             >.
           </v-col>
@@ -112,7 +109,7 @@
           <v-col cols="auto" class="mt-3 text-body-2">
             Ya tienes usuario? &nbsp;
             <span
-              class="blue--text text--darken-2 cursor-pointer"
+              class="text-link"
               @click="$router.push({ name: 'auth.login', query: $route.query })"
             >
               Inicia sesión →

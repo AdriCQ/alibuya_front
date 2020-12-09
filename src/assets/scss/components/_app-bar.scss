@@ -7,11 +7,10 @@ $font-size: 0.8rem;
 #app-bar-full {
   .v-toolbar__content,
   .v-toolbar__extension {
-    padding: 0px 5px 0px 2px !important;
-
     .v-tab {
       font-size: $font-size !important;
     }
+
     .v-tabs:last-child {
       margin-right: 8px !important;
     }
