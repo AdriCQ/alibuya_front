@@ -2,18 +2,46 @@
 .offer-product-widget,
 .product-grid-widget {
   .v-card__title {
-    @extend .black--text;
-    @extend .text-subtitle-2;
-    @extend .text-md-body-1;
-    display: block;
     font-size: 1rem;
+    line-height: 1.5;
+    color: map-get($shades, "black");
+    padding: {
+      top: 4px;
+      bottom: 4px;
+    }
+    display: block;
+
+    @media #{map-get($display-breakpoints, 'sm-and-up')} {
+      font-size: 1.15rem !important;
+    }
+
+    @media #{map-get($display-breakpoints, 'md-and-up')} {
+      font-size: 1.2rem !important;
+    }
   }
 }
 .product-grid-widget .basic-product-widget .v-card__title.text-subtitle-2 {
   font-size: 0.75rem !important;
 }
 
-.basic-product-widget {
-  @extend .d-flex;
-  @extend .flex-column;
+.basic-product-widget,
+.products-collection-slider,
+.product-grid-widget {
+  display: flex;
+  flex-direction: column;
+}
+
+.products-collection-slider,
+.products-group {
+  > .v-card__title {
+    font-size: 1.1rem;
+
+    @media #{map-get($display-breakpoints, 'sm-and-up')} {
+      font-size: 1.2rem !important;
+    }
+
+    @media #{map-get($display-breakpoints, 'md-and-up')} {
+      font-size: 1.3rem !important;
+    }
+  }
 }

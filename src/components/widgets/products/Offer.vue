@@ -9,9 +9,7 @@
   >
     <!-- Header -->
     <template v-if="title || showTitle || showPrice" #header>
-      <v-card-title
-        class="py-2 text-single-line text-subtitle-2 text-sm-body-2"
-      >
+      <v-card-title class="text-single-line">
         <template v-if="title">{{ title }}</template>
         <template v-else-if="showTitle">{{ product.title }}</template>
 

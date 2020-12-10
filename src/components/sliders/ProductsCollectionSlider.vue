@@ -38,15 +38,15 @@
           :link="link"
           :show-title="showTitle"
           :show-price="showPrice"
-          body-class="pa-0"
           class="mx-auto"
+          body-class="px-0"
         />
       </div>
       <!-- Products -->
     </slick-carousel>
 
     <!-- Actions -->
-    <v-card-actions v-if="to" class="px-4 py-3 mt-auto">
+    <v-card-actions v-if="to" class="mt-auto">
       <span class="text-link text-body-2" @click="goToRoute">
         {{ textLink }}
       </span>

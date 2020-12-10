@@ -76,3 +76,90 @@ export const VENDOR_PAGES: ILinkIconLabel[] = [
     label: "Ayuda",
   },
 ];
+
+/*
+ * Test
+ */
+export const productsTest = [
+  {
+    id: 1,
+    title: "Suzuki A1800",
+    description: "Lorem ipsum dolor sit ame.",
+    image: {
+      id: 1,
+      paths: {
+        xs: "img/test/offers/1.png",
+      },
+    },
+    price: 420,
+  },
+
+  {
+    id: 2,
+    title: "Sandwichera Milexus",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.",
+    image: {
+      id: 1,
+      paths: {
+        xs: "img/test/offers/2.png",
+      },
+    },
+    price: 80,
+  },
+
+  {
+    id: 3,
+    title: "Samsung Galaxy A3",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.",
+    image: {
+      id: 1,
+      paths: {
+        xs: "img/test/offers/3.png",
+      },
+    },
+    price: 180,
+  },
+  {
+    id: 4,
+    title: "Combo x4 Colgate",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.",
+    image: {
+      id: 1,
+      paths: {
+        xs: "img/test/offers/4.jpg",
+      },
+    },
+    price: 3,
+  },
+
+  {
+    id: 5,
+    title: "Motorina SAM Batería de Litio",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.",
+    image: {
+      id: 1,
+      paths: {
+        xs: "img/test/offers/5.png",
+      },
+    },
+    price: 340,
+  },
+
+  {
+    id: 6,
+    title: "Sartén eléctrico Soyea",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores namea quam unde.",
+    image: {
+      id: 1,
+      paths: {
+        xs: "img/test/offers/6.png",
+      },
+    },
+    price: 75,
+  },
+];
