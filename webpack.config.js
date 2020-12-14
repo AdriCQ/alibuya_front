@@ -6,5 +6,19 @@ module.exports = {
   plugins: [
     new BundleAnalyzerPlugin(),
     new VuetifyLoaderPlugin()
-  ]
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+      },
+      {
+        resourceQuery: /blockType=i18n/,
+        type: 'javascript/auto',
+        loader: '@kazupon/vue-i18n-loader'
+      }
+      // ...
+    ]
+  },
 }
