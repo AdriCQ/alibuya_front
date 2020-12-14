@@ -17,7 +17,7 @@
 
         <v-btn :small="!smAndUp" text @click="goToRoute('main.home')">
           <v-img
-            src="img/logos/logo_white_550x178.png"
+            src="img/logos/logo_white_148x37.png"
             :width="smAndUp ? '7rem' : '6.5rem'"
           />
         </v-btn>

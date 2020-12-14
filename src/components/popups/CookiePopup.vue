@@ -1,5 +1,5 @@
 <template>
-  <v-bottom-sheet :value="show" persistent hide-overlay fixed>
+  <v-bottom-sheet :value="show" persistent hide-overlay fixed dark>
     <!-- TODO: Fix Cookies bar moves on mobile -->
     <v-card>
       <v-container>

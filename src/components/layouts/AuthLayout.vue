@@ -4,13 +4,13 @@
       <v-row justify="center">
         <v-col cols="auto">
           <v-img
-            src="img/logos/logo_550x178.png"
+            src="img/logos/logo_300x64.png"
             class="cursor-pointer mx-auto"
-            max-width="300"
+            max-width="200"
             @click="$router.push({ name: 'main.home' })"
           />
           <keep-alive>
-            <router-view />
+            <router-view class="mt-2" />
           </keep-alive>
         </v-col>
       </v-row>

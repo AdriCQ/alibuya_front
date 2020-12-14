@@ -1,51 +1,13 @@
 <template>
   <v-form>
     <v-card-title>
-      <span class="title">Registro de usuario</span>
+      <span class="title">Cambiar Contraseña</span>
     </v-card-title>
 
     <v-card-text class="pb-0">
-      <v-row>
-        <!-- First Name -->
-        <v-col cols="12" :sm="vertical ? 6 : 6" class="py-0">
-          <v-text-field
-            v-model="form.first_name"
-            :error-messages="firstNameErrors"
-            label="Nombre"
-            outlined
-            dense
-            color="black"
-            @change="$v.form.first_name.$touch()"
-          />
-        </v-col>
-
-        <!-- Last Name -->
-        <v-col cols="12" :sm="vertical ? 6 : 6" class="py-0">
-          <v-text-field
-            v-model="form.last_name"
-            :error-messages="lastNameErrors"
-            label="Apellidos"
-            outlined
-            dense
-            color="black"
-            @change="$v.form.last_name.$touch()"
-          />
-        </v-col>
-      </v-row>
+      <p>{{ this.form.email }}</p>
 
       <v-row :no-gutters="vertical">
-        <!-- Email -->
-        <v-col cols="12">
-          <v-text-field
-            v-model="form.email"
-            :error-messages="emailErrors"
-            label="Email*"
-            outlined
-            dense
-            color="black"
-            @change="$v.form.email.$touch()"
-          />
-        </v-col>
         <!-- Password -->
         <v-col cols="12" :sm="vertical ? 12 : 6">
           <v-text-field
@@ -99,38 +61,20 @@
               type="submit"
               block
               class="text-transform-none btn-primary-alpha-gradient"
-              @click.prevent="register"
+              @click.prevent="resetPassword"
             >
-              Registrar
+              Cambiar
             </v-btn>
-          </v-col>
-
-          <v-col cols="auto" class="mt-3 text-body-2">
-            Al registrarse usted acepta nuestros
-            <span class="text-link" @click="showTerms">
-              términos y condiciones</span
-            >.
           </v-col>
 
           <v-col cols="6" class="mt-3">
             <span
               class="text-link text-body-2"
-              @click="$router.push({ name: 'auth.login', query: $route.query })"
-            >
-              Ya tengo Usuario</span
-            >
-          </v-col>
-          <v-col cols="6" class="mt-3 text-rigth">
-            <span
-              class="text-link text-body-2"
               @click="
-                $router.push({
-                  name: 'auth.forgot_password',
-                  query: $route.query,
-                })
+                $router.push({ name: 'auth.register', query: $route.query })
               "
             >
-              Olvidé mi contraseña</span
+              No tengo usuario</span
             >
           </v-col>
         </v-row>
@@ -142,19 +86,15 @@
 
 <script lang='ts'>
 import { Vue, Component, Prop } from "vue-property-decorator";
-// types
-import { IRegisterParams } from "@/types";
-// store
-import { UserStore, PopupStore } from "@/store";
+
 // vuelidate
-import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
+import { required, minLength, sameAs } from "vuelidate/lib/validators";
+import { UserStore, PopupStore } from "@/store";
+import { IResetPasswordParams } from "@/types";
 
 @Component({
   validations: {
     form: {
-      first_name: { required },
-      email: { required, email },
-      last_name: { required },
       password: {
         required,
         minLength: minLength(6),
@@ -167,48 +107,43 @@ import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
     },
   },
 })
-export default class RegisterForm extends Vue {
+export default class ResetPasswordForm extends Vue {
+  mounted() {
+    console.log("QUery", this.$route.query);
+    if (this.$route.query.email)
+      this.form.email = this.$route.query.email as string;
+    if (this.$route.query.token)
+      this.form.token = this.$route.query.token as string;
+  }
+
   @Prop({ type: Boolean, default: false }) vertical!: boolean;
 
-  form: IRegisterParams = {
-    first_name: "",
+  showPasswords = false;
+
+  form: IResetPasswordParams = {
     email: "",
-    last_name: "",
     password: "",
     password_confirmation: "",
+    token: "",
   };
 
-  showPasswords = false;
+  get formExtraData() {
+    console.log("QUery", this.$route.query);
+    if (this.$route.query.email)
+      this.form.email = this.$route.query.email as string;
+    if (this.$route.query.token)
+      this.form.token = this.$route.query.token as string;
+    return {
+      email: this.form.email,
+      token: this.form.token,
+    };
+  }
 
   /**
    *
    */
   get passwordType() {
     return this.showPasswords ? "text" : "password";
-  }
-
-  // error messages in inputs validations
-  get firstNameErrors() {
-    const errors: string[] = [];
-    if (!this.$v.form.first_name?.$dirty) return errors;
-    if (!this.$v.form.first_name.required) errors.push(`Nombre es requerido.`);
-    return errors;
-  }
-
-  get emailErrors() {
-    const errors: string[] = [];
-    if (!this.$v.form.email?.$dirty) return errors;
-    if (!this.$v.form.email?.required) errors.push("Email es requerido.");
-    if (!this.$v.form.email?.email) errors.push("Email inválido.");
-    return errors;
-  }
-
-  get lastNameErrors() {
-    const errors: string[] = [];
-    if (!this.$v.form.last_name?.$dirty) return errors;
-    if (!this.$v.form.last_name.required)
-      errors.push(`Apellidos es requerido.`);
-    return errors;
   }
 
   get passwordErrors() {
@@ -235,50 +170,26 @@ export default class RegisterForm extends Vue {
     return errors;
   }
 
-  /**
-   *
-   */
-  redirect() {
-    const name = this.$route.query.redirect;
-    if (name != null) {
-      this.$router.push({ name: name as string });
-    } else {
-      // if (this.$route.name !== "auth.register") this.$router.back();
-      this.$router.push("main.home");
-    }
-  }
-
-  /**
-   *
-   */
-  async register() {
+  async resetPassword() {
     this.$v.form.$touch();
     if (!this.$v.form.$invalid) {
       this.$emit("loading:update", true);
-
       try {
-        await UserStore.register(this.form);
+        await UserStore.resetPasword(this.form);
         PopupStore.addNotification(
-          [
-            `Le hemos enviado un email de confirmación a ${UserStore.profile.email}. Por favor verifíquelo`,
-          ],
+          [`Contraseña cambiada correctamente`],
 
           "info"
         );
 
         UserStore.storeOnLocalStorage();
+        // this.redirect();
         this.$emit("redirect", this.$route.name);
-      } catch (err) {
-        PopupStore.addNotification(err);
+      } catch (error) {
+        PopupStore.addNotification(error);
       }
       this.$emit("loading:update", false);
-    } else {
-      console.log("Invalid Form");
     }
-  }
-
-  showTerms() {
-    console.log("terms");
   }
 }
 </script>

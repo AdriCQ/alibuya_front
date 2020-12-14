@@ -9,22 +9,26 @@
         <v-col cols="12" :sm="vertical ? 12 : 6">
           <v-text-field
             v-model="form.email"
+            color="black"
             :error-messages="emailErrors"
             label="Email*"
             dense
             outlined
+            name="login_email_input"
             @change="$v.form.email.$touch()"
           />
         </v-col>
 
         <v-col cols="12" :sm="vertical ? 12 : 6">
           <v-text-field
+            color="black"
             v-model="form.password"
             :error-messages="passwordErrors"
             :type="passwordType"
             label="Contraseña*"
             dense
             outlined
+            name="login_password_input"
             @change="$v.form.password.$touch()"
           />
 
@@ -60,7 +64,7 @@
             </v-btn>
           </v-col>
 
-          <v-col cols="auto" class="mt-3">
+          <v-col cols="6" class="mt-3">
             <span
               class="text-link text-body-2"
               @click="
@@ -68,6 +72,19 @@
               "
             >
               No tengo usuario</span
+            >
+          </v-col>
+          <v-col cols="6" class="mt-3 text-rigth">
+            <span
+              class="text-link text-body-2"
+              @click="
+                $router.push({
+                  name: 'auth.forgot_password',
+                  query: $route.query,
+                })
+              "
+            >
+              Olvidé mi contraseña</span
             >
           </v-col>
         </v-row>
@@ -144,18 +161,6 @@ export default class LoginForm extends Vue {
   /**
    *
    */
-  redirect() {
-    const name = this.$route.query.redirect;
-    if (name != null) {
-      this.$router.push({ name: name as string });
-    } else {
-      this.$router.back();
-    }
-  }
-
-  /**
-   *
-   */
   async login() {
     this.$v.form.$touch();
     if (!this.$v.form.$invalid) {
@@ -169,7 +174,7 @@ export default class LoginForm extends Vue {
           "success"
         );
         UserStore.storeOnLocalStorage();
-        this.redirect();
+        this.$emit("redirect", this.$route.name);
       } catch (error) {
         PopupStore.addNotification(error);
       }

@@ -1,6 +1,6 @@
 import { VuexModule, Module, Action } from 'vuex-class-modules';
 import store from '@/store/store';
-import { IUserProfile, ILoginParams, IRegisterParams, IUserContact } from '@/types';
+import { IUserProfile, ILoginParams, IRegisterParams, IUserContact, IResetPasswordParams } from '@/types';
 import { UserService } from '@/services';
 import Storage from '@/utils/Storage';
 
@@ -17,41 +17,7 @@ class UserModule extends VuexModule {
 
   api_token: string | null = null;
 
-  contacts: IUserContact[] = [{
-
-    full_name: "Darian",
-    ci: "01083172380",
-    address:
-      "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
-  },
-  {
-
-    full_name: "Pedro",
-    ci: "01083172380",
-    address:
-      "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
-  },
-  {
-
-    full_name: "Raquel",
-    ci: "01083172380",
-    address:
-      "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
-  },
-  {
-
-    full_name: "Leo",
-    ci: "01083172380",
-    address:
-      "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
-  },
-  {
-
-    full_name: "Julio",
-    ci: "01083172380",
-    address:
-      "Calle Silencio #32, E/ Cerice y San Antonio, Palmira, Cienfuegos",
-  },];
+  contacts: IUserContact[] = [];
 
   /**
    * 
@@ -112,6 +78,53 @@ class UserModule extends VuexModule {
   async register(_params: IRegisterParams) {
     try {
       const _resp = (await UserService.register(_params)).data;
+      if (_resp.STATUS) {
+        this.profile = _resp.DATA.profile;
+        this.api_token = _resp.DATA.api_token;
+      } else {
+        const errors: string[] = [];
+        for (const _key in _resp.ERRORS as unknown[]) {
+          errors.push(_resp.ERRORS[_key]);
+        }
+        throw errors;
+      }
+    }
+    catch (error) {
+      if (Array.isArray(error))
+        throw error;
+      else
+        throw [error]
+    }
+  }
+
+  /**
+   * Actions user module
+   * @param _email 
+   */
+  @Action
+  async requestResetPasswordEmail(_email: string) {
+    try {
+      const _resp = (await UserService.requestPasswordResetEmail(_email)).data;
+      if (!_resp.STATUS) {
+        const errors: string[] = [];
+        for (const _key in _resp.ERRORS as unknown[]) {
+          errors.push(_resp.ERRORS[_key]);
+        }
+        throw errors;
+      }
+    }
+    catch (error) {
+      if (Array.isArray(error))
+        throw error;
+      else
+        throw [error]
+    }
+  }
+
+  @Action
+  async resetPasword(_params: IResetPasswordParams) {
+    try {
+      const _resp = (await UserService.resetPassword(_params)).data;
       if (_resp.STATUS) {
         this.profile = _resp.DATA.profile;
         this.api_token = _resp.DATA.api_token;

@@ -6,38 +6,51 @@ export const authRoutes: RouteConfig = {
   path: '/auth',
   component: AuthLayout,
   children: [
-   
+
     {
       path: 'login',
       name: 'auth.login',
-      component: () => import("@/views/auth/Login.vue"),
-       meta: {
-         title: 'Entrar',
-         auth: true
+      component: () => import("@/views/settings/Auth.vue"),
+      meta: {
+        title: 'Entrar',
+        auth: true
       },
       beforeEnter: NoAuthGuard
     },
     {
       path: 'register',
       name: 'auth.register',
-      component: () => import("@/views/auth/Register.vue"),
-       meta: {
-         title: 'Registro',
-         auth: true
+      component: () => import("@/views/settings/Auth.vue"),
+      meta: {
+        title: 'Registro',
+        auth: true
       },
-       beforeEnter: NoAuthGuard
-    },
-    // redirect from child
-     {
-      path: '' ,
-      redirect: {name: 'auth.login'}
+      beforeEnter: NoAuthGuard
     },
     {
-      path: '/auth/*',
-      redirect: {name:'auth.login'}
-    }
+      path: 'forgot-password',
+      name: 'auth.forgot_password',
+      component: () => import("@/views/settings/Auth.vue"),
+      meta: {
+        title: 'Auth',
+        auth: true
+      },
+      beforeEnter: NoAuthGuard
+    },
+    {
+      path: 'reset-password',
+      name: 'auth.reset_password',
+      component: () => import("@/views/settings/Auth.vue"),
+      meta: {
+        title: 'Auth',
+        auth: true
+      },
+      beforeEnter: NoAuthGuard
+    },
+    // redirect from child
+    {
+      path: '',
+      redirect: { name: 'auth.login' }
+    },
   ],
- 
-  
-
 };
