@@ -5,6 +5,7 @@
     :image-props="imageProps"
     :show-description="showDescription"
     :link="link"
+    :large="large"
     class="offer-product-widget"
   >
     <!-- Header -->

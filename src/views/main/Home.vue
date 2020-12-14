@@ -7,29 +7,70 @@
     <v-section fluid class="mt-3">
       <products-group :products="productsTest.slice(0, 6)" single show-title />
       <v-row>
-        <v-col cols="12" sm="6" md="4">
+        <v-col cols="12" sm="6" md="4" lg="3">
           <product-offer
             title="Ahorra hasta el 25%!!!"
             :product="productsTest[4]"
             :to="{ name: 'main.home' }"
             show-price
+            large
           />
         </v-col>
-        <v-col cols="12" sm="6" md="4">
+        <v-col v-if="!$vuetify.breakpoint.mdOnly" cols="12" sm="6" lg="3">
+          <product-basic
+            :product="productsTest[2]"
+            show-title
+            show-price
+            large
+          />
+        </v-col>
+        <v-col cols="12" sm="6" md="4" lg="3">
           <product-grid
             :products="productsTest.slice(0, 4)"
             title="Últimos modelos"
             :to="{ name: 'main.home' }"
+            large
           />
         </v-col>
-        <v-col v-if="!$vuetify.breakpoint.smOnly" cols="12" md="4">
+        <v-col
+          v-if="!$vuetify.breakpoint.xsOnly"
+          cols="12"
+          sm="6"
+          md="4"
+          lg="3"
+        >
           <product-grid
             :products="productsTest.slice(2, 6)"
             title="Autos y Piezas"
             :to="{ name: 'main.home' }"
+            large
           />
-        </v-col> </v-row
-    ></v-section>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col cols="12">
+          <v-card>
+            <products-collection-slider
+              title="Lo Más Comprado"
+              :products="productsTest"
+              :to="{ name: 'main.home' }"
+              :elements-to-show="{ xs: 3, md: 6 }"
+              link
+            />
+          </v-card>
+        </v-col>
+        <v-col cols="12">
+          <v-card>
+            <products-group
+              :products="productsTest.slice(0, 5)"
+              :elements-to-show="{ lg: 5 }"
+              show-price
+            />
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-section>
 
     <v-section fluid class="mt-2">
       <v-card flat>

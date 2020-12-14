@@ -1,5 +1,5 @@
 <template>
-  <v-card :width="width" height="100%" class="product-grid-widget">
+  <v-card v-bind="cardAllProps" :class="['product-grid-widget', cardClass]">
     <!-- Title -->
     <v-card-title v-if="title" class="text-single-line">
       {{ title }}
@@ -18,9 +18,9 @@
             :product="product"
             :card-props="{ flat: true }"
             :show-title="showTitle"
-            title-class="text-subtitle-2"
             body-class="pa-0"
             class="ma-1"
+            small
           />
         </v-col>
       </v-row>
@@ -48,12 +48,25 @@ import { IProduct, TRouteLink } from "@/types";
 export default class GridProductWidget extends ProductBaseClass {
   @Prop({ type: String, required: true }) readonly title!: string;
   @Prop({ type: Array, required: true }) readonly products!: IProduct[];
-  @Prop({ type: [String, Number], default: "100%" }) readonly width!:
-    | string
-    | number;
   @Prop({ type: String, default: "Ver más" }) readonly textLink!: string;
   @Prop([Object, String]) readonly to!: TRouteLink;
 
+  /**
+   *
+   */
+  get cardClass() {
+    return [{ large: this.large }];
+  }
+
+  get cardAllProps() {
+    return {
+      // defaults
+      width: "100%",
+      height: "100%",
+      // from parent
+      ...this.cardProps,
+    };
+  }
   /**
    *
    */
