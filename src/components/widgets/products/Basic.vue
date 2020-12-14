@@ -2,7 +2,7 @@
   <v-card
     :ripple="false"
     v-bind="cardAllProps"
-    class="basic-product-widget mx-auto"
+    :class="['basic-product-widget', 'mx-auto', cardClass]"
   >
     <!-- Header -->
     <slot name="header" />
@@ -16,6 +16,7 @@
         v-bind="imageAllProps"
         :class="imgClass"
         @click="imageClick"
+        :max-width="imageMaxWidth"
       />
     </v-card-text>
     <!-- / Image -->
@@ -75,8 +76,62 @@ export default class BasicProductWidget extends ProductBaseClass {
   }
 
   /**
-   * All props to children components
+   * Image Max Width
+   *
    */
+
+  // TODO: (in the future) Configure manualy the image max width
+  get imageMaxWidthLarge() {
+    switch (this.$vuetify.breakpoint.name) {
+      case "sm":
+        return 320;
+      case "md":
+        return 350;
+      case "lg":
+        return 365;
+      case "xl":
+        return 370;
+      default:
+        return 300;
+    }
+  }
+
+  get imageMaxWidthDefault() {
+    switch (this.$vuetify.breakpoint.name) {
+      case "sm":
+        return 210;
+      case "md":
+        return 230;
+      case "lg":
+        return 180;
+      case "xl":
+        return 250;
+      default:
+        return 200;
+    }
+  }
+
+  get imageMaxWidthSmall() {
+    switch (this.$vuetify.breakpoint.name) {
+      case "sm":
+        return 160;
+      case "md":
+        return 170;
+      case "lg":
+        return 180;
+      case "xl":
+        return 185;
+      default:
+        return 160;
+    }
+  }
+
+  get imageMaxWidth() {
+    if (this.large) return this.imageMaxWidthLarge;
+    if (this.small) return this.imageMaxWidthSmall;
+    else return this.imageMaxWidthDefault;
+  }
+
   get cardAllProps() {
     return {
       // defaults
@@ -95,6 +150,10 @@ export default class BasicProductWidget extends ProductBaseClass {
       // from parent
       ...this.imageProps,
     };
+  }
+
+  get cardClass() {
+    return [{ large: this.large }, { small: this.small }];
   }
 
   /**

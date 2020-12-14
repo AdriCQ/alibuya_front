@@ -12,10 +12,11 @@
       <v-col
         v-for="(product, key) in productsFilter"
         :key="`products-group-${key}`"
-        cols="6"
-        sm="4"
-        md="3"
-        xl="2"
+        :cols="cols"
+        :sm="sm"
+        :md="md"
+        :lg="lg"
+        :xl="xl"
       >
         <product-basic
           :product="product"
@@ -36,7 +37,7 @@
 
 <script lang='ts'>
 import { Component, Prop } from "vue-property-decorator";
-import { IProduct } from "@/types";
+import { IElementsToShowProp, IProduct } from "@/types";
 import ProductBaseClass from "@/mixins/product";
 
 @Component({
@@ -52,22 +53,47 @@ export default class ProductsGroup extends ProductBaseClass {
    *
    */
   @Prop({ type: Boolean, default: false }) readonly single!: boolean;
+  @Prop(Object) readonly elementsToShow!: IElementsToShowProp;
+
+  defaultElementsToShow: IElementsToShowProp = {
+    xs: 2,
+    sm: 3,
+    md: 4,
+    lg: 6,
+    xl: 6,
+  };
 
   /**
    *
    */
+  get numberElements(): IElementsToShowProp {
+    const _numberElements: IElementsToShowProp = {
+      xs: 0,
+      sm: 0,
+      md: 0,
+      lg: 0,
+      xl: 0,
+    };
+    Object.assign(
+      _numberElements,
+      this.defaultElementsToShow,
+      this.elementsToShow
+    );
+    return _numberElements;
+  }
+
   get productsFilter() {
     switch (this.$vuetify.breakpoint.name) {
       case "sm":
-        return this.products.slice(0, 3);
+        return this.products.slice(0, this.numberElements.sm);
       case "md":
-        return this.products.slice(0, 4);
+        return this.products.slice(0, this.numberElements.md);
       case "lg":
-        return this.products.slice(0, 4);
+        return this.products.slice(0, this.numberElements.lg);
       case "xl":
-        return this.products.slice(0, 6);
+        return this.products.slice(0, this.numberElements.xl);
       default:
-        return this.products.slice(0, 2);
+        return this.products.slice(0, this.numberElements.xs);
     }
   }
 
@@ -76,6 +102,36 @@ export default class ProductsGroup extends ProductBaseClass {
       flat: !this.single,
       ...this.cardProps,
     };
+  }
+
+  get cols() {
+    return 12 % this.numberElements.xs == 0
+      ? 12 / this.numberElements?.xs
+      : true;
+  }
+
+  get sm() {
+    return 12 % this.numberElements.sm == 0
+      ? 12 / this.numberElements.sm
+      : true;
+  }
+
+  get md() {
+    return 12 % this.numberElements.md == 0
+      ? 12 / this.numberElements.md
+      : true;
+  }
+
+  get lg() {
+    return 12 % this.numberElements.lg == 0
+      ? 12 / this.numberElements.lg
+      : true;
+  }
+
+  get xl() {
+    return 12 % this.numberElements.xl == 0
+      ? 12 / this.numberElements.xl
+      : true;
   }
 }
 </script>

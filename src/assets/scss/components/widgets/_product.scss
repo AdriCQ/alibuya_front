@@ -1,8 +1,8 @@
+$product-widget-base-font-sz: 0.9rem;
 .basic-product-widget,
 .offer-product-widget,
 .product-grid-widget {
   .v-card__title {
-    font-size: 1rem;
     line-height: 1.5;
     color: map-get($shades, "black");
     padding: {
@@ -10,18 +10,55 @@
       bottom: 4px;
     }
     display: block;
-
+    font-size: $product-widget-base-font-sz;
     @media #{map-get($display-breakpoints, 'sm-and-up')} {
-      font-size: 1.15rem !important;
+      font-size: $product-widget-base-font-sz + 0.03 !important;
     }
 
     @media #{map-get($display-breakpoints, 'md-and-up')} {
-      font-size: 1.2rem !important;
+      font-size: $product-widget-base-font-sz + 0.05 !important;
+    }
+
+    @media #{map-get($display-breakpoints, 'lg-and-up')} {
+      font-size: $product-widget-base-font-sz + 0.1 !important;
     }
   }
-}
-.product-grid-widget .basic-product-widget .v-card__title.text-subtitle-2 {
-  font-size: 0.75rem !important;
+
+  // large
+  &.large {
+    .v-card__title {
+      font-size: $product-widget-base-font-sz + 0.05;
+      @media #{map-get($display-breakpoints, 'sm-and-up')} {
+        font-size: $product-widget-base-font-sz + 0.15 !important;
+      }
+
+      @media #{map-get($display-breakpoints, 'md-and-up')} {
+        font-size: $product-widget-base-font-sz + 0.25 !important;
+      }
+
+      @media #{map-get($display-breakpoints, 'lg-and-up')} {
+        font-size: $product-widget-base-font-sz + 0.3 !important;
+      }
+    }
+  }
+
+  // small
+  &.small {
+    .v-card__title {
+      font-size: $product-widget-base-font-sz - 0.13;
+      @media #{map-get($display-breakpoints, 'sm-and-up')} {
+        font-size: $product-widget-base-font-sz - 0.1 !important;
+      }
+
+      @media #{map-get($display-breakpoints, 'md-and-up')} {
+        font-size: $product-widget-base-font-sz - 0.08 !important;
+      }
+
+      @media #{map-get($display-breakpoints, 'lg-and-up')} {
+        font-size: $product-widget-base-font-sz - 0.05 !important;
+      }
+    }
+  }
 }
 
 .basic-product-widget,

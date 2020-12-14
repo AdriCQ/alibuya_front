@@ -58,7 +58,7 @@
 <script lang='ts'>
 import { Component, Prop } from "vue-property-decorator";
 // types
-import { IProduct, TRouteLink } from "@/types";
+import { IElementsToShowProp, IProduct, TRouteLink } from "@/types";
 import ProductBaseClass from "@/mixins/product";
 
 @Component({
@@ -71,26 +71,56 @@ export default class ProductsCollectionSlider extends ProductBaseClass {
   @Prop(String) readonly title!: string;
   @Prop([Object, String]) readonly to!: TRouteLink;
   @Prop({ type: String, default: "Ver más" }) readonly textLink!: string;
+  // Cofigure slides to show in each breakpoint
+  @Prop(Object) readonly elementsToShow!: IElementsToShowProp;
 
-  // breakpoints
+  /* Defaults values */
+  defaultElementsToShow: IElementsToShowProp = {
+    xs: 2,
+    sm: 3,
+    md: 4,
+    lg: 5,
+    xl: 6,
+  };
+
+  /**
+   *
+   */
+  get numberElements(): IElementsToShowProp {
+    const _numberElements: IElementsToShowProp = {
+      xs: 0,
+      sm: 0,
+      md: 0,
+      lg: 0,
+      xl: 0,
+    };
+    Object.assign(
+      _numberElements,
+      this.defaultElementsToShow,
+      this.elementsToShow
+    );
+    return _numberElements;
+  }
+
+  /**
+   *
+   */
   get xs() {
     return this.$vuetify.breakpoint.xs;
   }
 
   get slidesToShow() {
     switch (this.$vuetify.breakpoint.name) {
-      case "xl":
-        return 6;
-      case "lg":
-        return 5;
-      case "md":
-        return 4;
       case "sm":
-        return 3;
-      case "xs":
-        return 2;
+        return this.numberElements.sm;
+      case "md":
+        return this.numberElements.md;
+      case "lg":
+        return this.numberElements.lg;
+      case "xl":
+        return this.numberElements.xl;
       default:
-        return 2;
+        return this.numberElements.xs;
     }
   }
 

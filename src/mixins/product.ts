@@ -14,4 +14,8 @@ export default class ProductBaseClass extends Vue {
   // props to children
   @Prop(Object) readonly imageProps!: object;
   @Prop(Object) readonly cardProps!: object;
+
+  // design / states
+  @Prop({ type: Boolean, default: false }) readonly large!: boolean;
+  @Prop({ type: Boolean, default: false }) readonly small!: boolean;
 }

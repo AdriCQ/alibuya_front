@@ -24,6 +24,13 @@ export * from './services/user';
 export * from './services/product';
 export * from './services/vendor';
 
+/**
+ * -----------------------------------------
+ * Components
+ * -----------------------------------------
+ */
+
+export * from './components/product';
 
 /**
  * -----------------------------------------
