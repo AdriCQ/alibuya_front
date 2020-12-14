@@ -72,11 +72,21 @@
             :content="shopingCartCounter"
           >
             <b v-if="smAndUp"> Mi Carrito </b>
-            <v-icon :size="iconSize">mdi-cart-outline</v-icon>
+            <v-icon
+              :size="iconSize"
+              :class="cartClass"
+              @mouseover="shakeCartIcon"
+              >mdi-cart-outline</v-icon
+            >
           </v-badge>
           <template v-else>
             <b v-if="smAndUp"> Mi Carrito </b>
-            <v-icon :size="iconSize">mdi-cart-outline</v-icon>
+            <v-icon
+              :size="iconSize"
+              :class="cartClass"
+              @mouseover="shakeCartIcon"
+              >mdi-cart-outline</v-icon
+            >
           </template>
         </v-btn>
       </div>
@@ -142,6 +152,7 @@ import { Dictionary } from "vue-router/types/router";
   },
 })
 export default class AppBarFull extends Vue {
+  cartClass = "";
   // states in breakpoints
   get tabsHeight() {
     return this.smAndUp ? 34 : 28;
@@ -209,6 +220,17 @@ export default class AppBarFull extends Vue {
     AppStore.sidebarLeft = !AppStore.sidebarLeft;
   }
 
+  shakeCartIcon() {
+    const shakeInterval = window.setInterval(() => {
+      if (this.cartClass === "mdi-rotate-45") this.cartClass = "";
+      else this.cartClass = "mdi-rotate-45";
+    }, 100);
+    window.setTimeout(() => {
+      window.clearInterval(shakeInterval);
+      this.cartClass = "";
+    }, 700);
+  }
+
   /**
    *
    */
@@ -229,3 +251,9 @@ export default class AppBarFull extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.transition {
+  transition: 0.5s ease-in-out 0.4s;
+}
+</style>

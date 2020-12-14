@@ -4,9 +4,3 @@ export const ScrollTop = () => {
     behavior: "smooth"
   })
 }
-
-export const isMobile = () => {
-  const check = false;
-
-  return check;
-};

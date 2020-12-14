@@ -4,7 +4,7 @@
     <banner-carousel />
     <!-- / Banner Carousel -->
 
-    <v-section fluid class="mt-3">
+    <v-section fluid>
       <products-group :products="productsTest.slice(0, 6)" single show-title />
       <v-row>
         <v-col cols="12" sm="6" md="4" lg="3">
@@ -48,7 +48,7 @@
         </v-col>
       </v-row>
 
-      <v-row>
+      <v-row class="py-0">
         <v-col cols="12">
           <v-card>
             <products-collection-slider
@@ -72,7 +72,7 @@
       </v-row>
     </v-section>
 
-    <v-section fluid class="mt-2">
+    <v-section fluid>
       <v-card flat>
         <v-card-title v-if="$vuetify.breakpoint.smAndUp"
           >Ofertas de Navidad</v-card-title
