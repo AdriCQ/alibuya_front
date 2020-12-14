@@ -34,9 +34,9 @@ export default class BannerWidget extends Vue {
   readonly height!: string;
 
   @Prop({
-    type: Number,
-    default: 0.6,
+    type: String,
+    default: "0",
   })
-  readonly opacity!: number;
+  readonly opacity!: string;
 }
 </script>

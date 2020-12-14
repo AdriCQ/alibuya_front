@@ -9,7 +9,7 @@
       <v-row>
         <v-col cols="12" sm="6" md="4" lg="3">
           <product-offer
-            title="Oferta especial"
+            title="Ahorra hasta el 25%!!!"
             :product="productsTest[4]"
             :to="{ name: 'main.home' }"
             show-price
@@ -41,7 +41,7 @@
         >
           <product-grid
             :products="productsTest.slice(2, 6)"
-            title="Super oferta"
+            title="Autos y Piezas"
             :to="{ name: 'main.home' }"
             large
           />
@@ -71,6 +71,51 @@
         </v-col>
       </v-row>
     </v-section>
+
+    <v-section fluid class="mt-2">
+      <v-card flat>
+        <v-card-title v-if="$vuetify.breakpoint.smAndUp"
+          >Ofertas de Navidad</v-card-title
+        >
+        <banner img="img/bg/compra-navidad-movil-810x541.jpg">
+          <products-group
+            :products="productsTest.slice(0, 4)"
+            separated
+            show-title
+            v-if="$vuetify.breakpoint.smAndUp"
+          />
+          <product-grid
+            v-else
+            :products="productsTest.slice(0, 4)"
+            title="Ofertas de Navidad"
+            :to="{ name: 'shop.category', query: { category: 1 } }"
+            width="100%"
+          />
+        </banner>
+      </v-card>
+    </v-section>
+
+    <v-section fluid>
+      <v-card>
+        <products-collection-slider
+          title="Productos Más Comprados"
+          :products="productsTest"
+          link
+        />
+      </v-card>
+    </v-section>
+
+    <v-section fluid>
+      <v-card>
+        <products-group
+          title="Productos para el hogar"
+          :products="productsTest.slice(1, 5)"
+          show-price
+          show-title
+          :to="{ name: 'shop.type', query: { category: 2, type: 6 } }"
+        />
+      </v-card>
+    </v-section>
   </div>
 </template>
 
@@ -82,6 +127,7 @@ import { productsTest } from "@/utils";
 
 @Component({
   components: {
+    banner: () => import("@/components/widgets/Banner.vue"),
     "banner-carousel": () => import("@/components/sliders/BannerCarousel.vue"),
     "login-card": () => import("@/components/widgets/LoginCard.vue"),
     "products-group": () => import("@/components/data/ProductsGroup.vue"),
