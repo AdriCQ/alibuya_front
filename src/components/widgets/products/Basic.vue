@@ -2,6 +2,7 @@
   <v-card
     :ripple="false"
     v-bind="cardAllProps"
+    elevation="0"
     :class="['basic-product-widget', 'mx-auto', cardClass]"
   >
     <!-- Header -->

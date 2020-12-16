@@ -34,7 +34,7 @@
       <!-- CATEGORIES_PLUS -->
       <v-list-item>
         <v-list-item-title class="font-weight-bold">
-          DEPARTAMENTOS
+          CATEGORÍAS
         </v-list-item-title>
       </v-list-item>
       <v-list-item

@@ -50,15 +50,13 @@
 
       <v-row class="py-0">
         <v-col cols="12">
-          <v-card>
-            <products-collection-slider
-              title="Lo Más Comprado"
-              :products="productsTest"
-              :to="{ name: 'main.home' }"
-              :elements-to-show="{ xs: 3, md: 6 }"
-              link
-            />
-          </v-card>
+          <products-collection-slider
+            title="Lo Más Comprado"
+            :products="productsTest"
+            :to="{ name: 'main.home' }"
+            :elements-to-show="{ xs: 3, md: 6 }"
+            link
+          />
         </v-col>
         <v-col cols="12">
           <v-card>

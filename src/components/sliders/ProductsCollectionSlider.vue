@@ -1,5 +1,10 @@
 <template>
-  <v-card flat class="products-collection-slider">
+  <v-card
+    flat
+    class="products-collection-slider"
+    elevation="0"
+    color="tranparent"
+  >
     <v-card-title v-if="title">{{ title }} </v-card-title>
 
     <slick-carousel

@@ -9,7 +9,7 @@
     interval="2500"
   >
     <v-carousel-item v-for="(product, i) in products" :key="i">
-      <v-sheet>
+      <v-sheet elevation="0">
         <product-widget :product="product" />
       </v-sheet>
     </v-carousel-item>

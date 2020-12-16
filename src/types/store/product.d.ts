@@ -82,7 +82,7 @@ export interface IProductCart extends IProduct {
  */
 export interface IProductsPack {
   title: string;
-  products: IProduct[];
+  products: IProductCart[];
   weight: number;
   price: number;
   cant: number;

@@ -1,6 +1,6 @@
 import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store/store';
-import { IProduct, IProductsPack } from '@/types';
+import { IProductsPack, IProductCart } from '@/types';
 
 @Module({ generateMutationSetters: true })
 class PackModule extends VuexModule {
@@ -36,7 +36,7 @@ class PackModule extends VuexModule {
    * Adds product
    * @param _product IProduct
    */
-  addProduct(_product: IProduct) {
+  addProduct(_product: IProductCart) {
     if (_product.weight) {
       // Product more than 1500g
       if (_product.weight > 1500 || this.packs.length === 0) {

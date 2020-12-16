@@ -5,6 +5,7 @@
       v-for="(prod, prodKey) in products"
       :key="`product-${prodKey}`"
       class="ma-1"
+      :color="single ? 'transparent' : undefined"
     >
       <product :product="prod" />
     </v-col>
@@ -26,5 +27,6 @@ export default class ProductListGrid extends Vue {
     default: [],
   })
   readonly products!: IProduct[];
+  @Prop({ type: Boolean, default: false }) readonly single!: boolean;
 }
 </script>

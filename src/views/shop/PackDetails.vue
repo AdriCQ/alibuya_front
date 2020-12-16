@@ -98,7 +98,6 @@ export default class PackDetailsView extends Vue {
   get totalWeight() {
     if (this.pack && this.pack.cant) {
       const weight = Number(this.pack.price * this.pack.cant);
-      console.log(weight, "Peso");
       if (weight > 1500) {
         return (
           Number(weight / 1000)
