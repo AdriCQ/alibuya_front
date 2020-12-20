@@ -23,9 +23,9 @@
     <!-- / Image -->
 
     <!-- Title -->
-    <v-card-title v-if="showTitle" :class="['text-single-line', titleClass]">
+    <v-card-subtitle v-if="showTitle" :class="['text-single-line', titleClass]">
       {{ product.title }}
-    </v-card-title>
+    </v-card-subtitle>
     <!-- / Title -->
 
     <!-- Description -->

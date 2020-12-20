@@ -51,14 +51,19 @@
     <v-section>
       <v-card flat>
         <v-card-title>Productos </v-card-title>
-        <products-group
-          advanced
-          withTitle
-          withCant
-          withPrice
-          :max="pack.products.length"
-          :products="pack.products"
-        />
+        <v-row>
+          <v-col
+            v-for="(product, prodKey) in pack.products"
+            :key="`product-col-${prodKey}`"
+          >
+            <v-card>
+              <product-editable
+                :product.sync="pack.products[prodKey]"
+                @check="check"
+              />
+            </v-card>
+          </v-col>
+        </v-row>
       </v-card>
     </v-section>
   </div>
@@ -70,7 +75,7 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component({
   components: {
-    "products-group": () => import("@/components/data/ProductsGroup.vue"),
+    "product-editable": () => import("@/components/widgets/products/Edit.vue"),
   },
 })
 export default class PackDetailsView extends Vue {
@@ -122,6 +127,10 @@ export default class PackDetailsView extends Vue {
       "Varadero – Aerovaradero",
       "Santiago de Cuba – Aerovaradero",
     ];
+  }
+
+  check(data){
+    console.log("Check", data);
   }
 }
 </script>

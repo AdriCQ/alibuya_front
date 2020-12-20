@@ -1,18 +1,14 @@
 <template>
   <div class="pack-card-widget">
     <v-card :width="`${size}rem`" @click="goToDetails()">
-      <v-card-text>
-        <v-row
-          no-gutters
-          class="pa-1"
-          style="background-color: rgba(0, 0, 0, 0.2)"
-        >
+      <v-card-text class="pa-0">
+        <v-row no-gutters>
           <!-- 1 Product -->
           <template v-if="products.length === 1">
             <v-col cols="12">
               <v-sheet class="pack-image-container">
                 <v-img
-                  :src="getImage(products[0].images)"
+                  :src="getImage(products[0].image)"
                   :alt="products[0].title"
                   :width="`${size}rem`"
                   :height="`${size}rem`"
@@ -26,7 +22,7 @@
             <v-col cols="12">
               <v-sheet class="pack-image-container">
                 <v-img
-                  :src="getImage(products[0].images)"
+                  :src="getImage(products[0].image)"
                   :alt="products[0].title"
                   :width="`${size}rem`"
                   :height="`${size / 2}rem`"
@@ -36,7 +32,7 @@
             <v-col cols="12">
               <v-sheet class="pack-image-container">
                 <v-img
-                  :src="getImage(products[1].images)"
+                  :src="getImage(products[1].image)"
                   :alt="products[1].title"
                   :width="`${size}rem`"
                   :height="`${size / 2}rem`"
@@ -50,7 +46,7 @@
             <v-col cols="6">
               <v-sheet class="pack-image-container">
                 <v-img
-                  :src="getImage(products[0].images)"
+                  :src="getImage(products[0].image)"
                   :alt="products[0].title"
                   :width="`${size / 2}rem`"
                   :height="`${size / 2}rem`"
@@ -60,7 +56,7 @@
             <v-col cols="6">
               <v-sheet class="pack-image-container">
                 <v-img
-                  :src="getImage(products[1].images)"
+                  :src="getImage(products[1].image)"
                   :alt="products[1].title"
                   :width="`${size / 2}rem`"
                   :height="`${size / 2}rem`"
@@ -70,7 +66,7 @@
             <v-col cols="12">
               <v-sheet class="pack-image-container">
                 <v-img
-                  :src="getImage(products[2].images)"
+                  :src="getImage(products[2].image)"
                   :alt="products[2].title"
                   :width="`${size}rem`"
                   :height="`${size / 2}rem`"
@@ -84,7 +80,7 @@
             <v-col cols="6">
               <v-sheet class="pack-image-container">
                 <v-img
-                  :src="getImage(products[0].images)"
+                  :src="getImage(products[0].image)"
                   :alt="products[0].title"
                   :width="`${size / 2}rem`"
                   :height="`${size / 2}rem`"
@@ -94,7 +90,7 @@
             <v-col cols="6">
               <v-sheet class="pack-image-container">
                 <v-img
-                  :src="getImage(products[1].images)"
+                  :src="getImage(products[1].image)"
                   :alt="products[1].title"
                   :width="`${size / 2}rem`"
                   :height="`${size / 2}rem`"
@@ -104,7 +100,7 @@
             <v-col cols="6">
               <v-sheet class="pack-image-container">
                 <v-img
-                  :src="getImage(products[2].images)"
+                  :src="getImage(products[2].image)"
                   :alt="products[2].title"
                   :width="`${size / 2}rem`"
                   :height="`${size / 2}rem`"
@@ -114,7 +110,7 @@
             <v-col cols="6">
               <v-sheet class="pack-image-container">
                 <v-img
-                  :src="getImage(products[3].images)"
+                  :src="getImage(products[3].image)"
                   :alt="products[3].title"
                   :width="`${size / 2}rem`"
                   :height="`${size / 2}rem`"
@@ -128,7 +124,7 @@
             <v-col cols="6">
               <v-sheet class="pack-image-container">
                 <v-img
-                  :src="getImage(products[0].images)"
+                  :src="getImage(products[0].image)"
                   :alt="products[0].title"
                   :width="`${size / 2}rem`"
                   :height="`${size / 2}rem`"
@@ -138,7 +134,7 @@
             <v-col cols="6">
               <v-sheet class="pack-image-container">
                 <v-img
-                  :src="getImage(products[1].images)"
+                  :src="getImage(products[1].image)"
                   :alt="products[1].title"
                   :width="`${size / 2}rem`"
                   :height="`${size / 2}rem`"
@@ -148,7 +144,7 @@
             <v-col cols="6">
               <v-sheet class="pack-image-container">
                 <v-img
-                  :src="getImage(products[2].images)"
+                  :src="getImage(products[2].image)"
                   :alt="products[2].title"
                   :width="`${size / 2}rem`"
                   :height="`${size / 2}rem`"
@@ -156,7 +152,7 @@
               </v-sheet>
             </v-col>
             <v-col cols="6" align-self="center">
-              <v-sheet class="pack-image-container">
+              <v-sheet class="pack-image-container" color="secondaryBetha">
                 <div :style="moreStyle">+{{ products.length - 3 }}</div>
               </v-sheet>
             </v-col>
@@ -164,7 +160,7 @@
           <!-- / +4 Product -->
         </v-row>
       </v-card-text>
-      <v-card-text>
+      <v-card-text v-if="footer">
         <div class="ml-2 mt-2" v-if="productCounter">
           <span>{{ Number(countProducts) }} Productos</span>
         </div>
@@ -179,6 +175,7 @@
 <script lang='ts'>
 import { IProductsPack, IShopImage } from "@/types";
 import { Vue, Component, Prop } from "vue-property-decorator";
+import { ProductImage } from "@/utils";
 
 @Component
 export default class PackWidget extends Vue {
@@ -194,8 +191,8 @@ export default class PackWidget extends Vue {
     },
   })
   readonly pack!: IProductsPack;
-  @Prop(Boolean) readonly withPrice!: boolean;
-  @Prop({ type: Boolean, default: true }) readonly productCounter!: boolean;
+  @Prop({ type: Boolean, default: false }) readonly withPrice!: boolean;
+  @Prop({ type: Boolean, default: false }) readonly productCounter!: boolean;
 
   @Prop({ type: String, default: "md" }) readonly mode!:
     | "xs"
@@ -229,11 +226,11 @@ export default class PackWidget extends Vue {
       case "sm":
         return baseStyle + "font-size: 1rem; padding-top: 18px";
       case "lg":
-        return baseStyle + "font-size: 1.6rem; padding-top: 32px";
+        return baseStyle + "font-size: 1.6rem; padding-top: 35px";
       case "xl":
-        return baseStyle + "font-size: 2rem; padding-top: 45px";
+        return baseStyle + "font-size: 2rem; padding-top: 50px";
       default:
-        return baseStyle + "font-size: 1.3rem; padding-top: 23px";
+        return baseStyle + "font-size: 1.3rem; padding-top: 25px";
     }
   }
 
@@ -249,6 +246,10 @@ export default class PackWidget extends Vue {
     return counter;
   }
 
+  get footer(){
+    return this.withPrice || this.productCounter;
+  }
+
   goToDetails() {
     this.$emit("details");
   }
@@ -259,8 +260,8 @@ export default class PackWidget extends Vue {
 
   getImage(_image: IShopImage) {
     // TODO: handle getImage
-    // return new ProductImage(_image).xs;
-    return "img/test/offers/1.png";
+    return new ProductImage(_image).xs;
+    // return "img/test/offers/1.png";
   }
 }
 </script>

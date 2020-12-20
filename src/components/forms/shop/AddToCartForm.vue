@@ -181,7 +181,6 @@ export default class AddToCartForm extends Vue {
   // test - array of images
   get imagesSrc() {
     const images: string[] = [];
-    console.log(this.product.images);
     if (this.product.images?.length) {
       this.product.images.forEach((image) => {
         images.push(new ProductImage(image).sm);

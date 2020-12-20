@@ -25,7 +25,7 @@
 
     <template v-if="shopPacks.length">
       <!-- Small View Grid Mode -->
-      <template v-if="$vuetify.breakpoint.xs">
+      <template v-if="!$vuetify.breakpoint.xs">
         <v-row no-gutters justify="center">
           <v-col
             cols="auto"
@@ -36,7 +36,7 @@
             <pack-card
               :pack="pack"
               @details="goToDetails(pKey)"
-              mode="lg"
+              mode="xl"
               with-price
             />
           </v-col>
@@ -52,19 +52,17 @@
               <!-- <th>Nombre</th> -->
               <th>Precio</th>
               <th>Cantidad</th>
-              <th>Subtotal</th>
-              <th></th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
+            <template  v-for="(pack, key) in shopPacks">
             <tr
-              v-for="(pack, key) in shopPacks"
-              :key="key"
+             
+              :key="`tr-1-${key}`"
               class="cursor-pointer"
             >
               <td class="pa-1">
-                <pack-card :pack="pack" @details="goToDetails(key)" />
+                <pack-card :pack="pack" mode="xs" @details="goToDetails(key)" />
               </td>
               <!-- <td>
                   {{ pack.title }}
@@ -73,18 +71,15 @@
               <td>
                 {{ pack.cant }}
               </td>
-              <td>${{ Number(pack.price * pack.cant).toFixed(2) }}</td>
-              <td>
-                <v-btn small text color="success" @click="goToDetails(key)"
-                  >Editar</v-btn
-                >
-              </td>
-              <td>
-                <v-btn small text color="error" @click="deletePopupConfirm(key)"
-                  >Eliminar</v-btn
-                >
-              </td>
             </tr>
+            <tr
+              :key="`tr-2-${key}`"
+            >
+              <td></td>
+              <td><v-btn small color="info" @click="goToDetails(key)" text>Editar</v-btn></td>
+              <td><v-btn small color="red" @click="deletePopupConfirm(key)" dark text>Eliminar</v-btn></td>
+            </tr>
+            </template>
           </tbody>
         </template>
       </v-simple-table>

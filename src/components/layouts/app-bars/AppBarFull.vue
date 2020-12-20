@@ -71,23 +71,33 @@
             color="primary"
             :content="shopingCartCounter"
           >
-            <b v-if="smAndUp"> Mi Carrito </b>
-            <v-icon
+            <!-- <b v-if="smAndUp"> Mi Carrito </b> -->
+            <!-- <v-icon
               :size="iconSize"
               :class="cartClass"
               @mouseover="shakeCartIcon"
               >mdi-cart-outline</v-icon
-            >
+            > -->
+            <v-img
+              src="img/icons/shopping-cart/shopping-cart_168x168.png"
+              alt="Shopping Cart"
+              width="22px"
+            />
           </v-badge>
-          <template v-else>
-            <b v-if="smAndUp"> Mi Carrito </b>
-            <v-icon
+          <div v-else style="width: 22px">
+            <!-- <b v-if="smAndUp"> Mi Carrito </b> -->
+            <!-- <v-icon
               :size="iconSize"
               :class="cartClass"
               @mouseover="shakeCartIcon"
               >mdi-cart-outline</v-icon
-            >
-          </template>
+            > -->
+            <v-img
+              src="img/icons/shopping-cart/shopping-cart_168x168.png"
+              alt="Shopping Cart"
+              width="100%"
+            />
+          </div>
         </v-btn>
       </div>
 

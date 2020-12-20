@@ -11,11 +11,12 @@
       class="slick pa-0"
       :arrows="!xs"
       :centerMode="false"
-      :infinite="false"
+      infinite
       :slidesToShow="slidesToShow"
-      :swipe="true"
-      :swipeToSlide="true"
+      swip
+      swipeToSlide
       :slidesToScroll="1"
+      autoplay
     >
       <!-- Arrows -->
       <template #prevArrow>
