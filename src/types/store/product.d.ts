@@ -84,7 +84,7 @@ export interface IProductsPack {
   title: string;
   products: IProductCart[];
   weight: number;
-  price: number;
+  // price: number;
   cant: number;
   destinataries?: TPackDestinationPerson[];
 }

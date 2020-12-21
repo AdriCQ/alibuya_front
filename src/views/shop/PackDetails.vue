@@ -9,7 +9,7 @@
             <v-card-text><b>Peso Total</b> {{ totalWeight }}</v-card-text>
             <v-card-text>
               <b>Precio Total</b> ${{
-                Number(pack.price * pack.cant).toFixed(2)
+                Number(packPrice).toFixed(2)
               }}</v-card-text
             >
           </v-col>
@@ -49,19 +49,14 @@
     <!-- / Ajustes -->
 
     <v-section>
-      <v-card flat>
+      <v-card flat color="transparent">
         <v-card-title>Productos </v-card-title>
         <v-row>
           <v-col
             v-for="(product, prodKey) in pack.products"
             :key="`product-col-${prodKey}`"
           >
-            <v-card>
-              <product-editable
-                :product.sync="pack.products[prodKey]"
-                @check="check"
-              />
-            </v-card>
+            <product-editable :product="product" />
           </v-col>
         </v-row>
       </v-card>
@@ -102,7 +97,7 @@ export default class PackDetailsView extends Vue {
 
   get totalWeight() {
     if (this.pack && this.pack.cant) {
-      const weight = Number(this.pack.price * this.pack.cant);
+      const weight = Number(this.pack.weight * this.pack.cant);
       if (weight > 1500) {
         return (
           Number(weight / 1000)
@@ -129,7 +124,12 @@ export default class PackDetailsView extends Vue {
     ];
   }
 
-  check(data){
+  get packPrice() {
+    const key = Number(this.$route.query.packKey);
+    return PackStore.getPackPrice(key);
+  }
+
+  check(data: any) {
     console.log("Check", data);
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="pack-card-widget">
-    <v-card :width="`${size}rem`" @click="goToDetails()">
+    <v-card :width="`${size}rem`" flat @click="goToDetails()">
       <v-card-text class="pa-0">
         <v-row no-gutters>
           <!-- 1 Product -->
@@ -246,7 +246,7 @@ export default class PackWidget extends Vue {
     return counter;
   }
 
-  get footer(){
+  get footer() {
     return this.withPrice || this.productCounter;
   }
 

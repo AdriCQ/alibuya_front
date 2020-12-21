@@ -1,7 +1,7 @@
 <template>
-  <div id="main-home">
+  <div class="view-container">
     <!-- Banner Carousel -->
-    <banner-carousel />
+    <!-- <banner-carousel /> -->
     <!-- / Banner Carousel -->
 
     <v-section fluid>

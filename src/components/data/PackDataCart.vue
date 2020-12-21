@@ -25,64 +25,36 @@
 
     <template v-if="shopPacks.length">
       <!-- Small View Grid Mode -->
-      <template v-if="!$vuetify.breakpoint.xs">
-        <v-row no-gutters justify="center">
-          <v-col
-            cols="auto"
-            v-for="(pack, pKey) in shopPacks"
-            :key="pKey"
-            class="pa-1"
-          >
-            <pack-card
-              :pack="pack"
-              @details="goToDetails(pKey)"
-              mode="xl"
-              with-price
-            />
-          </v-col>
-        </v-row>
-      </template>
+      <v-row no-gutters justify="center">
+        <v-col
+          cols="12"
+          class="mt-2 px-1"
+          v-for="(pack, packKey) in shopPacks"
+          :key="`pack-col-${packKey}`"
+        >
+          <v-card outlined class="mt-1">
+            <pack-card-horizontal :pack="pack" :pack-key="packKey" />
+            <div class="d-flex">
+              <v-spacer />
+              <v-btn
+                outlined
+                small
+                @click="deletePopupConfirm(packKey)"
+                class="mb-2 mx-1"
+                >Eliminar</v-btn
+              >
+              <v-btn
+                outlined
+                small
+                @click="goToDetails(packKey)"
+                class="mb-2 mx-1"
+                >Editar</v-btn
+              >
+            </div>
+          </v-card>
+        </v-col>
+      </v-row>
       <!-- / Small View Grid Mode -->
-
-      <v-simple-table fixed-header v-else class="pa-2">
-        <template v-slot:default>
-          <thead>
-            <tr>
-              <th style="width: 5rem"></th>
-              <!-- <th>Nombre</th> -->
-              <th>Precio</th>
-              <th>Cantidad</th>
-            </tr>
-          </thead>
-          <tbody>
-            <template  v-for="(pack, key) in shopPacks">
-            <tr
-             
-              :key="`tr-1-${key}`"
-              class="cursor-pointer"
-            >
-              <td class="pa-1">
-                <pack-card :pack="pack" mode="xs" @details="goToDetails(key)" />
-              </td>
-              <!-- <td>
-                  {{ pack.title }}
-                </td> -->
-              <td>${{ Number(pack.price).toFixed(2) }}</td>
-              <td>
-                {{ pack.cant }}
-              </td>
-            </tr>
-            <tr
-              :key="`tr-2-${key}`"
-            >
-              <td></td>
-              <td><v-btn small color="info" @click="goToDetails(key)" text>Editar</v-btn></td>
-              <td><v-btn small color="red" @click="deletePopupConfirm(key)" dark text>Eliminar</v-btn></td>
-            </tr>
-            </template>
-          </tbody>
-        </template>
-      </v-simple-table>
     </template>
   </div>
 </template>
@@ -93,7 +65,8 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component({
   components: {
-    "pack-card": () => import("@/components/widgets/packs/PackCard.vue"),
+    "pack-card-horizontal": () =>
+      import("@/components/widgets/packs/PackCardHorizontal.vue"),
   },
 })
 export default class ProductPackDataCart extends Vue {

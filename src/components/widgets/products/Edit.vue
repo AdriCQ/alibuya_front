@@ -1,5 +1,11 @@
 <template>
-  <product-basic :title="title" show-title show-price :product="syncedProduct">
+  <product-basic
+    :title="title"
+    show-title
+    show-price
+    :product="product"
+    :card-props="{ maxWidth: 250 }"
+  >
     <template #header>
       <div>
         <v-btn
@@ -17,23 +23,11 @@
         </v-btn>
       </div>
     </template>
-
-    <template #footer>
-      <v-text-field
-        type="number"
-        min="1"
-        v-model="syncedProduct.cart_cant"
-        label="Cantidad"
-        dense
-        color="black"
-        outlined
-      />
-    </template>
   </product-basic>
 </template>
 
 <script lang='ts'>
-import { Vue, Component, Prop, PropSync } from "vue-property-decorator";
+import { Vue, Component, Prop } from "vue-property-decorator";
 import { IProductCart } from "@/types";
 
 @Component({
@@ -44,10 +38,7 @@ import { IProductCart } from "@/types";
 export default class EditProductWidget extends Vue {
   @Prop({ type: String, default: "" }) readonly title!: string;
   @Prop({ type: Boolean, default: false }) readonly btnClose!: boolean;
-  @PropSync("product", { type: Object })
-  readonly syncedProduct!: IProductCart;
-
-  @PropSync("counter", { type: String }) counterSync!: string;
+  @Prop({ type: Object }) readonly product!: IProductCart;
 
   close() {
     this.$emit("close");
