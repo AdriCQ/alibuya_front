@@ -1,5 +1,10 @@
 <template>
-  <v-card v-bind="cardAllProps" :class="['product-grid-widget', cardClass]">
+  <v-card
+    v-bind="cardAllProps"
+    :class="['product-grid-widget', cardClass]"
+    :color="single ? 'transparent' : undefined"
+    elevation="0"
+  >
     <!-- Title -->
     <v-card-title v-if="title" class="text-single-line">
       {{ title }}
@@ -50,6 +55,7 @@ export default class GridProductWidget extends ProductBaseClass {
   @Prop({ type: Array, required: true }) readonly products!: IProduct[];
   @Prop({ type: String, default: "Ver más" }) readonly textLink!: string;
   @Prop([Object, String]) readonly to!: TRouteLink;
+  @Prop({ type: Boolean, default: false }) readonly single!: boolean;
 
   /**
    *

@@ -17,7 +17,7 @@
 
         <v-btn :small="!smAndUp" text @click="goToRoute('main.home')">
           <v-img
-            src="img/logos/logo_white_550x178.png"
+            src="img/logos/logo_white_148x37.png"
             :width="smAndUp ? '7rem' : '6.5rem'"
           />
         </v-btn>
@@ -71,13 +71,33 @@
             color="primary"
             :content="shopingCartCounter"
           >
-            <b v-if="smAndUp"> Mi Carrito </b>
-            <v-icon :size="iconSize">mdi-cart-outline</v-icon>
+            <!-- <b v-if="smAndUp"> Mi Carrito </b> -->
+            <!-- <v-icon
+              :size="iconSize"
+              :class="cartClass"
+              @mouseover="shakeCartIcon"
+              >mdi-cart-outline</v-icon
+            > -->
+            <v-img
+              src="img/icons/shopping-cart/shopping-cart_168x168.png"
+              alt="Shopping Cart"
+              width="22px"
+            />
           </v-badge>
-          <template v-else>
-            <b v-if="smAndUp"> Mi Carrito </b>
-            <v-icon :size="iconSize">mdi-cart-outline</v-icon>
-          </template>
+          <div v-else style="width: 22px">
+            <!-- <b v-if="smAndUp"> Mi Carrito </b> -->
+            <!-- <v-icon
+              :size="iconSize"
+              :class="cartClass"
+              @mouseover="shakeCartIcon"
+              >mdi-cart-outline</v-icon
+            > -->
+            <v-img
+              src="img/icons/shopping-cart/shopping-cart_168x168.png"
+              alt="Shopping Cart"
+              width="100%"
+            />
+          </div>
         </v-btn>
       </div>
 
@@ -142,6 +162,7 @@ import { Dictionary } from "vue-router/types/router";
   },
 })
 export default class AppBarFull extends Vue {
+  cartClass = "";
   // states in breakpoints
   get tabsHeight() {
     return this.smAndUp ? 34 : 28;
@@ -209,6 +230,17 @@ export default class AppBarFull extends Vue {
     AppStore.sidebarLeft = !AppStore.sidebarLeft;
   }
 
+  shakeCartIcon() {
+    const shakeInterval = window.setInterval(() => {
+      if (this.cartClass === "mdi-rotate-45") this.cartClass = "";
+      else this.cartClass = "mdi-rotate-45";
+    }, 100);
+    window.setTimeout(() => {
+      window.clearInterval(shakeInterval);
+      this.cartClass = "";
+    }, 700);
+  }
+
   /**
    *
    */
@@ -229,3 +261,9 @@ export default class AppBarFull extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.transition {
+  transition: 0.5s ease-in-out 0.4s;
+}
+</style>

@@ -7,7 +7,7 @@
     <div class="badge-offer pa-2" v-if="badge">
       <span class="text-center white--text">{{ badge }}</span>
     </div>
-    <div><v-img :src="image" :alt="product.title" /></div>
+    <div><v-img :src="image.xs" :alt="product.title" /></div>
   </v-card>
 </template>
 
@@ -15,6 +15,7 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { IProduct } from "@/types";
 import { ShopStore } from "@/store";
+import { ProductImage } from "@/utils";
 
 @Component
 export default class HorizontalProductWidget extends Vue {
@@ -36,9 +37,7 @@ export default class HorizontalProductWidget extends Vue {
   readonly badge!: string;
 
   get image() {
-    return this.product.images
-      ? this.product.images
-      : "img/logos/logo_300x225.png";
+    return new ProductImage(this.product.image);
   }
 
   async showProductDetails(product: IProduct) {

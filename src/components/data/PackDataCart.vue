@@ -23,77 +23,39 @@
     </v-dialog>
     <!-- / Confirm delete -->
 
-    <v-container>
-      <template v-if="shopPacks.length">
-        <!-- Small View Grid Mode -->
-        <template v-if="$vuetify.breakpoint.xs">
-          <v-row no-gutters justify="center">
-            <v-col
-              cols="auto"
-              v-for="(pack, pKey) in shopPacks"
-              :key="pKey"
-              class="ma-1"
-            >
-              <pack-card :pack="pack" @details="goToDetails(pKey)" with-price />
-            </v-col>
-          </v-row>
-        </template>
-        <!-- / Small View Grid Mode -->
-
-        <v-simple-table fixed-header v-else>
-          <template v-slot:default>
-            <thead>
-              <tr>
-                <th style="width: 5rem"></th>
-                <!-- <th>Nombre</th> -->
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th>Subtotal</th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="(pack, key) in shopPacks"
-                :key="key"
-                class="cursor-pointer"
+    <template v-if="shopPacks.length">
+      <!-- Small View Grid Mode -->
+      <v-row no-gutters justify="center">
+        <v-col
+          cols="12"
+          class="mt-2 px-1"
+          v-for="(pack, packKey) in shopPacks"
+          :key="`pack-col-${packKey}`"
+        >
+          <v-card outlined class="mt-1">
+            <pack-card-horizontal :pack="pack" :pack-key="packKey" />
+            <div class="d-flex">
+              <v-spacer />
+              <v-btn
+                outlined
+                small
+                @click="deletePopupConfirm(packKey)"
+                class="mb-2 mx-1"
+                >Eliminar</v-btn
               >
-                <td class="pa-1">
-                  <pack-card
-                    :pack="pack"
-                    :size="5"
-                    @details="goToDetails(key)"
-                  />
-                </td>
-                <!-- <td>
-                  {{ pack.title }}
-                </td> -->
-                <td>${{ Number(pack.price).toFixed(2) }}</td>
-                <td>
-                  {{ pack.cant }}
-                </td>
-                <td>${{ Number(pack.price * pack.cant).toFixed(2) }}</td>
-                <td>
-                  <v-btn small text color="success" @click="goToDetails(key)"
-                    >Editar</v-btn
-                  >
-                </td>
-                <td>
-                  <v-btn
-                    small
-                    text
-                    color="error"
-                    @click="deletePopupConfirm(key)"
-                    >Eliminar</v-btn
-                  >
-                </td>
-              </tr>
-            </tbody>
-          </template>
-        </v-simple-table>
-      </template>
-    </v-container>
+              <v-btn
+                outlined
+                small
+                @click="goToDetails(packKey)"
+                class="mb-2 mx-1"
+                >Editar</v-btn
+              >
+            </div>
+          </v-card>
+        </v-col>
+      </v-row>
+      <!-- / Small View Grid Mode -->
+    </template>
   </div>
 </template>
 
@@ -103,16 +65,13 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component({
   components: {
-    "pack-card": () => import("@/components/widgets/packs/PackCard.vue"),
+    "pack-card-horizontal": () =>
+      import("@/components/widgets/packs/PackCardHorizontal.vue"),
   },
 })
 export default class ProductPackDataCart extends Vue {
   deleteKey: number | null = null;
   deleteDialog = false;
-
-  mounted() {
-    console.log("Cart Packs", this.shopPacks);
-  }
 
   get shopPacks() {
     return PackStore.packs;

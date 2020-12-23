@@ -10,7 +10,7 @@ import Vuelidate from "vuelidate";
 import { SERVER_URL } from '@/utils';
 
 // SCSS
-require("@/assets/scss/main.scss");
+require("@/scss/main.scss");
 
 // Vue Slick Carousel
 import VueSlickCarousel from "vue-slick-carousel";

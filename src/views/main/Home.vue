@@ -1,11 +1,23 @@
 <template>
-  <div id="main-home">
+  <div class="view-container">
     <!-- Banner Carousel -->
-    <banner-carousel />
+    <!-- <banner-carousel /> -->
     <!-- / Banner Carousel -->
 
-    <v-section fluid class="mt-3">
-      <products-group :products="productsTest.slice(0, 6)" single show-title />
+    <v-section fluid>
+      <products-group
+        :products="productsTest.slice(0, 6)"
+        single
+        show-title
+        show-price
+      />
+      <products-collection-slider
+        title="Productos Más Comprados"
+        :products="productsTest"
+        link
+        show-title
+        show-price
+      />
       <v-row>
         <v-col cols="12" sm="6" md="4" lg="3">
           <product-offer
@@ -29,6 +41,7 @@
             :products="productsTest.slice(0, 4)"
             title="Últimos modelos"
             :to="{ name: 'main.home' }"
+            show-price
             large
           />
         </v-col>
@@ -44,25 +57,26 @@
             title="Autos y Piezas"
             :to="{ name: 'main.home' }"
             large
+            show-price
           />
         </v-col>
       </v-row>
 
-      <v-row>
+      <v-row class="py-0">
         <v-col cols="12">
-          <v-card>
-            <products-collection-slider
-              title="Lo Más Comprado"
-              :products="productsTest"
-              :to="{ name: 'main.home' }"
-              :elements-to-show="{ xs: 3, md: 6 }"
-              link
-            />
-          </v-card>
+          <products-collection-slider
+            title="Ofertas para Mayoristas"
+            :products="productsTest"
+            :to="{ name: 'main.home' }"
+            :elements-to-show="{ xs: 3, md: 6 }"
+            link
+            show-title
+          />
         </v-col>
         <v-col cols="12">
           <v-card>
             <products-group
+              title="Todo en Juguetes"
               :products="productsTest.slice(0, 5)"
               :elements-to-show="{ lg: 5 }"
               show-price
@@ -72,7 +86,7 @@
       </v-row>
     </v-section>
 
-    <v-section fluid class="mt-2">
+    <!-- <v-section fluid>
       <v-card flat>
         <v-card-title v-if="$vuetify.breakpoint.smAndUp"
           >Ofertas de Navidad</v-card-title
@@ -93,14 +107,15 @@
           />
         </banner>
       </v-card>
-    </v-section>
+    </v-section> -->
 
     <v-section fluid>
       <v-card>
         <products-collection-slider
-          title="Productos Más Comprados"
+          title="Celulares y Accesorios"
           :products="productsTest"
           link
+          show-price
         />
       </v-card>
     </v-section>

@@ -29,7 +29,7 @@ export class ProductImage {
   }
 
   get sm() {
-    if (this._images.paths.sm) {
+    if (this._images.paths?.sm) {
       return this._local ? this._images.paths.sm : SERVER_URL + this._images.paths.sm
     }
     else {
@@ -38,7 +38,7 @@ export class ProductImage {
   }
 
   get xs() {
-    if (this._images.paths.xs) {
+    if (this._images.paths?.xs) {
       return this._local ? this._images.paths.xs : SERVER_URL + this._images.paths.xs
     }
     else {
@@ -47,7 +47,7 @@ export class ProductImage {
   }
 
   get md() {
-    if (this._images.paths.md) {
+    if (this._images.paths?.md) {
       return this._local ? this._images.paths.md : SERVER_URL + this._images.paths.md
     }
     else {
@@ -56,7 +56,7 @@ export class ProductImage {
   }
 
   get lg() {
-    if (this._images.paths.lg) {
+    if (this._images.paths?.lg) {
       return this._local ? this._images.paths.lg : SERVER_URL + this._images.paths.lg
     }
     else {
@@ -65,7 +65,7 @@ export class ProductImage {
   }
 
   get xl() {
-    if (this._images.paths.xl) {
+    if (this._images.paths?.xl) {
       return this._local ? this._images.paths.xl : SERVER_URL + this._images.paths.xl
     }
     else {

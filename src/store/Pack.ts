@@ -1,6 +1,6 @@
 import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store/store';
-import { IProduct, IProductsPack } from '@/types';
+import { IProductsPack, IProductCart } from '@/types';
 
 @Module({ generateMutationSetters: true })
 class PackModule extends VuexModule {
@@ -19,8 +19,8 @@ class PackModule extends VuexModule {
    */
   get totalPrice() {
     let packsPrice = 0;
-    this._packs.forEach(pack => {
-      packsPrice += pack.price * (pack.cant ? pack.cant : 1);
+    this._packs.forEach((pack, packKey) => {
+      packsPrice += this.getPackPrice(packKey);
     });
     return packsPrice;
   }
@@ -36,13 +36,12 @@ class PackModule extends VuexModule {
    * Adds product
    * @param _product IProduct
    */
-  addProduct(_product: IProduct) {
+  addProduct(_product: IProductCart) {
     if (_product.weight) {
       // Product more than 1500g
       if (_product.weight > 1500 || this.packs.length === 0) {
         this._packs.push({
           products: [_product],
-          price: _product.price as number,
           title: _product.title,
           weight: _product.weight,
           cant: 1,
@@ -55,7 +54,6 @@ class PackModule extends VuexModule {
           const availableWeight = 1500 - this._packs[_key].weight;
           if (availableWeight >= _product.weight) {
             this._packs[_key].weight += _product.weight;
-            this._packs[_key].price = Number(this._packs[_key].price) + Number(_product.price);
             this._packs[_key].products.push(_product);
             added = true;
             break;
@@ -64,7 +62,6 @@ class PackModule extends VuexModule {
         if (!added) {
           this._packs.push({
             products: [_product],
-            price: Number(_product.price),
             title: _product.title,
             weight: _product.weight,
             cant: 1,
@@ -89,6 +86,23 @@ class PackModule extends VuexModule {
    */
   removeShoppingCartPack(key: number) {
     this._packs.splice(key, 1);
+  }
+
+  /**
+   * Gets pack price
+   * @param _packKey 
+   * @returns  number
+   */
+  getPackPrice(_packKey: number) {
+    let price = 0;
+    if (this.packs[_packKey]) {
+      this.packs[_packKey].products.forEach(product => {
+        price += product.price * product.cart_cant;
+      })
+      price = price * this.packs[_packKey].cant
+    }
+    return price;
+
   }
 }
 

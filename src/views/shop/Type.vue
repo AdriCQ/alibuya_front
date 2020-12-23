@@ -102,7 +102,6 @@ export default class ShopType extends Vue {
       this.emptyInventary = true;
     }
     this.loadingCard = false;
-    console.log("LoadingCard", this.loadingCard, "Empty", this.emptyInventary);
   }
 }
 </script>

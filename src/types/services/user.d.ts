@@ -25,3 +25,10 @@ export interface IAuthResponse {
   profile: IUserProfile;
   api_token: string;
 }
+
+export interface IResetPasswordParams {
+  email: string;
+  token: string;
+  password: string;
+  password_confirmation: string;
+}

@@ -9,7 +9,7 @@
             <v-card-text><b>Peso Total</b> {{ totalWeight }}</v-card-text>
             <v-card-text>
               <b>Precio Total</b> ${{
-                Number(pack.price * pack.cant).toFixed(2)
+                Number(packPrice).toFixed(2)
               }}</v-card-text
             >
           </v-col>
@@ -49,16 +49,16 @@
     <!-- / Ajustes -->
 
     <v-section>
-      <v-card flat>
+      <v-card flat color="transparent">
         <v-card-title>Productos </v-card-title>
-        <products-group
-          advanced
-          withTitle
-          withCant
-          withPrice
-          :max="pack.products.length"
-          :products="pack.products"
-        />
+        <v-row>
+          <v-col
+            v-for="(product, prodKey) in pack.products"
+            :key="`product-col-${prodKey}`"
+          >
+            <product-editable :product="product" />
+          </v-col>
+        </v-row>
       </v-card>
     </v-section>
   </div>
@@ -70,7 +70,7 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component({
   components: {
-    "products-group": () => import("@/components/data/ProductsGroup.vue"),
+    "product-editable": () => import("@/components/widgets/products/Edit.vue"),
   },
 })
 export default class PackDetailsView extends Vue {
@@ -97,8 +97,7 @@ export default class PackDetailsView extends Vue {
 
   get totalWeight() {
     if (this.pack && this.pack.cant) {
-      const weight = Number(this.pack.price * this.pack.cant);
-      console.log(weight, "Peso");
+      const weight = Number(this.pack.weight * this.pack.cant);
       if (weight > 1500) {
         return (
           Number(weight / 1000)
@@ -123,6 +122,15 @@ export default class PackDetailsView extends Vue {
       "Varadero – Aerovaradero",
       "Santiago de Cuba – Aerovaradero",
     ];
+  }
+
+  get packPrice() {
+    const key = Number(this.$route.query.packKey);
+    return PackStore.getPackPrice(key);
+  }
+
+  check(data: any) {
+    console.log("Check", data);
   }
 }
 </script>

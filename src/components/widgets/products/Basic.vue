@@ -2,6 +2,7 @@
   <v-card
     :ripple="false"
     v-bind="cardAllProps"
+    elevation="0"
     :class="['basic-product-widget', 'mx-auto', cardClass]"
   >
     <!-- Header -->
@@ -22,9 +23,9 @@
     <!-- / Image -->
 
     <!-- Title -->
-    <v-card-title v-if="showTitle" :class="['text-single-line', titleClass]">
+    <v-card-subtitle v-if="showTitle" :class="['text-single-line', titleClass]">
       {{ product.title }}
-    </v-card-title>
+    </v-card-subtitle>
     <!-- / Title -->
 
     <!-- Description -->

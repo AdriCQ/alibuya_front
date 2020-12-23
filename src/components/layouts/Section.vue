@@ -1,5 +1,5 @@
 <template>
-  <section :style="sStyle">
+  <section :style="sStyle" class="v-section">
     <v-container :fluid="fluid">
       <slot />
     </v-container>

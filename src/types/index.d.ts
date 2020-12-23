@@ -19,6 +19,7 @@ export * from './store/vendor';
  */
 
 export * from './services';
+export * from './services/app';
 export * from './services/announcement';
 export * from './services/user';
 export * from './services/product';

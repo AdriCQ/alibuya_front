@@ -24,8 +24,8 @@ export default new Vuetify({
         primaryAlpha: '#febd69',
         primaryBetha: '#FFEE58',
         // Secondary variants
-        secondaryAlpha: '#CFD8DC',
-        secondaryBetha: '#CFD8DC',
+        secondaryAlpha: '#b0bec5',
+        secondaryBetha: '#E0E0E0',
         // Tertiary variants
         tertiaryAlpha: '#263238',
         tertiaryBetha: '#263238',
