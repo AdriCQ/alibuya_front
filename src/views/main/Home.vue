@@ -109,7 +109,7 @@
       <v-card>
         <products-group
           title="Productos para el hogar"
-          :products="productsTest.slice(1, 5)"
+          :products="productsTest.slice(0, 6)"
           show-price
           show-title
           :to="{ name: 'shop.type', query: { category: 2, type: 6 } }"

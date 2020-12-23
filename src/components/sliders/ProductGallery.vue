@@ -2,8 +2,8 @@
   <v-card
     flat
     max-width="100%"
-    class="product-gallery position-sticky"
-    :style="{ top: lgAndUp ? '120px' : '0' }"
+    class="product-gallery position-sticky pb-lg-5 pt-3"
+    :style="{ top: lgAndUp ? '119px' : '0' }"
   >
     <!-- Image Carousel -->
     <v-carousel
@@ -12,8 +12,8 @@
       :show-arrows="false"
       :hide-delimiters="true"
       interval="3000"
-      height="300"
-      class="mb-3"
+      :height="imageCarouselHeight"
+      class="mb-4 mb-lg-5"
     >
       <v-carousel-item
         v-for="(src, key) in imgsSrc"
@@ -26,15 +26,20 @@
 
     <!-- Selector Slider -->
     <v-sheet max-width="fit-content" class="mx-auto">
-      <v-slide-group v-model="activeImg" mandatory center-active show-arrows>
+      <v-slide-group v-model="activeImg" mandatory center-active>
         <v-slide-item
           v-for="(src, key) in imgsSrc"
           :key="`product-gallery-slide-group-${key}`"
-          v-slot="{ active, toggle }"
+          v-slot="{ toggle }"
         >
-          <v-card :class="{ 'border-primary': active }" outlined>
+          <v-card flat tile>
             <v-card-text class="pa-1">
-              <v-img :src="src" contain width="80" @click="toggle" />
+              <v-img
+                :src="src"
+                contain
+                :width="selectorImageWidth"
+                @click="toggle"
+              />
             </v-card-text>
           </v-card>
         </v-slide-item>
@@ -45,25 +50,48 @@
 </template>
 
 <script lang='ts'>
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
+import { GettersBreakpointsMixin } from "@/mixins/utils";
+import { mixins } from "vue-class-component";
 
 @Component
-export default class ProductGallery extends Vue {
+export default class ProductGallery extends mixins(GettersBreakpointsMixin) {
   @Prop({ type: Array, required: true })
   readonly imgsSrc!: string[];
 
   activeImg = 0;
 
-  get xs() {
-    return this.$vuetify.breakpoint.xsOnly;
+  /**
+   *
+   */
+  get imageCarouselHeight() {
+    switch (this.$vuetify.breakpoint.name) {
+      case "sm":
+        return 240;
+      case "md":
+        return 290;
+      case "lg":
+        return 320;
+      case "xl":
+        return 340;
+      default:
+        return 200;
+    }
   }
 
-  get mdAndUp() {
-    return this.$vuetify.breakpoint.mdAndUp;
-  }
-
-  get lgAndUp() {
-    return this.$vuetify.breakpoint.lgAndUp;
+  get selectorImageWidth() {
+    switch (this.$vuetify.breakpoint.name) {
+      case "sm":
+        return 85;
+      case "md":
+        return 60;
+      case "lg":
+        return 75;
+      case "xl":
+        return 80;
+      default:
+        return 80;
+    }
   }
 }
 </script>

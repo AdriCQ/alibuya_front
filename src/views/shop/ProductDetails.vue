@@ -2,12 +2,12 @@
   <div id="product-details-view" class="view-container">
     <template v-if="product">
       <!-- Add to Cart -->
-      <v-section>
-        <add-to-cart-form :product="product" />
+      <v-section fluid>
+        <product-content :product="product" />
       </v-section>
       <!-- / Add to Cart -->
 
-      <v-section class="mt-2">
+      <v-section fluid>
         <products-group
           v-if="suggestedProducts.length"
           title="Sugerencias"
@@ -30,8 +30,8 @@ import { ShopStore } from "@/store";
 
 @Component({
   components: {
-    "add-to-cart-form": () =>
-      import("@/components/forms/shop/AddToCartForm.vue"),
+    "product-content": () =>
+      import("@/components/data/shop/ProductContent.vue"),
     "products-group": () => import("@/components/data/ProductsGroup.vue"),
   },
 })

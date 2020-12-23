@@ -1,48 +1,81 @@
 <template>
-  <v-card-title>
-    <v-row align="center" no-gutters>
-      <v-col cols="auto">
-        <span class="text-h6 text-sm-h5 font-weight-bold"
-          >{{ title }}
+  <v-card-title class="product-heading pa-0">
+    <v-section class="full-width" fluid>
+      <v-row no-gutters>
+        <v-col>
+          <span class="principal-title font-weight-bold">
+            {{ title }}
 
-          <br v-if="xs" />
-          <template v-else>&nbsp; | </template>
+            <!-- Price in smAndUp -->
+            <template v-if="price && smAndUp">
+              &nbsp; |
+              {{ `$${Number(price).toFixed(2)}` }}
+            </template></span
+          >
+        </v-col>
 
-          {{ `$${Number(price).toFixed(2)}` }}
-        </span>
-      </v-col>
+        <!--  Suggested Tag -->
+        <v-col v-if="isSuggested" cols="auto" class="ml-auto">
+          <v-btn
+            color="primary"
+            :fab="smAndDown"
+            :rounded="!smAndDown"
+            :small="!smAndDown"
+            :x-small="smAndDown"
+            outlined
+            class="text-transform-none"
+          >
+            <v-icon :small="!smAndDown" class="mr-md-1"> mdi-star </v-icon>
+            <template v-if="!smAndDown"> Sugerido</template>
+          </v-btn>
+        </v-col>
+      </v-row>
 
-      <v-spacer />
+      <v-row align="center" justify="space-between" no-gutters class="mt-2">
+        <!-- Raiting -->
+        <v-col cols="auto">
+          <v-rating
+            :value="rating"
+            background-color="primary lighten-1"
+            color="primary"
+            dense
+            half-increments
+            readonly
+            :small="xs"
+          />
+        </v-col>
+        <!-- Brand -->
+        <v-col cols="auto">
+          <v-btn color="primary" rounded depressed :small="smAndDown">
+            {{ brand }}
+          </v-btn>
+        </v-col>
+      </v-row>
 
-      <v-col class="text-center" cols="auto">
-        <v-btn color="primary" rounded raised outlined class="font-weight-bold">
-          {{ brand }}
-        </v-btn>
-      </v-col>
-
-      <v-col v-if="!xs" cols="12" class="mt-3">
-        <v-progress-linear
-          value="10"
-          height="5"
-          background-color="transparent"
-        />
-      </v-col>
-    </v-row>
+      <!-- Price in xs -->
+      <v-row v-if="xs" no-gutters class="mt-2">
+        <v-col cols="12">
+          <span class="title">
+            {{ `$${Number(price).toFixed(2)}` }}
+          </span>
+        </v-col>
+      </v-row>
+    </v-section>
   </v-card-title>
 </template>
 
 <script lang='ts'>
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
+import { GettersBreakpointsMixin } from "@/mixins/utils";
+import { mixins } from "vue-class-component";
 
 @Component
-export default class ProductHeading extends Vue {
-  @Prop(String) readonly title!: string;
+export default class ProductHeading extends mixins(GettersBreakpointsMixin) {
+  @Prop({ type: String, required: true }) readonly title!: string;
   @Prop(Number) readonly price!: number;
+  @Prop({ type: Number, default: 3.5 }) readonly rating!: number;
   @Prop(String) readonly brand!: string;
-
-  // breakpoints
-  get xs() {
-    return this.$vuetify.breakpoint.xs;
-  }
+  // suggested product
+  @Prop({ type: Boolean, default: false }) readonly isSuggested!: boolean;
 }
 </script>
