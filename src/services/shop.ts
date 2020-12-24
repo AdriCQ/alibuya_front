@@ -97,7 +97,7 @@ export class ShopService {
     });
   }
 
-  static getHomeAnnouncements() {
+  static getHomeAnnouncements(): ApiResponse<IAnnouncement[]> {
     return axios.get(this.baseUrl + '/ann/home');
   }
 }

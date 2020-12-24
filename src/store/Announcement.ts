@@ -9,7 +9,7 @@ class AnnouncementModule extends VuexModule {
   announcements: IAnnouncement[] = [];
   announcementsWithProducts: IAnnouncementWithProducts[] = [];
   products: IProduct[] = [];
-  home: IDictionary<unknown> = {};
+  home: IAnnouncement[] = [];
 
   async startup() {
     try {

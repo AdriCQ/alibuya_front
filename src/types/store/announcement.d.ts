@@ -1,13 +1,10 @@
-import { ITransletable, IShopImage, IProduct } from '@/types';
+import { ITransletable, IProduct } from '@/types';
 /**
  * Iannouncement
  */
 export interface IAnnouncement {
   id?: number;
   title: ITransletable;
-  text?: ITransletable;
-  image_id?: number;
-  image: IShopImage;
   prints?: number;
   tags?: string[];
   active?: boolean;
