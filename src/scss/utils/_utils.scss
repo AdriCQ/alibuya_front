@@ -97,3 +97,8 @@ $table-border-color: #dee2e6;
   @include hover {
   }
 }
+
+.text-color-body {
+  @extend .grey--text;
+  @extend .text--darken-4;
+}

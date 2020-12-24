@@ -8,8 +8,22 @@
       >
         <v-item v-slot="{ active, toggle }" :value="color.value">
           <div class="text-center mr-4" @click="toggle">
-            <v-btn :color="color.value" :height="size" :width="size" fab />
-            <div class="text-subtitle-2" :class="{ 'primary--text': active }">
+            <v-btn
+              :color="color.value"
+              :height="sizeCom"
+              :width="sizeCom"
+              fab
+              depressed
+            >
+              <v-icon v-if="active" color="primary lighten-1" :small="small">
+                mdi-check
+              </v-icon>
+            </v-btn>
+
+            <div
+              class="text-subtitle-2 mt-1"
+              :class="{ 'primary--text': active }"
+            >
               {{ color.label }}
             </div>
           </div>
@@ -27,8 +41,14 @@ import { IColor } from "@/types";
 export default class ColorPicker extends Vue {
   @PropSync("color", { type: String }) readonly colorComp!: string;
   @Prop({ type: Array, required: true }) readonly colors!: IColor[];
-  @Prop({ type: [Number, String], default: 40 }) readonly size!:
-    | number
-    | string;
+  @Prop({ type: [Number, String] }) readonly size!: number | string;
+  @Prop({ type: Boolean, default: false }) readonly small!: boolean;
+
+  get sizeCom() {
+    if (!this.size) {
+      if (this.small) return 30;
+      else return 32;
+    } else return this.size;
+  }
 }
 </script>

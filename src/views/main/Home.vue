@@ -1,9 +1,5 @@
 <template>
   <div class="view-container">
-    <!-- Banner Carousel -->
-    <!-- <banner-carousel /> -->
-    <!-- / Banner Carousel -->
-
     <v-section
       fluid
       v-for="(ann, annKey) in announcements"
@@ -80,8 +76,6 @@ import { UserStore, AnnouncementStore, AppStore } from "@/store";
 
 @Component({
   components: {
-    banner: () => import("@/components/widgets/Banner.vue"),
-    "banner-carousel": () => import("@/components/sliders/BannerCarousel.vue"),
     "login-card": () => import("@/components/widgets/LoginCard.vue"),
     "products-group": () => import("@/components/data/ProductsGroup.vue"),
     "products-collection-slider": () =>

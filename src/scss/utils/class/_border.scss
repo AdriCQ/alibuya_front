@@ -42,6 +42,18 @@
   }
 }
 
+@each $side in ("top", "right", "bottom", "left") {
+  @each $color, $value in $theme-colors {
+    .border-#{$side}-#{$color} {
+      border-#{$side}-color: $value !important;
+    }
+  }
+}
+
 .border-white {
   border-color: $white !important;
+}
+
+.border-transparent {
+  border-color: transparent !important;
 }
