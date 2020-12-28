@@ -258,16 +258,8 @@ export default class RegisterForm extends Vue {
 
       try {
         await UserStore.register(this.form);
-        PopupStore.addNotification(
-          [
-            `Le hemos enviado un email de confirmación a ${UserStore.profile.email}. Por favor verifíquelo`,
-          ],
-
-          "info"
-        );
-
         UserStore.storeOnLocalStorage();
-        this.$emit("redirect", this.$route.name);
+        this.$emit("redirect", "auth.email_verification");
       } catch (err) {
         PopupStore.addNotification(err);
       }

@@ -14,10 +14,12 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component({
   components: {
-    "login-form": () => import("@/components/forms/auth/Login.vue"),
-    "register-form": () => import("@/components/forms/auth/Register.vue"),
+    "email-verification": () =>
+      import("@/components/forms/auth/EmailVerification.vue"),
     "forgot-password": () =>
       import("@/components/forms/auth/ForgotPassword.vue"),
+    "login-form": () => import("@/components/forms/auth/Login.vue"),
+    "register-form": () => import("@/components/forms/auth/Register.vue"),
     "reset-password": () => import("@/components/forms/auth/ResetPassword.vue"),
   },
 })
@@ -25,6 +27,7 @@ export default class AuthView extends Vue {
   loading = false;
 
   get activeComponent():
+    | "email-verification"
     | "login-form"
     | "register-form"
     | "forgot-password"
@@ -36,6 +39,8 @@ export default class AuthView extends Vue {
         return "forgot-password";
       case "auth.reset_password":
         return "reset-password";
+      case "auth.email_verification":
+        return "email-verification";
       default:
         return "login-form";
     }
@@ -45,11 +50,17 @@ export default class AuthView extends Vue {
     this.loading = _value;
   }
 
-  redirect(origin: string) {
-    if (this.$route.query.redirect) {
-      this.$router.push({ name: this.$route.query.redirect as string });
+  redirect(_redirect?: string) {
+    if (_redirect) {
+      this.$router.push({
+        name: _redirect,
+      });
     } else {
-      this.$router.push("main.home");
+      if (this.$route.query.redirect) {
+        this.$router.push({ name: this.$route.query.redirect as string });
+      } else {
+        this.$router.push("main.home");
+      }
     }
   }
 }
