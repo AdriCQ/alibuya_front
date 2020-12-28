@@ -76,6 +76,7 @@ export interface IProductCategoryLink extends IProductTypeLink {
  */
 export interface IProductCart extends IProduct {
   cart_cant: number;
+  options_details?: IDictionary<string | number>;
 }
 
 /**

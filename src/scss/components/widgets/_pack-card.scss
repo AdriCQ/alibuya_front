@@ -1,12 +1,18 @@
 .pack-card-widget {
+  $border-color: rgba(0, 0, 0, 0.12);
   .pack-image-container {
-    border: solid 1px rgba(0, 0, 0, 0.1);
-    // background-color: $secondary-betha-color;
+    border: solid 1px $border-color;
+    // background-color: $border-color;
+    border-radius: 10%;
   }
   .row {
-    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10%;
+    border: solid 1px $border-color;
+    background-color: $border-color;
     .col {
-      padding: 2px !important;
+      @media #{map-get($display-breakpoints, 'sm-and-up')} {
+        padding: 1px !important;
+      }
     }
   }
 }

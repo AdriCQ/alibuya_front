@@ -37,6 +37,7 @@
             <div class="d-flex">
               <v-spacer />
               <v-btn
+                color="secondary"
                 outlined
                 small
                 @click="deletePopupConfirm(packKey)"
@@ -44,6 +45,7 @@
                 >Eliminar</v-btn
               >
               <v-btn
+                color="secondary"
                 outlined
                 small
                 @click="goToDetails(packKey)"
