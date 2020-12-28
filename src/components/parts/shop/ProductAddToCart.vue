@@ -11,7 +11,12 @@
       <v-row v-if="product.options.colors">
         <v-col cols="12"> Colores </v-col>
         <v-col cols="12">
-          <color-picker :color.sync="form.color" :colors="colors" small />
+          <color-picker
+            :color.sync="$v.form.color.$model"
+            :colors="colors"
+            :error-messages="colorErrorsMsg"
+            small
+          />
         </v-col>
       </v-row>
       <!-- / Available Colors -->
@@ -20,27 +25,30 @@
       <v-row v-if="product.options.sizes">
         <v-col cols="12"> Tallas </v-col>
         <v-col cols="12">
-          <v-chip-group
-            v-model="form.size"
-            active-class="primary--text"
-            mandatory
-          >
-            <v-chip
-              v-for="(size, key) in product.options.sizes"
-              :key="`option-size-${key}`"
-              :value="size"
-              color="light"
-              filter
-              filter-icon="mdi-check"
+          <v-input :error-messages="sizeErrorsMsg">
+            <v-chip-group
+              v-model="$v.form.size.$model"
+              active-class="primary--text"
             >
-              {{ size }}
-            </v-chip>
-          </v-chip-group>
+              <v-chip
+                v-for="(size, key) in product.options.sizes"
+                :key="`product-add-to-cart-option-size-${key}`"
+                :value="size"
+                color="light"
+                filter
+                filter-icon="mdi-check"
+              >
+                {{ size }}
+              </v-chip>
+            </v-chip-group>
+          </v-input>
         </v-col>
       </v-row>
       <!-- / Option Sizes -->
 
       <!--  Delivery Method -->
+      <!-- Not used for now -->
+      <!--
       <v-row>
         <v-col cols="12">
           <v-select
@@ -54,41 +62,47 @@
           />
         </v-col>
       </v-row>
+      -->
       <!-- / Delivery Method -->
 
       <!--  Select Cant -->
-      <v-row align="center">
-        <v-col cols="4" md="12" lg="4">
+      <v-row>
+        <v-col cols="12" sm="5" md="12">
           <v-combobox
             label="Cantidad"
             color="black"
-            v-model="form.cant"
-            :items="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+            v-model="$v.form.cant.$model"
+            :items="cantToSelect"
             dense
             outlined
-            class="w-22 no-hint"
+            @update:search-input="$v.form.cant.$model = $event"
+            :error-messages="cantSelectErrorsMsg"
         /></v-col>
-        <v-col cols="8" md="12" lg="8">
+        <v-col cols="12" sm="7" md="12">
           <span class="ml-2 text-subtitle-1">
-            Subtotal: ${{ Number(product.price * form.cant).toFixed(2) }}
+            Subtotal: {{ subtotal }}
           </span></v-col
-        ></v-row
-      >
+        >
+      </v-row>
       <!-- / Select Cant -->
 
       <!-- Check -->
       <v-row no-gutters>
         <v-col cols="12">
-          <v-checkbox v-model="form.check">
+          <v-checkbox
+            v-model="$v.form.check.$model"
+            :error-messages="checkErrorsMsg"
+          >
             <template #label>
               <span class="text-color-body">
                 Entiendo que este producto tiene un cargo en destino de 5,00 CUC
               </span>
             </template>
           </v-checkbox>
-        </v-col></v-row
-      >
+        </v-col>
+      </v-row>
     </v-card-text>
+
     <v-card-actions class="py-2">
       <v-row justify="center">
         <v-col cols="auto">
@@ -110,25 +124,27 @@ import { Component, Prop } from "vue-property-decorator";
 import { GettersBreakpointsMixin } from "@/mixins/utils";
 import { mixins } from "vue-class-component";
 import { IColor, IProductCart } from "@/types";
+import { required, between } from "vuelidate/lib/validators";
 
 @Component({
   components: {
     "color-picker": () => import("@/components/forms/ColorPicker.vue"),
   },
+  validations() {
+    return {
+      form: {
+        color: { required },
+        size: { required },
+
+        // warning
+        cant: { required, between: between(1, this.product.available_cant) },
+        check: { isCheck: (value) => value == true },
+      },
+    };
+  },
 })
 export default class ProductAddToCart extends mixins(GettersBreakpointsMixin) {
-  beforeMount() {
-    this.form.color = this.colors[0].value;
-  }
-
   @Prop({ type: Object }) readonly product!: IProductCart;
-
-  /**
-   * Styles
-   */
-  get cardContainerStyles() {
-    return { top: this.lgAndUp ? "119px" : "0" };
-  }
 
   /**
    *
@@ -136,7 +152,7 @@ export default class ProductAddToCart extends mixins(GettersBreakpointsMixin) {
   form = {
     color: "",
     size: "",
-    deliveryMethod: "",
+    // deliveryMethod: "",
     cant: 1,
     check: false,
   };
@@ -152,6 +168,13 @@ export default class ProductAddToCart extends mixins(GettersBreakpointsMixin) {
   ];
 
   /**
+   * Styles
+   */
+  get cardContainerStyles() {
+    return { top: this.lgAndUp ? "119px" : "0" };
+  }
+
+  /**
    * Test - product colors
    */
   get colors(): IColor[] {
@@ -164,9 +187,70 @@ export default class ProductAddToCart extends mixins(GettersBreakpointsMixin) {
     ];
   }
 
+  get cantToSelect(): number[] {
+    const items = [];
+    for (
+      let i = 1;
+      i <= (this.product.available_cant ? this.product.available_cant : 10);
+      i++
+    )
+      items.push(i);
+    return items;
+  }
+
+  /**
+   * Error Messages
+   */
+  get colorErrorsMsg() {
+    const errorsMsg: string[] = [];
+    if (!this.$v.form.color?.$dirty) return errorsMsg;
+    if (!this.$v.form.color?.required) errorsMsg.push("Color es requerido.");
+    return errorsMsg;
+  }
+
+  get sizeErrorsMsg() {
+    const errorsMsg: string[] = [];
+    if (!this.$v.form.size?.$dirty) return errorsMsg;
+    if (!this.$v.form.size?.required) errorsMsg.push("Talla es requerido.");
+    return errorsMsg;
+  }
+
+  get cantSelectErrorsMsg() {
+    const errorsMsg: string[] = [];
+    if (!this.$v.form.cant?.$dirty) return errorsMsg;
+    if (!this.$v.form.cant?.required)
+      errorsMsg.push("Seleccione una cantidad.");
+    if (!this.$v.form.cant?.between)
+      errorsMsg.push(
+        `La cantidad debe estar entre ${this.$v.form.cant.$params.between.min} y ${this.$v.form.cant.$params.between.max}.`
+      );
+    return errorsMsg;
+  }
+
+  get checkErrorsMsg() {
+    const errorsMsg: string[] = [];
+    if (!this.$v.form.check?.$dirty) return errorsMsg;
+    if (!this.$v.form.check?.isCheck) errorsMsg.push("Requerido.");
+    return errorsMsg;
+  }
+
+  //
+  get subtotal() {
+    if (this.$v.form.cant?.$invalid) return "";
+    return `$${Number(this.form.cant * this.product.price).toFixed(2)}`;
+  }
+
+  /**
+   *
+   */
   addToCart() {
-    // TODO: Validate
-    this.$emit("add-to-cart", this.form);
+    // validate
+
+    this.$v.$touch();
+    if (!this.$v.$invalid) {
+      // TODO: Send product with form data to server
+      this.$emit("add-to-cart", this.form);
+    }
   }
 }
 </script>

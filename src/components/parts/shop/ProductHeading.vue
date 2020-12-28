@@ -1,9 +1,9 @@
 <template>
-  <v-card-title class="product-heading pa-0">
+  <v-card-title class="py-2">
     <v-section class="full-width" fluid>
-      <v-row no-gutters>
+      <v-row justify="space-between" no-gutters>
         <v-col>
-          <span class="principal-title font-weight-bold">
+          <span class="text-h6 text-sm-h5 text-lg-h4 font-weight-bold">
             {{ title }}
 
             <!-- Price in smAndUp -->
@@ -14,24 +14,28 @@
           >
         </v-col>
 
-        <!--  Suggested Tag -->
-        <v-col v-if="isSuggested" cols="auto" class="ml-auto">
+        <!--
+          Suggested Tag
+          TODO: Crear v-banner para indicar que este producto es sugerido, incluir links a lista de productos sugeridos
+         -->
+        <v-col v-if="isSuggested" cols="auto">
           <v-btn
             color="primary"
             :fab="smAndDown"
             :rounded="!smAndDown"
-            :small="!smAndDown"
-            :x-small="smAndDown"
+            x-small
             outlined
             class="text-transform-none"
           >
-            <v-icon :small="!smAndDown" class="mr-md-1"> mdi-star </v-icon>
+            <v-icon :x-small="!smAndDown" :small="smAndDown" class="mr-md-1">
+              mdi-heart
+            </v-icon>
             <template v-if="!smAndDown"> Sugerido</template>
           </v-btn>
         </v-col>
       </v-row>
 
-      <v-row align="center" justify="space-between" no-gutters class="mt-2">
+      <v-row justify="space-between" no-gutters class="mt-3">
         <!-- Raiting -->
         <v-col cols="auto">
           <v-rating
@@ -41,12 +45,11 @@
             dense
             half-increments
             readonly
-            :small="xs"
           />
         </v-col>
         <!-- Brand -->
         <v-col cols="auto">
-          <v-btn color="primary" rounded depressed :small="smAndDown">
+          <v-btn color="primary" rounded depressed small>
             {{ brand }}
           </v-btn>
         </v-col>
@@ -66,8 +69,8 @@
 
 <script lang='ts'>
 import { Component, Prop } from "vue-property-decorator";
-import { GettersBreakpointsMixin } from "@/mixins/utils";
 import { mixins } from "vue-class-component";
+import { GettersBreakpointsMixin } from "@/mixins/utils";
 
 @Component
 export default class ProductHeading extends mixins(GettersBreakpointsMixin) {

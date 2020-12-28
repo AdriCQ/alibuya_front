@@ -27,12 +27,31 @@
     <!-- Selector Slider -->
     <v-sheet max-width="fit-content" class="mx-auto">
       <v-slide-group v-model="activeImg" mandatory center-active>
+        <!-- Prev Slot -->
+        <template #prev>
+          <v-btn color="primary" dark text fab small>
+            <v-icon>mdi-arrow-left</v-icon>
+          </v-btn>
+        </template>
+        <!-- Next Slot -->
+        <template #next>
+          <v-btn color="primary" dark text fab small>
+            <v-icon>mdi-arrow-right</v-icon>
+          </v-btn>
+        </template>
+
+        <!-- Items -->
         <v-slide-item
           v-for="(src, key) in imgsSrc"
           :key="`product-gallery-slide-group-${key}`"
-          v-slot="{ toggle }"
+          v-slot="{ toggle, active }"
         >
-          <v-card flat tile>
+          <v-card
+            flat
+            tile
+            outlined
+            :class="active ? 'border-primary' : 'border-transparent'"
+          >
             <v-card-text class="pa-1">
               <v-img
                 :src="src"

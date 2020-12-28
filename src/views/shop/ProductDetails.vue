@@ -1,11 +1,11 @@
 <template>
   <div id="product-details-view" class="view-container">
     <template v-if="product">
-      <!-- Add to Cart -->
+      <!-- Product Content -->
       <v-section fluid>
         <product-content :product="product" />
       </v-section>
-      <!-- / Add to Cart -->
+      <!-- / Product Content -->
 
       <v-section fluid>
         <products-group
@@ -41,14 +41,6 @@ export default class ProductDetailsView extends Vue {
       this.loadProduct(Number(this.$route.query.productId));
     else this.$router.back();
   }
-
-  tab = 0;
-  tabItems = [
-    "Descripción",
-    "Información adicional",
-    "Valoraciones (0)",
-    "Información del vendedor",
-  ];
 
   get product() {
     return ShopStore.productDetails;

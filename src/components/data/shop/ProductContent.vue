@@ -40,7 +40,7 @@
                     v-for="(tag, key) in product.tags"
                     :key="`product-tags-${key}`"
                     color="primaryAlpha"
-                    :small="smAndDown"
+                    small
                     link
                     pill
                     class="black--text mx-1 mb-1"
@@ -57,12 +57,18 @@
               <v-col cols="12">
                 <div v-html="product.description" class="text-justify" />
               </v-col>
+              <v-col cols="12">
+                <div v-html="product.description" class="text-justify" />
+              </v-col>
+              <v-col cols="12">
+                <div v-html="product.description" class="text-justify" />
+              </v-col>
             </div>
             <!-- / Production Description -->
 
             <v-card-text class="py-2">
               <!-- Simple Product Options -->
-              <v-row class="mb-2">
+              <v-row no-gutters>
                 <!-- Product Weight -->
                 <v-col v-if="product.weight" cols="12" class="mb-2">
                   <span class="text-body-1 font-weight-bold"> Peso:</span>
@@ -70,7 +76,7 @@
                 </v-col>
 
                 <!-- Product Available Cant -->
-                <v-col v-if="product.available_cant" cols="12 " class="mb-2">
+                <v-col v-if="product.available_cant" cols="12" class="mb-2">
                   <span class="text-body-1 font-weight-bold">
                     Cantidad Disponible:</span
                   >
@@ -83,15 +89,15 @@
         </v-row>
       </v-card>
     </v-col>
+    <!-- Add to Cart Form -->
     <v-col cols="12" md="3" order="1" order-md="2">
-      <!-- Add to Cart -->
-      <v-row justify="center">
-        <v-col cols="auto" class="py-0">
-          <add-to-cart :product="product" @add-to-cart="addToPack" />
-        </v-col>
-      </v-row>
-      <!-- / Add to Cart -->
+      <add-to-cart
+        :product="product"
+        @add-to-cart="addToPack"
+        class="mx-auto"
+      />
     </v-col>
+    <!-- / Add to Cart Form -->
   </v-row>
 </template>
 
@@ -141,6 +147,9 @@ export default class ProductContent extends mixins(GettersBreakpointsMixin) {
     images.push("img/test/offers/2.png");
     images.push("img/test/offers/3.png");
     images.push("img/test/offers/4.jpg");
+    images.push("img/test/offers/1.png");
+    images.push("img/test/offers/2.png");
+    images.push("img/test/offers/3.png");
 
     return images;
   }
