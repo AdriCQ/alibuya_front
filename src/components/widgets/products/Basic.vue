@@ -69,7 +69,8 @@ export default class BasicProductWidget extends ProductBaseClass {
   @Prop({ type: String, default: "" }) readonly bodyClass!: string;
 
   get image() {
-    return new ProductImage(this.product.image, true);
+    // return new ProductImage(this.product.image, true);
+    return new ProductImage(this.product.image);
   }
 
   get imgClass() {

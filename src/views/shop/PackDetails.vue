@@ -14,34 +14,36 @@
             >
           </v-col>
           <v-col xs="12" sm="6">
-            <v-select
-              label="Cantidad"
-              class="w-20"
-              outlined
-              color="black"
-              dense
-              :items="cant"
-              v-model="pack.cant"
-            />
+            <v-card-text>
+              <v-select
+                label="Cantidad"
+                class="w-20"
+                outlined
+                color="black"
+                dense
+                :items="cant"
+                v-model="pack.cant"
+              />
 
-            <v-select
-              label="Destinatario"
-              :items="['a']"
-              outlined
-              dense
-              color="black"
-              class="w-20"
-            />
+              <v-select
+                label="Destinatario"
+                :items="['a']"
+                outlined
+                dense
+                color="black"
+                class="w-20"
+              />
 
-            <!-- Delivery method -->
-            <v-select
-              class="w-20"
-              label="Método de Recogida"
-              :items="deliveryMethods"
-              dense
-              outlined
-            />
-            <!-- / Delivery method -->
+              <!-- Delivery method -->
+              <v-select
+                class="w-20"
+                label="Método de Recogida"
+                :items="deliveryMethods"
+                dense
+                outlined
+              />
+              <!-- / Delivery method -->
+            </v-card-text>
           </v-col>
         </v-row>
       </v-card>
@@ -56,7 +58,7 @@
             v-for="(product, prodKey) in pack.products"
             :key="`product-col-${prodKey}`"
           >
-            <product-editable :product="product" />
+            <product-editable :product="product" @remove="remove(prodKey)" />
           </v-col>
         </v-row>
       </v-card>
@@ -67,6 +69,7 @@
 <script lang='ts'>
 import { PackStore } from "@/store";
 import { Vue, Component } from "vue-property-decorator";
+import { IProductCart } from "@/types";
 
 @Component({
   components: {
@@ -74,10 +77,13 @@ import { Vue, Component } from "vue-property-decorator";
   },
 })
 export default class PackDetailsView extends Vue {
+  get packKey() {
+    return Number(this.$route.query.packKey);
+  }
+
   get pack() {
     if (this.$route.query.packKey) {
-      const key = Number(this.$route.query.packKey);
-      return this.packs[key];
+      return this.packs[this.packKey];
     } else {
       return null;
     }
@@ -129,8 +135,13 @@ export default class PackDetailsView extends Vue {
     return PackStore.getPackPrice(key);
   }
 
-  check(data: any) {
-    console.log("Check", data);
+  remove(_key: number) {
+    if ((this.pack?.products as IProductCart[]).length > 1)
+      PackStore.removePackProduct(this.packKey, _key);
+    else {
+      this.$router.back();
+      PackStore.removeShoppingCartPack(this.packKey);
+    }
   }
 }
 </script>

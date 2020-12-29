@@ -7,7 +7,7 @@
     :card-props="{ maxWidth: 250 }"
   >
     <template #header>
-      <div>
+      <div class="pa-2">
         <v-btn
           class="float-right"
           color="red"
@@ -17,7 +17,7 @@
           fab
           dark
           x-small
-          @click="close"
+          @click="remove"
         >
           <v-icon> mdi-delete </v-icon>
         </v-btn>
@@ -40,8 +40,8 @@ export default class EditProductWidget extends Vue {
   @Prop({ type: Boolean, default: false }) readonly btnClose!: boolean;
   @Prop({ type: Object }) readonly product!: IProductCart;
 
-  close() {
-    this.$emit("close");
+  remove() {
+    this.$emit("remove");
     // console.log("Close Button");
   }
 }

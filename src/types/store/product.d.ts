@@ -1,4 +1,4 @@
-import { ILinkIconLabel, IShopImage } from '@/types';
+import { ILinkIconLabel, IShopImage, IProductImage, IDictionary } from '@/types';
 
 /**
  * -----------------------------------------
@@ -31,6 +31,7 @@ export interface IProduct {
  */
 export interface IProductOptions {
   colors?: string[];
+  color_images?: IDictionary<IProductImage[]>;
   sizes?: string[];
 }
 /**
@@ -75,6 +76,7 @@ export interface IProductCategoryLink extends IProductTypeLink {
  */
 export interface IProductCart extends IProduct {
   cart_cant: number;
+  options_details?: IDictionary<string | number>;
 }
 
 /**

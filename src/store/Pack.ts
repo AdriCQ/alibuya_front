@@ -89,6 +89,17 @@ class PackModule extends VuexModule {
   }
 
   /**
+   * Removes pack product
+   * @param _packKey 
+   * @param _productKey 
+   */
+  removePackProduct(_packKey: number, _productKey: number) {
+    // if (this.packs[_packKey].products.length > 1)
+    this.packs[_packKey].products.splice(_productKey, 1);
+
+  }
+
+  /**
    * Gets pack price
    * @param _packKey 
    * @returns  number

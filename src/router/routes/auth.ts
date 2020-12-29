@@ -47,6 +47,15 @@ export const authRoutes: RouteConfig = {
       },
       beforeEnter: NoAuthGuard
     },
+    {
+      path: 'email-verification',
+      name: 'auth.email_verification',
+      component: () => import("@/views/settings/Auth.vue"),
+      meta: {
+        title: 'Auth',
+        auth: true
+      }
+    },
     // redirect from child
     {
       path: '',
