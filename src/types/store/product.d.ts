@@ -40,8 +40,8 @@ export interface IProductOptions {
 export interface IProductType {
   id?: number;
   title: {
-    en?: string;
     es?: string;
+    en?: string; 
   };
   tag: string;
   rating?: number;

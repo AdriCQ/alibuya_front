@@ -37,15 +37,16 @@
 
 <script lang='ts'>
 import { Component, Prop } from "vue-property-decorator";
+import { mixins } from "vue-class-component";
 import { IElementsToShowProp, IProduct } from "@/types";
-import ProductBaseClass from "@/mixins/product";
+import { ProductBasicMixin } from "@/mixins/product";
 
 @Component({
   components: {
     "product-basic": () => import("@/components/widgets/products/Basic.vue"),
   },
 })
-export default class ProductsGroup extends ProductBaseClass {
+export default class ProductsGroup extends mixins(ProductBasicMixin) {
   @Prop({ type: Array, required: true }) readonly products!: IProduct[];
   @Prop(String) readonly title!: string;
 

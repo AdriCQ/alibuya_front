@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="12" md="9" order="2" order-md="1">
+    <v-col cols="12" md="9" order="2" order-md="1" class="pt-0">
       <v-card flat height="100%">
         <v-row no-gutters>
           <!-- Product Heading in smAndDown -->
@@ -90,7 +90,7 @@
       </v-card>
     </v-col>
     <!-- Add to Cart Form -->
-    <v-col cols="12" md="3" order="1" order-md="2">
+    <v-col cols="12" md="3" order="1" order-md="2" class="pt-0">
       <add-to-cart
         :product="product"
         @add-to-cart="addToPack"

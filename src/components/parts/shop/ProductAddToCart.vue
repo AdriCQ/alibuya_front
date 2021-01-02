@@ -171,7 +171,7 @@ export default class ProductAddToCart extends mixins(GettersBreakpointsMixin) {
    * Styles
    */
   get cardContainerStyles() {
-    return { top: this.lgAndUp ? "119px" : "0" };
+    return { top: this.lgAndUp ? "111px" : "0" };
   }
 
   /**

@@ -1,6 +1,6 @@
 import { VuexModule, Module } from 'vuex-class-modules';
 import store from '@/store/store';
-import { IProduct, IDictionary, ISuggestedParams, IProductCategoryLink, IProductCategory, IProductTypeLink } from '@/types';
+import { IProduct, IDictionary, ISuggestedParams, IProductCategoryLink, IProductCategory, IProductTypeLink,IProductType } from '@/types';
 import { ShopService } from '@/services';
 import Storage from '@/utils/Storage';
 
@@ -64,6 +64,8 @@ class ShopModule extends VuexModule {
     return links;
   }
 
+  
+  
   /**
    * Startups shop module
    */
@@ -236,6 +238,50 @@ class ShopModule extends VuexModule {
       })
     }
     return category;
+  }
+
+  /**
+   * Gets subcategories by tag
+   * @param _tag string
+   * @param _link boolean
+   * @returns subcategories by tag 
+   */
+  getSubcategoriesByTag(_tag: string, _link = false): Array<IProductType | IProductTypeLink> {
+    const subcategories:  Array<IProductTypeLink | IProductType> = [];
+    this.categories.forEach((cat, keyCat) => {
+      if (cat.tag == _tag) {
+        if (_link) {
+          cat.types?.forEach((type, keyType) => {
+            subcategories.push({
+              labelLang: type.title,
+              tag: type.tag,
+              to: {
+                name: "shop.type",
+                query: {
+                  type: keyType.toString(),
+                  category: keyType,
+                },
+              },
+            });
+          });
+        } else {
+            cat.types?.forEach((type, keyType) => {
+            subcategories.push({
+            labelLang: type.title,
+            tag: type.tag,
+            to: {
+              name: "shop.type",
+              query: {
+                type: keyType.toString(),
+                category: keyType,
+              },
+            },
+          });
+        });
+        }
+      } 
+    });
+    return subcategories;
   }
 
 }
