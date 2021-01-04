@@ -81,7 +81,7 @@ export default class ShopAllView extends Vue {
 
     try {
       await this.categories.forEach((cat) => {
-        ShopStore.getProductsByCategory(cat.tag);
+        ShopStore.getProductsByCategory({ category: cat.tag });
       });
     } catch (error) {
       // TODO: HAndle error

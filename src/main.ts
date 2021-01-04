@@ -25,7 +25,7 @@ Vue.component("v-section", () => import("@/components/layouts/Section.vue"));
 Vue.use(Vuelidate);
 
 // Setup axios
-axios.defaults.timeout = 600000;
+axios.defaults.timeout = 60000;
 
 /**
  * AXIOS interceptor to inject authentication into requests

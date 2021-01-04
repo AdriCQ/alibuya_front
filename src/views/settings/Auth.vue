@@ -51,16 +51,14 @@ export default class AuthView extends Vue {
   }
 
   redirect(_redirect?: string) {
+    this.$router.push("main.home");
+
     if (_redirect) {
       this.$router.push({
-        name: _redirect,
+        path: _redirect,
       });
     } else {
-      if (this.$route.query.redirect) {
-        this.$router.push({ name: this.$route.query.redirect as string });
-      } else {
-        this.$router.push("main.home");
-      }
+      this.$router.push("main.home");
     }
   }
 }

@@ -53,7 +53,12 @@ import { Component, Watch } from "vue-property-decorator";
 import { mixins } from "vue-class-component";
 import { GettersBreakpointsMixin } from "@/mixins/utils";
 import { AppStore, ShopStore } from "@/store";
-import { IProduct, IProductCategory, IProductTypeLink } from "@/types";
+import {
+  IProduct,
+  IProductCategory,
+  IProductTypeLink,
+  IPaginatedCategoryProductsParam,
+} from "@/types";
 import { ScrollTop } from "@/utils";
 
 @Component({
@@ -70,6 +75,7 @@ export default class ShopCategory extends mixins(GettersBreakpointsMixin) {
   subcategories: IProductTypeLink[] = [];
   emptyInventary = false;
   loadingCard = false;
+  currentPage = 1;
 
   created() {
     this.cleanState();
@@ -87,12 +93,12 @@ export default class ShopCategory extends mixins(GettersBreakpointsMixin) {
     this.setState();
   }
 
-  async loadProducts(_tag: string) {
+  async loadProducts(_params: IPaginatedCategoryProductsParam) {
     try {
       this.loadingCard = true;
-      await ShopStore.getProductsByCategory(_tag);
-      if (ShopStore.products[_tag].length) {
-        this.products = ShopStore.products[_tag];
+      await ShopStore.getProductsByCategory(_params);
+      if (ShopStore.products[_params.category].length) {
+        this.products = ShopStore.products[_params.category];
         this.emptyInventary = false;
       } else {
         this.products = [];
@@ -115,17 +121,25 @@ export default class ShopCategory extends mixins(GettersBreakpointsMixin) {
   /**
    * Set the values for: category, subcategories and products
    */
-  setState() {
+  setState(_subCategories = true) {
     if (
       this.$route.query.category &&
       ShopStore.categories[Number(this.$route.query.category)]
     ) {
       this.category = ShopStore.categories[Number(this.$route.query.category)];
-      this.loadProducts(this.category.tag);
-      this.setSubcategories(this.category.tag);
+      this.loadProducts({
+        category: this.category.tag,
+        page: this.currentPage,
+      });
+      if (_subCategories) this.setSubcategories(this.category.tag);
     } else {
       this.emptyInventary = true;
     }
+  }
+
+  nextPage() {
+    this.currentPage++;
+    this.setState(false);
   }
 
   /**

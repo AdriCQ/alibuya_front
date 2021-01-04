@@ -136,7 +136,8 @@ import { required, between } from "vuelidate/lib/validators";
         color: { required },
         size: { required },
 
-        // warning
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
         cant: { required, between: between(1, this.product.available_cant) },
         check: { isCheck: (value) => value == true },
       },

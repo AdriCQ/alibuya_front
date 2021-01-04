@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { IProduct, ApiResponsePaginated, ApiResponse, ISuggestedParams, ISuggestedCategoryProductParams, IProductCategory, IGetAnnouncementParams, IAnnouncement, IAnnouncementsParams } from '@/types';
+import { IProduct, ApiResponsePaginated, ApiResponse, ISuggestedParams, ISuggestedCategoryProductParams, IProductCategory, IGetAnnouncementParams, IAnnouncement, IAnnouncementsParams, IPaginatedCategoryProductsParam, IPaginatedTypeProductsParam } from '@/types';
+
 
 export class ShopService {
   private static baseUrl = '/shop';
@@ -35,11 +36,9 @@ export class ShopService {
   /**
    * Get products by Category
    */
-  static getProductsByCategory(_params: string): ApiResponsePaginated<IProduct[]> {
+  static getProductsByCategory(_params: IPaginatedCategoryProductsParam): ApiResponsePaginated<IProduct[]> {
     return axios.get(this.baseUrl + '/category/products', {
-      params: {
-        "category": _params
-      }
+      params: _params
     })
   }
 
@@ -67,11 +66,9 @@ export class ShopService {
    * @param _params 
    * @returns products by type 
    */
-  static getProductsByType(_params: string): ApiResponsePaginated<IProduct[]> {
+  static getProductsByType(_params: IPaginatedTypeProductsParam): ApiResponsePaginated<IProduct[]> {
     return axios.get(this.baseUrl + '/category/type/products', {
-      params: {
-        "type": _params
-      }
+      params: _params
     })
   }
 

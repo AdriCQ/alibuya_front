@@ -29,7 +29,7 @@
 
 <script lang='ts'>
 import { ShopStore, AppStore } from "@/store";
-import { IProductType, IProduct } from "@/types";
+import { IProductType, IProduct, IPaginatedTypeProductsParam } from "@/types";
 import { ScrollTop } from "@/utils";
 import { Vue, Component } from "vue-property-decorator";
 
@@ -49,7 +49,7 @@ export default class ShopType extends Vue {
     ) {
       const tag = (ShopStore.categories[cKey].types as IProductType[])[tKey]
         .tag;
-      this.loadProducts(tag);
+      this.loadProducts({ type: tag });
     }
   }
 
@@ -74,7 +74,7 @@ export default class ShopType extends Vue {
       (ShopStore.categories[cKey].types as IProductType[])[tKey]
     ) {
       const type = (ShopStore.categories[cKey].types as IProductType[])[tKey];
-      this.loadProducts(type.tag);
+      this.loadProducts({ type: type.tag });
       return type;
     } else {
       return null;
@@ -85,13 +85,13 @@ export default class ShopType extends Vue {
     return AppStore.lang;
   }
 
-  async loadProducts(_tag: string) {
+  async loadProducts(_params: IPaginatedTypeProductsParam) {
     try {
       this.emptyInventary = true;
       this.loadingCard = true;
-      await ShopStore.getProductsByType(_tag);
-      if (ShopStore.products[_tag].length) {
-        this.products = ShopStore.products[_tag];
+      await ShopStore.getProductsByType(_params);
+      if (ShopStore.products[_params.type].length) {
+        this.products = ShopStore.products[_params.type];
         this.emptyInventary = false;
       } else {
         this.products = [];

@@ -16,3 +16,16 @@ export interface IProductForm extends IProduct {
   upload_images?: TImage[];
   upload_image?: TImage;
 }
+
+interface IPaginatedProductsParam {
+  cant?: number;
+  page?: number;
+}
+
+export interface IPaginatedCategoryProductsParam extends IPaginatedProductsParam {
+  category: string;
+}
+
+export interface IPaginatedTypeProductsParam extends IPaginatedProductsParam {
+  type: string;
+}
