@@ -3,6 +3,7 @@ import store from '@/store/store';
 import { IUserProfile, ILoginParams, IRegisterParams, IUserContact, IResetPasswordParams } from '@/types';
 import { UserService } from '@/services';
 import Storage from '@/utils/Storage';
+import { Route } from 'vue-router';
 
 const storage = new Storage("userStorage");
 
@@ -14,6 +15,8 @@ class UserModule extends VuexModule {
     email: '',
     address: ''
   };
+
+  redirect: null | Route = null;
 
   api_token: string | null = null;
 

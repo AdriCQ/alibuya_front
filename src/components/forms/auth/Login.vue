@@ -174,7 +174,7 @@ export default class LoginForm extends Vue {
           "success"
         );
         UserStore.storeOnLocalStorage();
-        this.$emit("redirect", this.$route.name);
+        this.$emit("redirect");
       } catch (error) {
         PopupStore.addNotification(error);
       }

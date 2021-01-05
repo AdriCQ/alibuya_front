@@ -53,12 +53,13 @@
 <script lang='ts'>
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 
-import { Vue, Component } from "vue-property-decorator";
+import { Component, Mixins } from "vue-property-decorator";
 import { AppStore, ShopStore, UserStore } from "@/store";
 import { LANG, WEB_PAGES } from "@/utils";
+import { RouterMixin } from "@/mixins";
 
 @Component
-export default class AppSidebarLeft extends Vue {
+export default class AppSidebarLeft extends Mixins(RouterMixin) {
   get categories() {
     return ShopStore.categoriesLink;
   }
@@ -109,13 +110,7 @@ export default class AppSidebarLeft extends Vue {
         });
       }
     } else {
-      this.$router.push({ name: "auth.login" });
-    }
-  }
-
-  goto(_r: any) {
-    if (_r.name !== this.$route.name && _r.query !== this.$route.query) {
-      this.$router.push(_r);
+      this.gotoAuth();
     }
   }
 }

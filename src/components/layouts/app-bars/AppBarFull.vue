@@ -15,7 +15,7 @@
           <v-icon :size="iconSize"> mdi-menu </v-icon>
         </v-app-bar-nav-icon>
 
-        <v-btn :small="!smAndUp" text @click="goToRoute('main.home')">
+        <v-btn :small="!smAndUp" text @click="goto({ name: 'main.home' })">
           <v-img
             src="img/logos/logo_white_148x37.png"
             :width="smAndUp ? '7rem' : '6.5rem'"
@@ -30,12 +30,7 @@
         </template>
 
         <!-- Auth buttons -->
-        <v-btn
-          :small="!smAndUp"
-          text
-          @click="goToRoute('auth.login')"
-          v-if="!isLogged"
-        >
+        <v-btn :small="!smAndUp" text @click="gotoAuth()" v-if="!isLogged">
           <b> Identifícate </b>
         </v-btn>
 
@@ -63,7 +58,7 @@
           :icon="!smAndUp"
           v-bind="!smAndUp ? buttonSize : undefined"
           text
-          @click="goToRoute('shop.cart')"
+          @click="goto({ name: 'shop.cart' })"
           class="ml-2 mr-2"
         >
           <v-badge
@@ -150,10 +145,11 @@
   </v-app-bar>
 </template>
 <script lang='ts'>
-import { Vue, Component } from "vue-property-decorator";
+import { Component, Mixins } from "vue-property-decorator";
 import { VENDOR_PAGES } from "@/utils/const";
 import { AppStore, UserStore, PackStore, ShopStore } from "@/store";
-import { Dictionary } from "vue-router/types/router";
+import { IDictionary } from "@/types";
+import { RouterMixin } from "@/mixins";
 
 @Component({
   components: {
@@ -161,7 +157,7 @@ import { Dictionary } from "vue-router/types/router";
       import("@/components/forms/shop/SearchProductInline.vue"),
   },
 })
-export default class AppBarFull extends Vue {
+export default class AppBarFull extends Mixins(RouterMixin) {
   cartClass = "";
   // states in breakpoints
   get tabsHeight() {
@@ -239,18 +235,6 @@ export default class AppBarFull extends Vue {
       window.clearInterval(shakeInterval);
       this.cartClass = "";
     }, 700);
-  }
-
-  /**
-   *
-   */
-  goToRoute(_name: string, _query: Dictionary<string> = {}) {
-    if (this.$route.name !== _name && _query !== this.$route.query) {
-      this.$router.push({
-        name: _name,
-        query: _query,
-      });
-    }
   }
 
   /**
