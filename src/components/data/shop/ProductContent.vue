@@ -91,11 +91,7 @@
     </v-col>
     <!-- Add to Cart Form -->
     <v-col cols="12" md="3" order="1" order-md="2" class="pt-0">
-      <add-to-cart
-        :product="product"
-        @add-to-cart="addToPack"
-        class="mx-auto"
-      />
+      <add-to-cart :product="product" class="mx-auto" />
     </v-col>
     <!-- / Add to Cart Form -->
   </v-row>
@@ -152,12 +148,6 @@ export default class ProductContent extends mixins(GettersBreakpointsMixin) {
     images.push("img/test/offers/3.png");
 
     return images;
-  }
-
-  addToPack(_form: any) {
-    this.product.cart_cant = _form.cant;
-    PackStore.addProduct(this.product);
-    _form.cant = 1;
   }
 }
 </script>

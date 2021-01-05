@@ -125,6 +125,7 @@ import { GettersBreakpointsMixin } from "@/mixins/utils";
 import { mixins } from "vue-class-component";
 import { IColor, IProductCart } from "@/types";
 import { required, between } from "vuelidate/lib/validators";
+import { PackStore } from "@/store";
 
 @Component({
   components: {
@@ -134,7 +135,7 @@ import { required, between } from "vuelidate/lib/validators";
     return {
       form: {
         color: { required },
-        size: { required },
+        // size: { required },
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
@@ -157,16 +158,6 @@ export default class ProductAddToCart extends mixins(GettersBreakpointsMixin) {
     cant: 1,
     check: false,
   };
-
-  deliveryMethods = [
-    "La Habana Transcargo",
-    "Oficina de Correos de su Localidad",
-    "La Habana – Aerovaradero",
-    "Camagüey – Aerovaradero",
-    "Holguín -Aerovaradero",
-    "Varadero – Aerovaradero",
-    "Santiago de Cuba – Aerovaradero",
-  ];
 
   /**
    * Styles
@@ -242,15 +233,39 @@ export default class ProductAddToCart extends mixins(GettersBreakpointsMixin) {
   }
 
   /**
+   *  get Product cart
+   */
+  get productCart(): IProductCart {
+    return {
+      id: this.product.id,
+      weight: this.product.weight,
+      cart_cant: this.form.cant,
+      title: this.product.title,
+      price: this.product.price,
+      options_details: {
+        color: this.form.color,
+        size: this.form.size,
+      },
+    };
+  }
+
+  /**
    *
    */
   addToCart() {
-    // validate
-
     this.$v.$touch();
     if (!this.$v.$invalid) {
-      // TODO: Send product with form data to server
-      this.$emit("add-to-cart", this.form);
+      // Add data to storage
+      PackStore.addProduct(this.productCart);
+      this.$router.push({ name: "shop.cart" });
+      // Restart form data
+      this.form = {
+        color: "",
+        size: "",
+        // deliveryMethod: "",
+        cant: 1,
+        check: false,
+      };
     }
   }
 }

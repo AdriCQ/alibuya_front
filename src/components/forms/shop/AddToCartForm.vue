@@ -114,16 +114,7 @@
                   class="btn-primary-betha-gradient mb-2"
                   @click="addToPack"
                 >
-                  Añadir al Carrito
-                </v-btn>
-              </v-col>
-              <v-col cols="12" sm="auto">
-                <v-btn
-                  block
-                  class="btn-primary-alpha-gradient mb-2"
-                  @click="addToPack"
-                >
-                  Compra Rápida
+                  Añadir al Carrito 2
                 </v-btn>
               </v-col>
             </v-row>
@@ -136,7 +127,7 @@
 
 <script lang='ts'>
 import { PackStore, UserStore } from "@/store";
-import { IColor, IProductCart } from "@/types";
+import { IColor, IProductCart, IProduct } from "@/types";
 import { mixins } from "vue-class-component";
 import { Component, Prop } from "vue-property-decorator";
 import { GettersBreakpointsMixin } from "@/mixins/utils";
@@ -154,14 +145,14 @@ export default class AddToCartForm extends mixins(GettersBreakpointsMixin) {
     this.form.color = this.colors[0].value;
   }
 
-  @Prop({ type: Object }) readonly product!: IProductCart;
+  @Prop({ type: Object }) readonly product!: IProduct;
 
   // personsInfo: TPackDestinationPerson[] = [];
 
   form = {
     color: "",
     size: 0,
-    deliveryMethod: "",
+    // deliveryMethod: "",
     cant: 1,
     check: false,
   };
@@ -169,26 +160,24 @@ export default class AddToCartForm extends mixins(GettersBreakpointsMixin) {
   // TODO: Work with limits
   // productLimit = 2;
 
-  deliveryMethods = [
-    "La Habana Transcargo",
-    "Oficina de Correos de su Localidad",
-    "La Habana – Aerovaradero",
-    "Camagüey – Aerovaradero",
-    "Holguín -Aerovaradero",
-    "Varadero – Aerovaradero",
-    "Santiago de Cuba – Aerovaradero",
-  ];
-
-  get canMinus() {
-    return this.form.cant > 1 ? true : false;
+  /**
+   *  get Product cart
+   */
+  get productCart(): IProductCart {
+    return {
+      id: this.product.id,
+      cart_cant: this.form.cant,
+      title: this.product.title,
+      price: this.product.price,
+      options_details: {
+        color: this.form.color,
+        size: this.form.size,
+      },
+    };
   }
 
   get isLogged() {
     return UserStore.isLogged;
-  }
-
-  get isValid() {
-    return true;
   }
 
   // test - array of images
@@ -230,9 +219,16 @@ export default class AddToCartForm extends mixins(GettersBreakpointsMixin) {
 
   addToPack() {
     // TODO: Validate
-    this.product.cart_cant = this.form.cant;
-    PackStore.addProduct(this.product);
-    this.form.cant = 1;
+    console.log("Add to pack", this.productCart);
+    PackStore.addProduct(this.productCart);
+    // Restart form data
+    this.form = {
+      color: "",
+      size: 0,
+      // deliveryMethod: "",
+      cant: 1,
+      check: false,
+    };
   }
 }
 </script>

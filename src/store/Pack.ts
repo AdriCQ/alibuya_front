@@ -37,6 +37,7 @@ class PackModule extends VuexModule {
    * @param _product IProduct
    */
   addProduct(_product: IProductCart) {
+    console.log("Product", _product);
     if (_product.weight) {
       // Product more than 1500g
       if (_product.weight > 1500 || this.packs.length === 0) {
