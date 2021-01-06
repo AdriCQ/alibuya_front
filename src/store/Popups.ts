@@ -27,9 +27,11 @@ class PopupModule extends VuexModule {
   // User contact
   contactPopup = false;
   contactToEdit: IUserContact = {
-    full_name: '',
-    ci: '',
-    address: ''
+    id: 0,
+    first_name: "",
+    last_name: "",
+    ci: "",
+    address: "",
   }
 
   closeAll() {
@@ -70,8 +72,14 @@ class PopupModule extends VuexModule {
     this.notificationPopupContent.content = [];
   }
 
-  showEditContact(_contact: IUserContact) {
-    this.contactToEdit = _contact;
+  showEditContact(_contact: IUserContact | null) {
+    this.contactToEdit = _contact ? _contact : {
+      id: 0,
+      first_name: "",
+      last_name: "",
+      ci: "",
+      address: "",
+    }
     this.contactPopup = true;
   }
 }

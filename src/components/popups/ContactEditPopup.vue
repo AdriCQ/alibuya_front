@@ -1,40 +1,51 @@
 <template>
   <v-dialog :value="show" max-width="500px" persistent scrollable>
-    <v-card>
-      <v-card-title> Editar Contacto</v-card-title>
+    <v-card :loading="loading">
+      <v-card-title>
+        {{ contact.id === 0 ? "Agregar" : "Editar" }} Contacto</v-card-title
+      >
 
       <v-card-text>
-        <v-form>
+        <v-form :disabled="loading">
           <v-container>
-            <v-row>
-              <v-col>
+            <v-row no-gutters>
+              <v-col cols="12">
                 <v-text-field
-                  label="Nombre Completo"
+                  label="Nombre"
                   prepend-icon="mdi-account-plus"
-                  v-model="form.full_name"
+                  v-model="form.first_name"
                   dense
+                  outlined
+                  color="black"
+                /> </v-col
+              ><v-col cols="12">
+                <v-text-field
+                  label="Apellidos"
+                  prepend-icon="mdi-account-plus"
+                  v-model="form.last_name"
+                  dense
+                  outlined
+                  color="black"
                 />
               </v-col>
-            </v-row>
-
-            <v-row>
-              <v-col>
+              <v-col cols="12">
                 <v-text-field
                   label="CI"
                   prepend-icon="mdi-account-box"
                   v-model="form.ci"
                   dense
+                  outlined
+                  color="black"
                 />
               </v-col>
-            </v-row>
-
-            <v-row>
-              <v-col>
+              <v-col cols="12">
                 <v-text-field
                   label="Dirección"
                   prepend-icon="mdi-map-marker"
                   v-model="form.address"
                   dense
+                  outlined
+                  color="black"
                 />
               </v-col>
             </v-row>
@@ -44,41 +55,47 @@
 
       <v-card-actions>
         <v-spacer />
-        <v-btn color="primary" dark small @click="emitEvent">
-          {{ formEmpty ? "Agregar" : "Guardar" }}
+        <v-btn color="primary" class="black--text" small @click="executeAction">
+          {{ contact.id === 0 ? "Agregar" : "Guardar" }}
         </v-btn>
-        <v-btn color="primary" dark small @click="close"> Cancelar </v-btn>
+        <v-btn small @click="close"> Cancelar </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script lang='ts'>
-import { Vue, Component, Prop } from "vue-property-decorator";
-import { PopupStore } from "@/store";
+import { Vue, Component } from "vue-property-decorator";
+import { PopupStore, UserStore } from "@/store";
 import { IUserContact } from "@/types";
 
 @Component
 export default class ContactEditPopup extends Vue {
-  @Prop(Boolean) formEmpty!: boolean;
-
   form: IUserContact = {
-    full_name: "",
+    id: 0,
+    first_name: "",
+    last_name: "",
     ci: "",
     address: "",
   };
+  loading = false;
 
   get contact() {
     return PopupStore.contactToEdit;
   }
 
   get show() {
-    if (!this.formEmpty && PopupStore.contactPopup) {
+    if (PopupStore.contactPopup) {
       this.setForm(this.contact);
     } else if (PopupStore.contactPopup) {
-      this.setForm({ full_name: "", ci: "", address: "" });
+      this.setForm({
+        id: 0,
+        first_name: "",
+        last_name: "",
+        ci: "",
+        address: "",
+      });
     }
-
     return PopupStore.contactPopup;
   }
 
@@ -86,9 +103,17 @@ export default class ContactEditPopup extends Vue {
     this.form = _contact;
   }
 
-  emitEvent() {
-    if (this.formEmpty) {
-      this.$emit("add-contact", this.form);
+  executeAction() {
+    this.loading = true;
+    if (this.form.id === 0) {
+      // Add Contact
+      UserStore.addContact(this.form)
+        .catch((error) => {
+          console.log("Contact error", error);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     } else {
       this.$emit("update-contact", this.form);
     }

@@ -15,14 +15,14 @@
       <p class="font-weight-bold">
         Precio: ${{ Number(packPrice).toFixed(2) }}
       </p>
-      <!-- <p class="font-weight-bold">Destinatario(s): {{ pack.destinataries }}</p> -->
+      <p class="font-weight-bold">Método envío: {{ pack.delivery_method }}</p>
+      <p class="font-weight-bold">Destinatario(s): {{ destinataries }}</p>
     </v-card-text>
   </v-card>
 </template>
 
 <script lang='ts'>
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { IProductsPack } from "@/types";
 import { PackStore } from "@/store";
 
 @Component({
@@ -31,22 +31,21 @@ import { PackStore } from "@/store";
   },
 })
 export default class PackCardWidgetHorizontal extends Vue {
-  @Prop({
-    type: Object,
-    default: {
-      price: 0,
-      products: [],
-      title: "",
-      weight: 0,
-      cant: 1,
-      destinataries: [],
-    },
-  })
-  readonly pack!: IProductsPack;
   @Prop(Number) readonly packKey!: number;
 
+  get pack() {
+    return PackStore._packs[this.packKey];
+  }
   get packPrice() {
     return PackStore.getPackPrice(this.packKey);
+  }
+
+  get destinataries() {
+    let str = "";
+    this.pack.destinataries?.forEach((dest) => {
+      str += `${dest.first_name} ${dest.last_name}, ${dest.address}`;
+    });
+    return str;
   }
 }
 </script>

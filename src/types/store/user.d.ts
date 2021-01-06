@@ -9,7 +9,9 @@ export interface IUserProfile {
   address?: string;
 }
 export interface IUserContact {
-  full_name: string;
+  id: number;
+  first_name: string;
+  last_name: string;
   ci: string;
   address: string;
 }

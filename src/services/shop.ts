@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IProduct, ApiResponsePaginated, ApiResponse, ISuggestedParams, ISuggestedCategoryProductParams, IProductCategory, IGetAnnouncementParams, IAnnouncement, IAnnouncementsParams, IPaginatedCategoryProductsParam, IPaginatedTypeProductsParam } from '@/types';
+import { IProduct, ApiResponsePaginated, ApiResponse, ISuggestedParams, ISuggestedCategoryProductParams, IProductCategory, IGetAnnouncementParams, IAnnouncement, IAnnouncementsParams, IPaginatedCategoryProductsParam, IPaginatedTypeProductsParam, IStorePackParam } from '@/types';
 
 
 export class ShopService {
@@ -93,8 +93,19 @@ export class ShopService {
       params: _param
     });
   }
-
+  /**
+   * Gets home announcements
+   * @returns home announcements 
+   */
   static getHomeAnnouncements(): ApiResponse<IAnnouncement[]> {
     return axios.get(this.baseUrl + '/ann/home');
+  }
+  /**
+   * Stores pack
+   * @param _param 
+   * @returns pack 
+   */
+  static storePack(_param: IStorePackParam): ApiResponse<boolean> {
+    return axios.post(this.baseUrl + '/pack', _param);
   }
 }

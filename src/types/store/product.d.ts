@@ -41,7 +41,7 @@ export interface IProductType {
   id?: number;
   title: {
     es?: string;
-    en?: string; 
+    en?: string;
   };
   tag: string;
   rating?: number;
@@ -83,10 +83,16 @@ export interface IProductCart extends IProduct {
  * Iproducts pack
  */
 export interface IProductsPack {
-  title: string;
   products: IProductCart[];
   weight: number;
   // price: number;
   cant: number;
   destinataries?: TPackDestinationPerson[];
+  delivery_method?: string;
+}
+
+export interface IPackProduct {
+  id: number;
+  cart_cant: number;
+  options_details: IDictionary<string | number>;
 }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Popups -->
-    <popup-auth />
+    <contact-edit-popup />
 
     <!-- <popup-product-details /> -->
     <popup-cookie />
@@ -32,7 +32,8 @@ import AppSidebarLeft from "./SidebarLeft.vue";
     AppFooter,
     AppHeader,
     AppSidebarLeft,
-    "popup-auth": () => import("@/components/popups/AuthPopup.vue"),
+    "contact-edit-popup": () =>
+      import("@/components/popups/ContactEditPopup.vue"),
     "popup-cookie": () => import("@/components/popups/CookiePopup.vue"),
     // "popup-product-details": () =>
     //   import("@/components/popups/ProductDetails.vue"),
