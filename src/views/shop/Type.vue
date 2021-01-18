@@ -1,25 +1,34 @@
 <template>
   <div id="shop-types-view" class="view-container">
-    <v-section>
-      <v-card flat :loading="loadingCard || !type">
-        <!-- Section title -->
+    <v-section fluid>
+      <v-card flat :loading="loadingCard">
+        <!-- Title -->
         <v-card-title v-if="type">
           {{ type.title[appLang] }}
         </v-card-title>
-        <!-- / Section title -->
+        <!-- / Title -->
 
-        <!-- Section Content -->
-        <v-card>
-          <v-card-text v-if="emptyInventary || !type">
-            <!-- Empty Inventary -->
-            <div class="w-100 max-w-30">
-              <v-img src="img/png/empty-cart.png" />
-            </div>
-            <!-- Empty Inventary -->
-          </v-card-text>
+        <v-card-text v-if="emptyInventary">
+          <!-- Empty Inventary -->
+          <div class="w-100 max-w-30">
+            <v-img src="img/png/empty-cart.png" />
+          </div>
+          <!-- Empty Inventary -->
+        </v-card-text>
 
-          <product-grid v-if="!emptyInventary" :products="products" />
-        </v-card>
+        <product-grid
+          v-else
+          :products="products"
+          :product-props="{
+            showTitle: true,
+            showPrice: true,
+            showRating: true,
+            cardProps: {
+              outlined: true,
+            },
+            bodyClass: 'pa-2',
+          }"
+        />
 
         <!-- / Section Content -->
       </v-card>
@@ -35,37 +44,25 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component({
   components: {
-    "product-grid": () => import("@/components/data/ProductGrid.vue"),
+    "product-grid": () => import("@/components/widgets/products/Grid.vue"),
   },
 })
 export default class ShopType extends Vue {
-  beforeMount() {
-    const cKey = Number(this.$route.query.category);
-    const tKey = Number(this.$route.query.type);
-    if (
-      ShopStore.categories[cKey] &&
-      ShopStore.categories[cKey].types &&
-      (ShopStore.categories[cKey].types as IProductType[])[tKey]
-    ) {
-      const tag = (ShopStore.categories[cKey].types as IProductType[])[tKey]
-        .tag;
-      this.loadProducts({ type: tag });
-    }
-  }
-
-  mounted() {
-    ScrollTop();
-  }
-
-  updated() {
-    ScrollTop();
-  }
-
   products: IProduct[] = [];
   emptyInventary = false;
   loadingCard = false;
 
+  beforeMount() {
+    this.type;
+  }
+
+  destroyed() {
+    ScrollTop();
+  }
+
   get type() {
+    ScrollTop();
+    this.cleanState();
     const cKey = Number(this.$route.query.category);
     const tKey = Number(this.$route.query.type);
     if (
@@ -77,6 +74,9 @@ export default class ShopType extends Vue {
       this.loadProducts({ type: type.tag });
       return type;
     } else {
+      // Show message
+      console.log("This type or category is not valid.");
+      this.products = [];
       return null;
     }
   }
@@ -87,7 +87,6 @@ export default class ShopType extends Vue {
 
   async loadProducts(_params: IPaginatedTypeProductsParam) {
     try {
-      this.emptyInventary = true;
       this.loadingCard = true;
       await ShopStore.getProductsByType(_params);
       if (ShopStore.products[_params.type].length) {
@@ -101,6 +100,15 @@ export default class ShopType extends Vue {
       // PopupStore.addNotification(error);
       this.emptyInventary = true;
     }
+    this.loadingCard = false;
+  }
+
+  /**
+   * State before loads
+   */
+  cleanState() {
+    this.products = [];
+    this.emptyInventary = false;
     this.loadingCard = false;
   }
 }

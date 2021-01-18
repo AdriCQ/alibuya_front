@@ -244,11 +244,10 @@ class ShopModule extends VuexModule {
    * Gets subcategories by tag
    * @param _tag string
    * @param _link boolean
-   * @returns subcategories by tag 
    */
   getSubcategoriesByTag(_tag: string, _link = false): Array<IProductType | IProductTypeLink> {
     const subcategories: Array<IProductTypeLink | IProductType> = [];
-    this.categories.forEach((cat) => {
+    this.categories.forEach((cat, keyCategory) => {
       if (cat.tag == _tag) {
         if (_link) {
           cat.types?.forEach((type, keyType) => {
@@ -258,8 +257,8 @@ class ShopModule extends VuexModule {
               to: {
                 name: "shop.type",
                 query: {
-                  type: keyType.toString(),
-                  category: keyType,
+                  type: keyType,
+                  category: keyCategory,
                 },
               },
             });

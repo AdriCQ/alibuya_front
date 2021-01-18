@@ -47,6 +47,7 @@ export interface IProductType {
   rating?: number;
 }
 
+// TODO: Check shape of interface
 export interface IProductTypeLink extends ILinkIconLabel {
   tag: string;
   labelLang: {

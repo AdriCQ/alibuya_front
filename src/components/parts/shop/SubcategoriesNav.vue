@@ -10,6 +10,7 @@
         :to="subcategory.to"
         small
         depressed
+        rounded
         class="btn-primary-alpha-gradient text-transform-none"
       >
         {{ subcategory.labelLang[appLang] }}

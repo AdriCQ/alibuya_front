@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import { mainRoutes, settingsRoutes, shopRoutes, vendorRoutes, authRoutes } from './routes';
+import { ScrollTop } from '@/utils/utils';
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,7 @@ const router = new VueRouter({
 
 router.beforeEach((_to, _from, _next) => {
   _to.meta.title ? document.title = "Alibuya | " + _to.meta.title : 'Alibuya';
+  ScrollTop();
   _next();
 })
 

@@ -4,7 +4,7 @@
       <v-card flat :loading="loadingCard">
         <!-- Title -->
         <v-card-title v-if="category" class="d-block text-center pb-1">
-          {{ category.title.es }}
+          {{ category.title[appLang] }}
         </v-card-title>
         <!-- /  Title -->
 
@@ -16,7 +16,7 @@
       </v-card>
     </v-section>
 
-    <v-section v-if="products.length || emptyInventary" fluid>
+    <v-section fluid v-if="emptyInventary || products.length">
       <v-card flat :loading="loadingCard">
         <!-- Empty Inventary -->
         <v-card-text v-if="emptyInventary">
@@ -26,23 +26,21 @@
         </v-card-text>
         <!-- / Empty Inventary -->
 
-        <!-- Grid Products -->
-
-        <grid v-else :items="products">
-          <template v-slot:grid-item="{ item }">
-            <product-basic
-              :product="item"
-              :card-props="{ outlined: true }"
-              body-class="pa-0"
-              :fluid="mdAndDown"
-              show-price
-              show-rating
-              :small="!mdAndDown"
-            />
-          </template>
-        </grid>
-
-        <!-- / Grid Products -->
+        <!-- Products Grid -->
+        <product-grid
+          v-else
+          :products="products"
+          :product-props="{
+            showTitle: true,
+            showPrice: true,
+            showRating: true,
+            cardProps: {
+              outlined: true,
+            },
+            bodyClass: 'pa-2',
+          }"
+        />
+        <!-- Products Grid -->
       </v-card>
     </v-section>
   </div>
@@ -59,14 +57,12 @@ import {
   IProductTypeLink,
   IPaginatedCategoryProductsParam,
 } from "@/types";
-import { ScrollTop } from "@/utils";
 
 @Component({
   components: {
     "subcategories-nav": () =>
       import("@/components/parts/shop/SubcategoriesNav.vue"),
-    grid: () => import("@/components/layouts/containers/Grid.vue"),
-    "product-basic": () => import("@/components/widgets/products/Basic.vue"),
+    "product-grid": () => import("@/components/widgets/products/Grid.vue"),
   },
 })
 export default class ShopCategory extends mixins(GettersBreakpointsMixin) {
@@ -88,7 +84,6 @@ export default class ShopCategory extends mixins(GettersBreakpointsMixin) {
 
   @Watch("$route.query.category")
   onRouteChange() {
-    ScrollTop();
     this.cleanState();
     this.setState();
   }
@@ -110,7 +105,9 @@ export default class ShopCategory extends mixins(GettersBreakpointsMixin) {
     }
     this.loadingCard = false;
   }
-
+  /**
+   * Set subcategories
+   */
   setSubcategories(_tag: string) {
     this.subcategories = ShopStore.getSubcategoriesByTag(
       _tag,
@@ -120,18 +117,19 @@ export default class ShopCategory extends mixins(GettersBreakpointsMixin) {
 
   /**
    * Set the values for: category, subcategories and products
+   * @param _setSubcategories
    */
-  setState(_subCategories = true) {
+  setState(_setSubcategories = true) {
     if (
       this.$route.query.category &&
       ShopStore.categories[Number(this.$route.query.category)]
     ) {
       this.category = ShopStore.categories[Number(this.$route.query.category)];
+      if (_setSubcategories) this.setSubcategories(this.category.tag);
       this.loadProducts({
         category: this.category.tag,
         page: this.currentPage,
       });
-      if (_subCategories) this.setSubcategories(this.category.tag);
     } else {
       this.emptyInventary = true;
     }
