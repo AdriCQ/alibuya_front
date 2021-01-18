@@ -1,6 +1,4 @@
-import { IProduct } from '@/types';
-import { TImage } from '../utils';
-
+import { IProduct, IUserContact, TImage, IPackProduct } from '@/types';
 export interface ISuggestedParams {
   tags?: string[];
 }
@@ -28,4 +26,10 @@ export interface IPaginatedCategoryProductsParam extends IPaginatedProductsParam
 
 export interface IPaginatedTypeProductsParam extends IPaginatedProductsParam {
   type: string;
+}
+
+export interface IStorePackParam {
+  delivery_method: string;
+  destinataries: IUserContact[];
+  products: IPackProduct[];
 }

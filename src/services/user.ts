@@ -1,6 +1,8 @@
-import { ILoginParams, ApiResponse, IRegisterParams, IAuthResponse, IResetPasswordParams } from '@/types';
+import { ILoginParams, ApiResponse, IRegisterParams, IAuthResponse, IResetPasswordParams, IUserContact } from '@/types';
 import axios from 'axios';
-
+/**
+ * User service
+ */
 export class UserService {
   static baseUrl = '/user';
 
@@ -40,5 +42,22 @@ export class UserService {
    */
   static resetPassword(_params: IResetPasswordParams): ApiResponse<IAuthResponse> {
     return axios.post(this.baseUrl + '/password-reset', _params);
+  }
+
+  /**
+   * Gets contacts
+   * @returns contacts 
+   */
+  static getContacts(): ApiResponse<IUserContact[]> {
+    return axios.get(this.baseUrl + '/contact');
+  }
+
+  /**
+   * Stores contact
+   * @param _params IUserContact
+   * @returns contact 
+   */
+  static storeContact(_params: IUserContact): ApiResponse<IUserContact> {
+    return axios.post(this.baseUrl + '/contact', _params);
   }
 }

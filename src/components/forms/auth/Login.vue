@@ -161,24 +161,27 @@ export default class LoginForm extends Vue {
   /**
    *
    */
-  async login() {
+  login() {
     this.$v.form.$touch();
     if (!this.$v.form.$invalid) {
       this.$emit("loading:update", true);
-      try {
-        await UserStore.login(this.form);
-        PopupStore.addNotification(
-          [
-            `Bienvenido ${UserStore.profile.first_name} ${UserStore.profile.last_name}`,
-          ],
-          "success"
-        );
-        UserStore.storeOnLocalStorage();
-        this.$emit("redirect", this.$route.name);
-      } catch (error) {
-        PopupStore.addNotification(error);
-      }
-      this.$emit("loading:update", false);
+      UserStore.login(this.form)
+        .then(() => {
+          PopupStore.addNotification(
+            [
+              `Bienvenido ${UserStore.profile.first_name} ${UserStore.profile.last_name}`,
+            ],
+            "success"
+          );
+          UserStore.storeOnLocalStorage();
+          this.$emit("redirect");
+        })
+        .catch((error) => {
+          PopupStore.addNotification(error);
+        })
+        .finally(() => {
+          this.$emit("loading:update", false);
+        });
     }
   }
 }

@@ -1,6 +1,7 @@
-import { VuexModule, Module } from 'vuex-class-modules';
+import { VuexModule, Module, Action } from 'vuex-class-modules';
 import store from '@/store/store';
-import { IProductsPack, IProductCart } from '@/types';
+import { IProductsPack, IProductCart, IStorePackParam, IApiResponse } from '@/types';
+import { AxiosHelper, ShopService } from '@/services';
 
 @Module({ generateMutationSetters: true })
 class PackModule extends VuexModule {
@@ -31,18 +32,31 @@ class PackModule extends VuexModule {
   get packsCounter() {
     return this._packs.length;
   }
+  /**
+   * Actions pack module
+   * @param _pack IStorePackPAram
+   * @returns  Promise
+   */
+  @Action
+  storePack(_pack: IStorePackParam) {
+    return new Promise((resolve, reject) => {
+      AxiosHelper.callableService(ShopService.storePack(_pack), (_resp: IApiResponse<boolean>) => {
+        console.log(_resp);
+      }).then(_resp2 => resolve(_resp2)).catch(_error2 => reject(_error2))
+    });
+  }
 
   /**
    * Adds product
    * @param _product IProduct
    */
   addProduct(_product: IProductCart) {
+    console.log("Product", _product);
     if (_product.weight) {
       // Product more than 1500g
       if (_product.weight > 1500 || this.packs.length === 0) {
         this._packs.push({
           products: [_product],
-          title: _product.title,
           weight: _product.weight,
           cant: 1,
           destinataries: [],
@@ -62,7 +76,6 @@ class PackModule extends VuexModule {
         if (!added) {
           this._packs.push({
             products: [_product],
-            title: _product.title,
             weight: _product.weight,
             cant: 1,
             destinataries: [],

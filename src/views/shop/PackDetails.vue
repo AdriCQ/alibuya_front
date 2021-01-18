@@ -27,18 +27,34 @@
 
               <v-select
                 label="Destinatario"
-                :items="['a']"
+                :items="destinataries"
+                v-model="form.destinataryId"
+                item-text="full_name"
+                item-value="id"
                 outlined
                 dense
                 color="black"
                 class="w-20"
-              />
+              >
+                <template v-slot:prepend-item>
+                  <v-list-item ripple @click="preAddDestinatary">
+                    <v-list-item-action>
+                      <v-icon>mdi-account-plus</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title> Nuevo </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-divider class="mt-2"></v-divider> </template
+              ></v-select>
 
               <!-- Delivery method -->
               <v-select
                 class="w-20"
                 label="Método de Recogida"
+                v-model="form.deliveryMethod"
                 :items="deliveryMethods"
+                color="black"
                 dense
                 outlined
               />
@@ -46,6 +62,12 @@
             </v-card-text>
           </v-col>
         </v-row>
+        <v-card-actions class="d-flex">
+          <v-btn color="primary" class="ma-1 black--text" @click="save()"
+            >Guardar</v-btn
+          >
+          <v-btn class="ma-1" @click="cancel">Cancelar</v-btn>
+        </v-card-actions>
       </v-card>
     </v-section>
     <!-- / Ajustes -->
@@ -67,16 +89,33 @@
 </template>
 
 <script lang='ts'>
-import { PackStore } from "@/store";
-import { Vue, Component } from "vue-property-decorator";
-import { IProductCart } from "@/types";
+import { PackStore, PopupStore, UserStore } from "@/store";
+import { Component, Mixins } from "vue-property-decorator";
+import {
+  IProductCart,
+  IProductsPack,
+  IStorePackParam,
+  IDictionary,
+} from "@/types";
+import { RouterMixin } from "@/mixins";
+import router from "../../router/index";
+import store from "@/store/store";
 
 @Component({
   components: {
     "product-editable": () => import("@/components/widgets/products/Edit.vue"),
   },
 })
-export default class PackDetailsView extends Vue {
+export default class PackDetailsView extends Mixins(RouterMixin) {
+  created() {
+    UserStore.getContacts().catch((error) => console.log(error));
+  }
+
+  form = {
+    deliveryMethod: "",
+    destinataryId: 0,
+  };
+
   get packKey() {
     return Number(this.$route.query.packKey);
   }
@@ -135,6 +174,16 @@ export default class PackDetailsView extends Vue {
     return PackStore.getPackPrice(key);
   }
 
+  get destinataries() {
+    const dest: any = [];
+    UserStore.contacts.forEach((contact, key) => {
+      const temp: any = contact;
+      temp.full_name = contact.first_name + " " + contact.last_name;
+      dest.push(temp);
+    });
+    return dest;
+  }
+
   remove(_key: number) {
     if ((this.pack?.products as IProductCart[]).length > 1)
       PackStore.removePackProduct(this.packKey, _key);
@@ -142,6 +191,50 @@ export default class PackDetailsView extends Vue {
       this.$router.back();
       PackStore.removeShoppingCartPack(this.packKey);
     }
+  }
+
+  save() {
+    // TODO: Validate
+    // Get Destinatary id
+    if (UserStore.getContactById(this.form.destinataryId))
+      PackStore._packs[this.packKey].destinataries = [
+        UserStore.getContactById(this.form.destinataryId),
+      ];
+    PackStore._packs[this.packKey].delivery_method = this.form.deliveryMethod;
+    // Store on Server
+    const storePack: IStorePackParam = {
+      delivery_method: (this.pack as IProductsPack).delivery_method as string,
+      destinataries: (this.pack as IProductsPack).destinataries as any[],
+      products: [],
+    };
+    (this.pack as IProductsPack).products.forEach((product) => {
+      storePack.products.push({
+        id: product.id,
+        cart_cant: product.cart_cant,
+        options_details: product.options_details as IDictionary<
+          string | number
+        >,
+      });
+    });
+    PackStore.storePack(storePack)
+      .then(() => {
+        this.$router.push({ name: "shop.cart" });
+      })
+      .catch((error) => console.log(error));
+  }
+
+  cancel() {
+    this.$router.back();
+  }
+
+  /**
+   * -----------------------------------------
+   *	Destinataries
+   * -----------------------------------------
+   */
+
+  preAddDestinatary() {
+    PopupStore.showEditContact(null);
   }
 }
 </script>

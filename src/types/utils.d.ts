@@ -1,3 +1,4 @@
+import { IDictionary } from '@/types';
 export type TRouteLink = {
   name?: string;
   path?: string;
@@ -38,6 +39,18 @@ export interface IShopImage {
     lg?: string;
     xl?: string;
   };
+}
+
+
+/**
+ * -----------------------------------------
+ *	Vuejs
+ * -----------------------------------------
+ */
+export interface IRoute {
+  name?: string;
+  path?: string;
+  query?: IDictionary<string>
 }
 
 /**

@@ -37,8 +37,9 @@
 </template>
 
 <script lang='ts'>
-import { Vue, Component } from "vue-property-decorator";
+import { Component, Mixins } from "vue-property-decorator";
 import { PackStore } from "@/store";
+import { RouterMixin } from "@/mixins";
 
 @Component({
   components: {
@@ -47,7 +48,7 @@ import { PackStore } from "@/store";
     "pack-display": () => import("@/components/data/PackDataCart.vue"),
   },
 })
-export default class ShoppingCartView extends Vue {
+export default class ShoppingCartView extends Mixins(RouterMixin) {
   get packCant() {
     return PackStore.packs.length;
   }

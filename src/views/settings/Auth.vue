@@ -11,6 +11,7 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
+import { UserStore } from "@/store";
 
 @Component({
   components: {
@@ -50,15 +51,22 @@ export default class AuthView extends Vue {
     this.loading = _value;
   }
 
-  redirect(_redirect?: string) {
-    this.$router.push("main.home");
-
-    if (_redirect) {
+  redirect(_route: string) {
+    if (_route) {
       this.$router.push({
-        path: _redirect,
+        name: _route,
       });
     } else {
-      this.$router.push("main.home");
+      if (UserStore.redirect) {
+        this.$router.push({
+          name: UserStore.redirect.name as string,
+          query: UserStore.redirect.query,
+        });
+      } else {
+        this.$router.push({
+          name: "main.home",
+        });
+      }
     }
   }
 }
