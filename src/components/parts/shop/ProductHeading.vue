@@ -70,10 +70,10 @@
 <script lang='ts'>
 import { Component, Prop } from "vue-property-decorator";
 import { mixins } from "vue-class-component";
-import { GettersBreakpointsMixin } from "@/mixins/utils";
+import { GettersBreakpoints } from "@/mixins/utils";
 
 @Component
-export default class ProductHeading extends mixins(GettersBreakpointsMixin) {
+export default class ProductHeading extends mixins(GettersBreakpoints) {
   @Prop({ type: String, required: true }) readonly title!: string;
   @Prop(Number) readonly price!: number;
   @Prop({ type: Number, default: 3.5 }) readonly rating!: number;

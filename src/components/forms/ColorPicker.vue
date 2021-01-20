@@ -1,49 +1,55 @@
 <template>
-  <v-input :error-messages="errorMessages">
-    <v-item-group v-model="colorComp">
-      <v-row no-gutters>
-        <v-col
-          cols="auto"
-          v-for="(color, key) in colors"
-          :key="`color-picker-item-group-${key}`"
-        >
-          <v-item v-slot="{ active, toggle }" :value="color.value">
-            <div class="text-center mr-4">
+  <v-item-group v-model="colorComp">
+    <v-input :error-messages="errorMessages">
+      <v-container fluid class="px-0">
+        <v-row v-for="row in rows" :key="`color-picker-row-${row}`">
+          <v-col
+            cols="auto"
+            md="3"
+            lg="2"
+            v-for="(color, col) in colors.slice(
+              (row - 1) * itemsByRow,
+              row * itemsByRow
+            )"
+            :key="`color-picker-row-${row}-col-${col}`"
+          >
+            <v-item v-slot="{ active, toggle }" :value="color.value">
               <!-- Circle Button Color -->
-              <v-btn
-                :color="color.value"
-                :max-height="sizeCom"
-                :max-width="sizeCom"
-                elevation="4"
-                fab
-                @click="toggle"
-              >
-                <v-icon v-if="active" color="primary lighten-1" :small="small">
-                  mdi-check
-                </v-icon>
-              </v-btn>
-
-              <!-- Color Label -->
-              <div
-                class="text-color-body text-subtitle-2 mt-1"
-                :class="{ 'primary--text': active }"
-              >
-                {{ color.label }}
-              </div>
-            </div>
-          </v-item>
-        </v-col>
-      </v-row>
-    </v-item-group>
-  </v-input>
+              <v-tooltip content-class="rounded-pill" bottom>
+                <template #activator="{ on, attrs }">
+                  <v-btn
+                    v-bind="attrs"
+                    :color="color.value"
+                    :max-height="sizeCom"
+                    :max-width="sizeCom"
+                    elevation="4"
+                    fab
+                    dark
+                    @click="toggle"
+                    v-on="on"
+                  >
+                    <v-icon v-if="active" color="primary lighten-1" small>
+                      mdi-check
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span class="text-subtitle-2"> {{ color.label }} </span>
+              </v-tooltip>
+            </v-item>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-input>
+  </v-item-group>
 </template>
 
 <script lang='ts'>
-import { Vue, Component, Prop, PropSync } from "vue-property-decorator";
+import { Component, Prop, PropSync, Mixins } from "vue-property-decorator";
+import { GettersBreakpoints } from "@/mixins";
 import { IColor } from "@/types";
 
 @Component
-export default class ColorPicker extends Vue {
+export default class ColorPicker extends Mixins(GettersBreakpoints) {
   @PropSync("color", { type: String }) readonly colorComp!: string;
   @Prop({ type: Array, required: true }) readonly colors!: IColor[];
   // design
@@ -59,13 +65,31 @@ export default class ColorPicker extends Vue {
   readonly errorMessages!: string | [];
 
   /**
-   *
+   * Getters
    */
   get sizeCom() {
     if (!this.size) {
       if (this.small) return 30;
       else return 32;
     } else return this.size;
+  }
+
+  get itemsByRow() {
+    switch (this.$vuetify.breakpoint.name) {
+      case "lg":
+        return 6;
+      case "md":
+        return 4;
+      default:
+        return Math.max(6, this.colors.length);
+    }
+  }
+
+  get rows() {
+    const length = this.colors.length;
+    return (
+      Math.floor(length / this.itemsByRow) + (length % this.itemsByRow ? 1 : 0)
+    );
   }
 }
 </script>

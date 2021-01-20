@@ -49,7 +49,7 @@
 <script lang='ts'>
 import { Component, Watch } from "vue-property-decorator";
 import { mixins } from "vue-class-component";
-import { GettersBreakpointsMixin } from "@/mixins/utils";
+import { GettersBreakpoints } from "@/mixins/utils";
 import { AppStore, ShopStore } from "@/store";
 import {
   IProduct,
@@ -65,7 +65,7 @@ import {
     "product-grid": () => import("@/components/widgets/products/Grid.vue"),
   },
 })
-export default class ShopCategory extends mixins(GettersBreakpointsMixin) {
+export default class ShopCategory extends mixins(GettersBreakpoints) {
   products: IProduct[] = [];
   category: IProductCategory | null = null;
   subcategories: IProductTypeLink[] = [];

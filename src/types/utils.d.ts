@@ -91,8 +91,6 @@ export type TImage = File | string | File[] | string[];
 export interface IColor {
   value: string;
   label: string;
-  shape?: TShape;
-  border?: boolean;
 }
 
 export interface ITransletable {

@@ -1,10 +1,5 @@
 <template>
-  <v-card
-    class="position-sticky"
-    :style="cardContainerStyles"
-    :outlined="mdAndUp"
-    :max-width="450"
-  >
+  <v-card :outlined="mdAndUp" :max-width="450">
     <v-card-title class="py-2">Añadir al carrito</v-card-title>
     <v-card-text class="py-2 text-body-1 text-color-body">
       <!-- Available Colors -->
@@ -15,7 +10,7 @@
             :color.sync="$v.form.color.$model"
             :colors="colors"
             :error-messages="colorErrorsMsg"
-            small
+            :small="!mdAndUp"
           />
         </v-col>
       </v-row>
@@ -121,10 +116,10 @@
 
 <script lang='ts'>
 import { Component, Prop } from "vue-property-decorator";
-import { GettersBreakpointsMixin } from "@/mixins/utils";
+import { GettersBreakpoints } from "@/mixins/utils";
 import { mixins } from "vue-class-component";
 import { IColor, IProductCart } from "@/types";
-import { required, between } from "vuelidate/lib/validators";
+import { required, between, numeric } from "vuelidate/lib/validators";
 import { PackStore } from "@/store";
 
 @Component({
@@ -135,17 +130,21 @@ import { PackStore } from "@/store";
     return {
       form: {
         color: { required },
-        // size: { required },
+        size: { required },
 
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        // @ts-ignore
-        cant: { required, between: between(1, this.product.available_cant) },
+        cant: {
+          required,
+          numeric,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+          // @ts-ignore
+          between: between(1, this.product.available_cant),
+        },
         check: { isCheck: (value) => value == true },
       },
     };
   },
 })
-export default class ProductAddToCart extends mixins(GettersBreakpointsMixin) {
+export default class ProductAddToCart extends mixins(GettersBreakpoints) {
   @Prop({ type: Object }) readonly product!: IProductCart;
 
   /**
@@ -158,13 +157,6 @@ export default class ProductAddToCart extends mixins(GettersBreakpointsMixin) {
     cant: 1,
     check: false,
   };
-
-  /**
-   * Styles
-   */
-  get cardContainerStyles() {
-    return { top: this.lgAndUp ? "111px" : "0" };
-  }
 
   /**
    * Test - product colors
@@ -212,6 +204,8 @@ export default class ProductAddToCart extends mixins(GettersBreakpointsMixin) {
     if (!this.$v.form.cant?.$dirty) return errorsMsg;
     if (!this.$v.form.cant?.required)
       errorsMsg.push("Seleccione una cantidad.");
+    if (!this.$v.form.cant?.numeric)
+      errorsMsg.push("La cantidad debe ser un número entero.");
     if (!this.$v.form.cant?.between)
       errorsMsg.push(
         `La cantidad debe estar entre ${this.$v.form.cant.$params.between.min} y ${this.$v.form.cant.$params.between.max}.`

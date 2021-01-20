@@ -91,18 +91,29 @@
     </v-col>
     <!-- Add to Cart Form -->
     <v-col cols="12" md="3" order="1" order-md="2" class="pt-0">
-      <add-to-cart :product="product" class="mx-auto" />
+      <add-to-cart
+        v-if="isLogged"
+        :product="product"
+        class="mx-auto position-sticky"
+        :style="stickyStyles"
+      />
+      <login-card
+        v-else
+        :props="{ flat: true, maxWidth: 450 }"
+        class="mx-auto position-sticky"
+        :style="stickyStyles"
+      />
     </v-col>
     <!-- / Add to Cart Form -->
   </v-row>
 </template>
 
 <script lang='ts'>
-import { PackStore, UserStore } from "@/store";
+import { UserStore } from "@/store";
 import { IProductCart } from "@/types";
 import { mixins } from "vue-class-component";
 import { Component, Prop } from "vue-property-decorator";
-import { GettersBreakpointsMixin } from "@/mixins/utils";
+import { GettersBreakpoints } from "@/mixins/utils";
 
 @Component({
   components: {
@@ -110,18 +121,25 @@ import { GettersBreakpointsMixin } from "@/mixins/utils";
       import("@/components/parts/shop/ProductHeading.vue"),
     "product-gallery": () => import("@/components/sliders/ProductGallery.vue"),
     "add-to-cart": () => import("@/components/parts/shop/ProductAddToCart.vue"),
+    "login-card": () => import("@/components/widgets/LoginCard.vue"),
   },
 })
-export default class ProductContent extends mixins(GettersBreakpointsMixin) {
+export default class ProductContent extends mixins(GettersBreakpoints) {
   @Prop({ type: Object }) readonly product!: IProductCart;
 
   // personsInfo: TPackDestinationPerson[] = [];
 
   // TODO: Work with limits
   // productLimit = 2;
-
+  /**
+   * Getters
+   */
   get isLogged() {
     return UserStore.isLogged;
+  }
+
+  get stickyStyles() {
+    return { top: this.lgAndUp ? "111px" : "0" };
   }
 
   // test - array of images
