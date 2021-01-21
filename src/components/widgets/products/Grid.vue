@@ -39,7 +39,7 @@
 
 <script lang='ts'>
 import { Component, Prop, Mixins } from "vue-property-decorator";
-import { GettersBreakpoints } from "@/mixins/utils";
+import { GettersBreakpointsMixin } from "@/mixins/utils";
 // types
 import { IProduct } from "@/types";
 
@@ -48,7 +48,7 @@ import { IProduct } from "@/types";
     "product-basic": () => import("@/components/widgets/products/Basic.vue"),
   },
 })
-export default class Grid extends Mixins(GettersBreakpoints) {
+export default class Grid extends Mixins(GettersBreakpointsMixin) {
   @Prop({ type: Array, default: [] }) readonly products!: IProduct[];
   @Prop(Object) readonly productProps!: object;
   /**

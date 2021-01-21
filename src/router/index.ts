@@ -26,11 +26,4 @@ router.beforeEach((_to, _from, _next) => {
   _next();
 })
 
-// router.afterEach(() => {
-//   document.scrollingElement?.scrollTo({
-//     top: 0,
-//     behavior: "smooth"
-//   })
-// })
-
 export default router

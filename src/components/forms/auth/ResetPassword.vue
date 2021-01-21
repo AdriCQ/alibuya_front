@@ -70,9 +70,7 @@
           <v-col cols="6" class="mt-3">
             <span
               class="text-link text-body-2"
-              @click="
-                $router.push({ name: 'auth.register', query: $route.query })
-              "
+              @click="$router.push({ name: 'auth.register' })"
             >
               No tengo usuario</span
             >
@@ -128,7 +126,7 @@ export default class ResetPasswordForm extends Vue {
   };
 
   get formExtraData() {
-    console.log("QUery", this.$route.query);
+    console.log("Query", this.$route.query);
     if (this.$route.query.email)
       this.form.email = this.$route.query.email as string;
     if (this.$route.query.token)

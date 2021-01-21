@@ -46,9 +46,7 @@
             <v-col cols="6" class="mt-3">
               <span
                 class="text-link text-body-2"
-                @click="
-                  $router.push({ name: 'auth.register', query: $route.query })
-                "
+                @click="$router.push({ name: 'auth.register' })"
               >
                 No tengo usuario</span
               >
@@ -59,7 +57,6 @@
                 @click="
                   $router.push({
                     name: 'auth.login',
-                    query: $route.query,
                   })
                 "
               >
@@ -111,6 +108,7 @@ export default class ForgotPasswordForm extends Vue {
   }
 
   async forgotPassword() {
+    // TODO: Send mail to user
     this.$v.form.$touch();
     if (!this.$v.form.$invalid) {
       this.$emit("loading:update", true);

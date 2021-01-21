@@ -12,6 +12,9 @@
 import { Vue, Component } from "vue-property-decorator";
 import { UserStore, AppStore, ShopStore, AnnouncementStore } from "@/store";
 
+// excecuted this before pre-route guards
+UserStore.getFromLocalStorage();
+
 @Component({
   components: {
     "popup-notification": () =>
@@ -22,7 +25,6 @@ export default class App extends Vue {
   created() {
     this.getAsyncData();
     AppStore.getFromLocalStorage();
-    UserStore.getFromLocalStorage();
   }
 
   async getAsyncData() {

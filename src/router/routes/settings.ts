@@ -11,7 +11,8 @@ export const settingsRoutes: RouteConfig = {
       path: 'account',
       component: () => import('@/views/settings/Account.vue'),
       meta: {
-        title: 'Cuenta'
+        title: 'Cuenta',
+        requiresAuth: true
       },
       beforeEnter: BaseAuthGuard
     },

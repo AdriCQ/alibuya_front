@@ -113,7 +113,7 @@ import { UserStore } from "@/store";
 import { IProductCart } from "@/types";
 import { mixins } from "vue-class-component";
 import { Component, Prop } from "vue-property-decorator";
-import { GettersBreakpoints } from "@/mixins/utils";
+import { GettersBreakpointsMixin } from "@/mixins/utils";
 
 @Component({
   components: {
@@ -124,7 +124,7 @@ import { GettersBreakpoints } from "@/mixins/utils";
     "login-card": () => import("@/components/widgets/LoginCard.vue"),
   },
 })
-export default class ProductContent extends mixins(GettersBreakpoints) {
+export default class ProductContent extends mixins(GettersBreakpointsMixin) {
   @Prop({ type: Object }) readonly product!: IProductCart;
 
   // personsInfo: TPackDestinationPerson[] = [];

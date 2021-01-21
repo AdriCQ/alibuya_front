@@ -67,9 +67,7 @@
           <v-col cols="6" class="mt-3">
             <span
               class="text-link text-body-2"
-              @click="
-                $router.push({ name: 'auth.register', query: $route.query })
-              "
+              @click="$router.push({ name: 'auth.register' })"
             >
               No tengo usuario</span
             >
@@ -80,7 +78,6 @@
               @click="
                 $router.push({
                   name: 'auth.forgot_password',
-                  query: $route.query,
                 })
               "
             >

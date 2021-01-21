@@ -9,6 +9,7 @@
             max-width="200"
             @click="$router.push({ name: 'main.home' })"
           />
+
           <keep-alive>
             <router-view class="mt-2" />
           </keep-alive>

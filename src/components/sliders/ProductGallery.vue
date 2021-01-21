@@ -70,11 +70,11 @@
 
 <script lang='ts'>
 import { Component, Prop } from "vue-property-decorator";
-import { GettersBreakpoints } from "@/mixins/utils";
+import { GettersBreakpointsMixin } from "@/mixins/utils";
 import { mixins } from "vue-class-component";
 
 @Component
-export default class ProductGallery extends mixins(GettersBreakpoints) {
+export default class ProductGallery extends mixins(GettersBreakpointsMixin) {
   @Prop({ type: Array, required: true })
   readonly imgsSrc!: string[];
 

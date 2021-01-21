@@ -11,11 +11,18 @@
   >
     <div class="full-width">
       <div class="d-flex align-center mb-2">
+        <!-- Toggle Sidebar Button -->
         <v-app-bar-nav-icon v-bind="buttonSize" @click="toggleSidebarLeft">
           <v-icon :size="iconSize"> mdi-menu </v-icon>
         </v-app-bar-nav-icon>
 
-        <v-btn :small="!smAndUp" text @click="goto({ name: 'main.home' })">
+        <!-- Logo -->
+        <v-btn
+          :small="!smAndUp"
+          text
+          @click="goto({ name: 'main.home' })"
+          class="px-md-1"
+        >
           <v-img
             src="img/logos/logo_white_148x37.png"
             :width="smAndUp ? '7rem' : '6.5rem'"
@@ -29,71 +36,74 @@
           <v-spacer />
         </template>
 
-        <!-- Auth buttons -->
+        <!-- Auth button -->
         <v-btn :small="!smAndUp" text @click="gotoAuth()" v-if="!isLogged">
           <b> Identifícate </b>
         </v-btn>
 
-        <v-menu transition="scale-transition" offset-y v-else>
-          <template v-slot:activator="{ on }">
-            <v-btn text v-on="on" class="body-2">
-              <b>
-                {{ userName }}
-              </b>
-            </v-btn>
-          </template>
+        <template v-else>
+          <!-- Dropdown with link to view account and logout link -->
+          <v-menu transition="scale-transition" offset-y>
+            <template v-slot:activator="{ on }">
+              <v-btn text v-on="on" class="body-2">
+                <b>
+                  {{ userName }}
+                </b>
+              </v-btn>
+            </template>
 
-          <v-list>
-            <v-list-item link>
-              <v-list-item-title> Mi Cuenta </v-list-item-title>
-            </v-list-item>
-            <v-list-item link @click="logout">
-              <v-list-item-title> Salir </v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-        <!-- / Auth buttons -->
+            <v-list>
+              <v-list-item link>
+                <v-list-item-title> Mi Cuenta </v-list-item-title>
+              </v-list-item>
+              <v-list-item link @click="logout">
+                <v-list-item-title> Salir </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
 
-        <v-btn
-          :icon="!smAndUp"
-          v-bind="!smAndUp ? buttonSize : undefined"
-          text
-          @click="goto({ name: 'shop.cart' })"
-          class="ml-2 mr-2"
-        >
-          <v-badge
-            v-if="shopingCartCounter"
-            color="primary"
-            :content="shopingCartCounter"
+          <!-- Link to Cart -->
+          <v-btn
+            :icon="!smAndUp"
+            v-bind="!smAndUp ? buttonSize : undefined"
+            text
+            @click="goto({ name: 'shop.cart' })"
+            class="mx-1"
           >
-            <!-- <b v-if="smAndUp"> Mi Carrito </b> -->
-            <!-- <v-icon
+            <v-badge
+              v-if="shopingCartCounter"
+              color="primary"
+              :content="shopingCartCounter"
+            >
+              <!-- <b v-if="smAndUp"> Mi Carrito </b> -->
+              <!-- <v-icon
               :size="iconSize"
               :class="cartClass"
               @mouseover="shakeCartIcon"
               >mdi-cart-outline</v-icon
             > -->
-            <v-img
-              src="img/icons/shopping-cart/shopping-cart_168x168.png"
-              alt="Shopping Cart"
-              width="22px"
-            />
-          </v-badge>
-          <div v-else style="width: 22px">
-            <!-- <b v-if="smAndUp"> Mi Carrito </b> -->
-            <!-- <v-icon
+              <v-img
+                src="img/icons/shopping-cart/shopping-cart_168x168.png"
+                alt="Shopping Cart"
+                width="22px"
+              />
+            </v-badge>
+            <div v-else style="width: 22px">
+              <!-- <b v-if="smAndUp"> Mi Carrito </b> -->
+              <!-- <v-icon
               :size="iconSize"
               :class="cartClass"
               @mouseover="shakeCartIcon"
               >mdi-cart-outline</v-icon
             > -->
-            <v-img
-              src="img/icons/shopping-cart/shopping-cart_168x168.png"
-              alt="Shopping Cart"
-              width="100%"
-            />
-          </div>
-        </v-btn>
+              <v-img
+                src="img/icons/shopping-cart/shopping-cart_168x168.png"
+                alt="Shopping Cart"
+                width="100%"
+              />
+            </div>
+          </v-btn>
+        </template>
       </div>
 
       <div class="d-flex align-center mb-2" v-if="!mdAndUp">
@@ -148,8 +158,7 @@
 import { Component, Mixins } from "vue-property-decorator";
 import { VENDOR_PAGES } from "@/utils/const";
 import { AppStore, UserStore, PackStore, ShopStore } from "@/store";
-import { IDictionary } from "@/types";
-import { RouterMixin } from "@/mixins";
+import { GettersBreakpointsMixin, RouterMixin, UserMixin } from "@/mixins";
 
 @Component({
   components: {
@@ -157,7 +166,11 @@ import { RouterMixin } from "@/mixins";
       import("@/components/forms/shop/SearchProductInline.vue"),
   },
 })
-export default class AppBarFull extends Mixins(RouterMixin) {
+export default class AppBarFull extends Mixins(
+  RouterMixin,
+  GettersBreakpointsMixin,
+  UserMixin
+) {
   cartClass = "";
   // states in breakpoints
   get tabsHeight() {
@@ -206,19 +219,6 @@ export default class AppBarFull extends Mixins(RouterMixin) {
     return this.$route.path.includes("vendor") ? "vendor" : "CATEGORIES_PLUS";
   }
 
-  // breakpoints
-  get smAndUp() {
-    return this.$vuetify.breakpoint.smAndUp;
-  }
-
-  get mdAndUp() {
-    return this.$vuetify.breakpoint.mdAndUp;
-  }
-
-  get lgAndUp() {
-    return this.$vuetify.breakpoint.lgAndUp;
-  }
-
   /**
    *
    */
@@ -235,13 +235,6 @@ export default class AppBarFull extends Mixins(RouterMixin) {
       window.clearInterval(shakeInterval);
       this.cartClass = "";
     }, 700);
-  }
-
-  /**
-   *
-   */
-  logout() {
-    UserStore.logout();
   }
 }
 </script>

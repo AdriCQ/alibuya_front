@@ -6,13 +6,11 @@
         color="primaryAlpha"
         block
         class="btn-primary-alpha-gradient text-transform-none mb-2"
-        @click="$router.push({ name: 'auth.login' })"
+        @click="gotoAuth()"
       >
         Iniciar Sesión
       </v-btn>
-      <span
-        class="text-link text-body-1"
-        @click="$router.push({ name: 'auth.register' })"
+      <span class="text-link text-body-1" @click="gotoAuth('auth.register')"
         >Registrar cuenta</span
       >
     </v-card-text>
@@ -20,10 +18,11 @@
 </template>
 
 <script lang='ts'>
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { RouterMixin } from "@/mixins";
+import { Component, Prop, Mixins } from "vue-property-decorator";
 
 @Component
-export default class LoginCard extends Vue {
+export default class LoginCard extends Mixins(RouterMixin) {
   @Prop(Object) readonly props!: object;
 }
 </script>

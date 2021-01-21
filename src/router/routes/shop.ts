@@ -1,5 +1,6 @@
 import { RouteConfig } from 'vue-router';
 import BaseLayout from '@/components/layouts/BaseLayout.vue';
+import { BaseAuthGuard } from '@/router/guards';
 
 export const shopRoutes: RouteConfig = {
   path: '/shop',
@@ -34,9 +35,10 @@ export const shopRoutes: RouteConfig = {
       path: 'cart',
       component: () => import('@/views/shop/Cart.vue'),
       meta: {
-        title: 'Mi Carrito'
+        title: 'Mi Carrito',
+        requiresAuth: true
       },
-      // beforeEnter: BaseAuthGuard
+      beforeEnter: BaseAuthGuard
     },
     {
       name: 'shop.details',

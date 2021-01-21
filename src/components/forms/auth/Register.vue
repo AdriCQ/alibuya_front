@@ -115,7 +115,7 @@
           <v-col cols="6" class="mt-3">
             <span
               class="text-link text-body-2"
-              @click="$router.push({ name: 'auth.login', query: $route.query })"
+              @click="$router.push({ name: 'auth.login' })"
             >
               Ya tengo Usuario</span
             >
@@ -126,7 +126,6 @@
               @click="
                 $router.push({
                   name: 'auth.forgot_password',
-                  query: $route.query,
                 })
               "
             >
@@ -141,7 +140,7 @@
 </template>
 
 <script lang='ts'>
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Vue, Component, Prop, Mixins } from "vue-property-decorator";
 // types
 import { IRegisterParams } from "@/types";
 // store
@@ -238,28 +237,14 @@ export default class RegisterForm extends Vue {
   /**
    *
    */
-  redirect() {
-    const name = this.$route.query.redirect;
-    if (name != null) {
-      this.$router.push({ name: name as string });
-    } else {
-      // if (this.$route.name !== "auth.register") this.$router.back();
-      this.$router.push("main.home");
-    }
-  }
-
-  /**
-   *
-   */
   async register() {
     this.$v.form.$touch();
     if (!this.$v.form.$invalid) {
       this.$emit("loading:update", true);
-
       try {
         await UserStore.register(this.form);
         UserStore.storeOnLocalStorage();
-        this.$emit("redirect", "auth.email_verification");
+        this.$emit("redirect");
       } catch (err) {
         PopupStore.addNotification(err);
       }

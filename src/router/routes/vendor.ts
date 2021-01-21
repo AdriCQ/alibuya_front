@@ -5,43 +5,68 @@ import { BaseAuthGuard } from '@/router/guards';
 export const vendorRoutes: RouteConfig = {
   path: '/vendor',
   component: BaseLayout,
-  beforeEnter: BaseAuthGuard,
+   beforeEnter: BaseAuthGuard,
   children: [
     {
       name: 'vendor.home',
       path: 'home',
-      // component: () => import('@/views/vendor/NewProduct.vue'),
+      meta: {
+        title: 'Vendedor',
+        requiresAuth: true,
+      },
       component: () => import('@/views/main/Home.vue'),
     },
     {
       name: 'vendor.business',
       path: 'business',
-            component: () => import('@/views/main/Home.vue'),
-
+      meta: {
+        title: 'Vendedor',
+        requiresAuth: true,
+      },
+      component: () => import('@/views/main/Home.vue'),
     },
     {
       name: 'vendor.vendors',
       path: 'vendors',
-            component: () => import('@/views/main/Home.vue'),
-
+      meta: {
+        title: 'Vendedor',
+        requiresAuth: true,
+      },
+      component: () => import('@/views/main/Home.vue'),
     },
     {
       name: 'vendor.products',
       path: 'products',
-            component: () => import('@/views/main/Home.vue'),
-
+      meta: {
+        title: 'Vendedor',
+        requiresAuth: true,
+      },
+      component: () => import('@/views/main/Home.vue'),
     },
     {
       name: 'vendor.product.add',
       path: 'product/new',
-           component: () => import('@/views/main/Home.vue'),
-
+      meta: {
+        title: 'Vendedor',
+        requiresAuth: true,
+      },
+      component: () => import('@/views/main/Home.vue'),
     },
     {
       name: 'vendor.product.edit',
+      
       path: 'product/edit',
-            component: () => import('@/views/main/Home.vue'),
-
+      meta: {
+        title: 'Vendedor',
+        requiresAuth: true,
+      },
+      component: () => import('@/views/main/Home.vue'),
     },
+
+    // redirect from children
+    {
+      path: '', redirect: {name: 'vendor.home'}
+    },
+   
   ],
 };

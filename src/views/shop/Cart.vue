@@ -1,6 +1,6 @@
 <template>
   <div id="shop-cart-view" class="view-container">
-    <v-section>
+    <v-section fluid>
       <v-card>
         <v-row v-if="packCant">
           <v-col cols="12" md="4" lg="4" xl="4">
@@ -39,7 +39,7 @@
 <script lang='ts'>
 import { Component, Mixins } from "vue-property-decorator";
 import { PackStore } from "@/store";
-import { RouterMixin } from "@/mixins";
+import { GettersBreakpointsMixin, RouterMixin } from "@/mixins";
 
 @Component({
   components: {
@@ -48,20 +48,23 @@ import { RouterMixin } from "@/mixins";
     "pack-display": () => import("@/components/data/PackDataCart.vue"),
   },
 })
-export default class ShoppingCartView extends Mixins(RouterMixin) {
+export default class ShoppingCartView extends Mixins(
+  RouterMixin,
+  GettersBreakpointsMixin
+) {
+  /**
+   * Getters
+   */
   get packCant() {
     return PackStore.packs.length;
   }
 
-  /**
-   *
-   */
   get totalPrice() {
     return PackStore.totalPrice;
   }
 
   get topStyle() {
-    if (this.$vuetify.breakpoint.lgAndUp) {
+    if (this.lgAndUp) {
       return "7rem";
     } else {
       return "0";

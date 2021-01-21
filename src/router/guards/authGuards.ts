@@ -1,22 +1,21 @@
-import { UserStore } from '@/store/User';
 import { NavigationGuard } from 'vue-router';
-
+import { UserStore } from '@/store/User';
+import { AppStore } from '@/store/App';
 /**
  * Auth Guard
  * @param to Route
  * @param from Route
  * @param next 
  */
-export const BaseAuthGuard: NavigationGuard = (to, from, next) => {
+export const BaseAuthGuard: NavigationGuard = (_to, _from, _next) => {
   if (!UserStore.isLogged) {
-    next({
+    AppStore.redirect = _to;
+    _next({
       name: 'auth.login',
-      query: {
-        redirect: to.name
-      }
     })
-  } else {
-    next();
+  }
+  else {
+    _next();
   }
 }
 
@@ -26,19 +25,19 @@ export const BaseAuthGuard: NavigationGuard = (to, from, next) => {
  * @param from Route
  * @param next 
  */
-export const NoAuthGuard: NavigationGuard = (to, from, next) => {
-  if (UserStore.isLogged && from.meta.auth && to.meta.auth) {
+export const NoAuthGuard: NavigationGuard = (_to, _from, _next) => {
+  if (UserStore.isLogged && _from.meta.auth && _to.meta.auth) {
     if (window.history.length > 2) {
       window.history.go(-2);
-      next(false);
+      _next(false);
     }
-    else next({ name: 'main.home' });
+    else _next({ name: 'main.home' });
   }
 
   else if (!UserStore.isLogged) {
-    next();
+    _next();
   }
   else {
-    next(false);
+    _next(false);
   }
 } 

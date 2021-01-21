@@ -116,7 +116,7 @@
 
 <script lang='ts'>
 import { Component, Prop } from "vue-property-decorator";
-import { GettersBreakpoints } from "@/mixins/utils";
+import { GettersBreakpointsMixin } from "@/mixins/utils";
 import { mixins } from "vue-class-component";
 import { IColor, IProductCart } from "@/types";
 import { required, between, numeric } from "vuelidate/lib/validators";
@@ -144,11 +144,11 @@ import { PackStore } from "@/store";
     };
   },
 })
-export default class ProductAddToCart extends mixins(GettersBreakpoints) {
+export default class ProductAddToCart extends mixins(GettersBreakpointsMixin) {
   @Prop({ type: Object }) readonly product!: IProductCart;
 
   /**
-   *
+   * Form Data
    */
   form = {
     color: "",
@@ -208,7 +208,8 @@ export default class ProductAddToCart extends mixins(GettersBreakpoints) {
       errorsMsg.push("La cantidad debe ser un número entero.");
     if (!this.$v.form.cant?.between)
       errorsMsg.push(
-        `La cantidad debe estar entre ${this.$v.form.cant.$params.between.min} y ${this.$v.form.cant.$params.between.max}.`
+        `La cantidad debe estar entre ${this.$v.form.cant.$params.between.min} y 
+        ${this.$v.form.cant.$params.between.max}.`
       );
     return errorsMsg;
   }
@@ -219,15 +220,16 @@ export default class ProductAddToCart extends mixins(GettersBreakpoints) {
     if (!this.$v.form.check?.isCheck) errorsMsg.push("Requerido.");
     return errorsMsg;
   }
-
-  //
+  /**
+   * Get Subtotal Cost
+   */
   get subtotal() {
     if (this.$v.form.cant?.$invalid) return "";
     return `$${Number(this.form.cant * this.product.price).toFixed(2)}`;
   }
 
   /**
-   *  get Product cart
+   *  Get Product cart
    */
   get productCart(): IProductCart {
     return {
@@ -244,7 +246,20 @@ export default class ProductAddToCart extends mixins(GettersBreakpoints) {
   }
 
   /**
-   *
+   ** Restart form data
+   */
+  restartForm() {
+    this.form = {
+      color: "",
+      size: "",
+      // deliveryMethod: "",
+      cant: 1,
+      check: false,
+    };
+  }
+
+  /**
+   * Add IProductCart to Cart
    */
   addToCart() {
     this.$v.$touch();
@@ -252,14 +267,8 @@ export default class ProductAddToCart extends mixins(GettersBreakpoints) {
       // Add data to storage
       PackStore.addProduct(this.productCart);
       this.$router.push({ name: "shop.cart" });
-      // Restart form data
-      this.form = {
-        color: "",
-        size: "",
-        // deliveryMethod: "",
-        cant: 1,
-        check: false,
-      };
+
+      this.restartForm();
     }
   }
 }

@@ -130,7 +130,7 @@ import { PackStore, UserStore } from "@/store";
 import { IColor, IProductCart, IProduct } from "@/types";
 import { mixins } from "vue-class-component";
 import { Component, Prop } from "vue-property-decorator";
-import { GettersBreakpoints } from "@/mixins/utils";
+import { GettersBreakpointsMixin } from "@/mixins/utils";
 
 @Component({
   components: {
@@ -140,7 +140,7 @@ import { GettersBreakpoints } from "@/mixins/utils";
     "color-picker": () => import("@/components/forms/ColorPicker.vue"),
   },
 })
-export default class AddToCartForm extends mixins(GettersBreakpoints) {
+export default class AddToCartForm extends mixins(GettersBreakpointsMixin) {
   beforeMount() {
     this.form.color = this.colors[0].value;
   }

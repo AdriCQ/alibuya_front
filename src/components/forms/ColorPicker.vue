@@ -45,11 +45,11 @@
 
 <script lang='ts'>
 import { Component, Prop, PropSync, Mixins } from "vue-property-decorator";
-import { GettersBreakpoints } from "@/mixins";
+import { GettersBreakpointsMixin } from "@/mixins";
 import { IColor } from "@/types";
 
 @Component
-export default class ColorPicker extends Mixins(GettersBreakpoints) {
+export default class ColorPicker extends Mixins(GettersBreakpointsMixin) {
   @PropSync("color", { type: String }) readonly colorComp!: string;
   @Prop({ type: Array, required: true }) readonly colors!: IColor[];
   // design

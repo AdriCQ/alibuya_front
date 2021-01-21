@@ -6,7 +6,7 @@ import { IRoute } from '@/types';
  * Vuetify breakpoints and breakpoints conditionals getters
  */
 @Component
-export class GettersBreakpoints extends Vue {
+export class GettersBreakpointsMixin extends Vue {
 	// Breakpoints
 	get xs() {
 		return this.$vuetify.breakpoint.xs;

@@ -10,8 +10,8 @@
 </template>
 
 <script lang='ts'>
-import { Vue, Component } from "vue-property-decorator";
-import { UserStore } from "@/store";
+import { RouterMixin } from "@/mixins";
+import { Component, Mixins } from "vue-property-decorator";
 
 @Component({
   components: {
@@ -24,7 +24,7 @@ import { UserStore } from "@/store";
     "reset-password": () => import("@/components/forms/auth/ResetPassword.vue"),
   },
 })
-export default class AuthView extends Vue {
+export default class AuthView extends Mixins(RouterMixin) {
   loading = false;
 
   get activeComponent():
@@ -49,25 +49,6 @@ export default class AuthView extends Vue {
 
   changeLoading(_value: boolean) {
     this.loading = _value;
-  }
-
-  redirect(_route: string) {
-    if (_route) {
-      this.$router.push({
-        name: _route,
-      });
-    } else {
-      if (UserStore.redirect) {
-        this.$router.push({
-          name: UserStore.redirect.name as string,
-          query: UserStore.redirect.query,
-        });
-      } else {
-        this.$router.push({
-          name: "main.home",
-        });
-      }
-    }
   }
 }
 </script>

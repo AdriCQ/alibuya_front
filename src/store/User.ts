@@ -1,4 +1,4 @@
-import { VuexModule, Module, Action } from 'vuex-class-modules';
+import { VuexModule, Module, Action, Mutation } from 'vuex-class-modules';
 import store from '@/store/store';
 import { IUserProfile, ILoginParams, IRegisterParams, IUserContact, IResetPasswordParams, IApiResponse, IAuthResponse } from '@/types';
 import { UserService, AxiosHelper } from '@/services';
@@ -16,10 +16,7 @@ class UserModule extends VuexModule {
     address: ''
   };
 
-  redirect: null | Route = null;
-
   api_token: string | null = null;
-
   contacts: IUserContact[] = [];
 
   /**
@@ -184,7 +181,9 @@ class UserModule extends VuexModule {
   /**
    * Load from localStorage
    */
+  @Mutation
   getFromLocalStorage() {
+    console.log("Get user from local storage.");
     const store = storage.get();
     if (store) {
       this.profile = store.profile;
@@ -217,6 +216,8 @@ class UserModule extends VuexModule {
   updateContact(_contact: IUserContact, _key: number) {
     this.contacts[_key] = _contact;
   }
+  
+  
 }
 
 // register module (could be in any file) 
