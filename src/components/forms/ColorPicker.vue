@@ -88,7 +88,7 @@ export default class ColorPicker extends Mixins(GettersBreakpointsMixin) {
   get rows() {
     const length = this.colors.length;
     return (
-      Math.floor(length / this.itemsByRow) + (length % this.itemsByRow ? 1 : 0)
+      Math.trunc(length / this.itemsByRow) + (length % this.itemsByRow ? 1 : 0)
     );
   }
 }

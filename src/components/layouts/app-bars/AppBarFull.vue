@@ -15,12 +15,13 @@
         <v-app-bar-nav-icon v-bind="buttonSize" @click="toggleSidebarLeft">
           <v-icon :size="iconSize"> mdi-menu </v-icon>
         </v-app-bar-nav-icon>
+        <!-- / Toggle Sidebar Button -->
 
         <!-- Logo -->
         <v-btn
           :small="!smAndUp"
           text
-          @click="goto({ name: 'main.home' })"
+          @click="RouterMixin_goto({ name: 'main.home' })"
           class="px-md-1"
         >
           <v-img
@@ -28,6 +29,7 @@
             :width="smAndUp ? '7rem' : '6.5rem'"
           />
         </v-btn>
+        <!-- / Logo -->
 
         <v-spacer />
 
@@ -37,9 +39,15 @@
         </template>
 
         <!-- Auth button -->
-        <v-btn :small="!smAndUp" text @click="gotoAuth()" v-if="!isLogged">
+        <v-btn
+          :small="!smAndUp"
+          text
+          @click="RouterMixin_saveRouteAndGoto({ name: 'auth.login' })"
+          v-if="!isLogged"
+        >
           <b> Identifícate </b>
         </v-btn>
+        <!-- / Auth button -->
 
         <template v-else>
           <!-- Dropdown with link to view account and logout link -->
@@ -56,53 +64,31 @@
               <v-list-item link>
                 <v-list-item-title> Mi Cuenta </v-list-item-title>
               </v-list-item>
-              <v-list-item link @click="logout">
+              <v-list-item link @click="UserMixin_logout">
                 <v-list-item-title> Salir </v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
+          <!-- / Dropdown with link to view account and logout link -->
 
           <!-- Link to Cart -->
-          <v-btn
-            :icon="!smAndUp"
-            v-bind="!smAndUp ? buttonSize : undefined"
-            text
-            @click="goto({ name: 'shop.cart' })"
-            class="mx-1"
-          >
-            <v-badge
-              v-if="shopingCartCounter"
-              color="primary"
-              :content="shopingCartCounter"
+          <v-badge :value="cartCantProducts" offset-y="15" offset-x="15">
+            <template #badge>
+              {{ cartCantProducts }}
+            </template>
+            <v-btn
+              v-bind="!smAndUp ? buttonSize : undefined"
+              text
+              @click="RouterMixin_goto({ name: 'shop.cart' })"
             >
-              <!-- <b v-if="smAndUp"> Mi Carrito </b> -->
-              <!-- <v-icon
-              :size="iconSize"
-              :class="cartClass"
-              @mouseover="shakeCartIcon"
-              >mdi-cart-outline</v-icon
-            > -->
               <v-img
                 src="img/icons/shopping-cart/shopping-cart_168x168.png"
                 alt="Shopping Cart"
-                width="22px"
+                :max-width="imgCartShopSize"
               />
-            </v-badge>
-            <div v-else style="width: 22px">
-              <!-- <b v-if="smAndUp"> Mi Carrito </b> -->
-              <!-- <v-icon
-              :size="iconSize"
-              :class="cartClass"
-              @mouseover="shakeCartIcon"
-              >mdi-cart-outline</v-icon
-            > -->
-              <v-img
-                src="img/icons/shopping-cart/shopping-cart_168x168.png"
-                alt="Shopping Cart"
-                width="100%"
-              />
-            </div>
-          </v-btn>
+            </v-btn>
+          </v-badge>
+          <!-- / Link to Cart -->
         </template>
       </div>
 
@@ -157,7 +143,7 @@
 <script lang='ts'>
 import { Component, Mixins } from "vue-property-decorator";
 import { VENDOR_PAGES } from "@/utils/const";
-import { AppStore, UserStore, PackStore, ShopStore } from "@/store";
+import { AppStore, UserStore, CartStore, ShopStore } from "@/store";
 import { GettersBreakpointsMixin, RouterMixin, UserMixin } from "@/mixins";
 
 @Component({
@@ -172,7 +158,13 @@ export default class AppBarFull extends Mixins(
   UserMixin
 ) {
   cartClass = "";
-  // states in breakpoints
+  /**
+   * Getters
+   */
+
+  /**
+   * Styles
+   */
   get tabsHeight() {
     return this.smAndUp ? 34 : 28;
   }
@@ -184,10 +176,17 @@ export default class AppBarFull extends Mixins(
     };
   }
 
+  get imgCartShopSize() {
+    return this.mdAndUp ? 30 : 25;
+  }
+
   get iconSize() {
     return this.smAndUp ? 24 : 22;
   }
 
+  /**
+   *
+   */
   get categories() {
     return ShopStore.categoriesLink;
   }
@@ -208,8 +207,8 @@ export default class AppBarFull extends Mixins(
     return UserStore.profile.first_name;
   }
 
-  get shopingCartCounter() {
-    return PackStore.packsCounter;
+  get cartCantProducts() {
+    return CartStore.cantProducts;
   }
 
   /**

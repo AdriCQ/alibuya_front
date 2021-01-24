@@ -41,7 +41,7 @@
         v-for="(cat, catKey) in categories"
         :key="`cat-${catKey}`"
         link
-        @click="goto(cat.to)"
+        @click="RouterMixin_goto(cat.to)"
       >
         <v-list-item-title>{{ cat.labelLang[appLang] }} </v-list-item-title>
       </v-list-item>
@@ -110,7 +110,7 @@ export default class AppSidebarLeft extends Mixins(RouterMixin) {
         });
       }
     } else {
-      this.gotoAuth();
+      this.save();
     }
   }
 }

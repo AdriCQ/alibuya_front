@@ -33,9 +33,8 @@
 </template>
 
 <script lang='ts'>
-import { Component, Prop } from "vue-property-decorator";
-import { mixins } from "vue-class-component";
-import { ProductBasicMixin } from "@/mixins/product";
+import { Component, Mixins, Prop } from "vue-property-decorator";
+import { ProductMixin } from "@/mixins/product";
 import { IProduct, TRouteLink } from "@/types";
 
 @Component({
@@ -43,7 +42,7 @@ import { IProduct, TRouteLink } from "@/types";
     "product-basic": () => import("@/components/widgets/products/Basic.vue"),
   },
 })
-export default class OfferProductWidget extends mixins(ProductBasicMixin) {
+export default class OfferProductWidget extends Mixins(ProductMixin) {
   @Prop({
     type: Object,
     required: true,

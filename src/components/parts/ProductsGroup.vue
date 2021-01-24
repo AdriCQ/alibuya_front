@@ -36,17 +36,16 @@
 </template>
 
 <script lang='ts'>
-import { Component, Prop } from "vue-property-decorator";
-import { mixins } from "vue-class-component";
-import { IElementsToShowProp, IProduct } from "@/types";
-import { ProductBasicMixin } from "@/mixins/product";
+import { Component, Mixins, Prop } from "vue-property-decorator";
+import { TItemsToShow, IProduct } from "@/types";
+import { ProductMixin } from "@/mixins/product";
 
 @Component({
   components: {
     "product-basic": () => import("@/components/widgets/products/Basic.vue"),
   },
 })
-export default class ProductsGroup extends mixins(ProductBasicMixin) {
+export default class ProductsGroup extends Mixins(ProductMixin) {
   @Prop({ type: Array, required: true }) readonly products!: IProduct[];
   @Prop(String) readonly title!: string;
 
@@ -54,9 +53,9 @@ export default class ProductsGroup extends mixins(ProductBasicMixin) {
    *
    */
   @Prop({ type: Boolean, default: false }) readonly single!: boolean;
-  @Prop(Object) readonly elementsToShow!: IElementsToShowProp;
+  @Prop(Object) readonly elementsToShow!: TItemsToShow;
 
-  defaultElementsToShow: IElementsToShowProp = {
+  defaultElementsToShow: TItemsToShow = {
     xs: 2,
     sm: 3,
     md: 4,
@@ -67,8 +66,8 @@ export default class ProductsGroup extends mixins(ProductBasicMixin) {
   /**
    *
    */
-  get numberElements(): IElementsToShowProp {
-    const _numberElements: IElementsToShowProp = {
+  get numberElements(): TItemsToShow {
+    const _numberElements: TItemsToShow = {
       xs: 0,
       sm: 0,
       md: 0,

@@ -6,11 +6,13 @@
         color="primaryAlpha"
         block
         class="btn-primary-alpha-gradient text-transform-none mb-2"
-        @click="gotoAuth()"
+        @click="RouterMixin_saveRouteAndGoto({ name: 'auth.login' })"
       >
         Iniciar Sesión
       </v-btn>
-      <span class="text-link text-body-1" @click="gotoAuth('auth.register')"
+      <span
+        class="text-link text-body-1"
+        @click="RouterMixin_saveRouteAndGoto({ name: 'auth.register' })"
         >Registrar cuenta</span
       >
     </v-card-text>

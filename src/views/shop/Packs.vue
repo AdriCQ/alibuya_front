@@ -29,7 +29,7 @@
 </template>
 
 <script lang='ts'>
-import { PackStore } from "@/store";
+import { CartStore } from "@/store";
 import { Vue, Component } from "vue-property-decorator";
 import { IProductCart } from "@/types";
 
@@ -41,7 +41,7 @@ import { IProductCart } from "@/types";
 export default class ShopPacksView extends Vue {
   iterator = 1;
   get packs() {
-    return PackStore.packs;
+    return CartStore.packs;
   }
 
   addProduct() {
@@ -56,7 +56,7 @@ export default class ShopPacksView extends Vue {
       id: 0,
       cart_cant: 1,
     };
-    PackStore.addProduct(product);
+    CartStore.addProduct(product);
     this.iterator++;
   }
 

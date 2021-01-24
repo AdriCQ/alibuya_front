@@ -120,7 +120,7 @@ import { GettersBreakpointsMixin } from "@/mixins/utils";
 import { mixins } from "vue-class-component";
 import { IColor, IProductCart } from "@/types";
 import { required, between, numeric } from "vuelidate/lib/validators";
-import { PackStore } from "@/store";
+import { CartStore } from "@/store";
 
 @Component({
   components: {
@@ -220,6 +220,7 @@ export default class ProductAddToCart extends mixins(GettersBreakpointsMixin) {
     if (!this.$v.form.check?.isCheck) errorsMsg.push("Requerido.");
     return errorsMsg;
   }
+
   /**
    * Get Subtotal Cost
    */
@@ -234,10 +235,21 @@ export default class ProductAddToCart extends mixins(GettersBreakpointsMixin) {
   get productCart(): IProductCart {
     return {
       id: this.product.id,
-      weight: this.product.weight,
-      cart_cant: this.form.cant,
       title: this.product.title,
+      brand: this.product.brand,
+      tax: this.product.tax,
+      description: this.product.description,
       price: this.product.price,
+      images: this.product.images,
+      image: this.product.image,
+      weight: this.product.weight,
+      options: this.product.options,
+      tags: this.product.tags,
+      rating: this.product.rating,
+      suggested: this.product.suggested,
+      available_cant: this.product.available_cant,
+      type: this.product.type,
+      cart_cant: this.form.cant,
       options_details: {
         color: this.form.color,
         size: this.form.size,
@@ -264,8 +276,8 @@ export default class ProductAddToCart extends mixins(GettersBreakpointsMixin) {
   addToCart() {
     this.$v.$touch();
     if (!this.$v.$invalid) {
-      // Add data to storage
-      PackStore.addProduct(this.productCart);
+      // Add productCart to store
+      CartStore.addProduct(this.productCart);
       this.$router.push({ name: "shop.cart" });
 
       this.restartForm();

@@ -6,7 +6,7 @@ import { UserStore } from '@/store/User';
  */
 @Component
 export class UserMixin extends Vue {
-    logout() {
+    UserMixin_logout() {
         UserStore.logout();
         if (this.$route.meta.requiresAuth) {
             this.$router.push({ name: 'main.home' });

@@ -77,7 +77,7 @@ import { UserStore, AnnouncementStore, AppStore } from "@/store";
 @Component({
   components: {
     "login-card": () => import("@/components/widgets/LoginCard.vue"),
-    "products-group": () => import("@/components/data/ProductsGroup.vue"),
+    "products-group": () => import("@/components/parts/ProductsGroup.vue"),
     "products-collection-slider": () =>
       import("@/components/sliders/ProductsCollectionSlider.vue"),
     // test

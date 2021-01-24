@@ -2,35 +2,8 @@
   <div id="shop-cart-view" class="view-container">
     <v-section fluid>
       <v-card>
-        <v-row v-if="packCant">
-          <v-col cols="12" md="4" lg="4" xl="4">
-            <div class="position-sticky" :style="`top:${topStyle}`">
-              <v-card-title
-                >Subtotal: ${{ Number(totalPrice).toFixed(2) }}</v-card-title
-              >
-              <v-card-subtitle>{{ packCant }} paquetes</v-card-subtitle>
-              <v-card-actions class="d-block text-center">
-                <v-btn
-                  class="btn-primary-alpha-gradient w-100 mx-0"
-                  color="primaryAlpha"
-                  >Tramitar Pedido
-                </v-btn>
-                <v-btn class="w-100 mx-0 mt-2" :to="{ name: 'shop.home' }"
-                  >Seguir Comprando
-                </v-btn>
-              </v-card-actions>
-            </div>
-          </v-col>
-          <v-col cols="12" md="8" lg="8" xl="8">
-            <pack-display />
-          </v-col>
-        </v-row>
-        <!-- Empty Inventary -->
-        <div class="w-100 max-w-30" v-else>
-          <v-card-title>No hay Paquetes</v-card-title>
-          <v-img src="img/png/empty-cart.png" />
-        </div>
-        <!-- Empty Inventary -->
+        <cart-content v-if="packCant" />
+        <empty-inventary v-else />
       </v-card>
     </v-section>
   </div>
@@ -38,29 +11,26 @@
 
 <script lang='ts'>
 import { Component, Mixins } from "vue-property-decorator";
-import { PackStore } from "@/store";
 import { GettersBreakpointsMixin, RouterMixin } from "@/mixins";
+import { CartStore } from "@/store";
 
 @Component({
   components: {
-    "products-slider": () =>
-      import("@/components/sliders/ProductSliderMultiple.vue"),
-    "pack-display": () => import("@/components/data/PackDataCart.vue"),
+    "pack-display": () => import("@/components/parts/PackDataCart.vue"),
+    "empty-inventary": () => import("@/components/widgets/EmptyInventary.vue"),
+    "cart-content": () => import("@/components/parts/shop/CartContent.vue"),
   },
 })
 export default class ShoppingCartView extends Mixins(
   RouterMixin,
   GettersBreakpointsMixin
 ) {
-  /**
-   * Getters
-   */
   get packCant() {
-    return PackStore.packs.length;
+    return CartStore.cantProducts;
   }
 
   get totalPrice() {
-    return PackStore.totalPrice;
+    return CartStore.totalPrice;
   }
 
   get topStyle() {

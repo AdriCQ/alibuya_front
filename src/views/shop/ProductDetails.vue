@@ -31,8 +31,8 @@ import { ShopStore } from "@/store";
 @Component({
   components: {
     "product-content": () =>
-      import("@/components/data/shop/ProductContent.vue"),
-    "products-group": () => import("@/components/data/ProductsGroup.vue"),
+      import("@/components/parts/shop/ProductContent.vue"),
+    "products-group": () => import("@/components/parts/ProductsGroup.vue"),
   },
 })
 export default class ProductDetailsView extends Vue {

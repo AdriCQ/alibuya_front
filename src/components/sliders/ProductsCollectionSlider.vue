@@ -66,26 +66,24 @@ import { Component, Prop } from "vue-property-decorator";
 import { mixins } from "vue-class-component";
 
 // types
-import { IElementsToShowProp, IProduct, TRouteLink } from "@/types";
-import { ProductBasicMixin } from "@/mixins/product";
+import { TItemsToShow, IProduct, TRouteLink } from "@/types";
+import { ProductMixin } from "@/mixins/product";
 
 @Component({
   components: {
     "product-basic": () => import("@/components/widgets/products/Basic.vue"),
   },
 })
-export default class ProductsCollectionSlider extends mixins(
-  ProductBasicMixin
-) {
+export default class ProductsCollectionSlider extends mixins(ProductMixin) {
   @Prop({ type: Array, required: true }) readonly products!: IProduct[];
   @Prop(String) readonly title!: string;
   @Prop([Object, String]) readonly to!: TRouteLink;
   @Prop({ type: String, default: "Ver más" }) readonly textLink!: string;
   // Cofigure slides to show in each breakpoint
-  @Prop(Object) readonly elementsToShow!: IElementsToShowProp;
+  @Prop(Object) readonly elementsToShow!: TItemsToShow;
 
   /* Defaults values */
-  defaultElementsToShow: IElementsToShowProp = {
+  defaultElementsToShow: TItemsToShow = {
     xs: 2,
     sm: 3,
     md: 4,
@@ -96,8 +94,8 @@ export default class ProductsCollectionSlider extends mixins(
   /**
    *
    */
-  get numberElements(): IElementsToShowProp {
-    const _numberElements: IElementsToShowProp = {
+  get numberElements(): TItemsToShow {
+    const _numberElements: TItemsToShow = {
       xs: 0,
       sm: 0,
       md: 0,

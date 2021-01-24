@@ -31,7 +31,7 @@ export interface IProduct {
  */
 export interface IProductOptions {
   colors?: string[];
-  color_images?: IDictionary<IProductImage[]>;
+  // color_images?: IDictionary<IProductImage[]>;
   sizes?: string[];
 }
 /**

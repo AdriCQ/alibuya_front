@@ -1,13 +1,5 @@
 <template>
-  <v-card
-    :ripple="false"
-    v-bind="cardAllProps"
-    :elevation="0"
-    :class="['basic-product-widget', 'mx-auto', cardClass]"
-    width="100%"
-    :max-width="maxWidth"
-    max-height="100%"
-  >
+  <v-card v-bind="cardAllProps" :class="cardClass">
     <!-- Header -->
     <slot name="header" />
     <!-- / Header -->
@@ -15,15 +7,18 @@
     <!-- Body -->
     <v-card-text :class="['position-relative', bodyClass]">
       <!-- Suggested -->
-      <v-ribbon v-if="product.suggested && getShowRibbon" color="primary" dark>
+      <v-ribbon
+        v-if="product.suggested && ProductMixin_getShowRibbon"
+        color="primary"
+        dark
+      >
         <span class="text-transform-none"> Sugerido </span>
       </v-ribbon>
+      <!-- / Suggested -->
 
       <!-- Image -->
       <v-img
         v-if="image"
-        :src="image.xs"
-        :alt="product.title"
         v-bind="imageAllProps"
         :class="imageClass"
         @click="imageClick"
@@ -32,13 +27,16 @@
     <!-- / Body -->
 
     <!-- Title -->
-    <v-card-title v-if="getShowTitle" :class="['text-single-line', titleClass]">
+    <v-card-title
+      v-if="ProductMixin_getShowTitle"
+      :class="['text-single-line', titleClass]"
+    >
       {{ product.title }}
     </v-card-title>
     <!-- / Title -->
 
     <!-- Rating -->
-    <v-card-title v-if="getShowRating && product.rating">
+    <v-card-title v-if="ProductMixin_getShowRating && product.rating">
       <v-rating
         color="primary accent-4"
         :value="Number(product.rating)"
@@ -53,7 +51,7 @@
 
     <!-- Description -->
     <v-card-text
-      v-if="getShowDescription && product.description"
+      v-if="ProductMixin_getShowDescription && product.description"
       class="text-color-body text-single-line py-1"
     >
       {{ product.description }}
@@ -61,7 +59,7 @@
     <!-- / Description -->
 
     <!-- Price -->
-    <v-card-title v-if="getShowPrice" class="text-right">
+    <v-card-title v-if="ProductMixin_getShowPrice" class="text-right">
       $ {{ Number(product.price).toFixed(2) }}
     </v-card-title>
     <!-- / Price -->
@@ -75,9 +73,8 @@
 </template>
 
 <script lang='ts'>
-import { Component, Prop } from "vue-property-decorator";
-import { mixins } from "vue-class-component";
-import { ProductBasicMixin } from "@/mixins/product";
+import { Component, Mixins, Prop } from "vue-property-decorator";
+import { ProductMixin } from "@/mixins";
 // types
 import { IProduct } from "@/types";
 import { ProductImage } from "@/utils";
@@ -87,33 +84,47 @@ import { ProductImage } from "@/utils";
     "v-ribbon": () => import("@/components/widgets/Ribbon.vue"),
   },
 })
-export default class BasicProductWidget extends mixins(ProductBasicMixin) {
+export default class BasicProductWidget extends Mixins(ProductMixin) {
   @Prop({
     type: Object,
     required: true,
   })
   readonly product!: IProduct;
 
-  // class
+  // Class Props
   @Prop({ type: String, default: "" }) readonly titleClass!: string;
   @Prop({ type: String, default: "" }) readonly bodyClass!: string;
 
+  /**
+   * Getters
+   */
+
+  /**
+   * Getters for class
+   */
+  get imageClass() {
+    return ["mx-auto", { "cursor-pointer": this.ProductMixin_getLink }];
+  }
+
+  get cardClass() {
+    return [
+      // defaults
+      "basic-product-widget",
+      "mx-auto",
+      // configs
+      { large: this.ProductMixin_getLarge },
+      { small: this.ProductMixin_getSmall },
+    ];
+  }
+
+  /**
+   *
+   */
   get image() {
     // return new ProductImage(this.product.image, true);
     return new ProductImage(this.product.image);
   }
 
-  get imageClass() {
-    return ["mx-auto", { "cursor-pointer": this.getLink }];
-  }
-
-  get cardClass() {
-    return [{ large: this.getLarge }, { small: this.getSmall }];
-  }
-
-  /**
-   * Image Max Width
-   */
   get maxWidthLarge() {
     switch (this.$vuetify.breakpoint.name) {
       case "sm":
@@ -167,13 +178,17 @@ export default class BasicProductWidget extends mixins(ProductBasicMixin) {
   }
 
   /**
-   * Props
+   * Geters for Props to chld components
    */
   get cardAllProps() {
     return {
       // defaults
       width: "100%",
       height: "100%",
+      maxHeight: "100%",
+      ripple: false,
+      elevation: 0,
+      maxWidth: this.maxWidth,
       // from parent
       ...this.cardProps,
     };
@@ -184,13 +199,15 @@ export default class BasicProductWidget extends mixins(ProductBasicMixin) {
       // defaults
       width: "100%",
       height: "100%",
+      src: this.image.xs,
+      alt: this.product.title,
       // from parent
       ...this.imageProps,
     };
   }
 
   /**
-   *
+   * Mehthods
    */
   showProductDetails(id: number) {
     if (id) {
@@ -205,7 +222,7 @@ export default class BasicProductWidget extends mixins(ProductBasicMixin) {
   }
 
   imageClick() {
-    if (this.getLink) {
+    if (this.ProductMixin_getLink) {
       this.showProductDetails(this.product.id);
     }
   }

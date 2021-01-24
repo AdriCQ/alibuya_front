@@ -62,7 +62,7 @@
 </template>
 
 <script lang='ts'>
-import { PackStore } from "@/store";
+import { CartStore } from "@/store";
 import { Vue, Component } from "vue-property-decorator";
 
 @Component({
@@ -76,7 +76,7 @@ export default class ProductPackDataCart extends Vue {
   deleteDialog = false;
 
   get shopPacks() {
-    return PackStore.packs;
+    return CartStore.packs;
   }
 
   /**
@@ -103,7 +103,7 @@ export default class ProductPackDataCart extends Vue {
    *
    */
   deletePack(key: number) {
-    PackStore.removeShoppingCartPack(key);
+    CartStore.removeShoppingCartPack(key);
     this.deleteDialog = false;
   }
 

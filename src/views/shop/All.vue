@@ -54,10 +54,10 @@ export default class ShopAllView extends Vue {
     this.loadAllProducts();
   }
   mounted() {
-    ScrollTop();
+    // ScrollTop();
   }
   updated() {
-    ScrollTop();
+    // ScrollTop();
   }
   loading = false;
 

@@ -4,7 +4,7 @@
       :is="activeComponent"
       @loading:update="changeLoading"
       vertical
-      @redirect="redirect"
+      @redirect="RouterMixin_redirect"
     />
   </v-card>
 </template>

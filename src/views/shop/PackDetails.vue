@@ -89,7 +89,7 @@
 </template>
 
 <script lang='ts'>
-import { PackStore, PopupStore, UserStore } from "@/store";
+import { CartStore, PopupStore, UserStore } from "@/store";
 import { Component, Mixins } from "vue-property-decorator";
 import {
   IProductCart,
@@ -98,8 +98,6 @@ import {
   IDictionary,
 } from "@/types";
 import { RouterMixin } from "@/mixins";
-import router from "../../router/index";
-import store from "@/store/store";
 
 @Component({
   components: {
@@ -129,7 +127,7 @@ export default class PackDetailsView extends Mixins(RouterMixin) {
   }
 
   get packs() {
-    return PackStore.packs;
+    return CartStore.packs;
   }
 
   get cant() {
@@ -171,7 +169,7 @@ export default class PackDetailsView extends Mixins(RouterMixin) {
 
   get packPrice() {
     const key = Number(this.$route.query.packKey);
-    return PackStore.getPackPrice(key);
+    return CartStore.getPackPrice(key);
   }
 
   get destinataries() {
@@ -186,10 +184,10 @@ export default class PackDetailsView extends Mixins(RouterMixin) {
 
   remove(_key: number) {
     if ((this.pack?.products as IProductCart[]).length > 1)
-      PackStore.removePackProduct(this.packKey, _key);
+      CartStore.removePackProduct(this.packKey, _key);
     else {
       this.$router.back();
-      PackStore.removeShoppingCartPack(this.packKey);
+      CartStore.removeShoppingCartPack(this.packKey);
     }
   }
 
@@ -197,10 +195,10 @@ export default class PackDetailsView extends Mixins(RouterMixin) {
     // TODO: Validate
     // Get Destinatary id
     if (UserStore.getContactById(this.form.destinataryId))
-      PackStore._packs[this.packKey].destinataries = [
+      CartStore._packs[this.packKey].destinataries = [
         UserStore.getContactById(this.form.destinataryId),
       ];
-    PackStore._packs[this.packKey].delivery_method = this.form.deliveryMethod;
+    CartStore._packs[this.packKey].delivery_method = this.form.deliveryMethod;
     // Store on Server
     const storePack: IStorePackParam = {
       delivery_method: (this.pack as IProductsPack).delivery_method as string,
@@ -216,7 +214,7 @@ export default class PackDetailsView extends Mixins(RouterMixin) {
         >,
       });
     });
-    PackStore.storePack(storePack)
+    CartStore.storePack(storePack)
       .then(() => {
         this.$router.push({ name: "shop.cart" });
       })

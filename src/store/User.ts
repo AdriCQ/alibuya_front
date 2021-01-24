@@ -183,7 +183,6 @@ class UserModule extends VuexModule {
    */
   @Mutation
   getFromLocalStorage() {
-    console.log("Get user from local storage.");
     const store = storage.get();
     if (store) {
       this.profile = store.profile;

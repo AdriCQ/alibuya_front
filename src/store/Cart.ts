@@ -1,11 +1,12 @@
-import { VuexModule, Module, Action } from 'vuex-class-modules';
+import { VuexModule, Module, Action, Mutation } from 'vuex-class-modules';
 import store from '@/store/store';
 import { IProductsPack, IProductCart, IStorePackParam, IApiResponse } from '@/types';
 import { AxiosHelper, ShopService } from '@/services';
 
 @Module({ generateMutationSetters: true })
-class PackModule extends VuexModule {
-  _packs: IProductsPack[] = [];
+class CartModule extends VuexModule {
+  private _packs: IProductsPack[] = [];
+  private _products: IProductCart[] = [];
 
   /**
    * Gets user packs
@@ -32,6 +33,19 @@ class PackModule extends VuexModule {
   get packsCounter() {
     return this._packs.length;
   }
+
+  /**
+   * Products Getters
+   */
+  get cantProducts() {
+    return this._products.length;
+  }
+
+  get cartProducts() {
+    return this._products;
+  }
+
+
   /**
    * Actions pack module
    * @param _pack IStorePackPAram
@@ -50,6 +64,7 @@ class PackModule extends VuexModule {
    * Adds product
    * @param _product IProduct
    */
+  /*
   addProduct(_product: IProductCart) {
     console.log("Product", _product);
     if (_product.weight) {
@@ -84,7 +99,24 @@ class PackModule extends VuexModule {
       }
     }
   }
+  */
 
+  /**
+   * Add _product to _products, in case of repeat products sum the amounts 
+   * @param _product IProductCart
+   */
+  @Mutation
+  addProduct(_product: IProductCart) {
+    const sameProduct = this._products.find((_productIterator) => {
+      return _productIterator.id === _product.id;
+    })
+    if (sameProduct) {
+      sameProduct.cart_cant += _product.cart_cant;
+    }
+    else {
+      this._products.push(_product);
+    }
+  }
 
   /**
    * Add ShopingCartPack
@@ -131,4 +163,4 @@ class PackModule extends VuexModule {
 }
 
 // register module (could be in any file) 
-export const PackStore = new PackModule({ store, name: 'Pack' });
+export const CartStore = new CartModule({ store, name: 'Cart' });

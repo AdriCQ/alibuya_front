@@ -19,16 +19,13 @@
     <v-section fluid v-if="emptyInventary || products.length">
       <v-card flat :loading="loadingCard">
         <!-- Empty Inventary -->
-        <v-card-text v-if="emptyInventary">
-          <div class="w-100 max-w-30">
-            <v-img src="img/png/empty-cart.png" />
-          </div>
-        </v-card-text>
+        <empty-inventary v-if="emptyInventary" />
         <!-- / Empty Inventary -->
 
         <!-- Products Grid -->
         <product-grid
           v-else
+          name="basic"
           :products="products"
           :product-props="{
             showTitle: true,
@@ -60,6 +57,7 @@ import {
 
 @Component({
   components: {
+    "empty-inventary": () => import("@/components/widgets/EmptyInventary.vue"),
     "subcategories-nav": () =>
       import("@/components/parts/shop/SubcategoriesNav.vue"),
     "product-grid": () => import("@/components/widgets/products/Grid.vue"),

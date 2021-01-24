@@ -126,7 +126,7 @@
 </template>
 
 <script lang='ts'>
-import { PackStore, UserStore } from "@/store";
+import { CartStore, UserStore } from "@/store";
 import { IColor, IProductCart, IProduct } from "@/types";
 import { mixins } from "vue-class-component";
 import { Component, Prop } from "vue-property-decorator";
@@ -220,7 +220,7 @@ export default class AddToCartForm extends mixins(GettersBreakpointsMixin) {
   addToPack() {
     // TODO: Validate
     console.log("Add to pack", this.productCart);
-    PackStore.addProduct(this.productCart);
+    CartStore.addProduct(this.productCart);
     // Restart form data
     this.form = {
       color: "",

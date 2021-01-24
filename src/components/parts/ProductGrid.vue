@@ -21,9 +21,8 @@
 </template>
 
 <script lang='ts'>
-import { Component, Prop } from "vue-property-decorator";
-import { mixins } from "vue-class-component";
-import { ProductBasicMixin } from "@/mixins/product";
+import { Component, Mixins, Prop } from "vue-property-decorator";
+import { ProductMixin } from "@/mixins/product";
 import { IProduct } from "@/types";
 
 @Component({
@@ -31,7 +30,7 @@ import { IProduct } from "@/types";
     "basic-product": () => import("@/components/widgets/products/Basic.vue"),
   },
 })
-export default class ProductListGrid extends mixins(ProductBasicMixin) {
+export default class ProductListGrid extends Mixins(ProductMixin) {
   @Prop({
     type: Array,
     default: [],

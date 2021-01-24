@@ -4,7 +4,7 @@
       <pack-card :pack="pack" :mode="$vuetify.breakpoint.name" />
     </v-card-text>
 
-    <v-card-text class="w-100 pt-0">
+    <v-card-text class="full-width pt-0">
       <p
         v-for="(product, productKey) in pack.products"
         :key="`product-${productKey}`"
@@ -23,7 +23,7 @@
 
 <script lang='ts'>
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { PackStore } from "@/store";
+import { CartStore } from "@/store";
 
 @Component({
   components: {
@@ -34,10 +34,10 @@ export default class PackCardWidgetHorizontal extends Vue {
   @Prop(Number) readonly packKey!: number;
 
   get pack() {
-    return PackStore._packs[this.packKey];
+    return CartStore._packs[this.packKey];
   }
   get packPrice() {
-    return PackStore.getPackPrice(this.packKey);
+    return CartStore.getPackPrice(this.packKey);
   }
 
   get destinataries() {

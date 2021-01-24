@@ -1,39 +1,26 @@
 <template>
   <v-section fluid>
-    <!-- Full Rows -->
-    <v-row
-      v-for="(list, listKey) in productsFilledByRow"
-      :key="`list-item-${listKey}`"
-    >
+    <v-row v-for="rowKey in rows" :key="`product-grid-row-${rowKey}`">
       <v-col
-        cols="6"
-        sm="4"
-        md="3"
-        lg="2"
-        v-for="(product, key) in list"
-        :key="`grid-product-${listKey * productsByRow + key}`"
+        v-bind="colsConfig"
+        v-for="(product, key) in products.slice(
+          (rowKey - 1) * cantProductsByRow,
+          rowKey * cantProductsByRow
+        )"
+        :key="`grid-product-${rowKey * cantProductsByRow + key}`"
       >
-        <product-basic v-bind="productProps" :product="product" />
+        <basic
+          v-if="name == 'basic'"
+          :product="product"
+          v-bind="productProps"
+        />
+        <cart
+          v-else-if="name == 'cart'"
+          :product-cart="product"
+          v-bind="productProps"
+        />
       </v-col>
     </v-row>
-    <!-- / Full Rows -->
-
-    <!-- Last Row -->
-    <template v-if="productsInLastRow.length">
-      <v-row>
-        <v-col
-          cols="6"
-          sm="4"
-          md="3"
-          lg="2"
-          v-for="(product, key) in productsInLastRow"
-          :key="`grid-product-${rows * productsByRow + key}`"
-        >
-          <product-basic v-bind="productProps" :product="product" />
-        </v-col>
-      </v-row>
-    </template>
-    <!-- / Last Row -->
   </v-section>
 </template>
 
@@ -41,58 +28,61 @@
 import { Component, Prop, Mixins } from "vue-property-decorator";
 import { GettersBreakpointsMixin } from "@/mixins/utils";
 // types
-import { IProduct } from "@/types";
+import { IProduct, IProductCart, TItemsToShow } from "@/types";
 
 @Component({
   components: {
-    "product-basic": () => import("@/components/widgets/products/Basic.vue"),
+    basic: () => import("@/components/widgets/products/Basic.vue"),
+    cart: () => import("@/components/widgets/products/Cart.vue"),
   },
 })
 export default class Grid extends Mixins(GettersBreakpointsMixin) {
-  @Prop({ type: Array, default: [] }) readonly products!: IProduct[];
+  @Prop({ type: String, default: "basic" }) readonly name!: "basic" | "cart";
+  @Prop({ type: Array, default: [] }) readonly products!:
+    | IProduct[]
+    | IProductCart[];
   @Prop(Object) readonly productProps!: object;
+  // configure number of product by row
+  @Prop({
+    type: Object,
+    default: function () {
+      return { xs: 2, sm: 3, md: 4, lg: 6, xl: 6 };
+    },
+  })
+  readonly productsByRow!: TItemsToShow;
   /**
-   *
+   * Getters
    */
-  get productsByRow() {
+  get cantProductsByRow() {
     switch (this.$vuetify.breakpoint.name) {
-      case "sm":
-        return 3;
-      case "md":
-        return 4;
-      case "lg":
-        return 6;
       case "xl":
-        return 6;
+        return this.productsByRow.xl;
+      case "lg":
+        return this.productsByRow.lg;
+      case "md":
+        return this.productsByRow.md;
+      case "sm":
+        return this.productsByRow.sm;
       default:
-        return 2;
+        return this.productsByRow.xs;
     }
+  }
+
+  get colsConfig() {
+    return {
+      xl: 12 / this.productsByRow.xl,
+      lg: 12 / this.productsByRow.lg,
+      md: 12 / this.productsByRow.md,
+      sm: 12 / this.productsByRow.sm,
+      xs: 12 / this.productsByRow.xs,
+    };
   }
 
   get rows() {
-    return Math.trunc(this.products.length / this.productsByRow);
-  }
-
-  // products that fill complete rows
-  get productsFilledByRow() {
-    const items: Array<IProduct[]> = [];
-
-    for (let i = 0; i < this.rows; i++) {
-      items[i] = [];
-      for (let j = 0; j < this.productsByRow; j++)
-        items[i].push(this.products[i * this.productsByRow + j]);
-    }
-
-    return items;
-  }
-
-  // rest products
-  get productsInLastRow() {
-    const items: IProduct[] = [],
-      numbProducts = this.products.length % this.productsByRow;
-    for (let i = 0; i < numbProducts; i++)
-      items.push(this.products[this.rows * this.productsByRow + i]);
-    return items;
+    return (
+      Math.trunc(this.products.length / this.cantProductsByRow) +
+      (this.products.length % this.cantProductsByRow ? 1 : 0)
+    );
   }
 }
 </script>

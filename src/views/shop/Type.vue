@@ -10,14 +10,13 @@
 
         <v-card-text v-if="emptyInventary">
           <!-- Empty Inventary -->
-          <div class="w-100 max-w-30">
-            <v-img src="img/png/empty-cart.png" />
-          </div>
+          <empty-inventary />
           <!-- Empty Inventary -->
         </v-card-text>
 
         <product-grid
           v-else
+          name="basic"
           :products="products"
           :product-props="{
             showTitle: true,
@@ -39,11 +38,11 @@
 <script lang='ts'>
 import { ShopStore, AppStore } from "@/store";
 import { IProductType, IProduct, IPaginatedTypeProductsParam } from "@/types";
-import { ScrollTop } from "@/utils";
 import { Vue, Component } from "vue-property-decorator";
 
 @Component({
   components: {
+    "empty-inventary": () => import("@/components/widgets/EmptyInventary.vue"),
     "product-grid": () => import("@/components/widgets/products/Grid.vue"),
   },
 })
@@ -56,12 +55,7 @@ export default class ShopType extends Vue {
     this.type;
   }
 
-  destroyed() {
-    ScrollTop();
-  }
-
   get type() {
-    ScrollTop();
     this.cleanState();
     const cKey = Number(this.$route.query.category);
     const tKey = Number(this.$route.query.type);
