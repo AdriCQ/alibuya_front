@@ -10,35 +10,18 @@
 </template>
 
 <script lang='ts'>
-import { Component, Mixins } from "vue-property-decorator";
-import { GettersBreakpointsMixin, RouterMixin } from "@/mixins";
+import { Component, Vue } from "vue-property-decorator";
 import { CartStore } from "@/store";
 
 @Component({
   components: {
-    "pack-display": () => import("@/components/parts/PackDataCart.vue"),
     "empty-inventary": () => import("@/components/widgets/EmptyInventary.vue"),
     "cart-content": () => import("@/components/parts/shop/CartContent.vue"),
   },
 })
-export default class ShoppingCartView extends Mixins(
-  RouterMixin,
-  GettersBreakpointsMixin
-) {
+export default class ShoppingCartView extends Vue {
   get packCant() {
     return CartStore.cantProducts;
-  }
-
-  get totalPrice() {
-    return CartStore.totalPrice;
-  }
-
-  get topStyle() {
-    if (this.lgAndUp) {
-      return "7rem";
-    } else {
-      return "0";
-    }
   }
 }
 </script>

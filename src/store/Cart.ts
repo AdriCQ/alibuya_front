@@ -41,7 +41,7 @@ class CartModule extends VuexModule {
     return this._products.length;
   }
 
-  get cartProducts() {
+  get products() {
     return this._products;
   }
 
@@ -102,20 +102,13 @@ class CartModule extends VuexModule {
   */
 
   /**
-   * Add _product to _products, in case of repeat products sum the amounts 
+   * Add _product to _products
    * @param _product IProductCart
    */
+  // TODO: must change
   @Mutation
   addProduct(_product: IProductCart) {
-    const sameProduct = this._products.find((_productIterator) => {
-      return _productIterator.id === _product.id;
-    })
-    if (sameProduct) {
-      sameProduct.cart_cant += _product.cart_cant;
-    }
-    else {
-      this._products.push(_product);
-    }
+    this._products.push(_product);
   }
 
   /**

@@ -5,64 +5,63 @@
     <!-- / Header -->
 
     <!-- Body -->
-    <v-card-text :class="['position-relative', bodyClass]">
-      <!-- Suggested -->
-      <v-ribbon
-        v-if="product.suggested && ProductMixin_getShowRibbon"
-        color="primary"
-        dark
-      >
-        <span class="text-transform-none"> Sugerido </span>
-      </v-ribbon>
-      <!-- / Suggested -->
+    <v-row no-gutters align="center">
+      <v-col v-bind="col1Props">
+        <v-card-text :class="['position-relative', bodyClass]">
+          <!-- Suggested -->
+          <v-ribbon v-if="product.suggested && showRibbon" color="primary" dark>
+            <span class="text-transform-none"> Sugerido </span>
+          </v-ribbon>
+          <!-- / Suggested -->
 
-      <!-- Image -->
-      <v-img
-        v-if="image"
-        v-bind="imageAllProps"
-        :class="imageClass"
-        @click="imageClick"
-      />
-    </v-card-text>
+          <!-- Image -->
+          <v-img
+            v-if="image"
+            v-bind="imageAllProps"
+            :class="imageAllClass"
+            @click="imageClick"
+          />
+        </v-card-text>
+      </v-col>
+
+      <v-col v-bind="col2Props">
+        <!-- Title -->
+        <v-card-title v-if="showTitle" :class="titleAllClass">
+          {{ product.title }}
+        </v-card-title>
+        <!-- / Title -->
+
+        <!-- Rating -->
+        <v-card-title v-if="showRating && product.rating">
+          <v-rating
+            color="primary accent-4"
+            :value="Number(product.rating)"
+            background-color="primary"
+            half-increments
+            readonly
+            small
+            dense
+          />
+        </v-card-title>
+        <!-- / Rating -->
+
+        <!-- Description -->
+        <v-card-text
+          v-if="showDescription && product.description"
+          class="text-color-body text-single-line py-1"
+        >
+          <div v-html="product.description" />
+        </v-card-text>
+        <!-- / Description -->
+
+        <!-- Price -->
+        <v-card-title v-if="showPrice" class="text-right">
+          $ {{ Number(product.price).toFixed(2) }}
+        </v-card-title>
+        <!-- / Price -->
+      </v-col>
+    </v-row>
     <!-- / Body -->
-
-    <!-- Title -->
-    <v-card-title
-      v-if="ProductMixin_getShowTitle"
-      :class="['text-single-line', titleClass]"
-    >
-      {{ product.title }}
-    </v-card-title>
-    <!-- / Title -->
-
-    <!-- Rating -->
-    <v-card-title v-if="ProductMixin_getShowRating && product.rating">
-      <v-rating
-        color="primary accent-4"
-        :value="Number(product.rating)"
-        background-color="primary"
-        half-increments
-        readonly
-        small
-        dense
-      />
-    </v-card-title>
-    <!-- / Rating -->
-
-    <!-- Description -->
-    <v-card-text
-      v-if="ProductMixin_getShowDescription && product.description"
-      class="text-color-body text-single-line py-1"
-    >
-      {{ product.description }}
-    </v-card-text>
-    <!-- / Description -->
-
-    <!-- Price -->
-    <v-card-title v-if="ProductMixin_getShowPrice" class="text-right">
-      $ {{ Number(product.price).toFixed(2) }}
-    </v-card-title>
-    <!-- / Price -->
 
     <!-- Footer -->
     <v-card-actions v-if="!!$slots['footer']" class="mt-auto">
@@ -99,11 +98,9 @@ export default class BasicProductWidget extends Mixins(ProductMixin) {
    * Getters
    */
 
-  /**
-   * Getters for class
-   */
-  get imageClass() {
-    return ["mx-auto", { "cursor-pointer": this.ProductMixin_getLink }];
+  // Class
+  get imageAllClass() {
+    return ["mx-auto", { "cursor-pointer": this.link }];
   }
 
   get cardClass() {
@@ -112,9 +109,13 @@ export default class BasicProductWidget extends Mixins(ProductMixin) {
       "basic-product-widget",
       "mx-auto",
       // configs
-      { large: this.ProductMixin_getLarge },
-      { small: this.ProductMixin_getSmall },
+      { large: this.large },
+      { small: this.small },
     ];
+  }
+
+  get titleAllClass() {
+    return [{ "text-single-line": this.titleOneLine }, this.titleClass];
   }
 
   /**
@@ -206,6 +207,18 @@ export default class BasicProductWidget extends Mixins(ProductMixin) {
     };
   }
 
+  get col1Props() {
+    if (this.horizontal) {
+      return { cols: 6 };
+    } else return { cols: 12 };
+  }
+
+  get col2Props() {
+    if (this.horizontal) {
+      return { cols: 6 };
+    } else return { cols: 12 };
+  }
+
   /**
    * Mehthods
    */
@@ -222,7 +235,7 @@ export default class BasicProductWidget extends Mixins(ProductMixin) {
   }
 
   imageClick() {
-    if (this.ProductMixin_getLink) {
+    if (this.link) {
       this.showProductDetails(this.product.id);
     }
   }

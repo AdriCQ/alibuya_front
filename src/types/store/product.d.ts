@@ -30,7 +30,7 @@ export interface IProduct {
  * Iproduct options
  */
 export interface IProductOptions {
-  colors?: string[];
+  colors?: IColor[];
   // color_images?: IDictionary<IProductImage[]>;
   sizes?: string[];
 }
@@ -77,7 +77,7 @@ export interface IProductCategoryLink extends IProductTypeLink {
  */
 export interface IProductCart extends IProduct {
   cart_cant: number;
-  options_details?: IDictionary<string | number>;
+  options_details?: IDictionary<string | number | object>;
 }
 
 /**

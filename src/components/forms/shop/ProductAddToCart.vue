@@ -118,7 +118,7 @@
 import { Component, Prop } from "vue-property-decorator";
 import { GettersBreakpointsMixin } from "@/mixins/utils";
 import { mixins } from "vue-class-component";
-import { IColor, IProductCart } from "@/types";
+import { IColor, IFormAddToCart, IProductCart } from "@/types";
 import { required, between, numeric } from "vuelidate/lib/validators";
 import { CartStore } from "@/store";
 
@@ -150,8 +150,11 @@ export default class ProductAddToCart extends mixins(GettersBreakpointsMixin) {
   /**
    * Form Data
    */
-  form = {
-    color: "",
+  form: IFormAddToCart = {
+    color: {
+      value: "",
+      label: "",
+    },
     size: "",
     // deliveryMethod: "",
     cant: 1,
@@ -262,7 +265,10 @@ export default class ProductAddToCart extends mixins(GettersBreakpointsMixin) {
    */
   restartForm() {
     this.form = {
-      color: "",
+      color: {
+        value: "",
+        label: "",
+      },
       size: "",
       // deliveryMethod: "",
       cant: 1,

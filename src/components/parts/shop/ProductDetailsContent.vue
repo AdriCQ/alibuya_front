@@ -118,13 +118,15 @@ import { GettersBreakpointsMixin } from "@/mixins/utils";
 @Component({
   components: {
     "product-heading": () =>
-      import("@/components/parts/shop/ProductHeading.vue"),
+      import("@/components/parts/shop/ProductDetailsHeading.vue"),
     "product-gallery": () => import("@/components/sliders/ProductGallery.vue"),
-    "add-to-cart": () => import("@/components/parts/shop/ProductAddToCart.vue"),
+    "add-to-cart": () => import("@/components/forms/shop/ProductAddToCart.vue"),
     "login-card": () => import("@/components/widgets/LoginCard.vue"),
   },
 })
-export default class ProductContent extends mixins(GettersBreakpointsMixin) {
+export default class ProductDetailsContent extends mixins(
+  GettersBreakpointsMixin
+) {
   @Prop({ type: Object }) readonly product!: IProductCart;
 
   // personsInfo: TPackDestinationPerson[] = [];

@@ -1,37 +1,26 @@
 <template>
   <div>
     <v-card-title> Mi Carrito </v-card-title>
+    <!-- Grid -->
     <v-card-text>
-      <grid
-        name="cart"
-        :products="productsCart"
-        :products-by-row="{
-          xs: 1,
-          sm: 2,
-          md: 3,
-          lg: 4,
-          xl: 4,
-        }"
-      />
+      <cart-grid-large v-if="mdAndUp" />
+      <cart-grid-mobile v-else />
     </v-card-text>
+    <!-- / Grid -->
   </div>
 </template>
 
 <script lang='ts'>
-import { CartStore } from "@/store";
-import { Vue, Component } from "vue-property-decorator";
+import { Component, Mixins } from "vue-property-decorator";
+import { GettersBreakpointsMixin } from "@/mixins";
 
 @Component({
   components: {
-    grid: () => import("@/components/widgets/products/Grid.vue"),
+    "cart-grid-large": () =>
+      import("@/components/parts/shop/CartGridLarge.vue"),
+    "cart-grid-mobile": () =>
+      import("@/components/parts/shop/CartGridMobile.vue"),
   },
 })
-export default class CartContent extends Vue {
-  /**
-   * Getters
-   */
-  get productsCart() {
-    return CartStore.cartProducts;
-  }
-}
+export default class CartContent extends Mixins(GettersBreakpointsMixin) {}
 </script>

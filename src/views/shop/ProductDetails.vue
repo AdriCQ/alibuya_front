@@ -31,7 +31,7 @@ import { ShopStore } from "@/store";
 @Component({
   components: {
     "product-content": () =>
-      import("@/components/parts/shop/ProductContent.vue"),
+      import("@/components/parts/shop/ProductDetailsContent.vue"),
     "products-group": () => import("@/components/parts/ProductsGroup.vue"),
   },
 })

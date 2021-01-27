@@ -31,7 +31,8 @@ export * from './services/vendor';
  * -----------------------------------------
  */
 
-export * from './components/product';
+export * from './components/all';
+export * from './components/forms';
 
 /**
  * -----------------------------------------

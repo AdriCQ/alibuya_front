@@ -9,16 +9,7 @@
         )"
         :key="`grid-product-${rowKey * cantProductsByRow + key}`"
       >
-        <basic
-          v-if="name == 'basic'"
-          :product="product"
-          v-bind="productProps"
-        />
-        <cart
-          v-else-if="name == 'cart'"
-          :product-cart="product"
-          v-bind="productProps"
-        />
+        <basic :product="product" v-bind="productProps" />
       </v-col>
     </v-row>
   </v-section>
@@ -33,11 +24,9 @@ import { IProduct, IProductCart, TItemsToShow } from "@/types";
 @Component({
   components: {
     basic: () => import("@/components/widgets/products/Basic.vue"),
-    cart: () => import("@/components/widgets/products/Cart.vue"),
   },
 })
 export default class Grid extends Mixins(GettersBreakpointsMixin) {
-  @Prop({ type: String, default: "basic" }) readonly name!: "basic" | "cart";
   @Prop({ type: Array, default: [] }) readonly products!:
     | IProduct[]
     | IProductCart[];

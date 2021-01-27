@@ -1,8 +1,12 @@
 $table-border-width: 1px;
 $table-border-color: #dee2e6;
 
+// cursor
 .cursor-pointer {
   cursor: pointer;
+}
+.cursor-default {
+  cursor: default;
 }
 
 .centered {

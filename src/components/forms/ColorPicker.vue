@@ -13,7 +13,7 @@
             )"
             :key="`color-picker-row-${row}-col-${col}`"
           >
-            <v-item v-slot="{ active, toggle }" :value="color.value">
+            <v-item v-slot="{ active, toggle }" :value="color">
               <!-- Circle Button Color -->
               <v-tooltip content-class="rounded-pill" bottom>
                 <template #activator="{ on, attrs }">
@@ -50,7 +50,7 @@ import { IColor } from "@/types";
 
 @Component
 export default class ColorPicker extends Mixins(GettersBreakpointsMixin) {
-  @PropSync("color", { type: String }) readonly colorComp!: string;
+  @PropSync("color", { type: Object }) readonly colorComp!: IColor;
   @Prop({ type: Array, required: true }) readonly colors!: IColor[];
   // design
   @Prop({ type: [Number, String] }) readonly size!: number | string;
