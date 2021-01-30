@@ -11,7 +11,7 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class Ribbon extends Vue {
-  @Prop({ type: String, default: "blue lighten-2" }) readonly color!: string;
+  @Prop({ type: String, default: "primary" }) readonly color!: string;
   @Prop(Boolean) readonly dark!: boolean;
   @Prop(Boolean) readonly light!: boolean;
   @Prop(Boolean) readonly large!: boolean;

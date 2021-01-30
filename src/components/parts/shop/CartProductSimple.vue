@@ -9,7 +9,7 @@ import { IProduct, IProductCart } from "@/types";
 
 @Component({
   components: {
-    basic: () => import("@/components/widgets/products/Basic.vue"),
+    basic: () => import("@/components/widgets/products/Base.vue"),
   },
 })
 export default class CartProductSimple extends Vue {

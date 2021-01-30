@@ -32,7 +32,7 @@ import { IProductCart } from "@/types";
 
 @Component({
   components: {
-    "product-basic": () => import("@/components/widgets/products/Basic.vue"),
+    "product-basic": () => import("@/components/widgets/products/Base.vue"),
   },
 })
 export default class EditProductWidget extends Vue {

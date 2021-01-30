@@ -57,7 +57,7 @@ class AnnouncementModule extends VuexModule {
       const _resp = (await ShopService.getHomeAnnouncements()).data;
       if (_resp.STATUS) {
         this.home = _resp.DATA;
-        // console.log("Home Announcements", this.home);
+        console.log("Home Announcements", this.home);
       } else {
         const errors: string[] = [];
         for (const _key in _resp.ERRORS as unknown[]) {

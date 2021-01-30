@@ -42,15 +42,15 @@
 
 <script lang='ts'>
 import { Component, Mixins, Prop } from "vue-property-decorator";
-import { ProductMixin } from "@/mixins/product";
+import { ProductBaseMixin } from "@/mixins";
 import { IProduct, TRouteLink } from "@/types";
 
 @Component({
   components: {
-    "product-basic": () => import("@/components/widgets/products/Basic.vue"),
+    "product-basic": () => import("@/components/widgets/products/Base.vue"),
   },
 })
-export default class GridProductWidget extends Mixins(ProductMixin) {
+export default class GridProductWidget extends Mixins(ProductBaseMixin) {
   @Prop({ type: String, required: true }) readonly title!: string;
   @Prop({ type: Array, required: true }) readonly products!: IProduct[];
   @Prop({ type: String, default: "Ver más" }) readonly textLink!: string;

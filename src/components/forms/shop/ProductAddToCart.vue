@@ -10,7 +10,7 @@
             :color.sync="$v.form.color.$model"
             :colors="colors"
             :error-messages="colorErrorsMsg"
-            :small="!mdAndUp"
+            :large="mdAndUp"
           />
         </v-col>
       </v-row>

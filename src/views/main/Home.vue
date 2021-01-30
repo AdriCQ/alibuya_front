@@ -21,9 +21,6 @@
         v-if="ann.type === 'slider'"
         :title="ann.title[appLang]"
         :products="ann.products"
-        link
-        show-title
-        show-price
       />
       <!-- / Product Slider -->
 
@@ -76,12 +73,11 @@ import { UserStore, AnnouncementStore, AppStore } from "@/store";
 
 @Component({
   components: {
-    "login-card": () => import("@/components/widgets/LoginCard.vue"),
     "products-group": () => import("@/components/parts/ProductsGroup.vue"),
     "products-collection-slider": () =>
       import("@/components/sliders/ProductsCollectionSlider.vue"),
     // test
-    "product-basic": () => import("@/components/widgets/products/Basic.vue"),
+    "product-basic": () => import("@/components/widgets/products/Base.vue"),
     "product-offer": () => import("@/components/widgets/products/Offer.vue"),
     "product-grid": () =>
       import("@/components/widgets/products/ProductGrid.vue"),

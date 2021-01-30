@@ -53,8 +53,8 @@ export default class ColorPicker extends Mixins(GettersBreakpointsMixin) {
   @PropSync("color", { type: Object }) readonly colorComp!: IColor;
   @Prop({ type: Array, required: true }) readonly colors!: IColor[];
   // design
-  @Prop({ type: [Number, String] }) readonly size!: number | string;
   @Prop({ type: Boolean, default: false }) readonly small!: boolean;
+  @Prop({ type: Boolean, default: false }) readonly large!: boolean;
   // validations
   @Prop({
     type: [String, Array],
@@ -68,10 +68,9 @@ export default class ColorPicker extends Mixins(GettersBreakpointsMixin) {
    * Getters
    */
   get sizeCom() {
-    if (!this.size) {
-      if (this.small) return 30;
-      else return 32;
-    } else return this.size;
+    if (this.small) return 28;
+    if (this.large) return 32;
+    else return 30;
   }
 
   get itemsByRow() {

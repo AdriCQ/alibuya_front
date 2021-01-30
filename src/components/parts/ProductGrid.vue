@@ -22,15 +22,15 @@
 
 <script lang='ts'>
 import { Component, Mixins, Prop } from "vue-property-decorator";
-import { ProductMixin } from "@/mixins/product";
 import { IProduct } from "@/types";
+import { ProductBaseMixin } from "@/mixins";
 
 @Component({
   components: {
-    "basic-product": () => import("@/components/widgets/products/Basic.vue"),
+    "basic-product": () => import("@/components/widgets/products/Base.vue"),
   },
 })
-export default class ProductListGrid extends Mixins(ProductMixin) {
+export default class ProductListGrid extends Mixins(ProductBaseMixin) {
   @Prop({
     type: Array,
     default: [],

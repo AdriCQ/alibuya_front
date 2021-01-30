@@ -30,14 +30,14 @@ class CartModule extends VuexModule {
   /**
    * Gets packs counter
    */
-  get packsCounter() {
+  get packsLength() {
     return this._packs.length;
   }
 
   /**
    * Products Getters
    */
-  get cantProducts() {
+  get productsLength() {
     return this._products.length;
   }
 

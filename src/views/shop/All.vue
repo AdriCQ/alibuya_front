@@ -46,7 +46,7 @@ import { ScrollTop } from "@/utils";
 
 @Component({
   components: {
-    "product-basic": () => import("@/components/widgets/products/Basic.vue"),
+    "product-basic": () => import("@/components/widgets/products/Base.vue"),
   },
 })
 export default class ShopAllView extends Vue {

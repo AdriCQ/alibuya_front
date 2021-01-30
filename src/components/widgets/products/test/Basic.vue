@@ -73,7 +73,7 @@
 
 <script lang='ts'>
 import { Component, Mixins, Prop } from "vue-property-decorator";
-import { ProductMixin } from "@/mixins";
+import { ProductBaseMixin } from "@/mixins";
 // types
 import { IProduct } from "@/types";
 import { ProductImage } from "@/utils";
@@ -83,7 +83,7 @@ import { ProductImage } from "@/utils";
     "v-ribbon": () => import("@/components/widgets/Ribbon.vue"),
   },
 })
-export default class BasicProductWidget extends Mixins(ProductMixin) {
+export default class BasicProductWidget extends Mixins(ProductBaseMixin) {
   @Prop({
     type: Object,
     required: true,

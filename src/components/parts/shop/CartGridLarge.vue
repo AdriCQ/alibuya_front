@@ -10,10 +10,12 @@
     <template #item.color="{ item }">
       <v-btn
         :color="item.color.value"
-        depressed
+        :max-height="colorBtnSize"
+        :max-width="colorBtnSize"
         :ripple="false"
+        depressed
         fab
-        x-small
+        dark
         class="cursor-default"
       />
     </template>
@@ -62,7 +64,7 @@ export default class CartGrid extends Vue {
       maxWidth: 400,
     },
     showTitle: true,
-    titleOneLine: false,
+    titleSingleLine: false,
     fluid: true,
     horizontal: true,
     bodyClass: "pa-0 ",
@@ -70,6 +72,8 @@ export default class CartGrid extends Vue {
     // override class
     class: "ml-0 mr-auto",
   };
+
+  colorBtnSize = 30;
 
   /**
    * Getters
@@ -131,7 +135,7 @@ export default class CartGrid extends Vue {
   }
 
   get cantProducts() {
-    return CartStore.cantProducts;
+    return CartStore.productsLength;
   }
 }
 </script>

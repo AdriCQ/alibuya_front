@@ -7,7 +7,7 @@ export interface IBreakpoints<T> {
     lg: T;
     xl: T;
 }
-export type TItemsToShow = IBreakpoints<number>;
+export type TBreakpointsNumber = IBreakpoints<number>;
 
 // prop [items] for v-data-table in CartGrid.vue
 export interface IProductCartInTable {
@@ -18,4 +18,27 @@ export interface IProductCartInTable {
     cant: number,
     total: number,
     product: IProductCart
+}
+
+// Product Basic Widget
+export interface IProductBaseWidget_title {
+    show?: boolean,
+    position?: 'top' | 'bottom',
+    singleLine?: boolean;
+}
+
+export interface IProductBaseWidget_rating {
+    show?: boolean;
+    color?: string,
+    bgColor?: string,
+}
+
+// Ribbon
+export interface IRibbon {
+    show?: boolean,
+    color?: string,
+    dark?: boolean,
+    light?: boolean
+    large?: boolean,
+    xLarge?: boolean
 }

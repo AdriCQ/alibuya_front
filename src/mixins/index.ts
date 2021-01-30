@@ -1,4 +1,4 @@
 export * from './user'
-export * from './product'
+export * from './product-base'
 export * from './router'
 export * from './utils'

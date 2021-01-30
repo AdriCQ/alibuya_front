@@ -208,7 +208,7 @@ export default class AppBarFull extends Mixins(
   }
 
   get cartCantProducts() {
-    return CartStore.cantProducts;
+    return CartStore.productsLength;
   }
 
   /**

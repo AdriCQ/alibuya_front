@@ -1,4 +1,16 @@
-$product-widget-base-font-sz: 0.9rem;
+.product-base-widget {
+  padding: {
+    bottom: 4px;
+  }
+  .v-card__title,
+  .v-card__text {
+    padding: {
+      top: 4px;
+      bottom: 4px;
+    }
+  }
+}
+/*$product-widget-base-font-sz: 0.9rem;
 
 .basic-product-widget,
 .offer-product-widget,
@@ -83,3 +95,4 @@ $product-widget-base-font-sz: 0.9rem;
     }
   }
 }
+*/

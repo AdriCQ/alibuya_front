@@ -23,7 +23,7 @@ import { IProduct, IProductCart, TItemsToShow } from "@/types";
 
 @Component({
   components: {
-    basic: () => import("@/components/widgets/products/Basic.vue"),
+    basic: () => import("@/components/widgets/products/Base.vue"),
   },
 })
 export default class Grid extends Mixins(GettersBreakpointsMixin) {
