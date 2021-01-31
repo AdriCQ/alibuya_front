@@ -1,6 +1,6 @@
 import { Vue, Component } from "vue-property-decorator";
 import { AppStore } from '@/store/App';
-import { IRoute } from '@/types';
+import { IRouteLink } from '@/types';
 
 /**
  * Utils route methods
@@ -10,16 +10,16 @@ export class RouterMixin extends Vue {
   private $_RouterMixin_SaveRoute() {
     AppStore.redirect = this.$route;
   }
-  
+
   /**
    * Save the current route in AppStore and navigate to _route
    * @param _route IRoute - route to navigate
    */
-  RouterMixin_saveRouteAndGoto(_route: IRoute) {
+  RouterMixin_saveRouteAndGoto(_route: IRouteLink) {
     this.$_RouterMixin_SaveRoute();
     this.RouterMixin_goto(_route);
   }
-  
+
   /**
    * Redirect to the route saved in AppStore
    */
@@ -43,7 +43,7 @@ export class RouterMixin extends Vue {
    * Navigate to _route
    * @param _route IRoute - route to navigate
    */
-  RouterMixin_goto(_route: IRoute) {
+  RouterMixin_goto(_route: IRouteLink) {
     if (this.$route.name !== _route.name ||
       (this.$route.query !== _route.query && (this.$route.query == {} && !_route.query))) {
       this.$router.push(_route);

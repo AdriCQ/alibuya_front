@@ -10,9 +10,6 @@
         v-if="ann.type === 'group'"
         :title="ann.title[appLang]"
         :products="ann.products.slice(0, 6)"
-        single
-        show-title
-        show-price
       />
       <!-- /Product Group -->
 
@@ -48,16 +45,20 @@
             v-if="col.type === 'offer'"
             :title="col.title[appLang]"
             :product="col.products"
-            show-price
-            large
+            :link="{
+              show: true,
+              to: { name: 'main.home' },
+            }"
           />
           <!-- Product Grid -->
           <product-grid
             v-if="col.type === 'grid'"
             :title="col.title[appLang]"
             :products="col.products"
-            show-price
-            large
+            :link="{
+              show: true,
+              to: { name: 'main.home' },
+            }"
           />
           <!-- / Product Grid -->
         </v-col>
@@ -73,14 +74,12 @@ import { UserStore, AnnouncementStore, AppStore } from "@/store";
 
 @Component({
   components: {
-    "products-group": () => import("@/components/parts/ProductsGroup.vue"),
+    "products-group": () => import("@/components/data/ProductsGroup.vue"),
     "products-collection-slider": () =>
       import("@/components/sliders/ProductsCollectionSlider.vue"),
-    // test
-    "product-basic": () => import("@/components/widgets/products/Base.vue"),
     "product-offer": () => import("@/components/widgets/products/Offer.vue"),
     "product-grid": () =>
-      import("@/components/widgets/products/ProductGrid.vue"),
+      import("@/components/widgets/products/ProductFamily.vue"),
   },
 })
 export default class HomeMainView extends Vue {

@@ -31,7 +31,7 @@
         v-for="(product, key) in products"
         :key="`products-slider-product-${key}`"
       >
-        <product-base :product="product" v-bind="getProductsOptions" />
+        <product-base :product="product" v-bind="productProps" />
       </div>
       <!-- Products -->
     </slick-carousel>
@@ -39,10 +39,6 @@
 </template>
 
 <script lang='ts'>
-/**
- * TODO: Create Product prop to config options in parent scope
- */
-
 import { Component, Mixins, Prop } from "vue-property-decorator";
 import { IProduct, TBreakpointsNumber } from "@/types";
 import { GettersBreakpointsMixin } from "@/mixins";
@@ -59,7 +55,6 @@ export default class ProductsCollectionSlider extends Mixins(
   @Prop(String) readonly title!: string;
   // Cofigure slides to show in each breakpoint
   @Prop(Object) readonly productsToShow!: TBreakpointsNumber;
-  @Prop(Object) readonly productsOptions!: object;
 
   /**
    * Getters
@@ -76,15 +71,14 @@ export default class ProductsCollectionSlider extends Mixins(
     return Object.assign(_defaultProductsToShow, this.productsToShow);
   }
 
-  get getProductsOptions(): object {
-    const _defaultProductsOptions = {
+  get productProps() {
+    return {
       cardProps: { flat: true },
       title: { position: "bottom" },
       rating: { show: false },
       ribbon: { show: true },
       showPrice: true,
     };
-    return Object.assign(_defaultProductsOptions, this.productsOptions);
   }
 
   get slidesToShow() {

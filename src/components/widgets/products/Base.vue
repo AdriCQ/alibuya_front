@@ -1,8 +1,8 @@
 <template>
   <v-card
     v-bind="cardAllProps"
+    :class="cardAllClass"
     @click="showProductDetails"
-    class="product-base-widget"
   >
     <!-- Suggested ribbon -->
     <v-ribbon
@@ -23,7 +23,7 @@
     </v-card-title>
     <!-- / Title on top -->
 
-    <v-img :src="imageSrc" />
+    <v-img :src="imageSrc" v-bind="imageAllProps" />
 
     <!-- Title on bottom -->
     <v-card-title
@@ -48,9 +48,11 @@
     </v-card-title>
     <!-- / Rating -->
 
+    <!-- Price -->
     <v-card-title v-if="product.price && showPrice" :class="priceAllClass">
       ${{ Number(product.price).toFixed(2) }}
     </v-card-title>
+    <!-- / Price -->
   </v-card>
 </template>
 
@@ -68,6 +70,7 @@ export default class ProductBaseWidget extends Mixins(ProductBaseMixin) {
   /**
    * Getters
    */
+  // image
   get image() {
     // return new ProductImage(this.product.image, true);
     return new ProductImage(this.product.image);
@@ -77,7 +80,7 @@ export default class ProductBaseWidget extends Mixins(ProductBaseMixin) {
     return this.image.xs;
   }
 
-  // class
+  // utils for class
   get textClass() {
     return [
       {
@@ -91,28 +94,36 @@ export default class ProductBaseWidget extends Mixins(ProductBaseMixin) {
     ];
   }
 
+  // class
+  get cardAllClass() {
+    return ["product-base-widget", { "v-card-link-none": !this.link }];
+  }
+
   get titleAllClass() {
-    return [
-      this.textClass,
-      this.titleClass,
-      { "text-single-line": this.getTitle.singleLine },
-    ];
+    return [this.textClass, { "text-single-line": this.getTitle.singleLine }];
   }
 
   get priceAllClass() {
     return [this.textClass];
   }
 
+  // utils for props
+  get cardRipple() {
+    return this.link ? { class: "grey--text text--darken-2" } : false;
+  }
+
   // props
   get cardAllProps() {
     return {
-      ...this.cardProps,
+      flat: true,
       ripple: this.cardRipple,
+      link: this.link,
+      ...this.cardProps,
     };
   }
 
-  get cardRipple() {
-    return this.link ? { class: "grey--text text--darken-2" } : false;
+  get imageAllProps() {
+    return { ...this.imageProps };
   }
 
   /**

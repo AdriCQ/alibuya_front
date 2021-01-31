@@ -1,6 +1,5 @@
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Vue, Component, Prop } from 'vue-property-decorator';
 import { IProduct, IRibbon, IProductBaseWidget_title, IProductBaseWidget_rating } from '@/types';
-
 @Component
 export class ProductBaseMixin extends Vue {
   @Prop({ type: Object, required: true }) readonly product!: IProduct;
@@ -15,9 +14,7 @@ export class ProductBaseMixin extends Vue {
   @Prop(Object) readonly rating!: IProductBaseWidget_rating;
   @Prop(Object) readonly ribbon!: IRibbon;
   @Prop(Object) readonly cardProps!: object;
-
-  // class
-  @Prop(String) readonly titleClass!: string;
+  @Prop(Object) readonly imageProps!: object;
 
   /**
    * Getters for objects prop with default values

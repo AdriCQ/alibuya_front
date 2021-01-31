@@ -10,89 +10,13 @@
     }
   }
 }
-/*$product-widget-base-font-sz: 0.9rem;
 
-.basic-product-widget,
-.offer-product-widget,
-.product-grid-widget {
+// Custom Widgets
+.product-simple-base-widget {
   .v-card__title {
-    line-height: 1.5;
-    color: map-get($shades, "black");
     padding: {
-      top: 4px;
-      bottom: 4px;
-    }
-    display: block;
-    font-size: $product-widget-base-font-sz;
-    @media #{map-get($display-breakpoints, 'sm-and-up')} {
-      font-size: $product-widget-base-font-sz + 0.03;
-    }
-
-    @media #{map-get($display-breakpoints, 'md-and-up')} {
-      font-size: $product-widget-base-font-sz + 0.05;
-    }
-
-    @media #{map-get($display-breakpoints, 'lg-and-up')} {
-      font-size: $product-widget-base-font-sz + 0.1;
-    }
-  }
-
-  // large
-  &.large {
-    .v-card__title {
-      font-size: $product-widget-base-font-sz + 0.05;
-      @media #{map-get($display-breakpoints, 'sm-and-up')} {
-        font-size: $product-widget-base-font-sz + 0.15;
-      }
-
-      @media #{map-get($display-breakpoints, 'md-and-up')} {
-        font-size: $product-widget-base-font-sz + 0.25;
-      }
-
-      @media #{map-get($display-breakpoints, 'lg-and-up')} {
-        font-size: $product-widget-base-font-sz + 0.3;
-      }
-    }
-  }
-
-  // small
-  &.small {
-    .v-card__title {
-      font-size: $product-widget-base-font-sz - 0.13;
-      @media #{map-get($display-breakpoints, 'sm-and-up')} {
-        font-size: $product-widget-base-font-sz - 0.1;
-      }
-
-      @media #{map-get($display-breakpoints, 'md-and-up')} {
-        font-size: $product-widget-base-font-sz - 0.08;
-      }
-
-      @media #{map-get($display-breakpoints, 'lg-and-up')} {
-        font-size: $product-widget-base-font-sz - 0.05;
-      }
+      top: 8px;
+      bottom: 8px;
     }
   }
 }
-
-.basic-product-widget,
-.products-collection-slider,
-.product-grid-widget {
-  display: flex;
-  flex-direction: column;
-}
-
-.products-collection-slider,
-.products-group {
-  > .v-card__title {
-    font-size: 1.1rem;
-
-    @media #{map-get($display-breakpoints, 'sm-and-up')} {
-      font-size: 1.2rem;
-    }
-
-    @media #{map-get($display-breakpoints, 'md-and-up')} {
-      font-size: 1.3rem;
-    }
-  }
-}
-*/

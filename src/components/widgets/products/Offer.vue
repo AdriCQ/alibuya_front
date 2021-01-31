@@ -1,63 +1,66 @@
 <template>
-  <product-basic
-    :product="product"
-    :card-props="cardProps"
-    :image-props="imageProps"
-    :show-description="showDescription"
-    :link="link"
-    :large="large"
-    class="offer-product-widget"
-  >
-    <!-- Header -->
-    <template v-if="title || showTitle || showPrice" #header>
-      <v-card-title class="text-single-line">
-        <template v-if="title">{{ title }}</template>
-        <template v-else-if="showTitle">{{ product.title }}</template>
-
-        <span v-if="showPrice">
-          <br v-if="title || showTitle" />
-          $ {{ Number(product.price).toFixed(2) }}</span
-        >
-      </v-card-title>
-    </template>
-    <!-- / Header -->
-
-    <!-- Actions -->
-    <template v-if="to" #footer>
-      <span class="text-link text-body-2 mt-auto" @click="goToRoute">
-        {{ textLink }}
-      </span>
-    </template>
-    <!-- / Actions -->
-  </product-basic>
+  <product-simple-base v-bind="getSimpleBaseProps">
+    <product-base :product="product" v-bind="getProductProps" />
+  </product-simple-base>
 </template>
 
 <script lang='ts'>
-import { Component, Mixins, Prop } from "vue-property-decorator";
-import { ProductBaseMixin } from "@/mixins";
-import { IProduct, TRouteLink } from "@/types";
+import { Component, Prop, Mixins } from "vue-property-decorator";
+import { IProduct, ITextLink, IProductSimpleBaseWidget_props } from "@/types";
+import { ProductWidgetsHeight } from "@/mixins";
 
 @Component({
   components: {
-    "product-basic": () => import("@/components/widgets/products/Base.vue"),
+    "product-simple-base": () =>
+      import("@/components/widgets/products/SimpleBase.vue"),
+    "product-base": () => import("@/components/widgets/products/Base.vue"),
   },
 })
-export default class OfferProductWidget extends Mixins(ProductBaseMixin) {
+export default class ProductOfferWidget extends Mixins(ProductWidgetsHeight) {
   @Prop({
     type: Object,
     required: true,
   })
   readonly product!: IProduct;
 
-  @Prop({ type: String, default: "" }) readonly title!: string;
-  @Prop([Object, String]) readonly to!: TRouteLink;
-  @Prop({ type: String, default: "Ver más" }) readonly textLink!: string;
+  @Prop(String) readonly title!: string;
+  @Prop(Object) readonly link!: ITextLink;
 
   /**
-   *
+   * Getters
    */
-  goToRoute() {
-    this.$router.push(this.to);
+  // utils
+  get imageHeight() {
+    switch (this.$vuetify.breakpoint.name) {
+      case "xl":
+        return this.ProductWidgetsHeight_height.xl - 105;
+      case "lg":
+        return this.ProductWidgetsHeight_height.lg - 105;
+      case "md":
+        return this.ProductWidgetsHeight_height.md - 105;
+      case "sm":
+        return this.ProductWidgetsHeight_height.sm - 100;
+      default:
+        return this.ProductWidgetsHeight_height.xs - 100;
+    }
+  }
+
+  // props to children
+  get getProductProps(): object {
+    return {
+      imageProps: { height: this.imageHeight, contain: true },
+      title: { show: false },
+      rating: { show: false },
+      ribbon: { show: false },
+      link: false,
+    };
+  }
+
+  get getSimpleBaseProps(): IProductSimpleBaseWidget_props {
+    return {
+      title: this.title,
+      link: this.link,
+    };
   }
 }
 </script>

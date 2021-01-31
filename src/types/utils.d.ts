@@ -1,10 +1,10 @@
 import { IDictionary } from '@/types';
-export type TRouteLink = {
+export interface IRouteLink {
   name?: string;
   path?: string;
   query?: Dictionary<string | (string | null)[]>;
   params?: Dictionary<string | (string | null)[]>;
-} | string;
+}
 /**
  * 
  */

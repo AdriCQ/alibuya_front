@@ -1,0 +1,6 @@
+.v-card-link-none {
+    cursor: default;
+    &::before {
+        background: transparent;
+    }
+}

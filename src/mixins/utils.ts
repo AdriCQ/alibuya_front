@@ -1,6 +1,5 @@
 import { Vue, Component } from "vue-property-decorator";
-import { UserStore } from '@/store';
-import { IRoute } from '@/types';
+import { TBreakpointsNumber } from '@/types';
 
 /**
  * Vuetify breakpoints and breakpoints conditionals getters
@@ -67,5 +66,19 @@ export class GettersBreakpointsMixin extends Vue {
 
 	get xlOnly() {
 		return this.$vuetify.breakpoint.xlOnly;
+	}
+}
+
+/**
+ * Config the global Product Widgets height
+ */
+@Component
+export class ProductWidgetsHeight extends Vue {
+	ProductWidgetsHeight_height: TBreakpointsNumber = {
+		xl: 410,
+		lg: 395,
+		md: 390,
+		sm: 380,
+		xs: 340,
 	}
 }

@@ -18,26 +18,9 @@
 
     <v-section fluid v-if="emptyInventary || products.length">
       <v-card flat :loading="loadingCard">
-        <!-- Empty Inventary -->
         <empty-inventary v-if="emptyInventary" />
-        <!-- / Empty Inventary -->
 
-        <!-- Products Grid -->
-        <product-grid
-          v-else
-          name="basic"
-          :products="products"
-          :product-props="{
-            showTitle: true,
-            showPrice: true,
-            showRating: true,
-            cardProps: {
-              outlined: true,
-            },
-            bodyClass: 'pa-2',
-          }"
-        />
-        <!-- Products Grid -->
+        <products-grid v-else :products="products" />
       </v-card>
     </v-section>
   </div>
@@ -60,7 +43,7 @@ import {
     "empty-inventary": () => import("@/components/widgets/EmptyInventary.vue"),
     "subcategories-nav": () =>
       import("@/components/parts/shop/SubcategoriesNav.vue"),
-    "product-grid": () => import("@/components/widgets/products/Grid.vue"),
+    "products-grid": () => import("@/components/data/ProductsGrid.vue"),
   },
 })
 export default class ShopCategory extends mixins(GettersBreakpointsMixin) {

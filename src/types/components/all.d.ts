@@ -1,4 +1,4 @@
-import { IProductCart, IColor } from '@/types';
+import { IProductCart, IColor, TRouteLink } from '@/types';
 
 export interface IBreakpoints<T> {
     xs: T;
@@ -20,7 +20,8 @@ export interface IProductCartInTable {
     product: IProductCart
 }
 
-// Product Basic Widget
+// Components
+// Product Base Widget
 export interface IProductBaseWidget_title {
     show?: boolean,
     position?: 'top' | 'bottom',
@@ -33,6 +34,12 @@ export interface IProductBaseWidget_rating {
     bgColor?: string,
 }
 
+// Product Simple Base Widget
+export interface IProductSimpleBaseWidget_props {
+    title?: string;
+    link?: ITextLink;
+}
+
 // Ribbon
 export interface IRibbon {
     show?: boolean,
@@ -41,4 +48,11 @@ export interface IRibbon {
     light?: boolean
     large?: boolean,
     xLarge?: boolean
+}
+
+// Extra
+export interface ITextLink {
+    show?: boolean,
+    to?: TRouteLink,
+    title?: string
 }
